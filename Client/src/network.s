@@ -239,7 +239,7 @@ copy:
   lda udp_inp_data+1+(GAME_COLS*13),x
   sta SCREEN_BASE+1+(40*15),x
  
-  lda udp_i np_data+1+(GAME_COLS*14),x
+  lda udp_inp_data+1+(GAME_COLS*14),x
   sta SCREEN_BASE+1+(40*16),x
  
   lda udp_inp_data+1+(GAME_COLS*15),x
@@ -288,8 +288,6 @@ FAILMESSAGE:
 gamepacketreceived:
    .byte 0           
 
-ACTIONCOUNTER:
-   .byte 0  
 
 bittab:
    .byte $01,$02,$04,$08,$10,$20,$40,$80

@@ -69,15 +69,17 @@ loop:
 ; -------------------------------------------------------------------------
 ; More Includes  
 
+  .include "actions.s"
   .include "joystick.s"
   .include "screen.s"
   .include "sprites.s"  
-  .include "irq.s"
+  .include "irq.s" 
   .include "network.s" 
   .include "music.s"
   .include "sound.s"
   .include "login.s"  
   .include "util.s"
+  
 
 ; -------------------------------------------------------------------------
 ; Binary data is loaded from server via TFTP - no includes needed

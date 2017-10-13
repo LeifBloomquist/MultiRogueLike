@@ -18,16 +18,15 @@ READJOYSTICK:
   rts
   
 JOYSTART:
-
    ; Determine direction with a lookup table
    lda $dc00  ; Port 2
    and #$0F
    tax
-   lda spritedirections,x
+   lda joydirections,x
    cmp #$ff ; leave as-is
    beq JOY_x
    
-   sta MOVE_DIRECTION
+   sta PLAYER_ACTION_PARAM1
    lda #ACTION_MOVE
    sta PLAYER_ACTION 
    
@@ -37,7 +36,7 @@ JOY_x:
    
 ; Lookup table to map joystick input to a direction.  
 ; $FF=leave as before (centered or impossible)
-spritedirections:  
+joydirections:  
   .byte $ff,$ff,$ff,$ff
   .byte $ff,$03,$01,$02
   .byte $ff,$05,$07,$06

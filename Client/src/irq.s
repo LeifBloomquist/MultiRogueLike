@@ -20,7 +20,7 @@ irq_init:
   and #$7f
   sta $d011
 
-  lda #RASTER_TOP               ; line number to go off at
+  lda #IRQ_TOP                  ; line number to go off at
   sta $d012                     ; low byte of raster line
 
   ldax #irqtop                  ; get address of target routine
@@ -74,7 +74,7 @@ irq_update:
   jsr READJOYSTICK
   
   ; Read keyboard for player actions
-  jsr READKEYBOARD
+  ; jsr READKEYBOARD
   
   ; Any pending action?  If not, skip.
   lda PLAYER_ACTION

@@ -11,6 +11,7 @@ package com.schemafactor.rogueserver.network;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,10 +42,12 @@ public class UDPListener
                 Thread.currentThread().setName("Rogue UDP Listener Thread");
                 
                 byte[] buf = new byte[50];
+                
                 @SuppressWarnings("resource")
 				DatagramSocket socket = new DatagramSocket(port);
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
                     
+                JavaTools.printlnTime( "Server address: " + InetAddress.getLocalHost() );
                 JavaTools.printlnTime( "Waiting for packets on port " + port );
                 
                 /* Loop Forever, waiting for packets. */      
