@@ -1,6 +1,15 @@
 
-.define ACTION_MOVE  1
-
+.define ACTION_NONE    0
+.define ACTION_MOVE    1
+.define ACTION_USE     2
+.define ACTION_DIG     3
+.define ACTION_ATTACK  4
+.define ACTION_EXAMINE 5
+.define ACTION_OPEN    6
+.define ACTION_CLOSE   7
+.define ACTION_CAST    8
+.define ACTION_PICKUP  9
+.define ACTION_DROP    10
 
 ACTIONCOUNTER:
    .byte 0  
@@ -9,4 +18,7 @@ PLAYER_ACTION:
    .byte 0  
 
 PLAYER_ACTION_PARAM1:
-   .byte 0  
+   .byte 0 
+   
+PLAYER_ACTION_PARAM2:
+   .byte 0 

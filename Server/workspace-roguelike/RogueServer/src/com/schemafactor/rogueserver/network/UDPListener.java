@@ -86,11 +86,11 @@ public class UDPListener
     {   
         // Check Checksum - Future
         
-        Dungeon universe = Dungeon.getInstance();        
+        Dungeon dungeon = Dungeon.getInstance();        
                 
         // Determine player
         // Copy list to get around the dreaded Concurrent modification exception  (shallow copy)
-        List<Entity> entitiesCopy = new ArrayList<Entity>(universe.getEntities());
+        List<Entity> entitiesCopy = new ArrayList<Entity>(dungeon.getEntities());
         
         for (Entity e : entitiesCopy)
         {         
@@ -112,7 +112,7 @@ public class UDPListener
         
         try
         {
-            universe.newEntities.add(who);
+        	dungeon.newEntities.add(who);
         }
         catch (Exception e)
         {

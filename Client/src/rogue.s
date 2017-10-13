@@ -80,7 +80,6 @@ loop:
   .include "login.s"  
   .include "util.s"
   
-
 ; -------------------------------------------------------------------------
 ; Binary data is loaded from server via TFTP - no includes needed
   

@@ -258,7 +258,9 @@ copy:
 ; Network Constants and Data  
   
 SERVER_IP:
-  .byte 208,79,218,201    ; Vortex VPS  
+  ; .byte 208,79,218,201    ; Vortex VPS  
+  .byte 192,168,7,101       ; Dev Laptop
+
   
 SERVER_PORT = 3006
 SRC_PORT    = 3000  ; In theory, having these match makes NAT work on some routers
@@ -287,7 +289,6 @@ FAILMESSAGE:
   
 gamepacketreceived:
    .byte 0           
-
 
 bittab:
    .byte $01,$02,$04,$08,$10,$20,$40,$80
