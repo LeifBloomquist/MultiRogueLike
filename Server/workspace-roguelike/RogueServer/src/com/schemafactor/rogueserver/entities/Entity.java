@@ -69,8 +69,8 @@ public abstract class Entity
 		return charCode;
 	}
 
-	public Object getType() {
-		// TODO Auto-generated method stub
-		return null;
+	public entityTypes getType() 
+	{		
+		return myType;
 	}
 }

@@ -62,11 +62,13 @@ public class HumanPlayer extends Entity
        
        if (timeoutCounter > 2000)   // Two seconds 
        {
+    	   /*
            if (!removeMeFlag)
            {
                removeMeFlag = true;
                JavaTools.printlnTime( "Player Timed Out: " + description );
-           }               
+           } 
+           */              
        }       
    }
    
@@ -95,7 +97,7 @@ public class HumanPlayer extends Entity
         	   // TODO Determine player action
              
                // Cheat a little and do the position math here.  Eventually move to client?
-               move();         
+               //move();         
            }
            break;
            
@@ -112,11 +114,9 @@ public class HumanPlayer extends Entity
 
    @Override
    public void update()
-   {              
-       // move();   // Don't call for for human players - Position will be controlled by player actions.       
-       
+   {                     
        // Send data packet to the client              
-       byte[] message = new byte[940];  
+       byte[] message = new byte[500];  
        message[0] = Constants.PACKET_UPDATE;
        message[1] = 0; // Unused
        

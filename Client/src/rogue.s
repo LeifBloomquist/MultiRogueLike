@@ -33,7 +33,7 @@ init:
   sta $d020
   sta $d021
   
-  jsr music_init
+  ; jsr music_init
   jsr login
 
   lda #$02
@@ -52,6 +52,7 @@ init:
   kernal_print SERVERMESSAGE
   
 :
+  jsr sendannounce
   lda gamepacketreceived
   beq :-
   

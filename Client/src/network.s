@@ -38,8 +38,7 @@ PACKET_SERVER_UPDATE  = 129
 ; -------------------------------------------------------------------------
 ; Network Initialization
 
-network_init_dhcp:
-  
+network_init_dhcp:  
   kernal_print NETWORKMESSAGE
   
   init_ip_via_dhcp   
@@ -96,10 +95,13 @@ network_init_udp:
 ; Y contains action parameter 2, if applicable
 
 sendaction:
-
   sta SENDBUFFER+2
   stx SENDBUFFER+3
   sty SENDBUFFER+4
+  
+  ; At the start of the game we send the Announce packet instead.
+  lda gamepacketreceived
+  beq sendannounce
   
   lda #PACKET_CLIENT_UPDATE
   sta SENDBUFFER+0      
@@ -165,8 +167,7 @@ sendannounce:
   
   lda GOTINPUT+14
   sta SENDBUFFER+16
-  
-  
+    
   ldax #SENDBUFFER  
   jsr udp_send
   rts  
@@ -191,8 +192,8 @@ gameupdate:
  
 ; -------------------------------------------------------------------------
 ; Copy screen data from UDP buffer to screen
-copyscreen:
-  
+copyscreen:  
+  inc $d021
   ldx #$00
 
 copy:  
@@ -259,7 +260,7 @@ copy:
   
 SERVER_IP:
   ; .byte 208,79,218,201    ; Vortex VPS  
-  .byte 192,168,7,101       ; Dev Laptop
+  .byte 192,168,7,105       ; Dev Laptop
 
   
 SERVER_PORT = 3006
@@ -271,7 +272,7 @@ SENDBUFFER:
   
 NETWORKMESSAGE:
   .byte 147, CG_LCS, CG_DCS, CG_LBL
-  .byte "rOGUE dEMO nETWORK iNITIALIZATION",13
+  .byte "rOGUE dEMO nETWORK iNITIALIZATION",13, 13
   .byte CG_YEL, "fORWARD udp pORT 3000 TO YOUR c64", CG_LBL, 13,13
   .byte 0
 
