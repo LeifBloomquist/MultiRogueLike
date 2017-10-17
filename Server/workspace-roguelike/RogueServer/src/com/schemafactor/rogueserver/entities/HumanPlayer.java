@@ -3,6 +3,8 @@ package com.schemafactor.rogueserver.entities;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,62 +18,27 @@ import com.schemafactor.rogueserver.entities.Entity;
 public class HumanPlayer extends Entity
 {        
    private InetAddress userIP;       // User IP Address
-   private int timeoutCounter=0;     // Counter, in milliseconds, for timeouts for dropped connections
+   Duration timeoutCounter = Duration.ZERO;        // Counter, in milliseconds, for timeouts for dropped connections
    
    private boolean announceReceived = false;
+   private Instant lastUpdate = Instant.now();   
   
    /** Creates a new instance of Human Player */
    public HumanPlayer(DatagramPacket packet)
    {
-       // Random starting positions for multiple players
-       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(20,20,0));
-       this.myType = entityTypes.HUMAN_PLAYER;
+       // Random starting positions on Level 0 for multiple players  TODO
+       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(20,20,0), entityTypes.HUMAN_PLAYER);
 
        userIP = packet.getAddress();
        receiveUpdate(packet);
    }
-   
-   public void sendUpdate(byte[] data)
-   {       
-       try
-       {            
-           // Initialize a datagram packet with data and address
-           DatagramPacket packet = new DatagramPacket(data, data.length, userIP, 3000); 
-
-           // Create a datagram socket, send the packet through it, close it
-           DatagramSocket dsocket = new DatagramSocket();
-           dsocket.send(packet);
-           dsocket.close();
-       }
-       catch (Exception e)
-       {
-           JavaTools.printlnTime("EXCEPTION sending update: " + JavaTools.getStackTrace(e));
-       }
-   }
-      
+         
    /** Return the InetAddress, for comparisons */
    public InetAddress getAddress()
    {
        return userIP;
    }
-   
-   // Increment and check the timeout
-   public void checkTimeout()
-   {
-       if (timeoutCounter < 10000) timeoutCounter += Constants.TICK_TIME;
-       
-       if (timeoutCounter > 2000)   // Two seconds 
-       {
-    	   /*
-           if (!removeMeFlag)
-           {
-               removeMeFlag = true;
-               JavaTools.printlnTime( "Player Timed Out: " + description );
-           } 
-           */              
-       }       
-   }
-   
+
    /** Update me with new data from client */
    public void receiveUpdate(DatagramPacket packet)
    {
@@ -107,9 +74,8 @@ public class HumanPlayer extends Entity
                return;
            }
        }
-                
-       // Reset timeout
-       timeoutCounter = 0;
+       
+       lastUpdate = Instant.now();
    }
 
    @Override
@@ -133,5 +99,39 @@ public class HumanPlayer extends Entity
        // Increment and Timeout.  This is reset in receiveUpdate() above.     
        checkTimeout();
        return;
-   }        
+   }  
+   
+   private void sendUpdate(byte[] data)
+   {       
+       try
+       {            
+           // Initialize a datagram packet with data and address
+           DatagramPacket packet = new DatagramPacket(data, data.length, userIP, 3000); 
+
+           // Create a datagram socket, send the packet through it, close it
+           DatagramSocket dsocket = new DatagramSocket();
+           dsocket.send(packet);
+           dsocket.close();
+       }
+       catch (Exception e)
+       {
+           JavaTools.printlnTime("EXCEPTION sending update: " + JavaTools.getStackTrace(e));
+       }
+   }
+      
+   // Increment and check the timeout
+   private void checkTimeout()
+   {
+	   Duration elapsed = Duration.between(lastUpdate, Instant.now());
+       
+       if (elapsed.getSeconds() > Constants.NETWORK_TIMEOUT)
+       {
+           if (!removeMeFlag)
+           {
+               removeMeFlag = true;
+               JavaTools.printlnTime( "Player Timed Out: " + description );
+           }             
+       }      
+   }
+   
 }

@@ -33,7 +33,7 @@ screen_init:
   
   
 ; Explicitly paint screen color, for older kernals
-  lda #$0A   ; Remember, multicolor character mode 
+  lda #$01 
   ldx #$00  
 :
   sta COLOR_BASE+$000,x
@@ -57,35 +57,70 @@ screen_init:
   lda #%00100000
   sta $d018
   
-  jsr finexy
-  
   rts             
-
-
+  
+  
 ; -------------------------------------------------------------------------
-; Set Fine X and Fine Y  (Also sets 38 Columns and Extended color mode as a by-product)
+; Copy screen data from UDP buffer to screen
+copyscreen:  
+copy:  
+  ; 17 Rows on screen
+  lda udp_inp_data+1,x 
+  sta SCREEN_BASE+1+(40*2),x                 ; Shifted over one column for border  
+  
+  lda udp_inp_data+1+(GAME_COLS*1),x
+  sta SCREEN_BASE+1+(40*3),x
 
-finexy:
- ; Fine X
-  lda $d016
-  and #%11100000
-  ora #%00010000  ; Multi
-  ora finex
-  sta $d016
-
-  ; Fine Y
-  lda $d011
-  and #%11110000
-  ora finey
-  sta $d011
+  lda udp_inp_data+1+(GAME_COLS*2),x
+  sta SCREEN_BASE+1+(40*4),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*3),x
+  sta SCREEN_BASE+1+(40*5),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*4),x
+  sta SCREEN_BASE+1+(40*6),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*5),x
+  sta SCREEN_BASE+1+(40*7),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*6),x
+  sta SCREEN_BASE+1+(40*8),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*7),x
+  sta SCREEN_BASE+1+(40*9),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*8),x
+  sta SCREEN_BASE+1+(40*10),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*9),x
+  sta SCREEN_BASE+1+(40*11),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*10),x
+  sta SCREEN_BASE+1+(40*12),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*11),x
+  sta SCREEN_BASE+1+(40*13),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*12),x
+  sta SCREEN_BASE+1+(40*14),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*13),x
+  sta SCREEN_BASE+1+(40*15),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*14),x
+  sta SCREEN_BASE+1+(40*16),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*15),x
+  sta SCREEN_BASE+1+(40*17),x
+ 
+  lda udp_inp_data+1+(GAME_COLS*16),x
+  sta SCREEN_BASE+1+(40*18),x
+ 
+  inx
+  cpx GAME_ROWS
+  bne copy
   
   rts
-
-finex:
-  .byte $00
-
-finey:
-  .byte $00    
 
 ; -------------------------------------------------------------------------
 ; Screen Constants
@@ -111,7 +146,7 @@ CG_GR2 = 152
 CG_LGN = 153
 CG_LBL = 154
 CG_GR3 = 155
-CG_RVS = 18 ;revs-on
+CG_RVS = 18  ;revs-on
 CG_NRM = 146 ;revs-off
 
 CG_DCS = 8  ;disable shift+C=

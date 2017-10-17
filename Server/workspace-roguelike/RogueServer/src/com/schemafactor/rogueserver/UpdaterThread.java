@@ -38,7 +38,7 @@ public class UpdaterThread implements Runnable
         
         long startTime = System.nanoTime(); 
         
-        // 1. Update the universe.
+        // 1. Update the universe/dungeon.
         try
         {
             dungeon.update();
@@ -52,10 +52,13 @@ public class UpdaterThread implements Runnable
         // 2. Update each entity                  
         try
         {
-            for (Entity e : dungeon.getEntities())
-            {             
-                e.update(); 
-            } 
+            synchronized (dungeon.getEntities())
+            {
+	        	for (Entity e : dungeon.getEntities())
+	            {             
+	                e.update(); 
+	            }
+            }
         }
         catch (Exception ex)
         {               
@@ -66,14 +69,18 @@ public class UpdaterThread implements Runnable
         try
         {
             List<Entity> toBeRemoved = new ArrayList<Entity>();
-            for (Entity e : dungeon.getEntities())
-            { 
-               if (e.removeMe())
-               {
-                   toBeRemoved.add(e);
-               }
-            }            
-            dungeon.getEntities().removeAll(toBeRemoved);
+            
+            synchronized (dungeon.getEntities())
+            {
+	            for (Entity e : dungeon.getEntities())
+	            { 
+	               if (e.removeMe())
+	               {
+	                   toBeRemoved.add(e);
+	               }
+	            }            
+	            dungeon.getEntities().removeAll(toBeRemoved);
+            }
         }
         catch (Exception ex)
         {               
@@ -81,14 +88,8 @@ public class UpdaterThread implements Runnable
         }                          
         
         // 4. Add any new entities
-        try
-        {
-            dungeon.newEntities.drainTo( dungeon.getEntities() );
-        }
-        catch (Exception ex)
-        {               
-            JavaTools.printlnTime("EXCEPTION adding new entities:" + JavaTools.getStackTrace(ex) );
-        }        
+        
+           
 
         // 5. Gather some stats (read out in httpd server)
         long estimatedTime = System.nanoTime() - startTime;  

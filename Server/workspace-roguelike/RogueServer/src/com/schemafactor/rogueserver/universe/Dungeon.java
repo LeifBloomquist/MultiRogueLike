@@ -2,15 +2,13 @@ package com.schemafactor.rogueserver.universe;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
-import com.schemafactor.rogueserver.universe.Cell;
 
 public class Dungeon 
 {
@@ -33,19 +31,14 @@ public class Dungeon
     List<Entity> allEntities = null;
     
     /**
-     * Thread-safe queue of new entities that have been created (and added to the allEntities list)
-     */
-    public BlockingQueue<Entity> newEntities = new ArrayBlockingQueue<Entity>(1000);
-    
-    /**
      * 
      * @param size
      * @param allEntities
      */
-    public void Create(int size, int depth, List<Entity> allEntities)
+    public void Create(int size, int depth)
     {
-        // Save the entities
-        this.allEntities = allEntities;
+        // Create the entities
+        allEntities = Collections.synchronizedList(new ArrayList<Entity>());
         
         // Create array        
         dungeonMapCells = new Cell[depth][size][size];   
@@ -88,7 +81,7 @@ public class Dungeon
             for (int xx=0; xx < Constants.SCREEN_WIDTH; xx++)
             {            
                Cell c = (Cell)JavaTools.getArrayWrap(dungeonMapCells[pos.z], pos.x+xx, pos.y+yy);
-               screen[index] = c.getCharCode();
+               screen[index] = (byte)index; // c.getCharCode();  TODO Fix !!!!
                index++;
             }
         }
@@ -177,5 +170,20 @@ public class Dungeon
         }        
         
         return allInRange;
+    }
+    
+    public void addEntity(Entity who)
+    {
+    	 try  
+         {
+         	synchronized(allEntities)
+         	{
+         		allEntities.add(who);
+         	}         	
+         }
+    	 catch (Exception ex)
+         {               
+             JavaTools.printlnTime("EXCEPTION adding new entity " + who.getDescription() +": " + JavaTools.getStackTrace(ex) );
+         }        	 
     }
 }

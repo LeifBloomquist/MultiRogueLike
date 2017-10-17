@@ -1,6 +1,7 @@
 package com.schemafactor.rogueserver;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +12,6 @@ import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.entities.Spider;
 import com.schemafactor.rogueserver.network.UDPListener;
 import com.schemafactor.rogueserver.universe.Dungeon;
-import com.schemafactor.rogueserver.UpdaterThread;
 
 public class Main 
 {
@@ -29,19 +29,15 @@ public class Main
         
         JavaTools.onlyOneInstance("rogueserver");
         
-        // ArrayList of all entities.
-        ArrayList<Entity> allEntities = new ArrayList<Entity>();               
-        
         // Create the universe.
         JavaTools.printlnTime("Creating game universe...");
-        Dungeon.getInstance().Create(Constants.DUNGEON_SIZE, Constants.DUNGEON_DEPTH, allEntities);
+        Dungeon.getInstance().Create(Constants.DUNGEON_SIZE, Constants.DUNGEON_DEPTH);
         
         // Add some entities.
         JavaTools.printlnTime("Creating default entities...");
         
         // For now, add a single spider.
-        Spider spider = new Spider("Spider Fred", new Position(10,10,0));
-        allEntities.add(spider);
+        Dungeon.getInstance().addEntity( new Spider("Spider Fred", new Position(10,10,0)) );
         
         /*
         for (int i=1; i<=Constants.ASTEROID_COUNT; i++)

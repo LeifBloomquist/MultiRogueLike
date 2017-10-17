@@ -90,34 +90,23 @@ public class UDPListener
                 
         // Determine player
         // Copy list to get around the dreaded Concurrent modification exception  (shallow copy)
-        List<Entity> entitiesCopy = new ArrayList<Entity>(dungeon.getEntities());
+        List<Entity> humans = dungeon.getEntities(null, Entity.entityTypes.HUMAN_PLAYER);
         
-        for (Entity e : entitiesCopy)
-        {         
-            if ( e.getType().equals(Entity.entityTypes.HUMAN_PLAYER) )
+        for (Entity e : humans)
+        {   
+        	HumanPlayer hp = (HumanPlayer)e;
+        	
+            if ( hp.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable, HashSet etc.
             {
-                HumanPlayer hp = (HumanPlayer)e;
-                
-                if ( hp.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable etc.
-                {
-                    hp.receiveUpdate(packet);
-                    return;
-                }                    
+                hp.receiveUpdate(packet);
+                return;
             }
         }
         
-        // No match, create new user and add to vector
+        // No match, create new user and add to list
         JavaTools.printlnTime( "Creating player from " + JavaTools.packetAddress(packet) );
-        HumanPlayer who = new HumanPlayer(packet);
-        
-        try
-        {
-        	dungeon.newEntities.add(who);
-        }
-        catch (Exception e)
-        {
-            JavaTools.printlnTime( "EXCEPTION adding new player: " + JavaTools.getStackTrace(e) );
-        }
+        HumanPlayer who = new HumanPlayer(packet);        
+        dungeon.addEntity(who);
         
         return;  
    }

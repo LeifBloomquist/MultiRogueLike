@@ -14,9 +14,9 @@ public abstract class ServerControlled extends Entity
  
        
     /** Creates a new instance of Server Controlled */
-    public ServerControlled(String name, Position startposition)
+    public ServerControlled(String name, Position startposition, entityTypes type)
     {
-       super(name, startposition);     
+       super(name, startposition, type);     
     }
     
     /*

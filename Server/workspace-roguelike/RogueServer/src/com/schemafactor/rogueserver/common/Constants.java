@@ -1,5 +1,6 @@
 package com.schemafactor.rogueserver.common;
 
+import java.time.Duration;
 
 public class Constants 
 {
@@ -7,9 +8,11 @@ public class Constants
     public static final double VERSION        = 0.001;
     
     // Game-specific constants
-    public static final int TICK_TIME         = 50;    // milliseconds
-    public static final int DUNGEON_SIZE     = 1000;   // Per Side
-    public static final int DUNGEON_DEPTH    = 10;     // Levels
+    public static final int TICK_TIME         = 50;     // milliseconds
+    public static final int DUNGEON_SIZE      = 1000;   // Per Side
+    public static final int DUNGEON_DEPTH     = 10;     // Levels
+    
+    public static final long NETWORK_TIMEOUT  = 100;    // Seconds
     
     // Screen constants
     public static final int SCREEN_WIDTH      = 21;
@@ -40,6 +43,9 @@ public class Constants
     
     public static final byte PACKET_ANN_REPLY = (byte) 128;
     public static final byte PACKET_UPDATE    = (byte) 129;
+    
+    // Actions
+    
 
     // Cell Types
     public static final byte PLAYER_WIZARD  =  (byte) 200;

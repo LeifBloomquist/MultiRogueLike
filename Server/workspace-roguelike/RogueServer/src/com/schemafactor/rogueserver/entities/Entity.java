@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.vortexserver.entities.Entity.eTypes;
 
 public abstract class Entity 
 {
@@ -19,10 +20,11 @@ public abstract class Entity
    protected boolean removeMeFlag = false;
      
    /** Creates a new instance of Entity */
-   public Entity(String description, Position startposition)
+   public Entity(String description, Position startposition, entityTypes type)
    {
        this.description = new String(description);
-       this.position = startposition; 
+       this.position = startposition;
+       this.myType = type;
    }
    
    public void move()

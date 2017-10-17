@@ -9,8 +9,7 @@ public class Spider extends ServerControlled
     /** Creates a new instance of the Spider */
     public Spider(String name, Position startposition)
     {
-       super(name, startposition);
-       this.myType = entityTypes.SPIDER;
+       super(name, startposition, entityTypes.SPIDER);
        this.charCode = Constants.MONSTER_SPIDER;
     }
 
