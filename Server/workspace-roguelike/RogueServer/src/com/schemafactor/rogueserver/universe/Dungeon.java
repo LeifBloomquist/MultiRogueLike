@@ -81,13 +81,18 @@ public class Dungeon
             for (int xx=0; xx < Constants.SCREEN_WIDTH; xx++)
             {            
                Cell c = (Cell)JavaTools.getArrayWrap(dungeonMapCells[pos.z], pos.x+xx, pos.y+yy);
-               screen[index] = (byte)index; // c.getCharCode();  TODO Fix !!!!
+               screen[index] = c.getCharCode();
                index++;
             }
         }
         
         return screen;
-    }    
+    }   
+    
+    public Cell getCell(Position p)
+    {
+    	return dungeonMapCells[p.x][p.y][p.z];
+    }
 
     public long getXsize() 
     {

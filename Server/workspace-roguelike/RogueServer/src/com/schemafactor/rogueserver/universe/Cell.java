@@ -14,6 +14,22 @@ public class Cell
     {
         return charCode;
     }
+    
+    public boolean canEnter() 
+    {
+    	if (entity != null)
+    	{
+    		return false;
+    	}
+    	
+    	if (charCode != 0)   // TODO, use proper attributes/lookup tables
+    	{
+    		return false;
+    	}
+        
+    	return true;
+    }
+    
 
     @Deprecated
     public byte getCharColor() 

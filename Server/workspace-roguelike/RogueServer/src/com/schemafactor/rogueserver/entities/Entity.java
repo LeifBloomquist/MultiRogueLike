@@ -1,11 +1,5 @@
 package com.schemafactor.rogueserver.entities;
 
-import java.awt.Color;
-
-import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.vortexserver.entities.Entity.eTypes;
-
 public abstract class Entity 
 {
    public static enum entityTypes {NONE, HUMAN_PLAYER, NPC, SPIDER}

@@ -1,11 +1,17 @@
 ; -------------------------------------------------------------------------
-; Rogue Screen
+; Rogue Screen Routines
 
 ; -------------------------------------------------------------------------
-; Screen Initialization
+; Screen Constants
 
-GAME_ROWS=17
-GAME_COLS=21
+CHAR_BASE   = $4000
+SCREEN_BASE = $4800
+COLOR_BASE  = $D800
+GAME_ROWS   = 17
+GAME_COLS   = 21
+
+; -------------------------------------------------------------------------
+; Screen Init
 
 screen_init: 
   ; Background Colors
@@ -63,6 +69,8 @@ screen_init:
 ; -------------------------------------------------------------------------
 ; Copy screen data from UDP buffer to screen
 copyscreen:  
+  ldx #$00
+  
 copy:  
   ; 17 Rows on screen
   lda udp_inp_data+1,x 
@@ -117,19 +125,12 @@ copy:
   sta SCREEN_BASE+1+(40*18),x
  
   inx
-  cpx GAME_ROWS
+  cpx #GAME_COLS
   bne copy
   
   rts
 
-; -------------------------------------------------------------------------
-; Screen Constants
-
-CHAR_BASE   = $4000
-SCREEN_BASE = $4800
-COLOR_BASE  = $D800
-
-;c64 c/g 
+;c64 c/g Constants 
 CG_BLK = 144
 CG_WHT = 5
 CG_RED = 28
