@@ -1,9 +1,12 @@
 package com.schemafactor.rogueserver.universe;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
@@ -41,7 +44,7 @@ public class Dungeon
         allEntities = Collections.synchronizedList(new ArrayList<Entity>());
         
         // Create array        
-        dungeonMapCells = new Cell[depth][size][size];   
+        dungeonMapCells = new Cell[size][size][depth];   
         
         // Instantiate
         for (int x=0; x < size; x++)
@@ -50,7 +53,7 @@ public class Dungeon
             {
             	 for (int z=0; z < depth; z++)
                  {
-            	     dungeonMapCells[z][x][y] = new Cell();
+            	     dungeonMapCells[x][y][z] = new Cell();
                  }
             }
         }
@@ -58,9 +61,36 @@ public class Dungeon
         Xsize = size;
         Ysize = size;
         Zsize = depth;
-
+    }
+    
+    public void Load(String filename, int level) throws FileNotFoundException
+    {
+    	ArrayList<String> temp_chars = new ArrayList<String>();
+    	    	
+    	Scanner scanner = new Scanner(new File(filename));
+        scanner.useDelimiter(",|\r\n");
+        
+        while(scanner.hasNext())
+        {
+        	temp_chars.add(scanner.next());
+        }
+        scanner.close();
+        
+        JavaTools.printlnTime( "Number of cells loaded: " + temp_chars.size() );
+       
+        int index = 0;
+           
+        for (int yy=0; yy < Constants.DUNGEON_SIZE; yy++)
+        {
+            for (int xx=0; xx < Constants.DUNGEON_SIZE; xx++)
+            {            
+               Cell c = dungeonMapCells[xx][yy][level];
+               c.setAttributes( Integer.parseInt(temp_chars.get(index++)) );
+            }
+        }
+        
         // Put a special marker at the origin.  On each level?
-        dungeonMapCells[0][0][0].setAttributes(100);
+        dungeonMapCells[0][0][0].setAttributes(100);        
     }
     
     public void update()
@@ -80,9 +110,9 @@ public class Dungeon
         {
             for (int xx=0; xx < Constants.SCREEN_WIDTH; xx++)
             {            
-               Cell c = (Cell)JavaTools.getArrayWrap(dungeonMapCells[pos.z], pos.x+xx, pos.y+yy);
-               screen[index] = c.getCharCode();
-               index++;
+               Cell c = dungeonMapCells[pos.x+xx][pos.y+yy][pos.z];   // (Cell) JavaTools.getArrayWrap(dungeonMapCells[pos.z], pos.x+xx, pos.y+yy);
+               int cc = c.getCharCode();
+               screen[index++] = (byte)cc;
             }
         }
         

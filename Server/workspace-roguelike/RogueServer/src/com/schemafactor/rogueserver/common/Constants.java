@@ -9,7 +9,7 @@ public class Constants
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
-    public static final int DUNGEON_SIZE      = 1000;   // Per Side
+    public static final int DUNGEON_SIZE      = 100;    // Per Side
     public static final int DUNGEON_DEPTH     = 10;     // Levels
     
     public static final long NETWORK_TIMEOUT  = 100;    // Seconds

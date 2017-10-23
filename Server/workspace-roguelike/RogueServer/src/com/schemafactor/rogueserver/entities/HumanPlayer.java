@@ -28,7 +28,7 @@ public class HumanPlayer extends Entity
    public HumanPlayer(DatagramPacket packet)
    {
        // Random starting positions on Level 0 for multiple players  TODO
-       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(20,20,0), entityTypes.HUMAN_PLAYER);
+       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(0,0,0), entityTypes.HUMAN_PLAYER);
 
        userIP = packet.getAddress();
        receiveUpdate(packet);
@@ -92,7 +92,7 @@ public class HumanPlayer extends Entity
 	   		  break;
 	   		  
 	   	  case Constants.ACTION_MOVE:
-	   		  attemptMove(parameter1);
+	   		  //attemptMove(parameter1);
 	   		  break;
 	   		  
 	   		  /*
@@ -189,8 +189,7 @@ public class HumanPlayer extends Entity
 	   {
 		   ;
 		   JavaTools.printlnTime("DEBUG: " + description + " was blocked moving to X=" + destination.x + " Y=" + destination.y + " X=" + destination.x);
-	   }
-	
+	   }	
    }
 
 @Override

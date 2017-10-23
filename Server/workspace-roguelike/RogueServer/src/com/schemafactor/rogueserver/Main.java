@@ -1,5 +1,6 @@
 package com.schemafactor.rogueserver;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -33,11 +34,24 @@ public class Main
         JavaTools.printlnTime("Creating game universe...");
         Dungeon.getInstance().Create(Constants.DUNGEON_SIZE, Constants.DUNGEON_DEPTH);
         
+        // Load saved
+        JavaTools.printlnTime("Loading game persistence...");
+        try 
+        {
+			Dungeon.getInstance().Load("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest0.csv", 0);
+		} 
+        catch (FileNotFoundException e) 
+        {
+        	JavaTools.printlnTime("FileNotFoundException!");
+			e.printStackTrace();
+			System.exit(0);
+		}
+        
         // Add some entities.
         JavaTools.printlnTime("Creating default entities...");
         
         // For now, add a single spider.
-        Dungeon.getInstance().addEntity( new Spider("Spider Fred", new Position(10,10,0)) );
+        Dungeon.getInstance().addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
         
         /*
         for (int i=1; i<=Constants.ASTEROID_COUNT; i++)
