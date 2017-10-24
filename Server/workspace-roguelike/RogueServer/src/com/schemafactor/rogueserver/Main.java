@@ -50,8 +50,9 @@ public class Main
         // Add some entities.
         JavaTools.printlnTime("Creating default entities...");
         
-        // For now, add a single spider.
+        // For now, add some spiders        
         Dungeon.getInstance().addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
+        Dungeon.getInstance().addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
         
         /*
         for (int i=1; i<=Constants.ASTEROID_COUNT; i++)

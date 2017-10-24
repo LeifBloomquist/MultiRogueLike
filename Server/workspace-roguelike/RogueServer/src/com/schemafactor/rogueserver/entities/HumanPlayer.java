@@ -28,7 +28,7 @@ public class HumanPlayer extends Entity
    public HumanPlayer(DatagramPacket packet)
    {
        // Random starting positions on Level 0 for multiple players  TODO
-       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(1,1,0), entityTypes.HUMAN_PLAYER);
+       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(5,5,0), entityTypes.HUMAN_PLAYER, Constants.CHAR_PLAYER_WIZARD);
 
        userIP = packet.getAddress();
        receiveUpdate(packet);
@@ -49,7 +49,7 @@ public class HumanPlayer extends Entity
        {
            case Constants.CLIENT_ANNOUNCE:
            {
-               description = JavaTools.fromPETSCII(Arrays.copyOfRange(data, 2, data.length)) + " [" +JavaTools.packetAddress(packet) + "]";
+               description = JavaTools.fromPETSCII(Arrays.copyOfRange(data, 2, data.length)) + " [" + JavaTools.packetAddress(packet) + "]";
                
                if (!announceReceived)
                {
@@ -179,6 +179,12 @@ public class HumanPlayer extends Entity
 	   Position destination = new Position(this.position.x+dx, this.position.y+dy, this.position.z+dz);	   
 	   Cell dest_cell = Dungeon.getInstance().getCell(destination);
 	   
+	   if (dest_cell == null)
+	   {
+		   JavaTools.printlnTime("DEBUG: " + description + " attempted to move out of map?  Last known location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
+		   return;
+	   }
+	   
 	   if (dest_cell.canEnter())
 	   {
 		   this.position = destination;
@@ -232,10 +238,9 @@ public class HumanPlayer extends Entity
        int offset = 1;
               
        // Get the screen that is visible to this player
+       System.arraycopy( Dungeon.getInstance().getScreenCentered(position), 0, message, offset, Constants.SCREEN_SIZE );
        
-       // And now, viewport  
-       // TODO Center on player position
-       System.arraycopy( Dungeon.getInstance().getScreen(position), 0, message, offset, Constants.SCREEN_SIZE );
+       // TODO, messages, etc.
        
        // Send the packet.
        sendUpdatePacket(message);

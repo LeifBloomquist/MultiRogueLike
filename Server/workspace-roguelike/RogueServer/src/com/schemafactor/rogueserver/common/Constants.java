@@ -53,8 +53,8 @@ public class Constants
     public static final byte DIRECTION_DOWN    = 10;
 
     // Cell Types
-    public static final byte PLAYER_WIZARD  =  (byte) 200;
-    public static final byte MONSTER_SPIDER =  101;    
+    public static final byte CHAR_PLAYER_WIZARD  =  (byte) 200;
+    public static final byte CHAR_MONSTER_SPIDER =  (byte) 101;    
     
     // C64 colors
     public static final byte COLOR_BLACK      = 0;

@@ -12,4 +12,11 @@ public class Position
 		this.y = y;
 		this.z = z;
 	}
+
+	public Position(Position pos)
+	{
+		this.x = pos.x;
+		this.y = pos.y;
+		this.z = pos.z;
+	}
 }

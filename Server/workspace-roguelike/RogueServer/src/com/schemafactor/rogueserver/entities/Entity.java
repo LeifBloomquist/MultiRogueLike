@@ -14,11 +14,12 @@ public abstract class Entity
    protected boolean removeMeFlag = false;
      
    /** Creates a new instance of Entity */
-   public Entity(String description, Position startposition, entityTypes type)
+   public Entity(String description, Position startposition, entityTypes type, byte charCode)
    {
        this.description = new String(description);
        this.position = startposition;
        this.myType = type;
+       this.charCode = charCode;
    }
    
    public void move()
@@ -29,12 +30,12 @@ public abstract class Entity
    abstract public void update(); 
    
    /** Return X,Y positions */
-   public long getXpos()
+   public int getXpos()
    {
        return position.x;
    }
    
-   public long getYpos()
+   public int getYpos()
    {
        return position.y;
    }

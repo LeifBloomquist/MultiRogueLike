@@ -10,7 +10,9 @@ import java.util.Scanner;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.entities.DummyEntity;
 import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.Position;
 
 public class Dungeon 
@@ -88,9 +90,6 @@ public class Dungeon
                c.setAttributes( Integer.parseInt(temp_chars.get(index++)) );
             }
         }
-        
-        // Put a special marker at the origin.  On each level?
-        dungeonMapCells[0][0][0].setAttributes(100);        
     }
     
     public void update()
@@ -98,30 +97,80 @@ public class Dungeon
     	// Do timed animation here?
     }
     
-    /** Get a full screen's worth of cell data, with wraparound */
-    public byte[] getScreen(Position pos)
+    /** Get a full screen's worth of cell data, with out of range replaced by 0 for screen edges*/
+    private byte[] getScreen(Position pos)
     {
-    	byte[] screen = new byte[Constants.SCREEN_SIZE];
-        
+    	byte[] screen = new byte[Constants.SCREEN_SIZE];        
         int index=0;
+        Position temp_pos = new Position(pos);
         
-        // Faster way to do this?
+        // 1.  Lowest Layer - Map
+        
         for (int yy=0; yy < Constants.SCREEN_HEIGHT; yy++)
         {
+        	temp_pos.y = pos.y+yy;
             for (int xx=0; xx < Constants.SCREEN_WIDTH; xx++)
-            {            
-               Cell c = dungeonMapCells[pos.x+xx][pos.y+yy][pos.z];   // (Cell) JavaTools.getArrayWrap(dungeonMapCells[pos.z], pos.x+xx, pos.y+yy);
-               int cc = c.getCharCode();
-               screen[index++] = (byte)cc;
+            {  
+            	temp_pos.x = pos.x+xx;
+                screen[index++] = getCharCode(temp_pos);
             }
         }
+        
+        // 2. Next layer - Objects
+        // TODO
+        
+        // 3.  Top layer - Entities
+        
+        List<Entity> onscreen = getEntitiesOnScreen(pos);
+        
+        for (Entity e : onscreen)
+        {
+        	int rel_x = e.getXpos() - pos.x;
+        	int rel_y = e.getYpos() - pos.y;
+        	
+        	try
+        	{     	
+        	    screen[(rel_y * Constants.SCREEN_WIDTH) + rel_x] = e.getCharCode();
+        	}
+        	catch (Exception ex)
+        	{
+        	    ;        	
+        	}
+        }        
         
         return screen;
     }   
     
-    public Cell getCell(Position p)
+    public byte[] getScreenCentered(Position center)
     {
-    	return dungeonMapCells[p.x][p.y][p.z];
+        Position topleft = new Position(center);
+        topleft.x -= (int)(Constants.SCREEN_WIDTH / 2);
+        topleft.y -= (int)(Constants.SCREEN_HEIGHT / 2);
+        return getScreen(topleft);
+    }
+   
+
+	public Cell getCell(Position p)
+    {
+    	try
+    	{
+    		return dungeonMapCells[p.x][p.y][p.z];
+    	}
+    	catch (Exception e) // all, usually out of range
+    	{
+    		return null;
+    	}
+    }
+    
+    private byte getCharCode(Position p)
+    {
+    	Cell c = getCell(p);
+    	
+    	if (c == null)
+    	{
+    		return 0;
+    	}
+    	return c.getCharCode();
     }
 
     public long getXsize() 
@@ -190,7 +239,7 @@ public class Dungeon
     }
     
     /** Get a list of all entities within a certain radius, excluding the one who is doing the inquiry (who). */
-    public List<Entity> getEntities(Entity who, double range)
+    public List<Entity> getEntitiesRange(Entity who, double range)
     {
         List<Entity> allInRange = new ArrayList<Entity>();
         
@@ -206,6 +255,27 @@ public class Dungeon
         
         return allInRange;
     }
+    
+    /** Get a list of all entities within a certain radius of a position */
+    private List<Entity> getEntitiesRange(Position pos, double range)
+    {
+        DummyEntity dummy = new DummyEntity(pos);
+        return getEntitiesRange(dummy, range);       
+    }
+    
+    private List<Entity> getEntitiesOnScreen(Position pos)
+    {
+        List<Entity> allOnScreen = new ArrayList<Entity>();
+    	 
+	    for (Entity e : allEntities)
+	    {
+	        if ( (Math.abs(pos.x - e.getXpos()) < Constants.SCREEN_WIDTH ) && (Math.abs(pos.y - e.getYpos()) < Constants.SCREEN_HEIGHT))
+	        {
+	        	allOnScreen.add(e); 
+	        }
+	    }
+	    return allOnScreen;        
+	}
     
     public void addEntity(Entity who)
     {
