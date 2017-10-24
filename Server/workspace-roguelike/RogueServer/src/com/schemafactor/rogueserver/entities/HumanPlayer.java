@@ -137,10 +137,10 @@ public class HumanPlayer extends Entity
 		Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
 	    
 	    if (elapsed.getSeconds() > Constants.NETWORK_TIMEOUT)
-	    {
+	    {	        
 	        if (!removeMeFlag)
 	        {
-	            removeMeFlag = true;
+	            removeMe();
 	            JavaTools.printlnTime( "Player Timed Out: " + description );
 	        }             
 	    }      

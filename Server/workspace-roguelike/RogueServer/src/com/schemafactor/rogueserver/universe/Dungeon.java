@@ -227,8 +227,9 @@ public class Dungeon
         for (Entity e : allEntities)
         {
             if (who == e) continue;
+            if (e.getRemoved()) continue;
             
-            if ((e.getType() == type) && !(e.removeMe()))
+            if (e.getType() == type)
             {
                 allOfType.add(e);                        
             }
@@ -245,12 +246,13 @@ public class Dungeon
         for (Entity e : allEntities)
         {
             if (who == e) continue;
+            if (e.getRemoved()) continue;
             
-            if ((who.distanceTo(e) <= range)  && !(e.removeMe()))
+            if (who.distanceTo(e) <= range)
             {
                 allInRange.add(e);                        
             }
-        }        
+        }
         
         return allInRange;
     }

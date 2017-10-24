@@ -74,7 +74,7 @@ public class UpdaterThread implements Runnable
             {
 	            for (Entity e : dungeon.getEntities())
 	            { 
-	               if (e.removeMe())
+	               if (e.getRemoved())
 	               {
 	                   toBeRemoved.add(e);
 	               }

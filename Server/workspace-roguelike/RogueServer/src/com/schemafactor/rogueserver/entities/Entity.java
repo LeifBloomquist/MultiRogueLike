@@ -150,8 +150,15 @@ public abstract class Entity
        return Math.sqrt( Math.pow((this.getXpos() - target.getXpos()), 2) + Math.pow((this.getYpos() - target.getYpos()), 2)); 
    }
 
-    public boolean removeMe() 
-    {        
+    protected void removeMe() 
+    {   
+        // Clear cell this entity is removed from
+        Dungeon.getInstance().getCell(position).setEntity(null);
+        removeMeFlag = true;
+    }
+    
+    public boolean getRemoved() 
+    {   
         return removeMeFlag;
     }
 

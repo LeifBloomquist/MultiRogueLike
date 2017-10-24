@@ -29,7 +29,7 @@ public abstract class ServerControlled extends Entity
     
     protected void finishMove(boolean moved)
     {
-        //  If we moved, update any clients in area.
+        // If we moved, update any clients in area.
         // TODO, future:  Set this as a flag, and update all at once at end of turn
         if (moved)
         {
