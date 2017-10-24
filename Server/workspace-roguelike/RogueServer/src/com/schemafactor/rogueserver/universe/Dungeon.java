@@ -263,13 +263,20 @@ public class Dungeon
         return getEntitiesRange(dummy, range);       
     }
     
-    private List<Entity> getEntitiesOnScreen(Position pos)
+    
+    // Get list of entities visible on screen from this top left coordinate
+    private List<Entity> getEntitiesOnScreen(Position topleft)
     {
         List<Entity> allOnScreen = new ArrayList<Entity>();
     	 
 	    for (Entity e : allEntities)
 	    {
-	        if ( (Math.abs(pos.x - e.getXpos()) < Constants.SCREEN_WIDTH ) && (Math.abs(pos.y - e.getYpos()) < Constants.SCREEN_HEIGHT))
+	        int dx = e.getXpos() - topleft.x;
+	        int dy = e.getYpos() - topleft.y;
+	        
+	        if ( (dx < Constants.SCREEN_WIDTH ) && (dx >= 0) && 
+                 (dy < Constants.SCREEN_HEIGHT) && (dy >= 0) 
+               )
 	        {
 	        	allOnScreen.add(e); 
 	        }
