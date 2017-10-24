@@ -51,6 +51,7 @@ public class Constants
     public static final byte DIRECTION_NW      = 8;
     public static final byte DIRECTION_UP      = 9;
     public static final byte DIRECTION_DOWN    = 10;
+    public static final byte DIRECTION_COUNT   = 11;
 
     // Cell Types
     public static final byte CHAR_PLAYER_WIZARD  =  (byte) 200;

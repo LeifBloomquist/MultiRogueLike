@@ -16,8 +16,8 @@ public class Cell
     }
     
     public boolean canEnter() 
-    {
-    	if (entity != null)
+    {        
+    	if (entity != null)  // Someone's already in this cell
     	{
     		return false;
     	}
@@ -41,5 +41,11 @@ public class Cell
     public void setAttributes(int charCode)
     {
         this.charCode = (byte)(charCode & 0xFF);
+    }
+    
+    /** Set the entity currently in this cell */
+    public void setEntity(Entity e)
+    {
+        this.entity = e;
     }
 }

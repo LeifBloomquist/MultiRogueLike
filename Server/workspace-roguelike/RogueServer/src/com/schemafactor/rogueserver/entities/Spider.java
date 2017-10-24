@@ -1,8 +1,12 @@
 package com.schemafactor.rogueserver.entities;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.ServerControlled;
+import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Spider extends ServerControlled
 {  
@@ -15,6 +19,8 @@ public class Spider extends ServerControlled
     @Override
     public void update() 
     {
+        boolean moved = false;
+        
         switch (State)
         {
             case IDLE:
@@ -26,14 +32,20 @@ public class Spider extends ServerControlled
                
             case WANDERING:
             {               
-                // Randomly switch directions.  Do this by switching back to Idle momentarily (next loop). 
-                if (JavaTools.generator.nextInt(3000) == 200)
-                {
-                    State = States.IDLE;
-                    break;
-                } 
+                // Occasionally go back to Idle
+                //if (JavaTools.generator.nextInt(3000) == 1)
+                //{
+                //    State = States.IDLE;
+                //    break;
+                //} 
+               
+                Duration elapsed = Duration.between(lastAction, Instant.now());
                 
-                // Avoid objects - TODO
+                if (elapsed.toMillis() >= actionTime)  // Move at this rate
+                {
+                    // Randomly move in a direction. 
+                    moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));
+                }
                 
                 break;
             }
@@ -52,8 +64,8 @@ public class Spider extends ServerControlled
             {
                 break;
             }
-        }        
-
-        move();
-    }   
+        }
+        
+        finishMove(moved);
+    }
 }

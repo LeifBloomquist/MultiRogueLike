@@ -1,6 +1,12 @@
 package com.schemafactor.rogueserver.entities;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.List;
+
+import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.universe.Dungeon;
 
 public abstract class ServerControlled extends Entity
 {  
@@ -10,14 +16,37 @@ public abstract class ServerControlled extends Entity
     // States
     protected enum States {IDLE, WANDERING, CHASING, ATTACKING, RETREATING};
     protected States State = States.IDLE;
-    protected States lastState = States.IDLE;
- 
+    
+    // Time in between moves.  May change based on state.
+    protected Instant lastAction = Instant.now();
+    float actionTime = 1000f;  // Milliseconds    
        
     /** Creates a new instance of Server Controlled */
     public ServerControlled(String name, Position startposition, entityTypes type, byte charCode)
     {
        super(name, startposition, type, charCode);     
     }
+    
+    protected void finishMove(boolean moved)
+    {
+        //  If we moved, update any clients in area.
+        // TODO, future:  Set this as a flag, and update all at once at end of turn
+        if (moved)
+        {
+            lastAction = Instant.now();
+            
+            List<Entity> onscreen = Dungeon.getInstance().getEntitiesOnScreenCentered(this.position);
+            
+            for (Entity e : onscreen)
+            {
+                if (e.getType() == entityTypes.HUMAN_PLAYER)
+                {
+                    HumanPlayer hp = (HumanPlayer)e;
+                    hp.sendUpdate();
+                }
+            }            
+        }        
+    }   
     
     /*
     protected void navigateTo(Entity target, double visible_range, double target_attraction, double repelling, double avoidance_range, double avoiding)   

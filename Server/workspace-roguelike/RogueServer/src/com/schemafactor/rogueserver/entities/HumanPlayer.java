@@ -116,88 +116,6 @@ public class HumanPlayer extends Entity
 	   sendUpdate();
    }
 
-   private void attemptMove(byte direction) 
-   {
-	   int dx=0;
-	   int dy=0;
-	   int dz=0;
-	   
-	   switch (direction)
-	   {
-	   	  case Constants.DIRECTION_NONE:   		  
-	   		  break;
-	   		  
-	   	  case Constants.DIRECTION_NORTH:
-	   		  dy=-1;
-	   		  break;
-	   		  
-	   	  case Constants.DIRECTION_NE:
-	   		  dy=-1;
-	   		  dx=+1;
-	   		  break;
-	   		  
-	   	  case Constants.DIRECTION_EAST:
-	   		  dx=+1;
-	   		  break;
-	   		  
-	   	  case Constants.DIRECTION_SE:
-	   		  dy=+1;
-	   		  dx=+1;
-	   		  break;
-	   		  
-	   	  case Constants.DIRECTION_SOUTH:
-			  dy=+1;
-		   	  break;
-		   		
-	   	  case Constants.DIRECTION_SW:
-	   		  dy=+1;
-	   		  dx=-1;
-	   		  break;
-	   		  
-	   	  case Constants.DIRECTION_WEST:
-	   		  dx=-1;
-	   		  break;	   		  
-	   		  
-	   	  case Constants.DIRECTION_NW:   
-	   	      dx=-1;
-	   	      dy=-1;
-   		      break;
-	   	  
-	   	  case Constants.DIRECTION_UP:
-	   		  // if current cell type == stairs_up...
-	   		  break;
-	   		  
-	   	  case Constants.DIRECTION_DOWN:
-	   		 // if current cell type == stairs_down...
-	   		 break;
-	   		 
-	   	  default:
-	   		 JavaTools.printlnTime("Unknown move direction code " + direction + " from " + description);
-	   		 break;  
-	   }
-	   
-	   Position destination = new Position(this.position.x+dx, this.position.y+dy, this.position.z+dz);	   
-	   Cell dest_cell = Dungeon.getInstance().getCell(destination);
-	   
-	   if (dest_cell == null)
-	   {
-		   JavaTools.printlnTime("DEBUG: " + description + " attempted to move out of map?  Last known location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
-		   return;
-	   }
-	   
-	   if (dest_cell.canEnter())
-	   {
-		   this.position = destination;
-		   JavaTools.printlnTime("DEBUG: " + description + " moved to location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
-		   // set dest_cell entity here?
-	   }
-	   else
-	   {
-		   ;
-		   JavaTools.printlnTime("DEBUG: " + description + " was blocked moving to X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
-	   }	
-   }
-
 @Override
    public void update()
    { 
@@ -216,7 +134,7 @@ public class HumanPlayer extends Entity
 	// Increment and check the timeout
 	private void checkTimeout()
 	{
-		   Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
+		Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
 	    
 	    if (elapsed.getSeconds() > Constants.NETWORK_TIMEOUT)
 	    {

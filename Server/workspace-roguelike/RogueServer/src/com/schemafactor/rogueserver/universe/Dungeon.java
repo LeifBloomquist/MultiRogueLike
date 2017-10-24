@@ -98,20 +98,20 @@ public class Dungeon
     }
     
     /** Get a full screen's worth of cell data, with out of range replaced by 0 for screen edges*/
-    private byte[] getScreen(Position pos)
+    private byte[] getScreen(Position topleft)
     {
     	byte[] screen = new byte[Constants.SCREEN_SIZE];        
         int index=0;
-        Position temp_pos = new Position(pos);
+        Position temp_pos = new Position(topleft);
         
         // 1.  Lowest Layer - Map
         
         for (int yy=0; yy < Constants.SCREEN_HEIGHT; yy++)
         {
-        	temp_pos.y = pos.y+yy;
+        	temp_pos.y = topleft.y+yy;
             for (int xx=0; xx < Constants.SCREEN_WIDTH; xx++)
             {  
-            	temp_pos.x = pos.x+xx;
+            	temp_pos.x = topleft.x+xx;
                 screen[index++] = getCharCode(temp_pos);
             }
         }
@@ -121,12 +121,12 @@ public class Dungeon
         
         // 3.  Top layer - Entities
         
-        List<Entity> onscreen = getEntitiesOnScreen(pos);
+        List<Entity> onscreen = getEntitiesOnScreen(topleft);
         
         for (Entity e : onscreen)
         {
-        	int rel_x = e.getXpos() - pos.x;
-        	int rel_y = e.getYpos() - pos.y;
+        	int rel_x = e.getXpos() - topleft.x;
+        	int rel_y = e.getYpos() - topleft.y;
         	
         	try
         	{     	
@@ -147,8 +147,7 @@ public class Dungeon
         topleft.x -= (int)(Constants.SCREEN_WIDTH / 2);
         topleft.y -= (int)(Constants.SCREEN_HEIGHT / 2);
         return getScreen(topleft);
-    }
-   
+    }   
 
 	public Cell getCell(Position p)
     {
@@ -283,6 +282,14 @@ public class Dungeon
 	    }
 	    return allOnScreen;        
 	}
+     
+    public List<Entity> getEntitiesOnScreenCentered(Position center)
+    {
+        Position topleft = new Position(center);
+        topleft.x -= (int)(Constants.SCREEN_WIDTH / 2);
+        topleft.y -= (int)(Constants.SCREEN_HEIGHT / 2);
+        return getEntitiesOnScreen(topleft);
+    }
     
     public void addEntity(Entity who)
     {
