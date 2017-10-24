@@ -53,16 +53,19 @@ irq_reset:
   lda #$00
   sta frametype
   
-irqtop_x:
+irq_x:
   BORDER $00
      
   ; Exit the current interrupt.  
-  pla
-  tay                           
-  pla                           
-  tax                          
-  pla                        
-  rti
+  jmp $EA31
+  
+  ; Old method, that doesn't scan the keyboard
+  ;pla
+  ;tay                           
+  ;pla                           
+  ;tax                          
+  ;pla                        
+  ;rti
 
 ; -------------------------------------------------------------------------
 ; Routines called within the IRQ.
@@ -74,23 +77,24 @@ irq_update:
   jsr READJOYSTICK
   
   ; Read keyboard for player actions
-  ; jsr READKEYBOARD
+  jsr READKEYBOARD
   
   ; Any pending action?  If not, skip.
   lda PLAYER_ACTION
   beq :+
   
   jsr sendaction
+  
   lda #$00
   sta PLAYER_ACTION   ; Action has been sent
 :
-  jmp irqtop_x
+  jmp irq_x
 
 ; Background network processing
 irq_process:
   BORDER $02
   jsr ip65_process 
-  jmp irqtop_x
+  jmp irq_x
    
 ; Copy screen, if received
 irq_screen:

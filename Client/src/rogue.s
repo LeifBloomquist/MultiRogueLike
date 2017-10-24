@@ -72,6 +72,7 @@ loop:
 
   .include "actions.s"
   .include "joystick.s"
+  .include "keyboard.s"
   .include "screen.s"
   .include "sprites.s"  
   .include "irq.s" 
