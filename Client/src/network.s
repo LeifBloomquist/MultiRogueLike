@@ -118,8 +118,8 @@ sendannounce:
   lda #PACKET_ANNOUNCE
   sta SENDBUFFER+0      
   
-  ; Player Type (character)
-  lda playerspritecolor
+  ; Player Type (character) TODO
+  lda #$01
   sta SENDBUFFER+1
   
   ; Player name

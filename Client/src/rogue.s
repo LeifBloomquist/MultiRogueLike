@@ -74,7 +74,7 @@ loop:
   .include "joystick.s"
   .include "keyboard.s"
   .include "screen.s"
-  .include "sprites.s"  
+  .include "colorlookup.s"
   .include "irq.s" 
   .include "network.s" 
   .include "music.s"
