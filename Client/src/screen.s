@@ -68,14 +68,12 @@ screen_init:
   sta $d018
   
   
-  ; Draw the scree,
-  
+  ; Draw the screen  
   ; TODO
   
+  ; Indication of network activity
   lda #$FF
   sta COMMS_CHAR
-  
-  
   
   rts             
   
@@ -142,6 +140,88 @@ copy:
   cpx #GAME_COLS
   bne copy
   
+; -------------------------------------------------------------------------
+; Fill in Color Data from Lookup Table
+
+  ldy #$00
+  
+copy2:  
+  ; 17 Rows on screen
+  ldx SCREEN_BASE+1+(40*2),y 
+  lda colortable,x                 
+  sta COLOR_BASE+1+(40*2),y  
+
+  ldx SCREEN_BASE+1+(40*3),y
+  lda colortable,x   
+  sta COLOR_BASE+1+(40*3),y
+
+  ldx SCREEN_BASE+1+(40*4),y
+  lda colortable,x  
+  sta COLOR_BASE+1+(40*4),y
+ 
+  ldx SCREEN_BASE+1+(40*5),y
+  lda colortable,x  
+  sta COLOR_BASE+1+(40*5),y
+ 
+  ldx SCREEN_BASE+1+(40*6),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*6),y
+ 
+  ldx SCREEN_BASE+1+(40*7),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*7),y
+ 
+  ldx SCREEN_BASE+1+(40*8),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*8),y
+ 
+  ldx SCREEN_BASE+1+(40*9),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*9),y
+ 
+  ldx SCREEN_BASE+1+(40*10),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*10),y
+ 
+  ldx SCREEN_BASE+1+(40*11),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*11),y
+ 
+  ldx SCREEN_BASE+1+(40*12),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*12),y
+ 
+  ldx SCREEN_BASE+1+(40*13),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*13),y
+ 
+  ldx SCREEN_BASE+1+(40*14),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*14),y
+ 
+  ldx SCREEN_BASE+1+(40*15),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*15),y
+ 
+  ldx SCREEN_BASE+1+(40*16),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*16),y
+ 
+  ldx SCREEN_BASE+1+(40*17),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*17),y
+ 
+  ldx SCREEN_BASE+1+(40*18),y
+  lda colortable,x
+  sta COLOR_BASE+1+(40*18),y
+ 
+  iny
+  cpy #GAME_COLS
+  beq copy_x
+  jmp copy2
+
+
+copy_x:  
   rts
 
 ;c64 c/g Constants 

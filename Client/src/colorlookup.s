@@ -22,8 +22,7 @@ COLOR_GREY3      = 15
 ; map character codes to color codes.
 
 colortable:
-
-    .byte COLOR_WHITE    ; 0    Empty Space
+    .byte COLOR_BLACK    ; 0    Empty Space
     .byte COLOR_GREY2    ; 1    Brick Wall	
     .byte COLOR_WHITE    ; 2	 	
     .byte COLOR_WHITE    ; 3	 	
