@@ -106,17 +106,17 @@ public abstract class Entity
        
        if (dest_cell.canEnter())
        {
+           // Update cell references
            this.position = destination;
            dest_cell.setEntity(this);
            current_cell.setEntity(null);
            
-           JavaTools.printlnTime("DEBUG: " + description + " moved to location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
+           //JavaTools.printlnTime("DEBUG: " + description + " moved to location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
            return true;
        }
        else
        {
-           ;
-           JavaTools.printlnTime("DEBUG: " + description + " was blocked moving to X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
+           //JavaTools.printlnTime("DEBUG: " + description + " was blocked moving to X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
            return false;
        }    
    }

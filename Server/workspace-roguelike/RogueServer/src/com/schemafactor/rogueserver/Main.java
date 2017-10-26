@@ -10,6 +10,7 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.entities.Skeleton;
 import com.schemafactor.rogueserver.entities.Spider;
 import com.schemafactor.rogueserver.network.UDPListener;
 import com.schemafactor.rogueserver.universe.Dungeon;
@@ -50,9 +51,10 @@ public class Main
         // Add some entities.
         JavaTools.printlnTime("Creating default entities...");
         
-        // For now, add some spiders        
+        // For now, add some monsters.  TODO, randomly place, or from a file?      
         Dungeon.getInstance().addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
         Dungeon.getInstance().addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
+        Dungeon.getInstance().addEntity( new Skeleton("Skeleton Pete", new Position(92,21,0)) );
         
         /*
         for (int i=1; i<=Constants.ASTEROID_COUNT; i++)

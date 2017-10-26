@@ -177,6 +177,8 @@ sendannounce:
 ; Handle Received Packets (Dispatcher)
 
 gotpacket:
+  inc COMMS_COLOR
+  
   lda udp_inp_data+0   
   cmp #PACKET_SERVER_UPDATE
   beq gameupdate

@@ -7,6 +7,10 @@
 CHAR_BASE   = $4000
 SCREEN_BASE = $4800
 COLOR_BASE  = $D800
+
+COMMS_CHAR  = SCREEN_BASE + $03BF
+COMMS_COLOR = COLOR_BASE  + $03BF
+
 GAME_ROWS   = 17
 GAME_COLS   = 21
 
@@ -19,7 +23,7 @@ screen_init:
   sta $d020
   sta $d021  
   
-  ; Extended background colors
+  ; Extended background colors (not used)
   lda #$01
   sta $d022  
   
@@ -62,6 +66,16 @@ screen_init:
   ; $D018 = %xxxx000x -> charmem   is at $0000 
   lda #%00100000
   sta $d018
+  
+  
+  ; Draw the scree,
+  
+  ; TODO
+  
+  lda #$FF
+  sta COMMS_CHAR
+  
+  
   
   rts             
   

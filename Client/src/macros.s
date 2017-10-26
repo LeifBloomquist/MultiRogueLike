@@ -14,6 +14,6 @@
 .endmacro
 
 .macro BORDER color
-  lda #color
-  sta $D020   
+;  lda #color
+;  sta $D020   
 .endmacro
