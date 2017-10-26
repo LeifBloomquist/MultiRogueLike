@@ -8,12 +8,11 @@ import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.ServerControlled;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class Spider extends ServerControlled
+public class Slime extends ServerControlled
 {  
-    /** Creates a new instance of the Spider */
-    public Spider(String name, Position startposition)
+    /** Creates a new instance of the Slime */
+    public Slime(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SPIDER, 700f);    
     }
 
     @Override

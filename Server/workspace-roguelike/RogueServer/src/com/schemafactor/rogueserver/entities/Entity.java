@@ -7,7 +7,7 @@ import com.schemafactor.rogueserver.universe.Dungeon;
 
 public abstract class Entity 
 {
-   public static enum entityTypes {NONE, HUMAN_PLAYER, NPC, SPIDER}
+   public static enum entityTypes {NONE, HUMAN_PLAYER, NPC, MONSTER}
    protected entityTypes myType = entityTypes.NONE;
 	   
    protected String description;

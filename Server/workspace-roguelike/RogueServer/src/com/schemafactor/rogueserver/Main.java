@@ -11,6 +11,7 @@ import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.entities.Skeleton;
+import com.schemafactor.rogueserver.entities.Slime;
 import com.schemafactor.rogueserver.entities.Spider;
 import com.schemafactor.rogueserver.network.UDPListener;
 import com.schemafactor.rogueserver.universe.Dungeon;
@@ -55,6 +56,7 @@ public class Main
         Dungeon.getInstance().addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
         Dungeon.getInstance().addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
         Dungeon.getInstance().addEntity( new Skeleton("Skeleton Pete", new Position(92,21,0)) );
+        Dungeon.getInstance().addEntity( new Slime("Slimey", new Position(9,9,0)) );
         
         /*
         for (int i=1; i<=Constants.ASTEROID_COUNT; i++)
