@@ -28,7 +28,7 @@ public class HumanPlayer extends Entity
    public HumanPlayer(DatagramPacket packet)
    {
        // Random starting positions on Level 0 for multiple players  TODO
-       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(5,5,0), entityTypes.HUMAN_PLAYER, Constants.CHAR_PLAYER_WIZARD);
+       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(5,5,0), entityTypes.HUMAN_PLAYER, Constants.CHAR_PLAYER_NONE);
 
        userIP = packet.getAddress();
        receiveUpdate(packet);

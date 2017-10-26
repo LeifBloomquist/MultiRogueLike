@@ -53,9 +53,19 @@ public class Constants
     public static final byte DIRECTION_DOWN    = 10;
     public static final byte DIRECTION_COUNT   = 11;
 
-    // Cell Types
-    public static final byte CHAR_PLAYER_WIZARD  =  (byte) 200;
-    public static final byte CHAR_MONSTER_SPIDER =  (byte) 101;    
+    // Player Character Codes
+    public static final byte CHAR_PLAYER_NONE      = (byte) 127;
+    
+    // Monster Character Codes
+    public static final byte CHAR_MONSTER_SPIDER   = (byte) 96;    
+    public static final byte CHAR_MONSTER_SKELETON = (byte) 97;
+    public static final byte CHAR_MONSTER_BAT      = (byte) 98;
+    public static final byte CHAR_MONSTER_DEMON    = (byte) 99;
+    public static final byte CHAR_MONSTER_GHOUL    = (byte) 100;
+    public static final byte CHAR_MONSTER_GHOST    = (byte) 101;
+    public static final byte CHAR_MONSTER_FROG     = (byte) 102;
+    public static final byte CHAR_MONSTER_SLIME    = (byte) 103;
+    public static final byte CHAR_MONSTER_ZOMBIE   = (byte) 104;
     
     // C64 colors
     public static final byte COLOR_BLACK      = 0;
