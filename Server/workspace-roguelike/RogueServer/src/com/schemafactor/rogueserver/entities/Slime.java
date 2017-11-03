@@ -68,4 +68,10 @@ public class Slime extends ServerControlled
         
         finishMove(moved);
     }
+    
+    @Override
+    public void updateNow()
+    {
+       ;        
+    }
 }

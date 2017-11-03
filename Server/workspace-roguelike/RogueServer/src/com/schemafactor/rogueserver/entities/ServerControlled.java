@@ -17,8 +17,7 @@ public abstract class ServerControlled extends Entity
     protected enum States {IDLE, WANDERING, CHASING, ATTACKING, RETREATING};
     protected States State = States.IDLE;
     
-    // Time in between moves.  May change based on state.
-    protected Instant lastAction = Instant.now();
+    // Time in between moves.  May change based on state.  
     float actionTime = 1000f;  // Milliseconds    
        
     /** Creates a new instance of Server Controlled */
@@ -27,27 +26,6 @@ public abstract class ServerControlled extends Entity
        super(name, startposition, type, charCode);  
        this.actionTime = actionTime;
     }
-    
-    protected void finishMove(boolean moved)
-    {
-        // If we moved, update any clients in area.
-        // TODO, future:  Set this as a flag, and update all at once at end of turn
-        if (moved)
-        {
-            lastAction = Instant.now();
-            
-            List<Entity> onscreen = Dungeon.getInstance().getEntitiesOnScreenCentered(this.position);
-            
-            for (Entity e : onscreen)
-            {
-                if (e.getType() == entityTypes.HUMAN_PLAYER)
-                {
-                    HumanPlayer hp = (HumanPlayer)e;
-                    hp.sendUpdate();
-                }
-            }            
-        }        
-    }   
     
     /*
     protected void navigateTo(Entity target, double visible_range, double target_attraction, double repelling, double avoidance_range, double avoiding)   

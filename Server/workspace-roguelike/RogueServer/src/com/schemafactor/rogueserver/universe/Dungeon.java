@@ -160,6 +160,84 @@ public class Dungeon
     		return null;
     	}
     }
+	
+	public Position getClosestEmptyCell(Position start, int depth)
+    {
+        // Easiest case - Starting cell
+        if (dungeonMapCells[start.x][start.y][start.z].canEnter())
+        {
+            return start;
+        }
+    
+        depth--;
+        if (depth <= 0)   // End of search depth reached
+        {
+            return null;
+        }
+    
+        // Recursively test all cells around
+        List<Position> neighbors = getNeighbors(start);
+    
+        for (Position pos : neighbors)
+        {
+            Position result = getClosestEmptyCell(pos, depth);
+    
+            if (result != null)
+            {
+                return result;
+            }
+        }
+
+        return null;
+    }
+
+    // Get neighbors on same level, also tests boundaries
+    private List<Position> getNeighbors(Position center)
+    {
+        List<Position> neighbors = new ArrayList<Position>();
+    
+        if ((center.y > 0) && (center.x > 0))
+        {
+            neighbors.add( new Position(center.x - 1, center.y-1, center.z) );
+        }
+    
+        if ((center.y > 0))
+        {
+            neighbors.add( new Position(center.x, center.y-1, center.z) );
+        }
+    
+        if ((center.y > 0) && (center.x < Constants.DUNGEON_SIZE))
+        {
+            neighbors.add( new Position(center.x+1, center.y-1, center.z) );
+        }
+    
+        if ((center.x > 0))
+        {
+            neighbors.add( new Position(center.x-1, center.y, center.z) );
+        }
+    
+        if ((center.x < Constants.DUNGEON_SIZE))
+        {
+            neighbors.add( new Position(center.x+1, center.y, center.z) );
+        }
+    
+        if ((center.y < Constants.DUNGEON_SIZE) && (center.x > 0))
+        {
+            neighbors.add( new Position(center.x-1, center.y+1, center.z) );
+        }
+    
+        if ((center.y < Constants.DUNGEON_SIZE))
+        {
+            neighbors.add( new Position(center.x, center.y+1, center.z) );
+        }
+    
+        if ((center.y < Constants.DUNGEON_SIZE) && (center.x < Constants.DUNGEON_SIZE))
+        {
+            neighbors.add( new Position(center.x+1, center.y+1, center.z) );
+        }
+    
+        return neighbors;
+    }
     
     private byte getCharCode(Position p)
     {

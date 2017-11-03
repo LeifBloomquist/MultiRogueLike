@@ -22,7 +22,7 @@ public class HumanPlayer extends Entity
    private boolean announceReceived = false;
    private Instant lastUpdateReceived = Instant.now();   // For timeouts
    private Instant lastUpdateSent = Instant.now();       // For periodic updates
-   private int lastActionCounter = -1; // Invalid
+   private int lastActionCounter = -1;                   // Invalid
   
    /** Creates a new instance of Human Player */
    public HumanPlayer(DatagramPacket packet)
@@ -85,6 +85,8 @@ public class HumanPlayer extends Entity
 
    private void handleAction(byte action, byte parameter1) 
    {
+       boolean moved = false;
+       
 	   switch (action)
 	   {
 	   	  case Constants.ACTION_HEARTBEAT:
@@ -92,7 +94,7 @@ public class HumanPlayer extends Entity
 	   		  break;
 	   		  
 	   	  case Constants.ACTION_MOVE:
-	   		  attemptMove(parameter1);
+	   		  moved = attemptMove(parameter1);
 	   		  break;
 	   		  
 	   		  /*
@@ -113,7 +115,10 @@ public class HumanPlayer extends Entity
 	   }	
 	   
 	   // Regardless of the outcome of the action, update the client
-	   sendUpdate();
+	   updateNow();
+	   
+	   // Update other entities in the area
+	   finishMove(moved);
    }
 
 @Override
@@ -121,9 +126,9 @@ public class HumanPlayer extends Entity
    { 
 	   Duration elapsed = Duration.between(lastUpdateSent, Instant.now());
        
-       if (elapsed.getSeconds() >= 1)  // Send an update every 1 second
+       if (elapsed.getSeconds() >= Constants.UPDATE_TIME)  // Send an update every 1 second
        {
-    	   sendUpdate();
+    	   updateNow();
        }
        
        // Increment and Timeout.  This is reset in receiveUpdate() above.     
@@ -147,7 +152,7 @@ public class HumanPlayer extends Entity
 	}
    
    // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second as above
-   public void sendUpdate()
+   public void updateNow()
    { 
        // Send data packet to the client              
        byte[] message = new byte[482];           // 1 + 441 + 40 = 482

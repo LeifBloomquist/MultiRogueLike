@@ -13,6 +13,7 @@ public class Constants
     public static final int DUNGEON_DEPTH     = 10;     // Levels
     
     public static final long NETWORK_TIMEOUT  = 100;    // Seconds
+    public static final long UPDATE_TIME      = 1;      // Seconds   
     
     // Screen constants
     public static final int SCREEN_WIDTH      = 21;
@@ -83,5 +84,5 @@ public class Constants
     public static final byte COLOR_GREY2      = 12;
     public static final byte COLOR_LIGHTGREEN = 13;
     public static final byte COLOR_LIGHTBLUE  = 14;
-    public static final byte COLOR_GREY3      = 15;
+    public static final byte COLOR_GREY3      = 15;   
 }

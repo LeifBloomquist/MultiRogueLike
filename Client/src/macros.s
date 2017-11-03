@@ -9,7 +9,7 @@
  
 
 .macro kippercall function_number
-  ldy function_number
+  ldy function_number       ; Should have #?
   jsr KPR_DISPATCH_VECTOR   
 .endmacro
 

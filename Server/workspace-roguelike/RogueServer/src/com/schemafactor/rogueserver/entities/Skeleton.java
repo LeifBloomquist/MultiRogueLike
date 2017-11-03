@@ -68,4 +68,10 @@ public class Skeleton extends ServerControlled
         
         finishMove(moved);
     }
+
+    @Override
+    public void updateNow()
+    {
+       ;        
+    }
 }

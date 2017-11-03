@@ -1,5 +1,8 @@
 package com.schemafactor.rogueserver.entities;
 
+import java.time.Instant;
+import java.util.List;
+
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.universe.Cell;
@@ -17,12 +20,14 @@ public abstract class Entity
    
    /** Flag that this entity is to be removed at the end of this update cycle.  true=remove */
    protected boolean removeMeFlag = false;
+   
+   protected Instant lastAction = Instant.now();         // Used by server-controlled entities
      
    /** Creates a new instance of Entity */
    public Entity(String description, Position startposition, entityTypes type, byte charCode)
    {
        this.description = new String(description);
-       this.position = startposition;
+       this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, 10);
        this.myType = type;
        this.charCode = charCode;
        
@@ -121,7 +126,8 @@ public abstract class Entity
        }    
    }
    
-   abstract public void update(); 
+   abstract public void update();       // Called on every game loop
+   abstract public void updateNow();    // Called from update(), or from other Entities to force an update
    
    /** Return X,Y positions */
    public int getXpos()
@@ -171,4 +177,23 @@ public abstract class Entity
 	{		
 		return myType;
 	}
+	
+	protected void finishMove(boolean moved)
+    {
+        // If we moved, update other entities in area.
+	    // TODO, future:  Set this as a flag, and update all at once at end of turn
+	    if (moved)
+	    {
+            lastAction = Instant.now();            
+            List<Entity> onscreen = Dungeon.getInstance().getEntitiesOnScreenCentered(this.position);
+            
+            // Don't update self
+            onscreen.remove(this);
+            
+            for (Entity e : onscreen)
+            {
+                e.updateNow();
+            }            
+        }        
+    }   
 }

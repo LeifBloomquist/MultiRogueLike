@@ -143,6 +143,8 @@ copy:
 ; -------------------------------------------------------------------------
 ; Fill in Color Data from Lookup Table
 
+  BORDER $01
+
   ldy #$00
   
 copy2:  

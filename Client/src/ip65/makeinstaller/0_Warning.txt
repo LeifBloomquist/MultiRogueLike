@@ -1,7 +1,0 @@
-
-PACKER DETECTION ALERT
-
-The anti-virus scanner has detected a packer program.  The file was not cleaned and has been removed.
-Context: 'MultiRogueLike.zip\MultiRogueLike\Client\src\ip65\makeinstaller\make-3.81.exe'
-Detection(s): 'InnoSFX.5.1.x (compressed file)'
-For further information, contact your system administrator. Copyright 1999-2014 McAfee, Inc.All Rights Reserved.http://www.mcafee.com

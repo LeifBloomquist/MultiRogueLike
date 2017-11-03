@@ -16,5 +16,11 @@ public class DummyEntity extends Entity
 	public void update() 
 	{	
 		;	
-	}    
+	}   
+	
+	@Override
+    public void updateNow()
+    {
+       ;        
+    }
 }

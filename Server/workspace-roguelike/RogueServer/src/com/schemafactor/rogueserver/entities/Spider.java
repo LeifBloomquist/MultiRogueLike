@@ -68,4 +68,10 @@ public class Spider extends ServerControlled
         
         finishMove(moved);
     }
+    
+    @Override
+    public void updateNow()
+    {
+       ;        
+    }
 }
