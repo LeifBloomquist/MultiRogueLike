@@ -68,8 +68,21 @@ screen_init:
   sta $d018
   
   
-  ; Draw the screen  
-  ; TODO
+  ; Draw the default screen  
+drawscreen:
+
+  ldx #$00     
+:
+  lda default_screen+$000,x
+  sta SCREEN_BASE+$000,x
+  lda default_screen+$100,x  
+  sta SCREEN_BASE+$100,x
+  lda default_screen+$200,x
+  sta SCREEN_BASE+$200,x
+  lda default_screen+$2E8,x
+  sta SCREEN_BASE+$2E8,x
+  inx
+  bne :-	
   
   ; Indication of network activity
   lda #$FF

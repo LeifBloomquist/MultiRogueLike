@@ -121,7 +121,7 @@ public class HumanPlayer extends Entity
 	   finishMove(moved);
    }
 
-@Override
+   @Override
    public void update()
    { 
 	   Duration elapsed = Duration.between(lastUpdateSent, Instant.now());
@@ -134,11 +134,10 @@ public class HumanPlayer extends Entity
        // Increment and Timeout.  This is reset in receiveUpdate() above.     
        checkTimeout();
    }
-   
-   
-	// Increment and check the timeout
-	private void checkTimeout()
-	{
+      
+   // Increment and check the timeout
+   private void checkTimeout()
+   {
 		Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
 	    
 	    if (elapsed.getSeconds() > Constants.NETWORK_TIMEOUT)
@@ -148,8 +147,8 @@ public class HumanPlayer extends Entity
 	            removeMe();
 	            JavaTools.printlnTime( "Player Timed Out: " + description );
 	        }             
-	    }      
-	}
+       }      
+   }
    
    // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second as above
    public void updateNow()
