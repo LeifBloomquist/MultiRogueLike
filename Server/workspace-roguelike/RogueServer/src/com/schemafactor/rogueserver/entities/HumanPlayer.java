@@ -97,6 +97,14 @@ public class HumanPlayer extends Entity
 	   		  moved = attemptMove(parameter1);
 	   		  break;
 	   		  
+	   	  case Constants.ACTION_PICKUP:
+	   	      moved = attemptPickup();
+	   	      break;
+	   	      
+	   	 case Constants.ACTION_DROP:
+             moved = attemptDrop();
+             break;
+	   		  
 	   		  /*
 	      public static final byte ACTION_USE        = 2;
 	      public static final byte ACTION_DIG        = 3;
@@ -104,8 +112,7 @@ public class HumanPlayer extends Entity
 	      public static final byte ACTION_EXAMINE    = 5;
 	      public static final byte ACTION_OPEN       = 6;
 	      public static final byte ACTION_CLOSE      = 7;
-	      public static final byte ACTION_CAST       = 8;
-	      public static final byte ACTION_PICKUP     = 9;
+	      public static final byte ACTION_CAST       = 8;	     
 	      public static final byte ACTION_DROP       = 10;
 	      */
 	   		  
@@ -121,7 +128,7 @@ public class HumanPlayer extends Entity
 	   finishMove(moved);
    }
 
-   @Override
+@Override
    public void update()
    { 
 	   Duration elapsed = Duration.between(lastUpdateSent, Instant.now());

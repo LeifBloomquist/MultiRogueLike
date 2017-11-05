@@ -14,6 +14,7 @@ import com.schemafactor.rogueserver.entities.DummyEntity;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.items.Item;
 
 public class Dungeon 
 {
@@ -104,7 +105,7 @@ public class Dungeon
         int index=0;
         Position temp_pos = new Position(topleft);
         
-        // 1.  Lowest Layer - Map
+        // 1.  Lowest Layer - Map   (or object in cell)
         
         for (int yy=0; yy < Constants.SCREEN_HEIGHT; yy++)
         {
@@ -116,10 +117,7 @@ public class Dungeon
             }
         }
         
-        // 2. Next layer - Objects
-        // TODO
-        
-        // 3.  Top layer - Entities
+        // 2.  Top layer - Entities
         
         List<Entity> onscreen = getEntitiesOnScreen(topleft);
         
@@ -243,10 +241,19 @@ public class Dungeon
     {
     	Cell c = getCell(p);
     	
+    	// Invalid position - return blank.
     	if (c == null)
     	{
     		return 0;
     	}
+    	
+        // Item in this cell - return its character code.   TODO could do this for Entities..
+    	if (c.getItem() != null)
+        {
+            return c.getItem().getCharCode();
+        }
+    	
+    	// Return the base character code.    	
     	return c.getCharCode();
     }
 
@@ -384,5 +391,10 @@ public class Dungeon
          {               
              JavaTools.printlnTime("EXCEPTION adding new entity " + who.getDescription() +": " + JavaTools.getStackTrace(ex) );
          }        	 
+    }
+    
+    public void addItem(Item i, Position p)
+    {
+        getCell(p).addItem(i);       
     }
 }

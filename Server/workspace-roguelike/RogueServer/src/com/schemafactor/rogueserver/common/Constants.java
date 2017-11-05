@@ -68,6 +68,9 @@ public class Constants
     public static final byte CHAR_MONSTER_SLIME    = (byte) 103;
     public static final byte CHAR_MONSTER_ZOMBIE   = (byte) 104;
     
+    // Item Character Codes
+    public static final byte CHAR_ITEM_SWORD       = (byte) 74;
+    
     // C64 colors
     public static final byte COLOR_BLACK      = 0;
     public static final byte COLOR_WHITE      = 1;

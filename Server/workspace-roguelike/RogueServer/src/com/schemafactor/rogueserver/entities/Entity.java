@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.items.Item;
 import com.schemafactor.rogueserver.universe.Cell;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
@@ -22,6 +23,8 @@ public abstract class Entity
    protected boolean removeMeFlag = false;
    
    protected Instant lastAction = Instant.now();         // Used by server-controlled entities
+   
+   Item item = null;  // Currently carried item
      
    /** Creates a new instance of Entity */
    public Entity(String description, Position startposition, entityTypes type, byte charCode)
@@ -124,6 +127,47 @@ public abstract class Entity
            //JavaTools.printlnTime("DEBUG: " + description + " was blocked moving to X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
            return false;
        }    
+   }
+   
+   protected boolean attemptPickup()
+   {
+       if (item != null)  // Already carrying something
+       {
+           return false;
+       }
+       
+      Cell current_cell = Dungeon.getInstance().getCell(this.position);      
+      item = current_cell.takeItem();   
+      
+      if (item != null) 
+      {
+          JavaTools.printlnTime("DEBUG: " + description + " picked up " + item.getDescription());
+          return true;
+      }
+      else  // Nothing picked up
+      {
+          JavaTools.printlnTime("DEBUG: " + description + " picked up nothing");
+          return true;
+      }
+   }
+   
+   protected boolean attemptDrop()
+   {
+       if (item == null)  // Not carrying anything
+       {
+           return false;
+       }
+       
+      Cell current_cell = Dungeon.getInstance().getCell(this.position);     
+      
+      boolean success = current_cell.addItem(item);  
+      
+      if (success)
+      {
+          item = null;   // No longer carrying the item
+      }
+      
+      return success;
    }
    
    abstract public void update();       // Called on every game loop

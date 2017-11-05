@@ -96,7 +96,7 @@ colortable:
     .byte COLOR_WHITE    ; 71	 	
     .byte COLOR_WHITE    ; 72	 	
     .byte COLOR_WHITE    ; 73	 	
-    .byte COLOR_WHITE    ; 74	 	
+    .byte COLOR_LIGHTBLUE; 74  Sword	 	
     .byte COLOR_WHITE    ; 75	 	
     .byte COLOR_WHITE    ; 76	 	
     .byte COLOR_WHITE    ; 77	 	

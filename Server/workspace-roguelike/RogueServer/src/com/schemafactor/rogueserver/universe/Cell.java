@@ -2,10 +2,13 @@ package com.schemafactor.rogueserver.universe;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.items.Item;
 
 public class Cell 
 {
     Entity entity = null;  // Which entity is in this cell, if any.  null if none.
+    Item item = null;
         
     private byte charCode = 0;   // Character code shown on client screen
     private byte charColor = Constants.COLOR_BLACK;   // Foreground color code shown to the client  (though will likely use a lookup table)    
@@ -47,5 +50,30 @@ public class Cell
     public void setEntity(Entity e)
     {
         this.entity = e;
+    }
+    
+    public boolean addItem(Item i)
+    {
+        if (item == null)  // Cell is empty
+        {
+            item = i;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public Item getItem()
+    {
+        return item;  
+    }
+    
+    public Item takeItem()
+    {
+        Item taken = this.item;
+        this.item = null;
+        return taken;
     }
 }
