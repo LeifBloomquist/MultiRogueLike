@@ -15,7 +15,16 @@ public class Cell
     
     public byte getCharCode() 
     {
-        return charCode;
+        // (TODO, could be Entity?)    
+        
+        if (item == null)  // Cell is empty
+        {
+            return charCode;
+        }
+        else
+        {
+            return item.getCharCode();
+        }        
     }
     
     public boolean canEnter() 

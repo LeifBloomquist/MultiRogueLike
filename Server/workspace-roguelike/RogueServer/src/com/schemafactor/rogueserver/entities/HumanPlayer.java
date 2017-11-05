@@ -161,18 +161,35 @@ public class HumanPlayer extends Entity
    public void updateNow()
    { 
        // Send data packet to the client              
-       byte[] message = new byte[482];           // 1 + 441 + 40 = 482
-       message[0] = Constants.PACKET_UPDATE;
+       byte[] buffer = new byte[500];       
+       buffer[0] = Constants.PACKET_UPDATE;
        
        int offset = 1;
               
        // Get the screen that is visible to this player
-       System.arraycopy( Dungeon.getInstance().getScreenCentered(position), 0, message, offset, Constants.SCREEN_SIZE );
+       System.arraycopy( Dungeon.getInstance().getScreenCentered(position), 0, buffer, offset, Constants.SCREEN_SIZE );
+       offset += Constants.SCREEN_SIZE;
        
-       // TODO, messages, etc.
+       // TODO 40 bytes - On screen messages
+       byte[] message = new byte[Constants.MESSAGE_LENGTH];
+       System.arraycopy( message, 0, buffer, offset, Constants.MESSAGE_LENGTH );
+       offset += Constants.MESSAGE_LENGTH;
+       
+       // Item underneath current position
+       buffer[offset++] = Dungeon.getInstance().getCell(position).getCharCode();
+       
+       // Item currently held
+       if (item != null)
+       {
+           buffer[offset++] = item.getCharCode();
+       }
+       else
+       {
+           buffer[offset++] = 0;
+       }
        
        // Send the packet.
-       sendUpdatePacket(message);
+       sendUpdatePacket(buffer);
        lastUpdateSent = Instant.now();
        
        return;

@@ -30,6 +30,9 @@ KEYSTART:
    cmp #88		;x - south
    beq south
    
+   cmp #83		;s - south (duplicate control)
+   beq south
+   
    cmp #43      ;+ Pick up
    beq pickup
    

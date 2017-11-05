@@ -19,6 +19,7 @@ public class Constants
     public static final int SCREEN_WIDTH      = 21;
     public static final int SCREEN_HEIGHT     = 17;
     public static final int SCREEN_SIZE       = SCREEN_WIDTH*SCREEN_HEIGHT;
+    public static final int MESSAGE_LENGTH    = 40;
     
     // Packet types
     public static final byte CLIENT_ANNOUNCE  = 1;

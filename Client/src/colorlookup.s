@@ -24,7 +24,7 @@ COLOR_GREY3      = 15
 colortable:
     .byte COLOR_BLACK    ; 0    Empty Space
     .byte COLOR_GREY2    ; 1    Brick Wall	
-    .byte COLOR_WHITE    ; 2	 	
+    .byte COLOR_GREY1    ; 2	Dirt 	
     .byte COLOR_WHITE    ; 3	 	
     .byte COLOR_WHITE    ; 4	 	
     .byte COLOR_WHITE    ; 5	 	

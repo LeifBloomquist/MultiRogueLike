@@ -8,6 +8,12 @@ CHAR_BASE   = $4000
 SCREEN_BASE = $4800
 COLOR_BASE  = $D800
 
+CELL_CHAR   = SCREEN_BASE + $0097
+CELL_COLOR  = COLOR_BASE  + $0097
+
+LEFT_CHAR   = SCREEN_BASE + $00E7
+LEFT_COLOR  = COLOR_BASE  + $00E7
+
 COMMS_CHAR  = SCREEN_BASE + $03E7
 COMMS_COLOR = COLOR_BASE  + $03E7
 
@@ -235,8 +241,22 @@ copy2:
   beq copy_x
   jmp copy2
 
-
 copy_x:  
+
+  ; TODO - message at udp_inp_data+358  
+
+  ; Current Cell
+  ldx udp_inp_data+398
+  stx CELL_CHAR
+  lda colortable,x
+  sta CELL_COLOR
+
+  ; Held
+  ldx udp_inp_data+399
+  stx LEFT_CHAR
+  lda colortable,x
+  sta LEFT_COLOR
+
   rts
 
 ;c64 c/g Constants 

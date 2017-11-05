@@ -247,13 +247,7 @@ public class Dungeon
     		return 0;
     	}
     	
-        // Item in this cell - return its character code.   TODO could do this for Entities..
-    	if (c.getItem() != null)
-        {
-            return c.getItem().getCharCode();
-        }
-    	
-    	// Return the base character code.    	
+    	// Return the character code, could be cell base code or item code  (TODO, could be Entity?) 	
     	return c.getCharCode();
     }
 
