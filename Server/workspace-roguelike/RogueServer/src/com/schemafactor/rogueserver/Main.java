@@ -14,6 +14,7 @@ import com.schemafactor.rogueserver.entities.Skeleton;
 import com.schemafactor.rogueserver.entities.Slime;
 import com.schemafactor.rogueserver.entities.Spider;
 import com.schemafactor.rogueserver.items.Sword;
+import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.UDPListener;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
@@ -80,11 +81,16 @@ public class Main
         JavaTools.printlnTime("Creating update scheduler...");
         UpdaterThread ut = new UpdaterThread();        
         ScheduledThreadPoolExecutor s = new ScheduledThreadPoolExecutor(1);
-        s.scheduleAtFixedRate(ut, 0, Constants.TICK_TIME, TimeUnit.MILLISECONDS );      
+        s.scheduleAtFixedRate(ut, 0, Constants.TICK_TIME, TimeUnit.MILLISECONDS );
+        
+        // Instantiate a TCP listener, runs in background thread
+        JavaTools.printlnTime("Creating TCP listener...");
+        TCPListener tcp = new TCPListener();
+        tcp.start(Constants.LISTEN_PORT);
         
         // Instantiate a UDP listener, and let it take over.
         JavaTools.printlnTime("Creating UDP listener...");
         UDPListener udp = new UDPListener();
-        udp.start(3006);
+        udp.start(Constants.LISTEN_PORT);
     }
 }

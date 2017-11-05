@@ -35,12 +35,12 @@ public class UDPListener
     
     public void start(int port)
     {
+        Thread.currentThread().setName("Rogue UDP Listener Thread (Main Thread)");
+        
         while (true)   // Always loop and try to recover in case of exceptions
         {  
             try
-            {
-                Thread.currentThread().setName("Rogue UDP Listener Thread");
-                
+            {   
                 byte[] buf = new byte[50];
                 
                 @SuppressWarnings("resource")
@@ -48,7 +48,7 @@ public class UDPListener
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
                     
                 JavaTools.printlnTime( "Server address: " + InetAddress.getLocalHost() );
-                JavaTools.printlnTime( "Waiting for packets on port " + port );
+                JavaTools.printlnTime( "UDP server is waiting for packets on port " + port );
                 
                 /* Loop Forever, waiting for packets. */      
                 while (true) 
