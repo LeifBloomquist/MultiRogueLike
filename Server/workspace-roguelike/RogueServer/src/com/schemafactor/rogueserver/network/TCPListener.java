@@ -102,6 +102,7 @@ public class TCPListener extends Thread
         private Socket clientSocket;
         private BufferedReader input;
         private PrintWriter output;
+        HumanPlayer who = null;
 
         public ClientThread(Socket socket) throws IOException 
         {
@@ -148,7 +149,7 @@ public class TCPListener extends Thread
             Dungeon dungeon = Dungeon.getInstance();  
             
             sendCharacters("\u001B[2J\u001B[H");
-            sendString("Connected to the Rogue Test Server\n");
+            sendString("Connected to the Rogue Test Server");
             
             // TODO Move all this to dedicated functions
             try 
@@ -157,18 +158,20 @@ public class TCPListener extends Thread
                 while(true) 
                 {
                     // Wait for Login              
+                    sendString("");
                     sendCharacters("Login: ");                    
-                    String login = input.readLine();                    
-                    login = JavaTools.Sanitize(login);                    
+                    String login = input.readLine();
                     
                     if (login == null)
                     {
-                        JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated." );
+                        JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated at login." );
                         close();
                         return;
                     }
                     
-                    if (login == "")
+                    login = JavaTools.Sanitize(login);       
+                    
+                    if (login.equals(""))
                     {
                         continue;
                     }
@@ -176,17 +179,31 @@ public class TCPListener extends Thread
                     sendString(login);
                     
                     // Create a player
-                    // No match, create new user and add to list
                     JavaTools.printlnTime( "Creating player " + login + " from " + clientSocket.getRemoteSocketAddress().toString() + " [TCP]" );
-                    HumanPlayer who = new HumanPlayerTCP(login, output);        
+                    who = new HumanPlayerTCP(login, output);        
                     dungeon.addEntity(who);
                     break;   // To next loop
                 }
                 
-                // Game Loop.  Updates occur in background.
+                // Game Loop.  Updates occur in background thread controlled by Dungeon.
                 while (true)
                 {
-                    char c = (char)input.read();
+                    int ic = input.read();
+                    
+                    if (ic < 0)
+                    {
+                        JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated waiting for input." );
+                        
+                        if (who != null)
+                        {
+                            who.removeMe();
+                        }                        
+                        close();
+                        return;
+                    }
+                    
+                    char c = (char)ic;
+                    
                     sendString("Received: " + c);
                 }              
             } 

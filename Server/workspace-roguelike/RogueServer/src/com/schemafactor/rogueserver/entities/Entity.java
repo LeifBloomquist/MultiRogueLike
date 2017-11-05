@@ -200,7 +200,7 @@ public abstract class Entity
        return Math.sqrt( Math.pow((this.getXpos() - target.getXpos()), 2) + Math.pow((this.getYpos() - target.getYpos()), 2)); 
    }
 
-    protected void removeMe() 
+    public void removeMe() 
     {   
         // Clear cell this entity is removed from
         Dungeon.getInstance().getCell(position).setEntity(null);
