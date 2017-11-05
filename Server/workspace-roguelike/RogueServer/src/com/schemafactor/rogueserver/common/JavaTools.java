@@ -493,4 +493,10 @@ public abstract class JavaTools
 	  }
 	  return "#" + hexColour.toUpperCase();
 	}
+
+    public static String Sanitize(String subjectString)
+    {
+        String resultString = subjectString.replaceAll("[^\\x21-\\x7E]", "");
+        return resultString;
+    }
 }

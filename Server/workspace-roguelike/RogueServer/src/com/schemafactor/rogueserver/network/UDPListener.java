@@ -20,6 +20,7 @@ import java.util.List;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.HumanPlayer;
+import com.schemafactor.rogueserver.entities.HumanPlayerUDP;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 /**
@@ -94,7 +95,7 @@ public class UDPListener
         
         for (Entity e : humans)
         {   
-        	HumanPlayer hp = (HumanPlayer)e;
+        	HumanPlayerUDP hp = (HumanPlayerUDP)e;
         	
             if ( hp.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable, HashSet etc.
             {
@@ -104,8 +105,8 @@ public class UDPListener
         }
         
         // No match, create new user and add to list
-        JavaTools.printlnTime( "Creating player from " + JavaTools.packetAddress(packet) );
-        HumanPlayer who = new HumanPlayer(packet);        
+        JavaTools.printlnTime( "Creating player from " + JavaTools.packetAddress(packet) + " [UDP]");
+        HumanPlayer who = new HumanPlayerUDP(packet);        
         dungeon.addEntity(who);
         
         return;  

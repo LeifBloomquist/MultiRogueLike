@@ -14,6 +14,8 @@ READKEYBOARD:
 :
   rts
   
+  // http://sta.c64.org/cbm64pet.html
+  
 KEYSTART:
    jsr $FFE4    
    beq :-    ; No key pressed, return
