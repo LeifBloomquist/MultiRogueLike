@@ -161,7 +161,7 @@ public class HumanPlayerTCP extends HumanPlayer
        char bordercell = ExtendedAscii.getAscii(219);
        char[] chars = new char[width];
        Arrays.fill(chars, bordercell);
-       String border = new String(chars);
+       String border = new String(chars) + "\r\n";
        
        // Get the screen that is visible to this player
        byte[] visible = Dungeon.getInstance().getScreenCentered(position);              
@@ -178,7 +178,7 @@ public class HumanPlayerTCP extends HumanPlayer
        String screen = Constants.ANSI_CLEAR;
        
        // TODO On screen messages
-       screen += "Rogue Server Update " + new Date().toString() + "\n";       
+       screen += "Rogue Server Update " + new Date().toString() + "\r\n";       
        screen += border;
        
        for (int row=0; row < Constants.SCREEN_HEIGHT; row++)
@@ -192,27 +192,27 @@ public class HumanPlayerTCP extends HumanPlayer
                break;
                
                case 2:
-                   screen += "I See: " + PETSCII.toExtendedASCII( Dungeon.getInstance().getCell(position).getCharCode() );
+                   screen += " I See: " + PETSCII.toExtendedASCII( Dungeon.getInstance().getCell(position).getCharCode() );
                break;
                    
                case 4:
-                   screen += "Left:  " + held;
+                   screen += " Left:  " + held;
                break;
                    
                case 5:
-                   screen += "Right: x";
+                   screen += " Right: x";
                break;
                
            }
            
-           screen += "\n";
+           screen += "\r\n";
        }
        
        screen += border;       
-       screen += "\n";    
+       screen += "\r\n";    
        
        // TODO Chat messages
-       screen += "...\n";
+       screen += "...\r\n";
        
        // TODO network activity char
      

@@ -1,14 +1,14 @@
 package com.schemafactor.rogueserver.network;
 
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.HumanPlayer;
+import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.entities.HumanPlayerTCP;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
@@ -102,7 +102,7 @@ public class TCPListener extends Thread
         private Socket clientSocket;
         private BufferedReader input;
         private PrintWriter output;
-        HumanPlayer who = null;
+        HumanPlayerTCP who = null;
 
         public ClientThread(Socket socket) throws IOException 
         {
@@ -110,7 +110,8 @@ public class TCPListener extends Thread
             
             this.clientSocket = socket;
             input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            output = new PrintWriter(clientSocket.getOutputStream(),true);
+            //output = new PrintWriter(clientSocket.getOutputStream(),true);
+            output = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8), true);            
             start();
         }
 
@@ -140,7 +141,6 @@ public class TCPListener extends Thread
                 JavaTools.printlnTime(e.getMessage());
             }
         }
-
         
         public void run() 
         {
@@ -148,7 +148,7 @@ public class TCPListener extends Thread
             
             Dungeon dungeon = Dungeon.getInstance();  
             
-            sendCharacters("\u001B[2J\u001B[H");
+            sendCharacters(Constants.ANSI_CLEAR);
             sendString("Connected to the Rogue Test Server");
             
             // TODO Move all this to dedicated functions
@@ -204,7 +204,9 @@ public class TCPListener extends Thread
                     
                     char c = (char)ic;
                     
-                    sendString("Received: " + c);
+                    JavaTools.printlnTime("Received: " + c + " | " + (int)c);  // DEBUG
+                    
+                    who.receiveUpdate(null);  // TODO, character received                    
                 }              
             } 
             catch (IOException e) 

@@ -95,12 +95,19 @@ public class UDPListener
         
         for (Entity e : humans)
         {   
-        	HumanPlayerUDP hp = (HumanPlayerUDP)e;
-        	
-            if ( hp.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable, HashSet etc.
+            try
             {
-                hp.receiveUpdate(packet);
-                return;
+                HumanPlayerUDP hp = (HumanPlayerUDP)e;
+                
+                if ( hp.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable, HashSet etc.
+                {
+                    hp.receiveUpdate(packet);
+                    return;
+                }
+            }
+            catch (Exception ex)  // Fail silently on cast exceptions.  TODO, messy
+            {
+                ;
             }
         }
         

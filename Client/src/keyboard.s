@@ -14,7 +14,7 @@ READKEYBOARD:
 :
   rts
   
-  // http://sta.c64.org/cbm64pet.html
+  ; http://sta.c64.org/cbm64pet.html
   
 KEYSTART:
    jsr $FFE4    
