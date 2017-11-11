@@ -42,7 +42,7 @@ public class PETSCII
            INV, // 31      
            INV, // 32      
            INV, // 33      
-           INV, // 34   Thick B
+           177, // 34   Thick Brick Wall
            INV, // 35      
            INV, // 36      
            INV, // 37      
@@ -82,7 +82,7 @@ public class PETSCII
            INV, // 71      
            INV, // 72      
            INV, // 73      
-           INV, // 74  Sword    
+           197, // 74  Sword    
            INV, // 75      
            INV, // 76      
            INV, // 77      
@@ -104,15 +104,15 @@ public class PETSCII
            INV,      // 93      
            INV,      // 94      
            INV,      // 95      
-           INV,      // 96      Sp
-           INV,      // 97      Sk
-           INV,      // 98      Ba
+           210,      // 96      Spider
+           237,      // 97      Skeleton
+           94,       // 98      Bat ^
            INV,      // 99      
            INV,      // 100     
            INV,      // 101     
            INV,      // 102     
-           INV,      // 103      Sli
-           INV,      // ; 104    Zom
+           239,      // 103     Slime
+           232,      // 104     Zombie
            INV,      // 105     
            INV,      // 106     
            INV,      // 107     
@@ -135,7 +135,7 @@ public class PETSCII
            INV,      // 124     
            INV,      // 125     
            INV,      // 126     
-           INV,      // 127     Ge
+           64,       // 127     Generic Player @
            INV,      // 128     
            INV,      // 129     
            INV,      // 130     
