@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -446,39 +447,7 @@ public abstract class JavaTools
         }
      
     }
-
-    public static String fromPETSCII(byte[] petscii)
-    { 
-        String out = "";
-        
-        for (byte b : petscii)
-        {
-             int i = (int)(b & 0xFF);             
-             
-             // Numbers
-             if ((i>=48) && (i<=57))
-             {
-                 out += new String(new byte[] {b}, StandardCharsets.US_ASCII); // Pass-Thru
-             }
-             
-             // Lowercase
-             if ((i>=65) && (i<=90))
-             {
-                 out += new String(new byte[] {(byte) (b+32)}, StandardCharsets.US_ASCII);  // Add 32
-             }
-             
-             // Uppercase
-             if ((i>=193) && (i<=218))
-             {
-                 out += new String(new byte[] {(byte) (b-128)}, StandardCharsets.US_ASCII);  // Subtract 128
-             } 
-             
-             // Ignore anything else
-        }
-        
-        return out;
-    }
-    
+   
     public static String packetAddress(DatagramPacket packet)
     {
         return packet.getAddress().toString().substring(1);
@@ -498,5 +467,24 @@ public abstract class JavaTools
     {
         String resultString = subjectString.replaceAll("[^\\x21-\\x7E]", "");
         return resultString;
+    }
+    
+    public static byte[][] splitBytes(final byte[] data, final int chunkSize)
+    {
+      final int length = data.length;
+      final byte[][] dest = new byte[(length + chunkSize - 1)/chunkSize][];
+      int destIndex = 0;
+      int stopIndex = 0;
+
+      for (int startIndex = 0; startIndex + chunkSize <= length; startIndex += chunkSize)
+      {
+        stopIndex += chunkSize;
+        dest[destIndex++] = Arrays.copyOfRange(data, startIndex, stopIndex);
+      }
+
+      if (stopIndex < length)
+        dest[destIndex] = Arrays.copyOfRange(data, stopIndex, length);
+
+      return dest;
     }
 }

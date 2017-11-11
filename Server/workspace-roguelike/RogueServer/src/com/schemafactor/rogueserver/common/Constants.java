@@ -90,5 +90,12 @@ public class Constants
     public static final byte COLOR_GREY2      = 12;
     public static final byte COLOR_LIGHTGREEN = 13;
     public static final byte COLOR_LIGHTBLUE  = 14;
-    public static final byte COLOR_GREY3      = 15;   
+    public static final byte COLOR_GREY3      = 15;
+    
+    // ANSI Codes    
+    // http://www.termsys.demon.co.uk/vtansi.htm
+    public static final char   ANSI_ESC       = (char) 27;
+    public static final String ANSI_HOME      = ANSI_ESC  + "[2H";
+    public static final String ANSI_CLEAR     = ANSI_HOME + "[2J";
+    
 }

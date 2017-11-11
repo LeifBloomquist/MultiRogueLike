@@ -1,15 +1,16 @@
 package com.schemafactor.rogueserver.entities;
 
 import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Date;
 
 import com.schemafactor.rogueserver.common.Constants;
+import com.schemafactor.rogueserver.common.ExtendedAscii;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class HumanPlayerTCP extends HumanPlayer
@@ -155,11 +156,66 @@ public class HumanPlayerTCP extends HumanPlayer
    
    // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second as above
    public void updateNow()
-   { 
-       // http://www.termsys.demon.co.uk/vtansi.htm
-           
-       String screen = "Theoretical screen update here\n\r";
+   {        
+       int width = Constants.SCREEN_WIDTH + 2;
+       char bordercell = ExtendedAscii.getAscii(219);
+       char[] chars = new char[width];
+       Arrays.fill(chars, bordercell);
+       String border = new String(chars);
        
+       // Get the screen that is visible to this player
+       byte[] visible = Dungeon.getInstance().getScreenCentered(position);              
+       byte[][] rows = JavaTools.splitBytes(visible, Constants.SCREEN_WIDTH);
+             
+       // Item currently held
+       char held = 32;  // Blank       
+      
+       if (item != null)
+       {
+           held = PETSCII.toExtendedASCII( item.getCharCode() );
+       }
+       
+       String screen = Constants.ANSI_CLEAR;
+       
+       // TODO On screen messages
+       screen += "Rogue Server Update " + new Date().toString() + "\n";       
+       screen += border;
+       
+       for (int row=0; row < Constants.SCREEN_HEIGHT; row++)
+       {
+           screen += bordercell + PETSCII.toExtendedASCII(rows[row]) + bordercell;
+           
+           switch (row)
+           {
+               case 0: 
+                   screen += " " + description;
+               break;
+               
+               case 2:
+                   screen += "I See: " + PETSCII.toExtendedASCII( Dungeon.getInstance().getCell(position).getCharCode() );
+               break;
+                   
+               case 4:
+                   screen += "Left:  " + held;
+               break;
+                   
+               case 5:
+                   screen += "Right: x";
+               break;
+               
+           }
+           
+           screen += "\n";
+       }
+       
+       screen += border;       
+       screen += "\n";    
+       
+       // TODO Chat messages
+       screen += "...\n";
+       
+       // TODO network activity char
+     
        // Send the packet.
        sendUpdatePacket(screen);
        lastUpdateSent = Instant.now();
