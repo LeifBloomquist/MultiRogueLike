@@ -14,7 +14,7 @@ public class Constants
     
     // Network Constants
     public static final int LISTEN_PORT       = 3006;   // UDP and TCP
-    public static final long NETWORK_TIMEOUT  = 100;    // Seconds
+    public static final long NETWORK_TIMEOUT  = 1000;   // Seconds
     public static final long UPDATE_TIME      = 1;      // Seconds   
     
     // Screen constants

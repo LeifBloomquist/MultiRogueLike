@@ -18,6 +18,16 @@ public class TCPListener extends Thread
     private ServerSocket serverSocket;
     private List<ClientThread> clientThreads = new ArrayList<ClientThread>();
     
+    
+    // Force remote Telnet client to not use linemode (i.e. character mode), and to echo.
+    private final byte[] telnet_params = 
+        { (byte) 255,      // NVT_IAC
+          (byte) 34,       // linemode
+          (byte) 255,      // NVT_IAC
+          (byte) 254,      // NVT_DONT
+          (byte) 1         // echo
+        };
+    
     public void start(int port) 
     {
         this.port = port;
@@ -103,6 +113,7 @@ public class TCPListener extends Thread
         private BufferedReader input;
         private PrintWriter output;
         HumanPlayerTCP who = null;
+        private OutputStream output_stream;
 
         public ClientThread(Socket socket) throws IOException 
         {
@@ -110,11 +121,24 @@ public class TCPListener extends Thread
             
             this.clientSocket = socket;
             input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            //output = new PrintWriter(clientSocket.getOutputStream(),true);
-            output = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8), true);            
+            output_stream = clientSocket.getOutputStream();
+            output = new PrintWriter(new OutputStreamWriter(output_stream, StandardCharsets.UTF_8), true);
             start();
         }
 
+        public void sendCharacters(byte[] bytes) 
+        {
+            try
+            {
+                output_stream.write(bytes);
+                output.flush();
+            } 
+            catch (IOException e)
+            {                
+                JavaTools.printlnTime( "EXCEPTION writing to TCP stream:  " + e.getMessage() );
+            }           
+        }
+        
         public void sendCharacters(String chars) 
         {
             output.print(chars);
@@ -148,6 +172,7 @@ public class TCPListener extends Thread
             
             Dungeon dungeon = Dungeon.getInstance();  
             
+            sendCharacters(telnet_params);            
             sendCharacters(Constants.ANSI_CLEAR);
             sendString("Connected to the Rogue Test Server");
             
@@ -212,7 +237,7 @@ public class TCPListener extends Thread
                         }
                     }
                                     
-                    JavaTools.printlnTime("Received: " + (char)ic + " | " + ic);  // DEBUG                    
+                    JavaTools.printlnTime("Received: " + (char)ic + " | " + ic + " from " + who.getDescription());  // DEBUG                    
                     who.receiveUpdate(ic);             
                 }              
             } 

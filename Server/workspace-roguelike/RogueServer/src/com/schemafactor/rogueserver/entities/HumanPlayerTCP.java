@@ -110,7 +110,7 @@ public class HumanPlayerTCP extends HumanPlayer
        // Item currently seen
        char seen = PETSCII.getExtendedASCII( Dungeon.getInstance().getCell(position).getCharCode() );
        
-       String screen = Constants.ANSI_CLEAR + ":";
+       String screen = Constants.ANSI_CLEAR;
        
        /*
        for (int i=0; i<=255; i++)
