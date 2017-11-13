@@ -95,7 +95,7 @@ public class Constants
     // ANSI Codes    
     // http://www.termsys.demon.co.uk/vtansi.htm
     public static final char   ANSI_ESC       = (char) 27;
-    public static final String ANSI_HOME      = ANSI_ESC + "[2H";
+    public static final String ANSI_HOME      = ANSI_ESC + "[H";
     public static final String ANSI_CLEAR     = ANSI_ESC + "[2J" + ANSI_HOME;
     
 }
