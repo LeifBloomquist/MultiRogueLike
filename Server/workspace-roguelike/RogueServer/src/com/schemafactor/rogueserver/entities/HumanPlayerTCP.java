@@ -36,125 +36,57 @@ public class HumanPlayerTCP extends HumanPlayer
    }
 
    /** Update me with new data from client */
-   public void receiveUpdate(byte[] data)
-   {
-       /*
-       byte[] data = Arrays.copyOf(packet.getData(), packet.getLength());    
-       
-       switch (data[0])   // Packet type
+   public void receiveUpdate(int inputchar)
+   {   
+       switch (inputchar)   // Packet type
        {
-           case Constants.CLIENT_ANNOUNCE:
-           {
-               description = JavaTools.fromPETSCII(Arrays.copyOfRange(data, 2, data.length)) + " [" + JavaTools.packetAddress(packet) + "]";
-               
-               if (!announceReceived)
-               {
-                   JavaTools.printlnTime( "Player Joined: " + description );                   
-               }
-               
-               announceReceived = true;
-           }
-           break;
+           case 'q':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NW);
+               break;
            
-           case Constants.CLIENT_UPDATE:
-           {             
-               int actioncounter=data[1];              
-               if (lastActionCounter == actioncounter) // Duplicate?
-               {
-                  return;
-               }
+           case 'w':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NORTH);
+               break;
                
-               lastActionCounter = actioncounter;              
-               handleAction(data[2], data[3]);              
-           }
-           break;
+           case 'e':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NE);
+               break;
+               
+           case 'a':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_WEST);
+               break;
+               
+           case 's':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
+               break;
+               
+           case 'd':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_EAST);
+               break;
+               
+           case 'z':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SW);
+               break;
+               
+           case 'x':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
+               break;
+               
+           case 'c':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SE);
+               break;
            
            default:
-           {
-               JavaTools.printlnTime("Bad packet type " + data[0] + " from " + description);
+               JavaTools.printlnTime("Invalid command " + inputchar + " from " + description);
                return;
-           }
        }
-       */
        
        lastUpdateReceived = Instant.now();
    }
 
-   private void handleAction(byte action, byte parameter1) 
-   {
-       boolean moved = false;
-       
-       switch (action)
-       {
-          case Constants.ACTION_HEARTBEAT:
-              JavaTools.printlnTime("DEBUG: heartbeat received from " + description);
-              break;
-              
-          case Constants.ACTION_MOVE:
-              moved = attemptMove(parameter1);
-              break;
-              
-          case Constants.ACTION_PICKUP:
-              moved = attemptPickup();
-              break;
-              
-         case Constants.ACTION_DROP:
-             moved = attemptDrop();
-             break;
-              
-              /*
-          public static final byte ACTION_USE        = 2;
-          public static final byte ACTION_DIG        = 3;
-          public static final byte ACTION_ATTACK     = 4;
-          public static final byte ACTION_EXAMINE    = 5;
-          public static final byte ACTION_OPEN       = 6;
-          public static final byte ACTION_CLOSE      = 7;
-          public static final byte ACTION_CAST       = 8;        
-          public static final byte ACTION_DROP       = 10;
-          */
-              
-          default:
-             JavaTools.printlnTime("Unknown action code " + action + " from " + description);
-             break;  
-       }    
-       
-       // Regardless of the outcome of the action, update the client
-       updateNow();
-       
-       // Update other entities in the area
-       finishMove(moved);
-   }
-
-@Override
-   public void update()
-   { 
-       Duration elapsed = Duration.between(lastUpdateSent, Instant.now());
-       
-       if (elapsed.getSeconds() >= Constants.UPDATE_TIME)  // Send an update every 1 second
-       {
-           updateNow();
-       }
-       
-       // Increment and Timeout.  This is reset in receiveUpdate() above.     
-       checkTimeout();
-   }
-      
-   // Increment and check the timeout
-   private void checkTimeout()
-   {
-        Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
-        
-        if (elapsed.getSeconds() > Constants.NETWORK_TIMEOUT)
-        {           
-            if (!removeMeFlag)
-            {
-                removeMe();
-                JavaTools.printlnTime( "Player Timed Out: " + description );
-            }             
-       }      
-   }
-   
+  
    // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second as above
+   @Override
    public void updateNow()
    {        
        int width = Constants.SCREEN_WIDTH + 2;
@@ -172,10 +104,21 @@ public class HumanPlayerTCP extends HumanPlayer
       
        if (item != null)
        {
-           held = PETSCII.toExtendedASCII( item.getCharCode() );
+           held = PETSCII.getExtendedASCII( item.getCharCode() );
        }
        
-       String screen = Constants.ANSI_CLEAR;
+       // Item currently seen
+       char seen = PETSCII.getExtendedASCII( Dungeon.getInstance().getCell(position).getCharCode() );
+       
+       String screen = Constants.ANSI_CLEAR + ":";
+       
+       /*
+       for (int i=0; i<=255; i++)
+       {
+           screen += "i="+i +"\t" + ExtendedAscii.getAscii(i);
+       }
+       */
+       
        
        // TODO On screen messages
        screen += "Rogue Server Update " + new Date().toString() + "\r\n";       
@@ -192,7 +135,7 @@ public class HumanPlayerTCP extends HumanPlayer
                break;
                
                case 2:
-                   screen += " I See: " + PETSCII.toExtendedASCII( Dungeon.getInstance().getCell(position).getCharCode() );
+                   screen += " I See: " + seen;
                break;
                    
                case 4:
@@ -201,8 +144,7 @@ public class HumanPlayerTCP extends HumanPlayer
                    
                case 5:
                    screen += " Right: x";
-               break;
-               
+               break;               
            }
            
            screen += "\r\n";
@@ -234,7 +176,5 @@ public class HumanPlayerTCP extends HumanPlayer
        {
            JavaTools.printlnTime("EXCEPTION sending update: " + JavaTools.getStackTrace(e));
        }
-   }  
-   
-   
+   }    
 }

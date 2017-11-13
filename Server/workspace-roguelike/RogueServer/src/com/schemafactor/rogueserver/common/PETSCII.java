@@ -2,6 +2,8 @@ package com.schemafactor.rogueserver.common;
 
 import java.nio.charset.StandardCharsets;
 
+import com.schemafactor.rogueserver.universe.Dungeon;
+
 public class PETSCII
 {  
     private static int INV = 129;  // Invalid entry, used for no match (change it here)
@@ -298,13 +300,13 @@ public class PETSCII
         return out;
     }
     
-    public static String toExtendedASCII(byte[] petscii)
+    public static String toExtendedASCII(byte[] petscii_charcodes)
     { 
-        byte[] out = new byte[petscii.length];
+        char[] out = new char[petscii_charcodes.length];
         
-        for (int i=0; i < petscii.length; i++)
+        for (int i=0; i < petscii_charcodes.length; i++)
         {
-            out[i] = (byte) ascii_lookup[ExtendedAscii.getAscii(petscii[i])];             
+            out[i] = (char) getExtendedASCII(petscii_charcodes[i]);             
         }
         
         String outs = new String(out);
@@ -312,8 +314,20 @@ public class PETSCII
         return outs;
     }
     
-    public static char toExtendedASCII(byte petscii)
+    public static char toExtendedASCII(int ascii_code)
     { 
-       return (char) ascii_lookup[ExtendedAscii.getAscii(petscii)];             
-    }    
+       return (char) ExtendedAscii.getAscii(ascii_code);             
+    } 
+    
+    public static int ASCIILookup(int petscii)
+    { 
+        return ascii_lookup[petscii];
+    }     
+    
+    public static char getExtendedASCII(int petscii_charcode)
+    {    
+        int lookup = PETSCII.ASCIILookup(petscii_charcode);
+        char converted = PETSCII.toExtendedASCII(lookup);
+        return converted;
+    }
 }

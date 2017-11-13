@@ -26,8 +26,7 @@ public abstract class HumanPlayer extends Entity
    
    public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
    {
-       super(description, startposition, type, charCode);
-     
+       super(description, startposition, type, charCode);     
    }
    
    /** Return the InetAddress, for comparisons */
@@ -35,6 +34,52 @@ public abstract class HumanPlayer extends Entity
    {
        return userIP;
    }
+   
+   protected void handleAction(byte action, byte parameter1) 
+   {
+       boolean moved = false;
+       
+       switch (action)
+       {
+          case Constants.ACTION_HEARTBEAT:
+              JavaTools.printlnTime("DEBUG: heartbeat received from " + description);
+              break;
+              
+          case Constants.ACTION_MOVE:
+              moved = attemptMove(parameter1);
+              break;
+              
+          case Constants.ACTION_PICKUP:
+              moved = attemptPickup();
+              break;
+              
+         case Constants.ACTION_DROP:
+             moved = attemptDrop();
+             break;
+              
+              /*
+          public static final byte ACTION_USE        = 2;
+          public static final byte ACTION_DIG        = 3;
+          public static final byte ACTION_ATTACK     = 4;
+          public static final byte ACTION_EXAMINE    = 5;
+          public static final byte ACTION_OPEN       = 6;
+          public static final byte ACTION_CLOSE      = 7;
+          public static final byte ACTION_CAST       = 8;        
+          public static final byte ACTION_DROP       = 10;
+          */
+              
+          default:
+             JavaTools.printlnTime("Unknown action code " + action + " from " + description);
+             break;  
+       }    
+       
+       // Regardless of the outcome of the action, update the client
+       updateNow();
+       
+       // Update other entities in the area
+       finishMove(moved);
+   }
+   
 
    @Override
    public void update()

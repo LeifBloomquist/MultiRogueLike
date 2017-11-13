@@ -201,12 +201,9 @@ public class TCPListener extends Thread
                         close();
                         return;
                     }
-                    
-                    char c = (char)ic;
-                    
-                    JavaTools.printlnTime("Received: " + c + " | " + (int)c);  // DEBUG
-                    
-                    who.receiveUpdate(null);  // TODO, character received                    
+                                    
+                    JavaTools.printlnTime("Received: " + (char)ic + " | " + ic);  // DEBUG                    
+                    who.receiveUpdate(ic);  // TODO, character received                    
                 }              
             } 
             catch (IOException e) 
