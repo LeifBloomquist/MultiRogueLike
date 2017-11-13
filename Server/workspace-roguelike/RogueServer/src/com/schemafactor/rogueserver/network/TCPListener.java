@@ -201,9 +201,19 @@ public class TCPListener extends Thread
                         close();
                         return;
                     }
+                    
+                    // Close connection for removed characters
+                    if (who != null)
+                    {
+                        if (who.getRemoved())
+                        {
+                            close();
+                            return;
+                        }
+                    }
                                     
                     JavaTools.printlnTime("Received: " + (char)ic + " | " + ic);  // DEBUG                    
-                    who.receiveUpdate(ic);  // TODO, character received                    
+                    who.receiveUpdate(ic);             
                 }              
             } 
             catch (IOException e) 
