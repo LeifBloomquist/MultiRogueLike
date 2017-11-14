@@ -1,0 +1,1155 @@
+
+<!-- saved from url=(0042)http://www.pcmicro.com/netfoss/telnet.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>The Telnet Protocol</title>
+
+<meta name="DESCRIPTION" content="NetFoss is a freeware TCP/IP FOSSIL driver">
+<meta name="KEYWORDS" content="FOSSIL,WINDOWS,XP,NT,2000,TELNET">
+<link rel="stylesheet" href="./The Telnet Protocol_files/style.css">
+</head>
+<body class="body" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr bgcolor="#003366"><!--Row 1 of 1-->
+<td>
+<table bgcolor="#003366" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr> 
+<td><a href="http://www.pcmicro.com/"><img src="./The Telnet Protocol_files/pcmlogo.gif" width="200" height="62" border="0" alt="pc micro systems"></a></td>
+<td>
+<table bgcolor="#003366" border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td width="12%">&nbsp;</td>
+<td valign="top"><img src="./The Telnet Protocol_files/globe_netfoss.gif" height="67" width="536"><br></td>
+</tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+
+<tr><!--Main table row 2-->
+<td>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody><tr>
+          <td valign="top" align="center" bgcolor="#003366" width="150"> <br>
+            <br>
+            <table border="0" cellspacing="1" cellpadding="3" align="center">
+              <tbody><tr> 
+                <td><a href="http://www.pcmicro.com/" class="pcm">Home</a></td>
+              </tr>
+              <tr> 
+                <td><a href="http://www.pcmicro.com/netfoss/index.html" class="pcm">Information</a></td>
+              </tr>
+              <tr> 
+                <td><a href="http://www.pcmicro.com/netfoss/download.html" class="pcm">Download</a></td>
+              </tr>
+              <tr> 
+                <td><a href="http://www.pcmicro.com/netfoss/betatest.html" class="pcm">Beta Test</a></td>
+              </tr>
+              <tr> 
+                <td><a href="http://www.pcmicro.com/netfoss/guide" class="pcm"><b>User's Guide</b></a></td>
+              </tr>
+              <tr> 
+                <td><a href="http://www.pcmicro.com/netfoss/support.html" class="pcm"><font color="#00FFFF">Support</font></a></td>
+              </tr>
+              <tr> 
+                <td nowrap=""><a href="http://www.pcmicro.com/netfoss/company_info.html" class="pcm">Company Info</a></td>
+              </tr>
+            </tbody></table>
+            <br>
+            <br>
+            <br>
+          </td>
+          <td> 
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tbody><tr> 
+                <td class="bgwhite" valign="top"><img src="./The Telnet Protocol_files/header_curved.gif" width="11" height="12" border="0"><br>
+                  <table border="0" cellspacing="0" cellpadding="0" width="95%" align="center">
+                    <tbody><tr> 
+                      <td> <b><font face="Arial, Helvetica, sans-serif" size="4"> 
+                        The Telnet Protocol</font></b><br>
+                        <br>
+                      </td>
+                    </tr>
+                  </tbody></table>
+                  <hr>
+                  <table border="0" cellspacing="0" cellpadding="0" width="95%" align="center">
+                    <tbody><tr> 
+                      <td>
+<div align="left">The Telnet protocol is often thought 
+                          of as simply providing a facility for remote logins 
+                          to computer via the Internet. This was its original 
+                          purpose although it can be used for many other purposes. 
+                          <p>It is best understood in the context of a user with 
+                            a simple terminal using the local telnet program (known 
+                            as the client program) to run a login session on a 
+                            remote computer where his communications needs are 
+                            handled by a telnet server program. It should be emphasised 
+                            that the telnet server can pass on the data it has 
+                            received from the client to many other types of process 
+                            including a remote login server. It is described in 
+                            <a href="http://www.pcmicro.com/netfoss/RFC854.html">RFC854</a> and was first published in 1983. 
+                          </p><p>
+                          </p><h2><a name="nvt">The Network Virtual Terminal</a></h2>
+                          <p>Communication is established using the TCP/IP protocols 
+                            and communication is based on a set of facilities 
+                            known as a <b>Network Virtual Terminal</b> (NVT). 
+                            At the user or client end the telnet client program 
+                            is responsible for mapping incoming NVT codes to the 
+                            actual codes needed to operate the user's display 
+                            device and is also responsible for mapping user generated 
+                            keyboard sequences into NVT sequences. 
+                          </p><p>The NVT uses 7 bit codes for characters, the display 
+                            device, referred to as a printer in the RFC, is only 
+                            required to display the "standard" printing ASCII 
+                            characters represented by 7 bit codes and to recognise 
+                            and process certain control codes. The 7 bit characters 
+                            are transmitted as 8 bit bytes with most significant 
+                            bit set to zero. An end-of-line is transmitted as 
+                            the character sequence CR (carriage return) followed 
+                            by LF (line feed). If it is desired to transmit an 
+                            actual carriage return this is transmitted as a carriage 
+                            return followed by a NUL (all bits zero) character. 
+                          </p><p>NVT ASCII is used by many other Internet protocols. 
+                          </p><p>The following control codes are required to be understood 
+                            by the Network Virtual Terminal. 
+                          </p><p> 
+                          <table border="2">
+                            <tbody> 
+                            <tr> 
+                              <th>Name</th> 
+                              <th>code</th> 
+                              <th>Decimal Value</th> 
+                              <th>Function</th> 
+                            </tr><tr> 
+                              <td>NULL 
+                              </td><td>NUL 
+                              </td><td>0 
+                              </td><td>No operation 
+                            </td></tr><tr> 
+                              <td>Line Feed 
+                              </td><td>LF 
+                              </td><td>10 
+                              </td><td>Moves the printer to the next print line, keeping 
+                                the same horizontal position. 
+                            </td></tr><tr> 
+                              <td>Carriage Return 
+                              </td><td>CR 
+                              </td><td>13 
+                              </td><td>Moves the printer to the left margin of the 
+                                current line. 
+                            </td></tr>
+                            </tbody>
+                          </table>
+                          </p><p>The following further control codes are optional 
+                            but should have the indicated defined effect on the 
+                            display. 
+                          </p><p> 
+                          <table border="2">
+                            <tbody> 
+                            <tr> 
+                              <th>Name</th> 
+                              <th>code</th> 
+                              <th>Decimal Value</th>
+                              <th>Function</th> 
+                            </tr><tr> 
+                              <td>BELL 
+                              </td><td>BEL 
+                              </td><td>7 
+                              </td><td>Produces an audible or visible signal (which 
+                                does NOT move the print head. 
+                            </td></tr><tr> 
+                              <td>Back Space 
+                              </td><td>BS 
+                              </td><td>8 
+                              </td><td>Moves the print head one character position 
+                                towards the left margin. [On a printing devices 
+                                this mechanism was commonly used to form composite 
+                                characters by printing two basic characters on 
+                                top of each other.] 
+                            </td></tr><tr> 
+                              <td>Horizontal Tab 
+                              </td><td>HT 
+                              </td><td>9 
+                              </td><td>Moves the printer to the next horizontal tab 
+                                stop. It remains unspecified how either party 
+                                determines or establishes where such tab stops 
+                                are located. 
+                            </td></tr><tr> 
+                              <td>Vertical Tab 
+                              </td><td>VT 
+                              </td><td>11 
+                              </td><td>Moves the printer to the next vertical tab stop. 
+                                It remains unspecified how either party determines 
+                                or establishes where such tab stops are located. 
+                            </td></tr><tr> 
+                              <td>Form Feed 
+                              </td><td>FF 
+                              </td><td>12 
+                              </td><td>Moves the printer to the top of the next page, 
+                                keeping the same horizontal position. [On visual 
+                                displays this commonly clears the screen and moves 
+                                the cursor to the top left corner.] 
+                            </td></tr>
+                            </tbody>
+                          </table>
+                          </p><p>The NVT keyboard is specified as being capable of 
+                            generating all 128 ASCII codes by using keys, key 
+                            combinations or key sequences. 
+                          </p><p> 
+                          </p><h2>Commands</h2>
+                          <p>The telnet protocol also specifies various commands 
+                            that control the method and various details of the 
+                            interaction between the client and server. These commands 
+                            are incorporated within the data stream. The commands 
+                            are distinguished by the use of various characters 
+                            with the most significant bit set. Commands are always 
+                            introduced by a character with the decimal code 255 
+                            known as an <b>Interpret as command</b> (IAC) character. 
+                            The complete set of special characters is 
+                          </p><p> 
+                          <table border="2">
+                            <tbody> 
+                            <tr> 
+                              <th>Name</th> 
+                              <th>Decimal Code</th> 
+                              <th>Meaning</th> 
+                            </tr><tr> 
+                              <td>SE 
+                              </td><td>240 
+                              </td><td>End of subnegotiation parameters. 
+                            </td></tr><tr> 
+                              <td>NOP 
+                              </td><td>241 
+                              </td><td>No operation 
+                            </td></tr><tr> 
+                              <td>DM 
+                              </td><td>242 
+                              </td><td>Data mark. Indicates the position of a Synch 
+                                event within the data stream. This should always 
+                                be accompanied by a TCP urgent notification. 
+                            </td></tr><tr> 
+                              <td>BRK 
+                              </td><td>243 
+                              </td><td>Break. Indicates that the "break" or "attention" 
+                                key was hit. 
+                            </td></tr><tr> 
+                              <td>IP 
+                              </td><td>244 
+                              </td><td>Suspend, interrupt or abort the process to which 
+                                the NVT is connected. 
+                            </td></tr><tr> 
+                              <td>AO 
+                              </td><td>245 
+                              </td><td>Abort output. Allows the current process to 
+                                run to completion but do not send its output to 
+                                the user. 
+                            </td></tr><tr> 
+                              <td>AYT 
+                              </td><td>246 
+                              </td><td>Are you there. Send back to the NVT some visible 
+                                evidence that the AYT was received. 
+                            </td></tr><tr> 
+                              <td>EC 
+                              </td><td>247 
+                              </td><td>Erase character. The receiver should delete 
+                                the last preceding undeleted character from the 
+                                data stream. 
+                            </td></tr><tr> 
+                              <td>EL 
+                              </td><td>248 
+                              </td><td>Erase line. Delete characters from the data 
+                                stream back to but not including the previous 
+                                CRLF. 
+                            </td></tr><tr> 
+                              <td>GA 
+                              </td><td>249 
+                              </td><td>Go ahead. Used, under certain circumstances, 
+                                to tell the other end that it can transmit. 
+                            </td></tr><tr> 
+                              <td>SB 
+                              </td><td>250 
+                              </td><td>Subnegotiation of the indicated option follows. 
+                            </td></tr><tr> 
+                              <td>WILL 
+                              </td><td>251 
+                              </td><td>Indicates the desire to begin performing, or 
+                                confirmation that you are now performing, the 
+                                indicated option. 
+                            </td></tr><tr> 
+                              <td>WONT 
+                              </td><td>252 
+                              </td><td>Indicates the refusal to perform, or continue 
+                                performing, the indicated option. 
+                            </td></tr><tr> 
+                              <td>DO 
+                              </td><td>253 
+                              </td><td>Indicates the request that the other party perform, 
+                                or confirmation that you are expecting the other 
+                                party to perform, the indicated option. 
+                            </td></tr><tr> 
+                              <td>DONT 
+                              </td><td>254 
+                              </td><td>Indicates the demand that the other party stop 
+                                performing, or confirmation that you are no longer 
+                                expecting the other party to perform, the indicated 
+                                option. 
+                            </td></tr><tr> 
+                              <td>IAC 
+                              </td><td>255 
+                              </td><td>Interpret as command 
+                            </td></tr>
+                            </tbody>
+                          </table>
+                          </p><p>There are a variety of options that can be negotiated 
+                            between a telnet client and server using commands 
+                            at any stage during the connection.<br>
+                            <br>
+                            <b>Common Telnet options:</b>
+                          </p><p> 
+                          <table border="2">
+                            <tbody> 
+                            <tr> 
+                              <th>Decimal code</th> 
+                              <th>Option Name</th>
+                              <th>RFC</th> 
+                           </tr><tr> 
+                              <td>0
+                              </td><td>Transmit Binary 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC856.html">856</a> 
+                            </td></tr><tr>  </tr><tr> 
+                              <td>1 
+                              </td><td>Echo 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC857.html">857</a> 
+                            </td></tr><tr> 
+                              <td>3 
+                              </td><td>Suppress Go Ahead 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC858.html">858</a> 
+                            </td></tr><tr> 
+                              <td>5 
+                              </td><td>Status 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC859.html">859</a> 
+                            </td></tr><tr> 
+                              <td>6 
+                              </td><td>Timing Mark 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC860.html">860</a> 
+                            </td></tr><tr> 
+                              <td>24 
+                              </td><td>Terminal Type 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC1091.html">1091</a> 
+                            </td></tr><tr> 
+                              <td>31 
+                              </td><td>Window Size 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC1073.html">1073</a> 
+                            </td></tr><tr> 
+                              <td>32 
+                              </td><td>Terminal Speed 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC1079.html">1079</a> 
+                            </td></tr><tr> 
+                              <td>33 
+                              </td><td>Remote Flow Control 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC1372.html">1372</a> 
+                            </td></tr><tr> 
+                              <td>34 
+                              </td><td>Linemode 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC1184.html">1184</a> 
+                            </td></tr><tr> 
+                              <td>36 
+                              </td><td>Environment Variables 
+                              </td><td><a href="http://www.pcmicro.com/netfoss/RFC1408.html">1408</a> 
+                            </td></tr>
+                            </tbody>
+                          </table>
+                          </p><p><b>All Telnet options:</b></p>
+                          <table border="2">
+                            <tbody><tr> 
+                              <th>Decimal Code</th>
+                              <th>Option Name</th>
+                              <th>RFC</th>
+                            </tr>
+                            <tr> 
+                              <td>0</td>
+                              <td>Transmit Binary</td>
+                              <td> <a href="http://www.pcmicro.com/netfoss/RFC856.html">856</a></td>
+                            </tr>
+                            <tr> 
+                              <td>1</td>
+                              <td>Echo</td>
+                              <td> <a href="http://www.pcmicro.com/netfoss/RFC857.html"> 857</a></td>
+                            </tr>
+                            <tr> 
+                              <td>2</td>
+                              <td>Reconnection</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>3</td>
+                              <td> Suppress Go Ahead</td>
+                              <td> <a href="http://www.pcmicro.com/netfoss/RFC858.html">858</a></td>
+                            </tr>
+                            <tr> 
+                              <td>4</td>
+                              <td>Approx Message Size Negotiation.</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>5</td>
+                              <td>Status</td>
+                              <td> <a href="http://www.pcmicro.com/netfoss/RFC859.html">859</a></td>
+                            </tr>
+                            <tr> 
+                              <td>6</td>
+                              <td> Timing Mark</td>
+                              <td><a href="http://www.pcmicro.com/netfoss/RFC860.html">860</a></td>
+                            </tr>
+                            <tr> 
+                              <td>7</td>
+                              <td> Remote Controlled Trans and Echo</td>
+                              <td> <a href="http://www.ietf.org/rfc/rfc563.txt"> 563</a>, <a href="http://www.ietf.org/rfc/rfc726.txt"> 
+                                726</a></td>
+                            </tr>
+                            <tr> 
+                              <td>8</td>
+                              <td>Output Line Width</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>9</td>
+                              <td>Output Page Size</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>10</td>
+                              <td> Negotiate About Output Carriage-Return Disposition</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc652.txt">652</a></td>
+                            </tr>
+                            <tr> 
+                              <td>11</td>
+                              <td> Negotiate About Output Horizontal Tabstops</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc653.txt">653</a></td>
+                            </tr>
+                            <tr> 
+                              <td>12</td>
+                              <td>NAOHTD, Negotiate About Output Horizontal Tab 
+                                Disposition</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc654.txt"> 654</a></td>
+                            </tr>
+                            <tr> 
+                              <td>13</td>
+                              <td> Negotiate About Output Formfeed Disposition</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc655.txt"> 655</a></td>
+                            </tr>
+                            <tr> 
+                              <td>14</td>
+                              <td> Negotiate About Vertical Tabstops</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc656.txt"> 656</a></td>
+                            </tr>
+                            <tr> 
+                              <td>15</td>
+                              <td> Negotiate About Output Vertcial Tab Disposition</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc657.txt"> 657</a></td>
+                            </tr>
+                            <tr> 
+                              <td>16</td>
+                              <td> Negotiate About Output Linefeed Disposition</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc658.txt"> 658</a></td>
+                            </tr>
+                            <tr> 
+                              <td>17</td>
+                              <td>Extended ASCII.</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc698.txt"> 698</a></td>
+                            </tr>
+                            <tr> 
+                              <td>18</td>
+                              <td> Logout.</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc727.txt"> 727</a></td>
+                            </tr>
+                            <tr> 
+                              <td>19</td>
+                              <td>Byte Macro</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc735.txt"> 735</a></td>
+                            </tr>
+                            <tr> 
+                              <td>20</td>
+                              <td>Data Entry Terminal</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc732.txt"> 732</a>,<a href="http://www.ietf.org/rfc/rfc1043.txt">1043</a></td>
+                            </tr>
+                            <tr> 
+                              <td>21</td>
+                              <td>SUPDUP</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc734.txt"> 734</a>, <a href="http://www.ietf.org/rfc/rfc736.txt"> 
+                                736</a></td>
+                            </tr>
+                            <tr> 
+                              <td>22</td>
+                              <td>SUPDUP Output</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc749.txt"> 749</a></td>
+                            </tr>
+                            <tr> 
+                              <td>23</td>
+                              <td> Send Location</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc779.txt"> 779</a></td>
+                            </tr>
+                            <tr> 
+                              <td>24</td>
+                              <td> Terminal Type</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1091.txt"> 1091</a></td>
+                            </tr>
+                            <tr> 
+                              <td>25</td>
+                              <td> End of Record</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc885.txt"> 885</a></td>
+                            </tr>
+                            <tr> 
+                              <td>26</td>
+                              <td>TACACS User Identification</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc927.txt"> 927</a></td>
+                            </tr>
+                            <tr> 
+                              <td>27</td>
+                              <td> Output Marking</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc933.txt"> 933</a></td>
+                            </tr>
+                            <tr> 
+                              <td>28</td>
+                              <td>TTYLOC, Terminal Location Number.</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc946.txt"> 946</a></td>
+                            </tr>
+                            <tr> 
+                              <td>29</td>
+                              <td>Telnet 3270 Regime</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1041.txt"> 1041</a></td>
+                            </tr>
+                            <tr> 
+                              <td>30</td>
+                              <td>X.3 PAD.</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1053.txt"> 1053</a></td>
+                            </tr>
+                            <tr> 
+                              <td>31</td>
+                              <td>NAWS, Negotiate About Window Size.</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1073.txt"> 1073</a></td>
+                            </tr>
+                            <tr> 
+                              <td>32</td>
+                              <td>Terminal Speed</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1079.txt"> 1079</a></td>
+                            </tr>
+                            <tr> 
+                              <td>33</td>
+                              <td>Remote Flow Control</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1372.txt"> 1372</a></td>
+                            </tr>
+                            <tr> 
+                              <td>34</td>
+                              <td>Linemode</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1184.txt"> 1184</a></td>
+                            </tr>
+                            <tr> 
+                              <td>35</td>
+                              <td>X Display Location.</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1096.txt"> 1096</a></td>
+                            </tr>
+                            <tr> 
+                              <td>36</td>
+                              <td>Environment</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1408.txt"> 1408</a></td>
+                            </tr>
+                            <tr> 
+                              <td>37</td>
+                              <td>Authentication</td>
+                              <td> <a href="http://www.ietf.org/rfc/rfc1416.txt"> 1416</a>,<a href="http://www.ietf.org/rfc/rfc2941.txt"> 
+                                2941</a>,<a href="http://www.ietf.org/rfc/rfc2942.txt"> 2942</a>, 
+                                <a href="http://www.ietf.org/rfc/rfc2943.txt"> 2943</a>,<a href="http://www.ietf.org/rfc/rfc2951.txt">2951</a></td>
+                            </tr>
+                            <tr> 
+                              <td>38</td>
+                              <td>Encryption Option</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc2946.txt"> 2946</a></td>
+                            </tr>
+                            <tr> 
+                              <td>39</td>
+                              <td>New Environment</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc1572.txt"> 1572</a></td>
+                            </tr>
+                            <tr> 
+                              <td>40</td>
+                              <td>TN3270E</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc2355.txt"> 2355</a></td>
+                            </tr>
+                            <tr> 
+                              <td>41</td>
+                              <td>XAUTH</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>42</td>
+                              <td>CHARSET</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc2066.txt"> 2066</a></td>
+                            </tr>
+                            <tr> 
+                              <td>43</td>
+                              <td>RSP, Telnet Remote Serial Port</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>44</td>
+                              <td>Com Port Control</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc2217.txt"> 2217</a></td>
+                            </tr>
+                            <tr> 
+                              <td>45</td>
+                              <td>Telnet Suppress Local Echo</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>46</td>
+                              <td>Telnet Start TLS</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>47</td>
+                              <td>KERMIT</td>
+                              <td><a href="http://www.ietf.org/rfc/rfc2840.txt"> 2840</a></td>
+                            </tr>
+                            <tr> 
+                              <td>48</td>
+                              <td>SEND-URL</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>49</td>
+                              <td>FORWARD_X</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>50<br>
+                                -<br>
+                                137</td>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>138</td>
+                              <td>TELOPT PRAGMA LOGON</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>139</td>
+                              <td>TELOPT SSPI LOGON</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>140</td>
+                              <td>TELOPT PRAGMA HEARTBEAT</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>141<br>
+                                -<br>
+                                254</td>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr> 
+                              <td>255</td>
+                              <td> Extended-Options-List</td>
+                              <td> <a href="http://www.ietf.org/rfc/rfc861.txt">RFC 861</a></td>
+                            </tr>
+                          </tbody></table>
+                          <p>&nbsp; 
+                          </p><p>Options are agreed by a process of negotiation which 
+                            results in the client and server having a common view 
+                            of various extra capabilities that affect the interchange 
+                            and the operation of applications. 
+                          </p><p>Either end of a telnet dialogue can enable or disable 
+                            an option either locally or remotely. The initiator 
+                            sends a 3 byte command of the form 
+                          </p><p>
+                          </p><pre>	IAC,&lt;type of operation&gt;,&lt;option&gt;
+</pre>
+                          <p>The response is of the same form. 
+                          </p><p>Operation is one of 
+                          </p><p> 
+                          <table border="2">
+                            <tbody> 
+                            <tr> 
+                              <td>Description 
+                              </td><td>Decimal Code 
+                              </td><td>Action 
+                            </td></tr><tr> 
+                              <td>WILL 
+                              </td><td>251 
+                              </td><td>Sender wants to do something. 
+                            </td></tr><tr> 
+                              <td>WONT
+                              </td><td>252 
+                              </td><td>Sender doesn't want to do something.
+                            </td></tr><tr> 
+                              <td>DO
+                              </td><td>253 
+                              </td><td>Sender wants the other end to do something.
+                            </td></tr><tr> 
+                              <td>DONT 
+                              </td><td>254 
+                              </td><td>Sender wants the other not to do something. 
+                            </td></tr>
+                            </tbody>
+                          </table>
+                          </p><p>Associated with each of the these there are various 
+                            possible responses 
+                          </p><p> 
+                          <table border="2">
+                            <tbody> 
+                            <tr> 
+                              <td>Sender Sent 
+                              </td><td>Receiver Responds 
+                              </td><td>Implication 
+                            </td></tr><tr> 
+                              <td>WILL 
+                              </td><td>DO 
+                              </td><td>The sender would like to use a certain facility 
+                                if the receiver can handle it. Option is now in 
+                                effect 
+                            </td></tr><tr> 
+                              <td>WILL 
+                              </td><td>DONT 
+                              </td><td>Receiver says it cannot support the option. 
+                                Option is not in effect. 
+                            </td></tr><tr> 
+                              <td>DO 
+                              </td><td>WILL 
+                              </td><td>The sender says it can handle traffic from the 
+                                sender if the sender wishes to use a certain option. 
+                                Option is now in effect. 
+                            </td></tr><tr> 
+                              <td>DO 
+                              </td><td>WONT 
+                              </td><td>Receiver says it cannot support the option. 
+                                Option is not in effect. 
+                            </td></tr><tr> 
+                              <td>WONT 
+                              </td><td>DONT 
+                              </td><td>Option disabled. DONT is only valid response. 
+                            </td></tr><tr> 
+                              <td>DONT 
+                              </td><td>WONT 
+                              </td><td>Option disabled. WONT is only valid response. 
+                            </td></tr>
+                            </tbody>
+                          </table>
+                          </p><p>For example if the sender wants the other end to 
+                            suppress go-ahead it would send the byte sequence 
+                          </p><p>
+                          </p><pre>255(IAC),251(WILL),3</pre>
+                          <p></p>
+                          The final byte of the three byte sequence identifies 
+                          the required action. 
+                          <p>For some of the negotiable options values need to 
+                            be communicated once support of the option has been 
+                            agreed. This is done using <b>sub-option negotiation</b>. 
+                            Values are communicated via an exchange of value query 
+                            commands and responses in the following form. 
+                          </p><p>
+                          </p><pre> IAC,SB,&lt;option code number&gt;,1,IAC,SE
+</pre>
+                          <p>and 
+                          </p><p>
+                          </p><pre>IAC,SB,&lt;option code&gt;,0,&lt;value&gt;,IAC,SE
+</pre>
+                          <p>For example if the client wishes to identify the 
+                            terminal type to the server the following exchange 
+                            might take place 
+                          </p><p>
+                          </p><pre>Client   255(IAC),251(WILL),24
+Server   255(IAC),253(DO),24
+Server   255(IAC),250(SB),24,1,255(IAC),240(SE)
+Client   255(IAC),250(SB),24,0,'V','T','2','2','0',255(IAC),240(SE)
+</pre>
+                          The first exchange establishes that terminal type (option 
+                          number 24) will be handled, the server then enquires 
+                          of the client what value it wishes to associate with 
+                          the terminal type. The sequence SB,24,1 implies sub-option 
+                          negotiation for option type 24, value required (1). 
+                          The IAC,SE sequence indicates the end of this request. 
+                          The repsonse IAC,SB,24,0,'V'... implies sub-option negotiation 
+                          for option type 24, value supplied (0), the IAC,SE sequence 
+                          indicates the end of the response (and the supplied 
+                          value). 
+                          <p>The encoding of the value is specific to the option 
+                            but a sequence of characters, as shown above, is common. 
+                          </p><p> 
+                          </p><h2>Telnet Negotiable Options</h2>
+                          <p>Many of those listed are self-evident, but some call 
+                            for more comments. 
+                          </p><p> 
+                          </p><ul>
+                            <li><b>Suppress Go Ahead</b> 
+                              <p>The original telnet implementation defaulted 
+                                to "half duplex" operation. This means that data 
+                                traffic could only go in one direction at a time 
+                                and specific action is required to indicate the 
+                                end of traffic in one direction and that traffic 
+                                may now start in the other direction. [This similar 
+                                to the use of "roger" and "over" by amateur and 
+                                CB radio operators.] The specific action is the 
+                                inclusion of a GA character in the data stream. 
+                              </p><p>Modern links normally allow bi-directional operation 
+                                and the "suppress go ahead" option is enabled. 
+                              </p>
+                            </li><li><b>echo</b> 
+                              <p>The echo option is enabled, usually by the server, 
+                                to indicate that the server will echo every character 
+                                it receives. A combination of "suppress go ahead" 
+                                and "echo" is called character at a time mode 
+                                meaning that each character is separately transmitted 
+                                and echoed. 
+                              </p><p>There is an understanding known as <b>kludge 
+                                line mode</b> which means that if either "suppress 
+                                go ahead" or "echo" is enabled but not both then 
+                                telnet operates in line at a time mode meaning 
+                                that complete lines are assembled at each end 
+                                and transmitted in one "go". </p>
+                            </li><li><b>linemode</b> 
+                              <p>This option replaces and supersedes the line 
+                                mode kludge. </p>
+                            </li><li><b>remote flow control</b> 
+                              <p>This option controls where the special flow control 
+                                effects of Ctrl-S/Ctrl-Q are implemented. </p>
+                            </li>
+                          </ul>
+                          <p></p>
+                          <h2>Telnet control functions</h2>
+                          <p>The telnet protocol includes a number of control 
+                            functions. These are initiated in response to conditions 
+                            detected by the client (usually certain special keys 
+                            or key combinations) or server. The detected condition 
+                            causes a special character to be incorporated in the 
+                            data stream. 
+                          </p><p> 
+                          </p><ul>
+                            <li><b>Interrupt Process</b> 
+                              <p>This is used by the client to cause the suspension 
+                                or termination of the server process. Typically 
+                                the user types Ctrl-C on the keyboard. An IP (244) 
+                                character is included in the data stream. </p>
+                            </li><li><b>Abort Output</b> 
+                              <p>This is used to suppress the transmission of 
+                                remote process output. An AO (238) character is 
+                                included in the data stream. </p>
+                            </li><li><b>Are You There</b> 
+                              <p>This is used to trigger a visible response from 
+                                the other end to confirm the operation of the 
+                                link and the remote process. An AYT (246) character 
+                                is incorporated in the data stream. </p>
+                            </li><li><b>Erase character</b> 
+                              <p>Sent to the display to tell it to delete the 
+                                immediately preceding character from the display. 
+                                An EC (247) character is incorporated in the data 
+                                stream. </p>
+                            </li><li><b>Erase line</b> 
+                              <p>Causes the deletion of the current line of input. 
+                                An EL (248) character is incorporated in the data 
+                                stream. </p>
+                            </li><li><b>Data Mark</b> 
+                              <p>Some control functions such as AO and IP require 
+                                immediate action and this may cause difficulties 
+                                if data is held in buffers awaiting input requests 
+                                from a (possibly misbehaving) remote process. 
+                                To overcome this problem a DM (242) character 
+                                is sent in a TCP Urgent segment, this tells the 
+                                receiver to examine the data stream for "interesting" 
+                                characters such as IP, AO and AYT. This is known 
+                                as the <b>telnet synch</b> mechanism. 
+                              </p><p>A DM not in a TCP Urgent segment has no effect.<br>
+                                For more information, see <a href="http://www.pcmicro.com/netfoss/telnet2.html">the 
+                                Telnet Protocol Revisited</a></p>
+                            </li>
+                          </ul>
+                          <p> For the server to find out if a client supports the 
+                            telnet<br>
+                            protocol at all, one good approach is to a simple, 
+                            commonly<br>
+                            used telnet command to the client. If the client reacts<br>
+                            conform to the protocol (or sends telnet commands 
+                            itself), the<br>
+                            server can continue to negotiate further options. 
+                            If the client<br>
+                            does not react, the server can safely refrain from 
+                            further<br>
+                            negotiations.</p>
+                          <p> The following list is a more or less comprehensive 
+                            overview of<br>
+                            the telnet related RFCs (available for example on<br>
+                            http://www.faqs.org/rfcs):</p>
+                          <p> RFC Titel rel. Code</p>
+                          <p> 495 TELNET Protocol Specification<br>
+                            513 Comments on the new TELNET specifications<br>
+                            559 Comments on the new TELNET Protocol and its Implem<br>
+                            595 Some Thoughts in Defense of the TELNET Go-Ahead<br>
+                            596 Second Thoughts on Telnet Go-Ahead<br>
+                            652 Telnet Output Carriage-Return Disposition Option 
+                            NAOCRD 10<br>
+                            653 Telnet Output Horizontal Tabstops Option NAOHTS 
+                            11<br>
+                            654 Telnet Output Horizontal Tab Disposition Option 
+                            NAOHTD 12<br>
+                            655 Telnet Output Formfeed Disposition Option NAOFFD 
+                            13<br>
+                            656 Telnet Output Vertical Tabstops Option NAOVTS 
+                            14<br>
+                            657 Telnet Output Vertical Tab Disposition Option 
+                            NAOVTD 15<br>
+                            658 Telnet Output Linefeed Disposition NAOLFD 16<br>
+                            698 Telnet Extended Ascii Option X-ASCII 17<br>
+                            727 Telnet Logout Option LOGOUT 18<br>
+                            728 A Minor Pitfall in the Telnet Protocol<br>
+                            735 Revised TELNET Byte Macro Option BM 19<br>
+                            749 Telnet SUPDUP-OUTPUT Option SUPDUP 22<br>
+                            764 Telnet Protocol Specification<br>
+                            779 Telnet SEND-LOCATION Option SENDLOC 23<br>
+                            818 The Remote User Telnet Service<br>
+                            854 Telnet Protocol Specification<br>
+                            855 Telnet Option Specifications<br>
+                            856 Telnet Binary Transmission BINARY 0<br>
+                            857 Telnet Echo Option ECHO 1<br>
+                            858 Telnet Suppress Go Ahead Option SGA 3<br>
+                            859 Telnet Status Option STATUS 5<br>
+                            860 Telnet Timing Mark Option TM 6<br>
+                            861 Telnet Extended Options - List Option EXOPL 255<br>
+                            884 Telnet Terminal Type Option TTYPE 24<br>
+                            885 Telnet End of Record Option EOR 25<br>
+                            930 Telnet Terminal Type Option TTYPE 24<br>
+                            933 Output Marking Telnet Option OUTMRK 27<br>
+                            946 Telnet Terminal Location Number Option TTYLOC 
+                            28<br>
+                            1043 Telnet Data Entry Terminal Option DODIIS Implement 
+                            DET 20<br>
+                            1053 Telnet X.3 PAD Option X.3-PAD 30<br>
+                            1073 Telnet Window Size Option NAWS 31<br>
+                            1079 Telnet Terminal Speed Option TSPEED 32<br>
+                            1080 Telnet Remote Flow Control Option FLOWCTRL 33<br>
+                            1091 Telnet Terminal-Type Option TTYPE 24<br>
+                            1096 Telnet X Display Location Option XDISPLOC 35<br>
+                            1116 Telnet Linemode Option LINEMODE 34<br>
+                            1143 The Q Method of Implementing TELNET Option Negotia<br>
+                            1184 Telnet Linemode Option LINEMODE 34<br>
+                            1372 Telnet Remote Flow Control Option FLOWCTRL 33<br>
+                            1408 Telnet Environment Option ENVIRON 36<br>
+                            1571 Telnet Environment Option Interoperability Issues<br>
+                            1572 Telnet Environment Option NEWENV 39<br>
+                            2066 Telnet Charset Option CHARSET 42<br>
+                            2217 Telnet Com Port Control Option COMPORT 44<br>
+                            2877 5250 Telnet Enhancements</p>
+                          <p> All negotiations start with the special character 
+                            IAC which is<br>
+                            defined in /usr/include/arpa/telnet.h (or in<br>
+                            src/driver/telnet.h for 3.2(.1)) and has the decimal 
+                            value of<br>
+                            255. Negotiations are based on different telnetoptions 
+                            (their<br>
+                            values are defined in telnet.h too). Before a negotiation 
+                            can<br>
+                            start the client and the server have to agree that 
+                            they<br>
+                            support the option.<br>
+                            This works in the following way:</p>
+                          <p> If a client wants to send something to the server 
+                            it has to<br>
+                            send 'IAC WILL option' (For terminaltype negotation 
+                            this would<br>
+                            be the 3 bytes 255,251,24; again, check telnet.h) 
+                            to confirm<br>
+                            that it is able to do that. If the server is supporting 
+                            that<br>
+                            option and wants to receive something it sends 'IAC 
+                            DO option'<br>
+                            (255,253,option)</p>
+                          <p> If one side is receiving an 'IAC WILL option' and 
+                            has not yet<br>
+                            sent with DO or DONT it has to respond with either 
+                            'IAC DO<br>
+                            option' if it will support this negotiation or 'IAC 
+                            DONT<br>
+                            option' if it won't.</p>
+                          <p> If one side is receiving an 'IAC DO option' and 
+                            has not yet<br>
+                            sent a WILL or WONT it has to reply with either 'IAC 
+                            WILL<br>
+                            option' if it supports the option or 'IAC WONT option' 
+                            if not.</p>
+                          <p> A small example: Lets assume we want to negotiating<br>
+                            terminaltype. (TELOPT_TTYPE with value 24). client 
+                            is the<br>
+                            telnet executable on the playerside, the server is 
+                            the<br>
+                            gamedriver.</p>
+                          <p> client server<br>
+                            IAC WILL TTYPE<br>
+                            IAC DO TTYPE</p>
+                          <p> Or:<br>
+                            IAC DO TTYPE<br>
+                            IAC WILL TTYPE</p>
+                          <p> After this we are ready to transfer the terminaltype 
+                            from the<br>
+                            client to the server as explained below.</p>
+                          <p> Now we are ready to start the real negotiations. 
+                            I explain the<br>
+                            3 options I have currently implemented.</p>
+                          <p> First TerminalType aka TTYPE aka 24 aka TELOPT_TTYPE 
+                            assuming<br>
+                            the client and the server have exchanged WILL/DO.</p>
+                          <p> The server is now free to send 'IAC SB TELOPT_TTYPE<br>
+                            TELQUAL_SEND IAC SE' which will be replied with 'IAC 
+                            SB<br>
+                            TELOPT_TTYPE TELQUAL_IS terminaltype IAC SE' where<br>
+                            terminaltype is a non-zero terminated string (it's 
+                            terminated<br>
+                            by the IAC) (For values look up telnet.h) AND switch 
+                            the<br>
+                            client's terminalemulation to 'terminaltype'. terminaltype 
+                            is<br>
+                            case-insensitive. terminal-type may be UNKNOWN. The 
+                            server may<br>
+                            repeat the SEND request and the client will respond 
+                            with the<br>
+                            next preferred terminaltype. If this is the same as 
+                            the<br>
+                            previous received, it marks the end of the list of<br>
+                            terminaltypes. The next SEND request will start the<br>
+                            terminaltypes from the beginning.</p>
+                          <p> Example: (we have exchanged WILL/DO already)<br>
+                            client server<br>
+                            IAC SB TTYPE SEND IAC SE<br>
+                            IAC SB TTYPE IS VT200 IAC SE<br>
+                            IAC SB TTYPE SEND IAC SE<br>
+                            IAC SB TTYPE IS VT100 IAC SE<br>
+                            IAC SB TTYPE SEND IAC SE<br>
+                            IAC SB TTYPE IS VT52 IAC SE<br>
+                            IAC SB TTYPE SEND IAC SE<br>
+                            IAC SB TTYPE IS VT52 IAC SE<br>
+                            /* this marks that we have all terminaltypes. We decide 
+                            to use the<br>
+                            * vt200 mode so we have to skip to VT200<br>
+                            */<br>
+                            IAC SB TTYPE SEND IAC SE<br>
+                            IAC SB TTYPE IS VT200 IAC SE</p>
+                          <p><br>
+                            Next important option is NAWS (31) or WindowSizeNegotiation.</p>
+                          <p> This one is a bit easier than terminaltype. After 
+                            having<br>
+                            received a IAC DO NAWS from the server, the client 
+                            will reply<br>
+                            with IAC WILL NAWS and immediately after that send 
+                            IAC SB NAWS<br>
+                            columns_high columns_low lines_high lines_low IAC 
+                            SE where<br>
+                            xx_low refers to the lowbyte of xx and xx_high refers 
+                            to the<br>
+                            highbyte of xx. This will be automagically resent 
+                            at every<br>
+                            windowresize (when the client gets a SIGWINCH for 
+                            example) or<br>
+                            at your request with 'IAC SB NAWS SEND IAC SE'.</p>
+                          <p> Example: (WILL/DO exchanged)<br>
+                            client server<br>
+                            IAC SB NAWS 0 80 0 24 IAC SE /* the standard vt100 
+                            windowsize */<br>
+                            /* no reply */</p>
+                          <p> And, a bit less important but most complex, the 
+                            LINEMODE (34)<br>
+                            option. It was implemented it due to the fact, that<br>
+                            some weird DOS telnets would not work otherwise. Implemented<br>
+                            are only the absolute basic feature, which is the 
+                            actual<br>
+                            switching the telnet to linemode. After exchanging 
+                            WILL/DO the<br>
+                            server sends a modechange request to the client using 
+                            IAC SB<br>
+                            LINEMODE LM_MODE MODE_EDIT IAC SE, which should turn 
+                            on local<br>
+                            commandline-editing for the client. If a client supports<br>
+                            LINEMODE it HAS to support this modechange. The client 
+                            will<br>
+                            reply with IAC SB LINEMODE LM_MODE MODE_EDIT|MODE_ACK 
+                            IAC SE<br>
+                            (x|y is bitwise or). Thats it for linemode. (You will 
+                            perhaps<br>
+                            receive other IAC SB LINEMODEs with other LM_xxx ... 
+                            you may<br>
+                            ignore them. (At least IRIX 5.x sends IAC SB LINEMODE 
+                            LM_SLC<br>
+                            .... IAC SE which declares the local characterset.)).</p>
+                          <p> Example: (WILL/DO negotiated)</p>
+                          <p> client server<br>
+                            IAC SB LINEMODE LM_MODE<br>
+                            MODE_EDIT IAC SE<br>
+                            IAC SB LINEMODE LM_MODE<br>
+                            MODE_EDIT|MODE_ACK IAC SE</p>
+                          <p> Further details on linemode can be found in RFC 
+                            1184.</p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody></table>
+                  <p><img src="./The Telnet Protocol_files/footer_curved.gif" width="11" height="11" valign="bottom"></p>
+                </td>
+              </tr>
+            </tbody></table>
+          </td>
+<td bgcolor="#eeeeee" valign="top" width="133">
+<table border="0" cellspacing="0" align="center">
+<tbody><tr>
+<td width="4%">&nbsp;</td>
+<td>
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody><tr><td>
+<br>
+<a href="javascript:document.google.submit();">
+<img src="./The Telnet Protocol_files/search_by_google.gif" border="0"></a>
+</td></tr>
+
+<tr><td>
+<form method="get" name="google" action="http://www.google.com/custom">
+<input type="text" name="q" size="8">
+<input type="image" src="./The Telnet Protocol_files/search_google.gif" border="0"><br>
+<select name="sitesearch">
+<option value="pcmicro.com" selected="">pcmicro.com</option>
+<option value="">entire WWW</option>
+</select>
+<input type="hidden" name="cof" value="L:http://pcmicro.com/images/google_pcm.gif;AH:left;LC:#003366;LW:208;LH:61;AWFID:fb270f58c2e5767a;">
+</form>
+</td></tr>
+
+<tr><td>
+<br>
+<a href="http://www.pcmicro.com/specials">
+<img src="./The Telnet Protocol_files/ibmpic2.gif" height="240" width="120" border="0" alt="hot deals on computers"></a>
+</td></tr>
+
+<tr><td>
+<br><br>
+<a href="http://www.pcmicro.com/modempooling">
+<img src="./The Telnet Protocol_files/modempooling.gif" height="90" width="120" border="0" alt="Modem Pool"></a>
+</td></tr>
+
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+
+<tr><!--Main Table Row 3-->
+    <td valign="top" align="center" bgcolor="#003366" nowrap=""> <a href="http://www.pcmicro.com/" class="small">Home</a><a class="small"> 
+      | </a> <a href="http://www.pcmicro.com/netfoss/index.html" class="small">About NetFoss</a><a class="small"> | 
+      </a> <a href="http://www.pcmicro.com/netfoss/download.html" class="small">Download</a><a class="small"> | </a> 
+      <a href="http://www.pcmicro.com/netfoss/order" class="small">Beta Test</a><a class="small"> | </a> <a href="http://www.pcmicro.com/netfoss/guide" class="small">Guide</a><a class="small"> 
+      | </a> <a href="http://www.pcmicro.com/netfoss/support.html" class="small">Support</a><a class="small"> | </a> 
+      <a href="http://www.pcmicro.com/netfoss/company_info.html" class="small">Company Info</a> <br>
+      <br>
+      <a class="small">Copyright © 2000 - 2007 pcmicro.com &nbsp;&nbsp; All 
+      rights reserved</a></td>
+</tr>
+</tbody></table>
+
+
+</body></html>
