@@ -19,13 +19,15 @@ public class TCPListener extends Thread
     private List<ClientThread> clientThreads = new ArrayList<ClientThread>();
     
     
-    // Force remote Telnet client to not use linemode (i.e. character mode), and to echo.
+    // Force remote Telnet client to not use linemode (i.e. character mode), and to echo.  Adapted from http://www.mudbytes.net/forum/comment/56126/
     private final byte[] telnet_params = 
-        { (byte) 255,      // NVT_IAC
-          (byte) 34,       // linemode
+        {
           (byte) 255,      // NVT_IAC
-          (byte) 254,      // NVT_DONT
-          (byte) 1         // echo
+          (byte) 251,      // WILL
+          (byte) 3,        // Suppress Go Ahead
+          (byte) 255,      // NVT_IAC
+          (byte) 251,      // WILL
+          (byte) 1         // Echo
         };
     
     public void start(int port) 
@@ -193,7 +195,7 @@ public class TCPListener extends Thread
                         close();
                         return;
                     }
-                    
+
                     login = JavaTools.Sanitize(login);       
                     
                     if (login.equals(""))
