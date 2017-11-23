@@ -9,7 +9,7 @@ public class Constants
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
-    public static final int DUNGEON_SIZE      = 100;    // Per Side
+    public static final int DUNGEON_SIZE      = 1000;    // Per Side
     public static final int DUNGEON_DEPTH     = 10;     // Levels    
     
     // Network Constants
@@ -42,6 +42,7 @@ public class Constants
     public static final byte ACTION_CAST       = 8;
     public static final byte ACTION_PICKUP     = 9;
     public static final byte ACTION_DROP       = 10;
+    public static final byte ACTION_TALK       = 11;
     
     // Directions
     public static final byte DIRECTION_NONE    = 0;
@@ -55,10 +56,18 @@ public class Constants
     public static final byte DIRECTION_NW      = 8;
     public static final byte DIRECTION_UP      = 9;
     public static final byte DIRECTION_DOWN    = 10;
-    public static final byte DIRECTION_COUNT   = 11;
-
-    // Player Character Codes
-    public static final byte CHAR_PLAYER_NONE      = (byte) 127;
+    public static final byte DIRECTION_COUNT   = 11;  
+    
+    // Scenery Character Codes
+    public static final byte CHAR_EMPTY        = (byte) 0;
+    public static final byte CHAR_BRICKWALL    = (byte) 1;
+    public static final byte CHAR_DIRT         = (byte) 2;
+    public static final byte CHAR_STAIRS_DOWN  = (byte) 88;
+    public static final byte CHAR_STAIRS_UP    = (byte) 89;
+    
+    // Item Character Codes
+    public static final byte CHAR_ITEM_SWORD       = (byte) 74;
+    
     
     // Monster Character Codes
     public static final byte CHAR_MONSTER_SPIDER   = (byte) 96;    
@@ -71,8 +80,8 @@ public class Constants
     public static final byte CHAR_MONSTER_SLIME    = (byte) 103;
     public static final byte CHAR_MONSTER_ZOMBIE   = (byte) 104;
     
-    // Item Character Codes
-    public static final byte CHAR_ITEM_SWORD       = (byte) 74;
+    // Player Character Codes
+    public static final byte CHAR_PLAYER_NONE      = (byte) 127;
     
     // C64 colors
     public static final byte COLOR_BLACK      = 0;

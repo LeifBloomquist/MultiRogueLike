@@ -43,7 +43,8 @@ public class Main
         JavaTools.printlnTime("Loading game persistence...");
         try 
         {
-            dungeon.Load("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest0.csv", 0);
+            dungeon.LoadCSV("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest0.csv", 0);
+            dungeon.LoadTXT("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest1.txt", 1);
 		} 
         catch (FileNotFoundException e) 
         {

@@ -98,7 +98,7 @@ public class PETSCII
            INV,      // 85      
            INV,      // 86      
            INV,      // 87      
-           INV,      // 88      
+           86,       // 88    Stairs Down      
            INV,      // 89      
            INV,      // 90      
            INV,      // 91      

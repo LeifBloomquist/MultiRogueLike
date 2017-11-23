@@ -48,6 +48,8 @@ public abstract class Entity
        int dy=0;
        int dz=0;
        
+       Cell current_cell = Dungeon.getInstance().getCell(this.position);
+       
        switch (direction)
        {
           case Constants.DIRECTION_NONE:          
@@ -94,16 +96,22 @@ public abstract class Entity
               break;
               
           case Constants.DIRECTION_DOWN:
-             // if current cell type == stairs_down...
+             if (current_cell.getTrueCharCode() == Constants.CHAR_STAIRS_DOWN)
+             {
+                 dz = 1;
+             }
+             else
+             {
+                 return false;
+             }
              break;
              
           default:
              JavaTools.printlnTime("Unknown move direction code " + direction + " from " + description);
-             break;  
+             return false;            
        }
        
-       Position destination = new Position(this.position.x+dx, this.position.y+dy, this.position.z+dz);
-       Cell current_cell = Dungeon.getInstance().getCell(this.position);
+       Position destination = new Position(this.position.x+dx, this.position.y+dy, this.position.z+dz);     
        Cell dest_cell = Dungeon.getInstance().getCell(destination);
        
        if (dest_cell == null)
@@ -151,6 +159,7 @@ public abstract class Entity
       }
    }
    
+   // TODO - Prevent drop on cells that aren't truly empty (i.e stairs)
    protected boolean attemptDrop()
    {
        if (item == null)  // Not carrying anything

@@ -15,16 +15,36 @@ public class Cell
     
     public byte getCharCode() 
     {
-        // (TODO, could be Entity?)    
-        
-        if (item == null)  // Cell is empty
+        // Entities take top priority
+        if (entity != null)
         {
-            return charCode;
+            return entity.getCharCode();
         }
-        else
+        
+        // Then items        
+        if (item != null)  // Cell is empty
         {
             return item.getCharCode();
-        }        
+        }
+
+        // Unoccupied cell.
+        return charCode;        
+    }
+    
+    public byte getItemCharCode() 
+    {    
+        if (item != null)  // Cell is empty
+        {
+            return item.getCharCode();
+        }
+
+        // Unoccupied cell.
+        return charCode;      
+    }
+
+    public byte getTrueCharCode() 
+    {
+        return charCode;        
     }
     
     public boolean canEnter() 
@@ -34,14 +54,17 @@ public class Cell
     		return false;
     	}
     	
-    	if (charCode != 0)   // TODO, use proper attributes/lookup tables
+    	switch (charCode)
     	{
-    		return false;
+    	    case Constants.CHAR_EMPTY:
+    	    case Constants.CHAR_STAIRS_DOWN:
+            case Constants.CHAR_STAIRS_UP:
+    	        return true;
+    	        
+    	    default:
+    	        return false;
     	}
-        
-    	return true;
-    }
-    
+    }    
 
     @Deprecated
     public byte getCharColor() 

@@ -66,7 +66,7 @@ public class Dungeon
         Zsize = depth;
     }
     
-    public void Load(String filename, int level) throws FileNotFoundException
+    public void LoadCSV(String filename, int level) throws FileNotFoundException
     {
     	ArrayList<String> temp_chars = new ArrayList<String>();
     	    	
@@ -83,15 +83,65 @@ public class Dungeon
        
         int index = 0;
            
-        for (int yy=0; yy < Constants.DUNGEON_SIZE; yy++)
+        for (int y=0; y < Constants.DUNGEON_SIZE / 10; y++)   // TODO, change to DUNGEON_SIZE once first level is ready
         {
-            for (int xx=0; xx < Constants.DUNGEON_SIZE; xx++)
+            for (int x=0; x < Constants.DUNGEON_SIZE / 10; x++)   // TODO, change to DUNGEON_SIZE once first level is ready
             {            
-               Cell c = dungeonMapCells[xx][yy][level];
+               Cell c = dungeonMapCells[x][y][level];
                c.setAttributes( Integer.parseInt(temp_chars.get(index++)) );
             }
         }
     }
+    
+    public void LoadTXT(String filename, int level) throws FileNotFoundException
+    {
+        ArrayList<String> lines = new ArrayList<String>();
+                
+        Scanner scanner = new Scanner(new File(filename));
+        scanner.useDelimiter("\r\n");
+        
+        while(scanner.hasNext())
+        {
+            lines.add(scanner.next());
+        }
+        scanner.close();
+        
+        JavaTools.printlnTime( "Number of lines loaded: " + lines.size() );
+           
+        for (int y=0; y < lines.size(); y++)
+        {   
+           char[] line=lines.get(y).toCharArray();
+           
+           for (int x=0; x < line.length; x++)
+           {  
+               Cell c = dungeonMapCells[x][y][level];               
+               int charcode = 0;
+               
+               switch (line[x])
+               {
+                   case ' ': 
+                       charcode = Constants.CHAR_DIRT;
+                       break;
+                       
+                   case '#': 
+                       charcode = Constants.CHAR_BRICKWALL;
+                       break;
+                       
+                   case '.': 
+                       charcode = Constants.CHAR_EMPTY;
+                       break;
+
+                   default:
+                       charcode = '*';
+                       break;
+                   
+               }
+           
+               c.setAttributes( charcode );
+           }
+        }
+    }    
+    
     
     public void update()
     {
@@ -105,7 +155,7 @@ public class Dungeon
         int index=0;
         Position temp_pos = new Position(topleft);
         
-        // 1.  Lowest Layer - Map   (or object in cell)
+        // Returns cell character codes, replaced by item or Entity codes if applicable
         
         for (int yy=0; yy < Constants.SCREEN_HEIGHT; yy++)
         {
@@ -116,25 +166,6 @@ public class Dungeon
                 screen[index++] = getCharCode(temp_pos);
             }
         }
-        
-        // 2.  Top layer - Entities
-        
-        List<Entity> onscreen = getEntitiesOnScreen(topleft);
-        
-        for (Entity e : onscreen)
-        {
-        	int rel_x = e.getXpos() - topleft.x;
-        	int rel_y = e.getYpos() - topleft.y;
-        	
-        	try
-        	{     	
-        	    screen[(rel_y * Constants.SCREEN_WIDTH) + rel_x] = e.getCharCode();
-        	}
-        	catch (Exception ex)
-        	{
-        	    ;        	
-        	}
-        }        
         
         return screen;
     }   
@@ -247,7 +278,7 @@ public class Dungeon
     		return 0;
     	}
     	
-    	// Return the character code, could be cell base code or item code  (TODO, could be Entity?) 	
+    	// Return the character code, could be cell base code or item code or Entity Code
     	return c.getCharCode();
     }
 

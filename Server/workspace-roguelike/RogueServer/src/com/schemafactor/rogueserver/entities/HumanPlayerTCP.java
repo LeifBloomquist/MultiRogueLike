@@ -38,7 +38,7 @@ public class HumanPlayerTCP extends HumanPlayer
    /** Update me with new data from client */
    public void receiveUpdate(int inputchar)
    {   
-       switch (inputchar)   // Packet type
+       switch (inputchar)
        {
            case 'q':
                handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NW);
@@ -75,6 +75,46 @@ public class HumanPlayerTCP extends HumanPlayer
            case 'c':
                handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SE);
                break;
+               
+           case 'l':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_DOWN);
+               break;
+               
+           case 'Q':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NW);
+               break;
+           
+           case 'W':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NORTH);
+               break;
+               
+           case 'E':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NE);
+               break;
+               
+           case 'A':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_WEST);
+               break;
+               
+           case 'S':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
+               break;
+               
+           case 'D':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_EAST);
+               break;
+               
+           case 'Z':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SW);
+               break;
+               
+           case 'X':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
+               break;
+               
+           case 'C':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SE);
+               break;
            
            default:
                JavaTools.printlnTime("Invalid command " + inputchar + " from " + description);
@@ -100,7 +140,7 @@ public class HumanPlayerTCP extends HumanPlayer
        byte[][] rows = JavaTools.splitBytes(visible, Constants.SCREEN_WIDTH);
              
        // Item currently held
-       char held = 32;  // Blank       
+       char held = 32;  // Blank
       
        if (item != null)
        {
@@ -108,16 +148,17 @@ public class HumanPlayerTCP extends HumanPlayer
        }
        
        // Item currently seen
-       char seen = PETSCII.getExtendedASCII( Dungeon.getInstance().getCell(position).getCharCode() );
+       char seen = PETSCII.getExtendedASCII( Dungeon.getInstance().getCell(position).getItemCharCode() );
        
        String screen = Constants.ANSI_CLEAR;
        
-       /*
-       for (int i=0; i<=255; i++)
+       
+       //for (int i=0; i<=255; i++)
        {
-           screen += "i="+i +"\t" + ExtendedAscii.getAscii(i);
+   //        screen += (char)58;
        }
-       */
+       
+  
        
        
        // TODO On screen messages
@@ -157,6 +198,7 @@ public class HumanPlayerTCP extends HumanPlayer
        screen += "...\r\n";
        
        // TODO network activity char
+     
      
        // Send the packet.
        sendUpdatePacket(screen);
