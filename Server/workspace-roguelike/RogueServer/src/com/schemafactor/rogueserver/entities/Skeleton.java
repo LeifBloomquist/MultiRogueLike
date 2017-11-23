@@ -13,7 +13,7 @@ public class Skeleton extends ServerControlled
     /** Creates a new instance of the Skeleton */
     public Skeleton(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 500f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 500f, 20f);    
     }
 
     @Override

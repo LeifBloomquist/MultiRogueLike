@@ -26,7 +26,7 @@ public abstract class HumanPlayer extends Entity
    
    public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
    {
-       super(description, startposition, type, charCode);     
+       super(description, startposition, type, charCode, 1f);     
    }
    
    /** Return the InetAddress, for comparisons */
@@ -56,11 +56,14 @@ public abstract class HumanPlayer extends Entity
          case Constants.ACTION_DROP:
              moved = attemptDrop();
              break;
+             
+         case Constants.ACTION_ATTACK:
+             moved = attemptAttack(parameter1);
+             break;
               
               /*
           public static final byte ACTION_USE        = 2;
           public static final byte ACTION_DIG        = 3;
-          public static final byte ACTION_ATTACK     = 4;
           public static final byte ACTION_EXAMINE    = 5;
           public static final byte ACTION_OPEN       = 6;
           public static final byte ACTION_CLOSE      = 7;
@@ -79,8 +82,7 @@ public abstract class HumanPlayer extends Entity
        // Update other entities in the area
        finishMove(moved);
    }
-   
-
+  
    @Override
    public void update()
    { 

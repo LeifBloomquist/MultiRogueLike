@@ -115,6 +115,15 @@ public class HumanPlayerTCP extends HumanPlayer
            case 'C':
                handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SE);
                break;
+               
+           case '=':
+           case '+':
+               handleAction(Constants.ACTION_PICKUP, Constants.DIRECTION_NONE);
+               break;
+               
+           case '-':
+               handleAction(Constants.ACTION_DROP, Constants.DIRECTION_NONE);
+               break;
            
            default:
                JavaTools.printlnTime("Invalid command " + inputchar + " from " + description);
@@ -185,7 +194,11 @@ public class HumanPlayerTCP extends HumanPlayer
                    
                case 5:
                    screen += " Right: x";
-               break;               
+               break;  
+               
+               case 7:
+                   screen += " Health: " + (int)health;
+               break;   
            }
            
            screen += "\r\n";

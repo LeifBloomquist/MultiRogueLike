@@ -2,6 +2,7 @@ package com.schemafactor.rogueserver.entities;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
@@ -13,13 +14,20 @@ public class Spider extends ServerControlled
     /** Creates a new instance of the Spider */
     public Spider(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SPIDER, 700f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SPIDER, 700f, 3f);    
     }
 
     @Override
     public void update() 
     {
         boolean moved = false;
+        
+        Duration elapsed = Duration.between(lastAction, Instant.now());
+        
+        if (elapsed.toMillis() <= actionTime)   // Move at this rate
+        {
+            return;   // Not time to act yet           
+        }
         
         switch (State)
         {
@@ -31,20 +39,22 @@ public class Spider extends ServerControlled
             }
                
             case WANDERING:
-            {               
-                // Occasionally go back to Idle
-                //if (JavaTools.generator.nextInt(3000) == 1)
-                //{
-                //    State = States.IDLE;
-                //    break;
-                //} 
-               
-                Duration elapsed = Duration.between(lastAction, Instant.now());
+            {   
+                // Randomly move in a direction. 
+                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));
                 
-                if (elapsed.toMillis() >= actionTime)  // Move at this rate
+                // Is a Human entity nearby?
+                List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 10);
+                List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(this, entityTypes.HUMAN_PLAYER, nearby);
+                
+                if (nearby_humans.size() == 0) // All clear
                 {
-                    // Randomly move in a direction. 
-                    moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));
+                    break;
+                }
+                else  // Attack!
+                {
+                    target = nearby_humans.get(0);
+                    State = States.CHASING;
                 }
                 
                 break;
@@ -52,11 +62,25 @@ public class Spider extends ServerControlled
         
             case CHASING:
             {
+                byte chase_direction = getDirectionTo(target);
+                moved = attemptMove(chase_direction);
+                
+                if (distanceTo(target) <= 1)
+                {
+                    State = States.ATTACKING;
+                }
                 break;
             }
             
             case ATTACKING:
             {
+                byte attack_direction = getDirectionTo(target);
+                moved = attemptAttack(attack_direction);
+                
+                if (distanceTo(target) > 1)
+                {
+                    State = States.CHASING;
+                }
                 break;
             }
             
@@ -68,7 +92,7 @@ public class Spider extends ServerControlled
         
         finishMove(moved);
     }
-    
+
     @Override
     public void updateNow()
     {

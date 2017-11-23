@@ -84,6 +84,12 @@ public class Cell
         this.entity = e;
     }
     
+    /** Get the entity currently in this cell */
+    public Entity getEntity()
+    {
+        return entity;
+    }
+    
     public boolean addItem(Item i)
     {
         if (item == null)  // Cell is empty

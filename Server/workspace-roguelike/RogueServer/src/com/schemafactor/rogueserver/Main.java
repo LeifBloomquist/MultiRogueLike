@@ -57,13 +57,14 @@ public class Main
         JavaTools.printlnTime("Creating default entities...");
         
         // For now, add some monsters.  TODO, randomly place, or from a file?      
-        dungeon.addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
+     //   dungeon.addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
         dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
         dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(92,21,0)) );
         dungeon.addEntity( new Slime("Slimey", new Position(9,9,0)) );
         
         // Add some test items.
-        dungeon.addItem( new Sword("Sword of Doom"), new Position(10,10,0));         
+        dungeon.addItem( new Sword("Sword of Doom", 20), 
+                         new Position(10,10,0));
         
         /*
         for (int i=1; i<=Constants.ASTEROID_COUNT; i++)

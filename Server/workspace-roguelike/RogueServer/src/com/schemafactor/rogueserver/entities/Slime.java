@@ -13,7 +13,7 @@ public class Slime extends ServerControlled
     /** Creates a new instance of the Slime */
     public Slime(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SLIME, 1000f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SLIME, 1000f, 10f);    
     }
 
     @Override

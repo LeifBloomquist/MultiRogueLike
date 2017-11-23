@@ -21,9 +21,9 @@ public abstract class ServerControlled extends Entity
     float actionTime = 1000f;  // Milliseconds    
        
     /** Creates a new instance of Server Controlled */
-    public ServerControlled(String name, Position startposition, entityTypes type, byte charCode, float actionTime)
+    public ServerControlled(String name, Position startposition, entityTypes type, byte charCode, float actionTime, float maxDamage)
     {
-       super(name, startposition, type, charCode);  
+       super(name, startposition, type, charCode, maxDamage);  
        this.actionTime = actionTime;
     }
     

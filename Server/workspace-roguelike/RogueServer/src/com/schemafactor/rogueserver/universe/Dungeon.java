@@ -332,20 +332,26 @@ public class Dungeon
     /** Get a list of all entities matching the given type, excluding the one who is doing the inquiry (who). */
     public List<Entity> getEntities(Entity who, Entity.entityTypes type)
     {
-        List<Entity> allOfType = new ArrayList<Entity>();
+        return getEntitiesType(who, type, allEntities);
+    }
+    
+    /** Get a sublist of all entities matching the given type, excluding the one who is doing the inquiry (who). */
+    public List<Entity> getEntitiesType(Entity who, Entity.entityTypes type, List<Entity> entities)
+    {   
+        List<Entity> matching = new ArrayList<Entity>();
         
-        for (Entity e : allEntities)
+        for (Entity e : entities)
         {
             if (who == e) continue;
             if (e.getRemoved()) continue;
             
             if (e.getType() == type)
             {
-                allOfType.add(e);                        
+                matching.add(e);                        
             }
         }        
         
-        return allOfType;
+        return matching;
     }
     
     /** Get a list of all entities within a certain radius, excluding the one who is doing the inquiry (who). */

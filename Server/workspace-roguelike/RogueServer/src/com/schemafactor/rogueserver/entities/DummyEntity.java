@@ -9,7 +9,7 @@ public class DummyEntity extends Entity
     /** Creates a new instance */
     public DummyEntity(Position startposition)
     {
-       super("Dummy", startposition, entityTypes.NONE, (byte)0);
+       super("Dummy", startposition, entityTypes.NONE, (byte)0, 0f);
     }
 
 	@Override

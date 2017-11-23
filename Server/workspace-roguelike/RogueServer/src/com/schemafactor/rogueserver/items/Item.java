@@ -8,14 +8,16 @@ public abstract class Item
    protected String description;
    // Items don't have a "position" per se, the Entity carrying them or the Cell holding them has a pointer to the Item instance in question.
    
-   protected byte charCode = 0;   // Character code shown on client screen
+   protected byte charCode = 0;   // Character code shown on client screen   
+   protected float maxDamage = 0;   
       
    /** Creates a new instance of Item */
-   public Item(String description, itemTypes type, byte charCode, boolean moveable)
+   public Item(String description, itemTypes type, byte charCode, boolean moveable, float maxDamage)
    {
        this.description = new String(description);    
        this.myType = type;
        this.charCode = charCode;
+       this.maxDamage = maxDamage;
        
        // Mark cell this item starts in
        //Dungeon.getInstance().getCell(startposition).setItem(this);
@@ -35,4 +37,9 @@ public abstract class Item
 	{		
 		return myType;
 	} 
+	
+	public float getMaxDamage() 
+    {       
+        return maxDamage;
+    } 
 }
