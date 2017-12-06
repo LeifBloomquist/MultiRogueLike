@@ -80,7 +80,12 @@ public abstract class Entity
     * @return true on success, false if failed
     */
    protected boolean attemptAttack(byte direction) 
-   {       
+   {   
+       if (direction == Constants.DIRECTION_NONE)  // Can't attack self
+       {
+           return false;
+       }
+       
        Cell current_cell = Dungeon.getInstance().getCell(this.position); 
        Position destination = getTargetPosition(current_cell, direction);
        Cell dest_cell = Dungeon.getInstance().getCell(destination);  
@@ -264,6 +269,11 @@ public abstract class Entity
            return Double.MAX_VALUE;
        }
        
+       if (this.getXpos() != target.getXpos())  // Don't see targets on other levels  
+       {
+           return Double.MAX_VALUE;
+       }
+       
        return Math.sqrt( Math.pow((this.getXpos() - target.getXpos()), 2) + Math.pow((this.getYpos() - target.getYpos()), 2)); 
    }
    
@@ -305,11 +315,12 @@ public abstract class Entity
 	
 	protected void finishMove(boolean moved)
     {
+	    lastAction = Instant.now();   
+	    
         // If we moved, update other entities in area.
         // TODO, future:  Set this as a flag, and update all at once at end of turn
         if (moved)
-        {
-            lastAction = Instant.now();            
+        {                     
             List<Entity> onscreen = Dungeon.getInstance().getEntitiesOnScreenCentered(this.position);
             
             // Don't update self

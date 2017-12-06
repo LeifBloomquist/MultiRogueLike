@@ -29,6 +29,15 @@ public class Spider extends ServerControlled
             return;   // Not time to act yet           
         }
         
+        if (target != null)
+        {
+            if (target.getRemoved())   // Target disconnected, or was removed/killed
+            {
+                target = null;
+                State = States.WANDERING;
+            }
+        }
+        
         switch (State)
         {
             case IDLE:
