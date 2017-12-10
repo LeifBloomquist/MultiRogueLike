@@ -14,6 +14,9 @@ CELL_COLOR  = COLOR_BASE  + $0097
 LEFT_CHAR   = SCREEN_BASE + $00E7
 LEFT_COLOR  = COLOR_BASE  + $00E7
 
+RIGHT_CHAR   = SCREEN_BASE + $00E7 + 40
+RIGHT_COLOR  = COLOR_BASE  + $00E7 + 40
+
 COMMS_CHAR  = SCREEN_BASE + $03E7
 COMMS_COLOR = COLOR_BASE  + $03E7
 
@@ -251,11 +254,17 @@ copy_x:
   lda colortable,x
   sta CELL_COLOR
 
-  ; Held
+  ; Held - Left
   ldx udp_inp_data+399
   stx LEFT_CHAR
   lda colortable,x
   sta LEFT_COLOR
+  
+  ; Held - Right
+  ldx udp_inp_data+400
+  stx RIGHT_CHAR
+  lda colortable,x
+  sta RIGHT_COLOR
 
   rts
 
