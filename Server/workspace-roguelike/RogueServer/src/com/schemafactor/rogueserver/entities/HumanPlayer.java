@@ -42,48 +42,15 @@ public abstract class HumanPlayer extends Entity
    public void handleKeystroke(int inputchar)
    {   
        // Special handling for escape sequences
-       if (escapeSequenceStep == 1)
+       if (escapeSequenceStep > 0)
        {
-           switch (inputchar)
+           boolean handled = handleEscapeSequence(inputchar);
+           if (handled)
            {
-               case 91:   //   '['
-                   escapeSequenceStep = 2;
-                   return;
-               
-               default:
-                   escapeSequenceStep = 0;  // Reset sequence and handle character below
-                   break;                       
-           }
+               return;
+           }           
        }
-       
-       if (escapeSequenceStep == 2)
-       {
-           escapeSequenceStep = 0;
-           
-           switch (inputchar)
-           {
-               case 'A':
-                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NORTH);
-                   return;
-                   
-               case 'B':
-                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
-                   return;
-               
-               case 'C':
-                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_EAST);
-                   return;
-                   
-               case 'D':
-                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_WEST);
-                   return;
-               
-               default:
-                   // handle character below
-                   break;
-           }
-       }
-           
+
        // Normal keystrokes
        
        switch (inputchar)
@@ -187,6 +154,119 @@ public abstract class HumanPlayer extends Entity
    }
 
    
+   private boolean handleEscapeSequence(int inputchar)
+   {
+       // Special handling for escape sequences
+       if (escapeSequenceStep == 1)
+       {
+           switch (inputchar)
+           {
+               case 91:   //   '['
+                   escapeSequenceStep = 2;
+                   return true;
+               
+               default:
+                   escapeSequenceStep = 0;    // Reset sequence and handle character normally
+                   return false;                    
+           }
+       }
+       
+       if (escapeSequenceStep == 2)
+       {
+           switch (inputchar)
+           {
+               case 'A':
+                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NORTH);
+                   escapeSequenceStep = 0;
+                   return true;
+                   
+               case 'B':
+                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
+                   escapeSequenceStep = 0;
+                   return true;
+               
+               case 'C':
+                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_EAST);
+                   escapeSequenceStep = 0;
+                   return true;
+                   
+               case 'D':
+                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_WEST);
+                   escapeSequenceStep = 0;
+                   return true;
+                   
+               case  49:  // Shifted case
+                   escapeSequenceStep = 3;
+                   return true;
+               
+               default:
+                   escapeSequenceStep = 0;
+                   return false;
+           }
+       }
+       
+       if (escapeSequenceStep == 3)
+       {
+           switch (inputchar)
+           {
+               case 59:
+                   escapeSequenceStep = 4;
+                   return true;
+                   
+               default:
+                   escapeSequenceStep = 0;
+                   return false;
+           }
+       }
+       
+       if (escapeSequenceStep == 4)
+       {
+           switch (inputchar)
+           {
+               case 50:
+                   escapeSequenceStep = 5;
+                   return true;
+                   
+               default:
+                   escapeSequenceStep = 0;
+                   return false;
+           }
+       }
+       
+       if (escapeSequenceStep == 5)
+       {
+           switch (inputchar)
+           {
+               case 'A':
+                   handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NORTH);
+                   escapeSequenceStep = 0;
+                   return true;
+                   
+               case 'B':
+                   handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
+                   escapeSequenceStep = 0;
+                   return true;
+               
+               case 'C':
+                   handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_EAST);
+                   escapeSequenceStep = 0;
+                   return true;
+                   
+               case 'D':
+                   handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_WEST);
+                   escapeSequenceStep = 0;
+                   return true;
+                   
+               default:
+                   escapeSequenceStep = 0;    // Reset sequence and handle character normally
+                   return false;                    
+           }
+       }
+       
+       
+       return false;
+   }
+
    protected void handleAction(byte action, byte parameter1) 
    {
        boolean moved = false;
