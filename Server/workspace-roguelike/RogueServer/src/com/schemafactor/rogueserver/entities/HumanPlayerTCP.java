@@ -38,87 +38,93 @@ public class HumanPlayerTCP extends HumanPlayer
    // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second as above
    @Override
    public void updateNow()
-   {        
-       int width = Constants.SCREEN_WIDTH + 2;
-       char bordercell = ExtendedAscii.getAscii(219);
-       char[] chars = new char[width];
-       Arrays.fill(chars, bordercell);
-       String border = new String(chars) + "\r\n";
-       
-       // Get the screen that is visible to this player
-       byte[] visible = Dungeon.getInstance().getScreenCentered(position);              
-       byte[][] rows = JavaTools.splitBytes(visible, Constants.SCREEN_WIDTH);
-             
-       // Items currently held
-       char held_left = 32;  // Blank
-       char held_right = 32;  // Blank
-      
-       if (item_left != null)
-       {
-           held_left = PETSCII.getExtendedASCII( item_left.getCharCode() );
-       }
-
-       if (item_right != null)
-       {
-           held_left = PETSCII.getExtendedASCII( item_right.getCharCode() );
-       }
-       
-       // Item currently seen
-       char seen = PETSCII.getExtendedASCII( Dungeon.getInstance().getCell(position).getItemCharCode() );
-       
+   {   
        String screen = Constants.ANSI_CLEAR;
        
-       
-       //for (int i=0; i<=255; i++)
+       if (showingHelp)
        {
-   //        screen += (char)58;
+           screen += "Help  (Press F2 to return to game)\r\n\r\n";
+           screen += "QWE\r\n";
+           screen += "ASD = Move\r\n";
+           screen += "ZXC\r\n\r\n";
+           screen += "SHIFT+Move = Attack\r\n\r\n";
+           screen += ", = Pick up item (Left  Hand)\r\n";
+           screen += ". = Pick up item (Right Hand)\r\n";
+           screen += "< = Drop item (Left  Hand)\r\n";
+           screen += "> = Drop item (Right Hand)\r\n\r\n";
+           screen += "* = Use item at current location\r\n";
        }
-       
-  
-       
-       
-       // TODO On screen messages
-       screen += "Rogue Server Update " + new Date().toString() + "\r\n";       
-       screen += border;
-       
-       for (int row=0; row < Constants.SCREEN_HEIGHT; row++)
-       {
-           screen += bordercell + PETSCII.toExtendedASCII(rows[row]) + bordercell;
+       else
+       {      
+           int width = Constants.SCREEN_WIDTH + 2;
+           char bordercell = ExtendedAscii.getAscii(219);
+           char[] chars = new char[width];
+           Arrays.fill(chars, bordercell);
+           String border = new String(chars) + "\r\n";
            
-           switch (row)
+           // Get the screen that is visible to this player
+           byte[] visible = Dungeon.getInstance().getScreenCentered(position);              
+           byte[][] rows = JavaTools.splitBytes(visible, Constants.SCREEN_WIDTH);
+                 
+           // Items currently held
+           char held_left = 32;  // Blank
+           char held_right = 32;  // Blank
+          
+           if (item_left != null)
            {
-               case 0: 
-                   screen += " " + description;
-               break;
-               
-               case 2:
-                   screen += " I See: " + seen;
-               break;
-                   
-               case 4:
-                   screen += " Left:  " + held_left;
-               break;
-                   
-               case 5:
-                   screen += " Right: " + held_right;
-               break;  
-               
-               case 7:
-                   screen += " Health: " + (int)health;
-               break;   
+               held_left = PETSCII.getExtendedASCII( item_left.getCharCode() );
+           }
+    
+           if (item_right != null)
+           {
+               held_left = PETSCII.getExtendedASCII( item_right.getCharCode() );
            }
            
-           screen += "\r\n";
-       }
-       
-       screen += border;       
-       screen += "\r\n";    
-       
-       // TODO Chat messages
-       screen += "...\r\n";
-       
-       // TODO network activity char
-     
+           // Item currently seen
+           char seen = PETSCII.getExtendedASCII( Dungeon.getInstance().getCell(position).getItemCharCode() );
+           
+           // TODO On screen messages
+           screen += "Rogue Server Update " + new Date().toString() + "\r\n";       
+           screen += border;
+           
+           for (int row=0; row < Constants.SCREEN_HEIGHT; row++)
+           {
+               screen += bordercell + PETSCII.toExtendedASCII(rows[row]) + bordercell;
+               
+               switch (row)
+               {
+                   case 0: 
+                       screen += " " + description;
+                   break;
+                   
+                   case 2:
+                       screen += " I See: " + seen;
+                   break;
+                       
+                   case 4:
+                       screen += " Left:  " + held_left;
+                   break;
+                       
+                   case 5:
+                       screen += " Right: " + held_right;
+                   break;  
+                   
+                   case 7:
+                       screen += " Health: " + (int)health;
+                   break;   
+               }
+               
+               screen += "\r\n";
+           }
+           
+           screen += border;       
+           screen += "\r\n";    
+           
+           // TODO Chat messages
+           screen += "...\r\n";
+           
+           // TODO network activity char
+       }     
      
        // Send the packet.
        sendUpdatePacket(screen);

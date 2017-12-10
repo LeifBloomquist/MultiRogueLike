@@ -290,6 +290,11 @@ public abstract class Entity
        return position.y;
    }
    
+   public int getZpos()
+   {
+       return position.z;
+   }
+   
    public String getDescription() 
    {
        return description;
@@ -303,7 +308,7 @@ public abstract class Entity
            return Double.MAX_VALUE;
        }
        
-       if (this.getXpos() != target.getXpos())  // Don't see targets on other levels  
+       if (this.getZpos() != target.getZpos())  // Don't see targets on other levels  
        {
            return Double.MAX_VALUE;
        }

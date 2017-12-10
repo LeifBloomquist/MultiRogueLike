@@ -27,6 +27,9 @@ public abstract class HumanPlayer extends Entity
    // Mini state machine for escape sequences
    int escapeSequenceStep = 0;
    
+   // Flag to say help is being shown
+   boolean showingHelp = false;
+   
    public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f);     
@@ -195,7 +198,7 @@ public abstract class HumanPlayer extends Entity
                    escapeSequenceStep = 0;
                    return true;
                    
-               case  49:  // Shifted case
+               case  49:  // Shifted case or function keys
                    escapeSequenceStep = 3;
                    return true;
                
@@ -209,6 +212,16 @@ public abstract class HumanPlayer extends Entity
        {
            switch (inputchar)
            {
+               case 49:
+                   showingHelp = true;
+                   escapeSequenceStep = 4;
+                   return true;
+                   
+               case 50:
+                   showingHelp = false;
+                   escapeSequenceStep = 4;
+                   return true;
+               
                case 59:
                    escapeSequenceStep = 4;
                    return true;
@@ -223,8 +236,16 @@ public abstract class HumanPlayer extends Entity
        {
            switch (inputchar)
            {
+               case 49:
+                   escapeSequenceStep = 5;
+                   return true;
+               
                case 50:
                    escapeSequenceStep = 5;
+                   return true;
+                   
+               case 126: // End of Function Key Sequence                   
+                   escapeSequenceStep = 0;
                    return true;
                    
                default:
@@ -262,8 +283,7 @@ public abstract class HumanPlayer extends Entity
                    return false;                    
            }
        }
-       
-       
+             
        return false;
    }
 

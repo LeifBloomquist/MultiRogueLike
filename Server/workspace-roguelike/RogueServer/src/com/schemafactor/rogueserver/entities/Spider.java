@@ -74,7 +74,8 @@ public class Spider extends ServerControlled
                 byte chase_direction = getDirectionTo(target);
                 moved = attemptMove(chase_direction);
                 
-                if (distanceTo(target) <= 1)
+                double target_distance = distanceTo(target);
+                if (target_distance <= 1.5d)
                 {
                     State = States.ATTACKING;
                 }
