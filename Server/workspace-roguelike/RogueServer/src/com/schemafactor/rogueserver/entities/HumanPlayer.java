@@ -119,11 +119,11 @@ public abstract class HumanPlayer extends Entity
                
            case '=':
            case '+':
-               handleAction(Constants.ACTION_PICKUP, Constants.DIRECTION_NONE);
+               handleAction(Constants.ACTION_PICKUP, Constants.HAND_RIGHT);
                break;
                
            case '-':
-               handleAction(Constants.ACTION_DROP, Constants.DIRECTION_NONE);
+               handleAction(Constants.ACTION_PICKUP, Constants.HAND_LEFT);
                break;
            
            default:
@@ -150,11 +150,11 @@ public abstract class HumanPlayer extends Entity
               break;
               
           case Constants.ACTION_PICKUP:
-              moved = attemptPickup();
+              moved = attemptPickup(parameter1);
               break;
               
          case Constants.ACTION_DROP:
-             moved = attemptDrop();
+             moved = attemptDrop(parameter1);
              break;
              
          case Constants.ACTION_ATTACK:

@@ -24,7 +24,8 @@ public abstract class Entity
    
    protected Instant lastAction = Instant.now();         // Used by server-controlled entities
    
-   Item item = null;  // Currently carried item  TODO Left/Right
+   Item item_left  = null;  // Currently carried item in left hand
+   Item item_right = null;  // Currently carried item in right hand
    
    float health = 100f;
    float baseDamage = 0f;   // How much damage this entity can do on attack without weapons
@@ -116,9 +117,14 @@ public abstract class Entity
    {
        float max_damage = baseDamage;
        
-       if (item != null)
+       if (item_left != null)
        {
-           max_damage += item.getMaxDamage();
+           max_damage += item_left.getMaxDamage();
+       }
+       
+       if (item_right!= null)
+       {
+           max_damage += item_right.getMaxDamage();
        }
        
        return max_damage * JavaTools.generator.nextFloat();     
@@ -127,6 +133,8 @@ public abstract class Entity
    private void attackedBy(Entity attacker)
    {
        this.health -= attacker.getAttackRoll();
+       
+       // TODO, effects of shields, spells, etc. to reduce damage
        
        if (health < 0 )
        {
@@ -200,46 +208,72 @@ public abstract class Entity
        return new Position(this.position.x+dx, this.position.y+dy, this.position.z+dz);
     }
 
-    protected boolean attemptPickup()
+    protected boolean attemptPickup(int hand)
     {
-       if (item != null)  // Already carrying something
+       Cell current_cell = Dungeon.getInstance().getCell(this.position);     
+        
+       if (hand == Constants.HAND_LEFT)
        {
-           return false;
+           if (item_left != null)  // Already carrying something
+           {
+               return false;
+           }
+           
+           item_left = current_cell.takeItem();    
+           return true;
        }
        
-      Cell current_cell = Dungeon.getInstance().getCell(this.position);      
-      item = current_cell.takeItem();   
-      
-      if (item != null) 
-      {
-          JavaTools.printlnTime("DEBUG: " + description + " picked up " + item.getDescription());
-          return true;
-      }
-      else  // Nothing picked up
-      {
-          JavaTools.printlnTime("DEBUG: " + description + " picked up nothing");
-          return true;
-      }
+       if (hand == Constants.HAND_RIGHT)
+       {
+           if (item_right != null)  // Already carrying something
+           {
+               return false;
+           }
+           
+           item_right = current_cell.takeItem();    
+           return true;
+       }
+       return false;
    }
    
    // TODO - Prevent drop on cells that aren't truly empty (i.e stairs)
-   protected boolean attemptDrop()
+   protected boolean attemptDrop(int hand)
    {
-       if (item == null)  // Not carrying anything
+       Cell current_cell = Dungeon.getInstance().getCell(this.position);    
+       
+       if (hand == Constants.HAND_LEFT)
        {
-           return false;
+           if (item_left == null)  // Not carrying anything
+           {
+               return false;
+           }
+           
+           boolean success = current_cell.addItem(item_left);  
+           
+           if (success)
+           {
+               item_left = null;   // No longer carrying the item
+               return true;
+           }
        }
        
-      Cell current_cell = Dungeon.getInstance().getCell(this.position);     
+       if (hand == Constants.HAND_RIGHT)
+       {
+           if (item_right == null)  // Not carrying anything
+           {
+               return false;
+           }
+           
+           boolean success = current_cell.addItem(item_right);  
+           
+           if (success)
+           {
+               item_right = null;   // No longer carrying the item
+               return true;
+           }
+       }
       
-      boolean success = current_cell.addItem(item);  
-      
-      if (success)
-      {
-          item = null;   // No longer carrying the item
-      }
-      
-      return success;
+      return false;
    }
    
    abstract public void update();       // Called on every game loop

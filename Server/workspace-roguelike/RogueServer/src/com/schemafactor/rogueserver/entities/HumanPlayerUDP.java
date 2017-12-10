@@ -94,10 +94,20 @@ public class HumanPlayerUDP extends HumanPlayer
        // Item underneath current position
        buffer[offset++] = Dungeon.getInstance().getCell(position).getItemCharCode();
        
-       // Item currently held
-       if (item != null)
+       // Item currently held (left)
+       if (item_left != null)
        {
-           buffer[offset++] = item.getCharCode();
+           buffer[offset++] = item_left.getCharCode();
+       }
+       else
+       {
+           buffer[offset++] = 0;
+       }
+       
+       // Item currently held (right)
+       if (item_right != null)
+       {
+           buffer[offset++] = item_right.getCharCode();
        }
        else
        {

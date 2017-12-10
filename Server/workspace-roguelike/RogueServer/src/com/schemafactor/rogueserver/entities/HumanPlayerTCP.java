@@ -50,11 +50,19 @@ public class HumanPlayerTCP extends HumanPlayer
        byte[][] rows = JavaTools.splitBytes(visible, Constants.SCREEN_WIDTH);
              
        // Item currently held
-       char held = 32;  // Blank
+       char held_left = 32;  // Blank
       
-       if (item != null)
+       if (item_left != null)
        {
-           held = PETSCII.getExtendedASCII( item.getCharCode() );
+           held_left = PETSCII.getExtendedASCII( item_left.getCharCode() );
+       }
+       
+       // Item currently held
+       char held_right = 32;  // Blank
+      
+       if (item_right != null)
+       {
+           held_left = PETSCII.getExtendedASCII( item_right.getCharCode() );
        }
        
        // Item currently seen
@@ -90,11 +98,11 @@ public class HumanPlayerTCP extends HumanPlayer
                break;
                    
                case 4:
-                   screen += " Left:  " + held;
+                   screen += " Left:  " + held_left;
                break;
                    
                case 5:
-                   screen += " Right: x";
+                   screen += " Right: " + held_right;
                break;  
                
                case 7:

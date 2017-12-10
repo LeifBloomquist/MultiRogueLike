@@ -30,6 +30,10 @@ public class Constants
     public static final byte PACKET_ANN_REPLY = (byte) 128;
     public static final byte PACKET_UPDATE    = (byte) 129;
     
+    // Handedness
+    public static final byte HAND_LEFT         = 1;
+    public static final byte HAND_RIGHT        = 2;
+    
     // Actions
     public static final byte ACTION_HEARTBEAT  = 0;
     public static final byte ACTION_MOVE       = 1;
