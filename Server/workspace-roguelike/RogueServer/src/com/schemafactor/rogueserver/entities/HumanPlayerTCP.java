@@ -49,17 +49,15 @@ public class HumanPlayerTCP extends HumanPlayer
        byte[] visible = Dungeon.getInstance().getScreenCentered(position);              
        byte[][] rows = JavaTools.splitBytes(visible, Constants.SCREEN_WIDTH);
              
-       // Item currently held
+       // Items currently held
        char held_left = 32;  // Blank
+       char held_right = 32;  // Blank
       
        if (item_left != null)
        {
            held_left = PETSCII.getExtendedASCII( item_left.getCharCode() );
        }
-       
-       // Item currently held
-       char held_right = 32;  // Blank
-      
+
        if (item_right != null)
        {
            held_left = PETSCII.getExtendedASCII( item_right.getCharCode() );

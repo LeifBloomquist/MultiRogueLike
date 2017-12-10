@@ -83,7 +83,9 @@ public class Spider extends ServerControlled
             
             case ATTACKING:
             {
+                // TODO - fix case where target is on a different level
                 byte attack_direction = getDirectionTo(target);
+
                 moved = attemptAttack(attack_direction);
                 
                 if (distanceTo(target) > 1)
