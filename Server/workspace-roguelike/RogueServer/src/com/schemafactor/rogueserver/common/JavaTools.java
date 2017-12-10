@@ -465,7 +465,8 @@ public abstract class JavaTools
 
     public static String Sanitize(String subjectString)
     {
-        String resultString = subjectString.replaceAll("[^\\x21-\\x7E]", "");
+        // String resultString = subjectString.replaceAll("[^\\x21-\\x7E]", "");
+        String resultString = subjectString.replaceAll("[^A-Za-z0-9]", "");        
         return resultString;
     }
     
