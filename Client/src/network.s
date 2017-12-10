@@ -200,7 +200,8 @@ gameupdate:
   
 SERVER_IP:
   ; .byte 208,79,218,201    ; Vortex VPS  
-  .byte 192,168,7,14       ; Dev Laptop
+  ; .byte 192,168,7,14      ; Dev Laptop
+  .byte 192,168,2,114       ; World of Commodore
 
   
 SERVER_PORT = 3006

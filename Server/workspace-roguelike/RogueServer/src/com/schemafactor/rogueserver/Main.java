@@ -60,7 +60,7 @@ public class Main
      //   dungeon.addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
         dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
         dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(92,21,0)) );
-        dungeon.addEntity( new Slime("Slimey", new Position(9,9,0)) );
+       // dungeon.addEntity( new Slime("Slimey", new Position(9,9,0)) );
         
         // Add some test items.
         dungeon.addItem( new Sword("Sword of Doom", 20), 
