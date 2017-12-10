@@ -1,6 +1,57 @@
 ;-------------------------------------------------------------------------
-; Vortex II Source Code
+; Rogue Source Code
 ; Misc utilities
+
+; ==============================================================
+; One second delay - thanks groepaz
+; ==============================================================
+
+ONESECOND
+    ldx #60   ; - NTSC   use #50 for PAL
+lp:
+    lda #$f8
+lp2:
+    cmp $d012    ; reached the line
+    bne lp2
+lp3:
+    cmp $d012    ; past the line
+    beq lp3
+    
+    ; Count down
+    dex
+    bne lp
+
+ONESECOND_x    
+    rts
+
+; ==============================================================
+; One second delay that can be interrupted by a packet
+; ==============================================================
+
+WAITONE
+    ldx #60  ; - NTSC   use #50 for PAL
+alp:
+    lda #$f8
+alp2:
+    cmp $d012    ; reached the line
+    bne alp2
+alp3:
+    cmp $d012    ; past the line
+    beq alp3
+    
+    ; Early exit if a packet is received
+    lda PACKET_RECEIVED
+    bne WAITONE_x           ; exit if flag = 1
+    
+    ; Count down
+    dex
+    bne alp
+
+WAITONE_x    
+    rts
+    
+
+
 
 ; -------------------------------------------------------------------------
 ; Wait 

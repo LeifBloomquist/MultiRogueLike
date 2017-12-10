@@ -59,7 +59,7 @@ public class HumanPlayerUDP extends HumanPlayer
                }
                
                lastActionCounter = actioncounter;              
-               handleAction(data[2], data[3]);              
+               handleKeystroke((int)data[2]);              
            }
            break;
            
@@ -92,7 +92,7 @@ public class HumanPlayerUDP extends HumanPlayer
        offset += Constants.MESSAGE_LENGTH;
        
        // Item underneath current position
-       buffer[offset++] = Dungeon.getInstance().getCell(position).getCharCode();
+       buffer[offset++] = Dungeon.getInstance().getCell(position).getItemCharCode();
        
        // Item currently held
        if (item != null)

@@ -53,6 +53,7 @@ init:
   
 :
   jsr sendannounce
+  jsr WAITONE               ; Wait one second so not flooding network
   lda gamepacketreceived
   beq :-
   

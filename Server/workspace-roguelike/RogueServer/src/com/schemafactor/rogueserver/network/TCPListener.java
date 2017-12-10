@@ -240,7 +240,7 @@ public class TCPListener extends Thread
                     }
                                     
                     JavaTools.printlnTime("Received: " + (char)ic + " | " + ic + " from " + who.getDescription());  // DEBUG                    
-                    who.receiveUpdate(ic);             
+                    who.handleKeystroke(ic);             
                 }              
             } 
             catch (IOException e) 

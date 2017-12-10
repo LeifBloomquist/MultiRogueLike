@@ -35,6 +35,106 @@ public abstract class HumanPlayer extends Entity
        return userIP;
    }
    
+
+   /** Update me with command from client */
+   public void handleKeystroke(int inputchar)
+   {   
+       switch (inputchar)
+       {
+           case 'q':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NW);
+               break;
+           
+           case 'w':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NORTH);
+               break;
+               
+           case 'e':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NE);
+               break;
+               
+           case 'a':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_WEST);
+               break;
+               
+           case 's':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
+               break;
+               
+           case 'd':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_EAST);
+               break;
+               
+           case 'z':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SW);
+               break;
+               
+           case 'x':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
+               break;
+               
+           case 'c':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SE);
+               break;
+               
+           case 'l':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_DOWN);
+               break;
+               
+           case 'Q':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NW);
+               break;
+           
+           case 'W':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NORTH);
+               break;
+               
+           case 'E':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NE);
+               break;
+               
+           case 'A':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_WEST);
+               break;
+               
+           case 'S':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
+               break;
+               
+           case 'D':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_EAST);
+               break;
+               
+           case 'Z':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SW);
+               break;
+               
+           case 'X':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
+               break;
+               
+           case 'C':
+               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SE);
+               break;
+               
+           case '=':
+           case '+':
+               handleAction(Constants.ACTION_PICKUP, Constants.DIRECTION_NONE);
+               break;
+               
+           case '-':
+               handleAction(Constants.ACTION_DROP, Constants.DIRECTION_NONE);
+               break;
+           
+           default:
+               JavaTools.printlnTime("Invalid command " + inputchar + " from " + description);
+               return;
+       }
+       
+       lastUpdateReceived = Instant.now();
+   }
+
+   
    protected void handleAction(byte action, byte parameter1) 
    {
        boolean moved = false;
