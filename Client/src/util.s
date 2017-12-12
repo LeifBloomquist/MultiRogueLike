@@ -6,7 +6,7 @@
 ; One second delay - thanks groepaz
 ; ==============================================================
 
-ONESECOND
+ONESECOND:
     ldx #60   ; - NTSC   use #50 for PAL
 lp:
     lda #$f8
@@ -21,14 +21,14 @@ lp3:
     dex
     bne lp
 
-ONESECOND_x    
+ONESECOND_x:   
     rts
 
 ; ==============================================================
 ; One second delay that can be interrupted by a packet
 ; ==============================================================
 
-WAITONE
+WAITONE:
     ldx #60  ; - NTSC   use #50 for PAL
 alp:
     lda #$f8
@@ -40,19 +40,16 @@ alp3:
     beq alp3
     
     ; Early exit if a packet is received
-    lda PACKET_RECEIVED
+    lda gamepacketreceived
     bne WAITONE_x           ; exit if flag = 1
     
     ; Count down
     dex
     bne alp
 
-WAITONE_x    
+WAITONE_x:    
     rts
     
-
-
-
 ; -------------------------------------------------------------------------
 ; Wait 
 waitforkey:

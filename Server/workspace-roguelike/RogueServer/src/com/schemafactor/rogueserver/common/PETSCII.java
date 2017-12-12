@@ -274,30 +274,39 @@ public class PETSCII
         
         for (byte b : petscii)
         {
-             int i = (int)(b & 0xFF);             
+           
              
-             // Numbers
-             if ((i>=48) && (i<=57))
-             {
-                 out += new String(new byte[] {b}, StandardCharsets.US_ASCII); // Pass-Thru
-             }
+             byte a = toASCII(b);
              
-             // Lowercase
-             if ((i>=65) && (i<=90))
-             {
-                 out += new String(new byte[] {(byte) (b+32)}, StandardCharsets.US_ASCII);  // Add 32
-             }
-             
-             // Uppercase
-             if ((i>=193) && (i<=218))
-             {
-                 out += new String(new byte[] {(byte) (b-128)}, StandardCharsets.US_ASCII);  // Subtract 128
-             } 
-             
-             // Ignore anything else
+             out += new String(new byte[] {a}, StandardCharsets.US_ASCII);
         }
-        
         return out;
+    }
+          
+    public static byte toASCII(byte b)
+    {
+         int i = (int)(b & 0xFF);   
+         
+         // Numbers
+         if ((i>=48) && (i<=57))
+         {
+             return b;
+         }
+         
+         // Lowercase
+         if ((i>=65) && (i<=90))
+         {
+             return (byte) (b+32);
+         }
+         
+         // Uppercase
+         if ((i>=193) && (i<=218))
+         {
+             return (byte) (b-128);
+         }          
+         
+         // Everything else becomes a space
+         return 32;       
     }
     
     public static String toExtendedASCII(byte[] petscii_charcodes)

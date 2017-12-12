@@ -98,6 +98,10 @@ public abstract class HumanPlayer extends Entity
                handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_DOWN);
                break;
                
+           case 'u':
+               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_UP);
+               break;
+               
            case 'Q':
                handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NW);
                break;

@@ -190,7 +190,10 @@ public abstract class Entity
               break;
           
           case Constants.DIRECTION_UP:
-              // if current cell type == stairs_up...
+              if (current_cell.getTrueCharCode() == Constants.CHAR_STAIRS_UP)
+              {
+                  dz = -1;
+              }
               break;
               
           case Constants.DIRECTION_DOWN:
@@ -318,6 +321,9 @@ public abstract class Entity
    
    protected byte getDirectionTo(Entity target)
    {
+       // Ignore targets not on same level
+       if (this.getZpos() != target.getZpos()) return  Constants.DIRECTION_NONE;
+               
        if ((this.getXpos() == target.getXpos()) && (this.getYpos() == target.getYpos())) return Constants.DIRECTION_NONE;
        if ((this.getXpos() >  target.getXpos()) && (this.getYpos() == target.getYpos())) return Constants.DIRECTION_WEST;
        if ((this.getXpos() <  target.getXpos()) && (this.getYpos() == target.getYpos())) return Constants.DIRECTION_EAST;
@@ -327,6 +333,8 @@ public abstract class Entity
        if ((this.getXpos() <  target.getXpos()) && (this.getYpos() <  target.getYpos())) return Constants.DIRECTION_SE;
        if ((this.getXpos() >  target.getXpos()) && (this.getYpos() <  target.getYpos())) return Constants.DIRECTION_SW;
        if ((this.getXpos() <  target.getXpos()) && (this.getYpos() >  target.getYpos())) return Constants.DIRECTION_NE;
+       
+       // Should never reach here, but just in case
        return Constants.DIRECTION_NONE;
    }
 
