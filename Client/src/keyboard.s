@@ -8,6 +8,11 @@ KEYOK:
 ; ---------------------------------------------------------------------
 ; Keyboard handler.
 
+KEYREPEAT:
+  lda #$FF   ; All keys repeat
+  sta $028A   
+  rts
+
 READKEYBOARD:  
   lda KEYOK   
   bne KEYSTART
