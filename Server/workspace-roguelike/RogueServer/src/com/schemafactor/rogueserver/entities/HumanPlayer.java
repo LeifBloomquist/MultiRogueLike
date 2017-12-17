@@ -138,14 +138,22 @@ public abstract class HumanPlayer extends Entity
                handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SE);
                break;
                
-           case '=':
-           case '+':
+           case 'j':
                handleAction(Constants.ACTION_PICKUP, Constants.HAND_RIGHT);
                break;
                
-           case '-':
+           case 'k':
                handleAction(Constants.ACTION_PICKUP, Constants.HAND_LEFT);
                break;
+               
+           case 'J':
+               handleAction(Constants.ACTION_DROP, Constants.HAND_RIGHT);
+               break;
+               
+           case 'K':
+               handleAction(Constants.ACTION_DROP, Constants.HAND_LEFT);
+               break;
+ 
                
            // Special cases for Cursor and Function Keys
            case 27:

@@ -303,7 +303,30 @@ public class PETSCII
          if ((i>=193) && (i<=218))
          {
              return (byte) (b-128);
-         }          
+         }
+         
+         // Control characters.  Not strictly an ASCII conversion, but returns equivalent functional keystrokes.
+         switch (i)
+         {
+             case 29:  // Cursor right
+                 return (byte)'d'; 
+                 
+             case 157:  // Cursor left
+                 return (byte)'a';
+                 
+             case 145:  // Cursor up
+                 return (byte)'w';
+             
+             case 17:  // Cursor down
+                 return (byte)'x';
+
+             case 133:  // F1
+                 return (byte)'h';
+             
+             
+                 
+                 
+         }
          
          // Everything else becomes a space
          return 32;       

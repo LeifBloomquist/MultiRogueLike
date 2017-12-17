@@ -43,17 +43,14 @@ public class HumanPlayerTCP extends HumanPlayer
        
        if (showingHelp)
        {
-           screen += "Help  (Press F2 to return to game)\r\n\r\n";
+           screen += "Help  (Press H again to return to game)\r\n\r\n";
            screen += "QWE\r\n";
            screen += "ASD = Move\r\n";
            screen += "ZXC\r\n\r\n";
            screen += "SHIFT+Move = Attack\r\n\r\n";
-           screen += "U = Up (Climb Stairs)\r\n";
-           screen += "L = Down (Climb Stairs)\r\n\r\n";
-           screen += ", = Pick up item (Left  Hand)\r\n";
-           screen += ". = Pick up item (Right Hand)\r\n";
-           screen += "< = Drop item (Left  Hand)\r\n";
-           screen += "> = Drop item (Right Hand)\r\n\r\n";
+           screen += "J = Pick up item (Left  Hand)\r\n";
+           screen += "K = Pick up item (Right Hand)\r\n\r\n";
+           screen += "SHIFT+J,K = Drop Item (Left, Right)\r\n\r\n";
            screen += "* = Use item at current location\r\n";
        }
        else

@@ -60,7 +60,8 @@ public class HumanPlayerUDP extends HumanPlayer
                
                lastActionCounter = actioncounter;     
                
-               byte ascii_char = PETSCII.toASCII(data[2]);               
+               byte petscii_char = data[2];
+               byte ascii_char = PETSCII.toASCII(petscii_char);               
                handleKeystroke(ascii_char);              
            }
            break;
