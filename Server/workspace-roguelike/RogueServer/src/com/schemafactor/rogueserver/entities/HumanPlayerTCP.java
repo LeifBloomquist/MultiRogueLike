@@ -51,7 +51,8 @@ public class HumanPlayerTCP extends HumanPlayer
            screen += "J = Pick up item (Left  Hand)\r\n";
            screen += "K = Pick up item (Right Hand)\r\n\r\n";
            screen += "SHIFT+J,K = Drop Item (Left, Right)\r\n\r\n";
-           screen += "* = Use item at current location\r\n";
+           screen += "* = Use item at current location\r\n\r\n";
+           screen += "H = Help (this screen)\r\n";
        }
        else
        {      

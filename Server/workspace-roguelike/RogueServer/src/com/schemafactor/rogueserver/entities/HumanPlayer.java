@@ -92,14 +92,18 @@ public abstract class HumanPlayer extends Entity
                
            case 'c':
                handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SE);
+               break;               
+               
+           case 'h':
+               showingHelp = !showingHelp;
                break;
                
-           case 'l':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_DOWN);
+           case 'k':
+               handleAction(Constants.ACTION_PICKUP, Constants.HAND_LEFT);
                break;
                
-           case 'u':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_UP);
+           case '*':
+               handleAction(Constants.ACTION_USE, Constants.DIRECTION_NONE);
                break;
                
            case 'Q':
@@ -136,14 +140,6 @@ public abstract class HumanPlayer extends Entity
                
            case 'C':
                handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SE);
-               break;
-               
-           case 'j':
-               handleAction(Constants.ACTION_PICKUP, Constants.HAND_RIGHT);
-               break;
-               
-           case 'k':
-               handleAction(Constants.ACTION_PICKUP, Constants.HAND_LEFT);
                break;
                
            case 'J':
@@ -224,12 +220,12 @@ public abstract class HumanPlayer extends Entity
        {
            switch (inputchar)
            {
-               case 49:
+               case 49:  // F1
                    showingHelp = true;
                    escapeSequenceStep = 4;
                    return true;
                    
-               case 50:
+               case 50:  // F2
                    showingHelp = false;
                    escapeSequenceStep = 4;
                    return true;
@@ -309,8 +305,16 @@ public abstract class HumanPlayer extends Entity
               JavaTools.printlnTime("DEBUG: heartbeat received from " + description);
               break;
               
+          case Constants.ACTION_USE:
+              moved = attemptUse(parameter1);
+              break;
+              
           case Constants.ACTION_MOVE:
               moved = attemptMove(parameter1);
+              break;
+              
+          case Constants.ACTION_ATTACK:
+              moved = attemptAttack(parameter1);
               break;
               
           case Constants.ACTION_PICKUP:
@@ -321,12 +325,10 @@ public abstract class HumanPlayer extends Entity
              moved = attemptDrop(parameter1);
              break;
              
-         case Constants.ACTION_ATTACK:
-             moved = attemptAttack(parameter1);
-             break;
+
               
               /*
-          public static final byte ACTION_USE        = 2;
+
           public static final byte ACTION_DIG        = 3;
           public static final byte ACTION_EXAMINE    = 5;
           public static final byte ACTION_OPEN       = 6;

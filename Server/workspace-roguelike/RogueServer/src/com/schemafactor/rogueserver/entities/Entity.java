@@ -279,6 +279,24 @@ public abstract class Entity
       return false;
    }
    
+   // Attempt to use the item under this entity.  True on success, false on failure.
+   protected boolean attemptUse(byte parameter1)
+   {
+       Cell current_cell = Dungeon.getInstance().getCell(this.position);
+       byte code = current_cell.getTrueCharCode();
+       
+       switch (code)
+       {
+            case Constants.CHAR_STAIRS_UP:
+                return attemptMove(Constants.DIRECTION_UP);
+                
+            case Constants.CHAR_STAIRS_DOWN:
+                return attemptMove(Constants.DIRECTION_DOWN);       
+       }
+       
+       return false;
+   }
+   
    abstract public void update();       // Called on every game loop
    abstract public void updateNow();    // Called from update(), or from other Entities to force an update
    
