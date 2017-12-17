@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
+import com.schemafactor.rogueserver.common.EscapeSequences;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.universe.Cell;
 import com.schemafactor.rogueserver.universe.Dungeon;
@@ -25,7 +26,7 @@ public abstract class HumanPlayer extends Entity
    protected int lastActionCounter = -1;                   // Invalid
    
    // Mini state machine for escape sequences
-   int escapeSequenceStep = 0;
+   ArrayList<Integer> escapeSequence = new ArrayList<Integer>();
    
    // Flag to say help is being shown
    boolean showingHelp = false;
@@ -45,7 +46,7 @@ public abstract class HumanPlayer extends Entity
    public void handleKeystroke(int inputchar)
    {   
        // Special handling for escape sequences
-       if (escapeSequenceStep > 0)
+       if (escapeSequence.size() > 0)
        {
            boolean handled = handleEscapeSequence(inputchar);
            if (handled)
@@ -98,8 +99,12 @@ public abstract class HumanPlayer extends Entity
                showingHelp = !showingHelp;
                break;
                
-           case 'k':
+           case 'j':
                handleAction(Constants.ACTION_PICKUP, Constants.HAND_LEFT);
+               break;
+               
+           case 'k':
+               handleAction(Constants.ACTION_PICKUP, Constants.HAND_RIGHT);
                break;
                
            case '*':
@@ -143,156 +148,107 @@ public abstract class HumanPlayer extends Entity
                break;
                
            case 'J':
-               handleAction(Constants.ACTION_DROP, Constants.HAND_RIGHT);
+               handleAction(Constants.ACTION_DROP, Constants.HAND_LEFT);
                break;
                
            case 'K':
-               handleAction(Constants.ACTION_DROP, Constants.HAND_LEFT);
+               handleAction(Constants.ACTION_DROP, Constants.HAND_RIGHT);
                break;
  
                
            // Special cases for Cursor and Function Keys
-           case 27:
-               escapeSequenceStep = 1;
+           case EscapeSequences.ESC:
+               escapeSequence.clear();
+               escapeSequence.add(inputchar);
                return;
            
            default:
-               JavaTools.printlnTime("Invalid command " + inputchar + " from " + description);
+           //    JavaTools.printlnTime("DEBUG: Invalid command " + inputchar + " from " + description);
                return;
        }
        
        lastUpdateReceived = Instant.now();
    }
 
-   
+
+   // Special handling for escape sequences
    private boolean handleEscapeSequence(int inputchar)
-   {
-       // Special handling for escape sequences
-       if (escapeSequenceStep == 1)
+   {  
+       boolean complete = false;
+       
+       escapeSequence.add(inputchar);
+       
+       int[] esc = escapeSequence.stream().mapToInt(Integer::intValue).toArray(); 
+       
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_UP))
        {
-           switch (inputchar)
-           {
-               case 91:   //   '['
-                   escapeSequenceStep = 2;
-                   return true;
-               
-               default:
-                   escapeSequenceStep = 0;    // Reset sequence and handle character normally
-                   return false;                    
-           }
+           handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NORTH);
+           complete = true;
        }
        
-       if (escapeSequenceStep == 2)
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_DOWN))
        {
-           switch (inputchar)
-           {
-               case 'A':
-                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NORTH);
-                   escapeSequenceStep = 0;
-                   return true;
-                   
-               case 'B':
-                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
-                   escapeSequenceStep = 0;
-                   return true;
-               
-               case 'C':
-                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_EAST);
-                   escapeSequenceStep = 0;
-                   return true;
-                   
-               case 'D':
-                   handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_WEST);
-                   escapeSequenceStep = 0;
-                   return true;
-                   
-               case  49:  // Shifted case or function keys
-                   escapeSequenceStep = 3;
-                   return true;
-               
-               default:
-                   escapeSequenceStep = 0;
-                   return false;
-           }
+           handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
+           complete = true;
        }
        
-       if (escapeSequenceStep == 3)
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_RIGHT))
        {
-           switch (inputchar)
-           {
-               case 49:  // F1
-                   showingHelp = true;
-                   escapeSequenceStep = 4;
-                   return true;
-                   
-               case 50:  // F2
-                   showingHelp = false;
-                   escapeSequenceStep = 4;
-                   return true;
-               
-               case 59:
-                   escapeSequenceStep = 4;
-                   return true;
-                   
-               default:
-                   escapeSequenceStep = 0;
-                   return false;
-           }
+           handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_EAST);
+           complete = true;
        }
        
-       if (escapeSequenceStep == 4)
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_LEFT))
        {
-           switch (inputchar)
-           {
-               case 49:
-                   escapeSequenceStep = 5;
-                   return true;
-               
-               case 50:
-                   escapeSequenceStep = 5;
-                   return true;
-                   
-               case 126: // End of Function Key Sequence                   
-                   escapeSequenceStep = 0;
-                   return true;
-                   
-               default:
-                   escapeSequenceStep = 0;
-                   return false;
-           }
+           handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_WEST);
+           complete = true;
        }
        
-       if (escapeSequenceStep == 5)
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_SHIFT_UP))
        {
-           switch (inputchar)
-           {
-               case 'A':
-                   handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NORTH);
-                   escapeSequenceStep = 0;
-                   return true;
-                   
-               case 'B':
-                   handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
-                   escapeSequenceStep = 0;
-                   return true;
-               
-               case 'C':
-                   handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_EAST);
-                   escapeSequenceStep = 0;
-                   return true;
-                   
-               case 'D':
-                   handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_WEST);
-                   escapeSequenceStep = 0;
-                   return true;
-                   
-               default:
-                   escapeSequenceStep = 0;    // Reset sequence and handle character normally
-                   return false;                    
-           }
+           handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NORTH);
+           complete = true;
        }
-             
-       return false;
+       
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_SHIFT_DOWN))
+       {
+           handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
+           complete = true;
+       }
+       
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_SHIFT_RIGHT))
+       {
+           handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_EAST);
+           complete = true;
+       }
+       
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_SHIFT_LEFT))
+       {
+           handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_WEST);
+           complete = true;
+       }
+       
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_F1))
+       {
+           showingHelp = true;
+           complete = true;
+       }
+       
+       if (Arrays.equals(esc, EscapeSequences.ESCAPE_F2))
+       {
+           showingHelp = false;
+           complete = true;
+       }
+       
+       if (complete)
+       {
+           escapeSequence.clear();
+           return true;           
+       }
+       else
+       {
+           return false;
+       }
    }
 
    protected void handleAction(byte action, byte parameter1) 

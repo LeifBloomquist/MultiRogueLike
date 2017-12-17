@@ -12,7 +12,6 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.DummyEntity;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.items.Item;
 
@@ -130,11 +129,19 @@ public class Dungeon
                    case '.': 
                        charcode = Constants.CHAR_EMPTY;
                        break;
+                       
+                   case '^': 
+                       charcode = Constants.CHAR_STAIRS_UP;
+                       break;
+                       
+                   case 'v':
+                   case 'V': 
+                       charcode = Constants.CHAR_STAIRS_DOWN;
+                       break;
 
                    default:
                        charcode = '*';
-                       break;
-                   
+                       break;                   
                }
            
                c.setAttributes( charcode );
@@ -290,6 +297,11 @@ public class Dungeon
     public long getYsize() 
     {
         return Ysize;
+    }  
+    
+    public long getZsize() 
+    {
+        return Zsize;
     }  
     
     // For the online map

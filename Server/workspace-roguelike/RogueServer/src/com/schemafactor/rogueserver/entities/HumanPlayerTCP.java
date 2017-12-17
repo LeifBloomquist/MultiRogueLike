@@ -77,7 +77,7 @@ public class HumanPlayerTCP extends HumanPlayer
     
            if (item_right != null)
            {
-               held_left = PETSCII.getExtendedASCII( item_right.getCharCode() );
+               held_right = PETSCII.getExtendedASCII( item_right.getCharCode() );
            }
            
            // Item currently seen
