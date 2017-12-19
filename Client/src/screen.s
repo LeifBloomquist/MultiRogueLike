@@ -4,18 +4,18 @@
 ; -------------------------------------------------------------------------
 ; Screen Constants
 
-CHAR_BASE   = $4000
-SCREEN_BASE = $4800
-COLOR_BASE  = $D800
+CHAR_BASE    = $4000
+SCREEN_BASE  = $4800
+COLOR_BASE   = $D800
 
-CELL_CHAR   = SCREEN_BASE + $0097
-CELL_COLOR  = COLOR_BASE  + $0097
+CELL_CHAR    = SCREEN_BASE + $006F
+CELL_COLOR   = COLOR_BASE  + $006F
 
-LEFT_CHAR   = SCREEN_BASE + $00E7
-LEFT_COLOR  = COLOR_BASE  + $00E7
+LEFT_CHAR    = SCREEN_BASE + $00BF
+LEFT_COLOR   = COLOR_BASE  + $00BF
 
-RIGHT_CHAR   = SCREEN_BASE + $00E7 + 40
-RIGHT_COLOR  = COLOR_BASE  + $00E7 + 40
+RIGHT_CHAR   = LEFT_CHAR  + 40
+RIGHT_COLOR  = LEFT_COLOR + 40
 
 COMMS_CHAR  = SCREEN_BASE + $03E7
 COMMS_COLOR = COLOR_BASE  + $03E7
@@ -246,7 +246,7 @@ copy2:
 
 copy_x:  
 
-  ; TODO - message at udp_inp_data+358  
+  ; TODO - messages at udp_inp_data+358  
 
   ; Current Cell
   ldx udp_inp_data+398

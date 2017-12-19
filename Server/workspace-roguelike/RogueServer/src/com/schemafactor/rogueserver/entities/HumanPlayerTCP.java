@@ -83,8 +83,7 @@ public class HumanPlayerTCP extends HumanPlayer
            // Item currently seen
            char seen = PETSCII.getExtendedASCII( Dungeon.getInstance().getCell(position).getItemCharCode() );
            
-           // TODO On screen messages
-           screen += "Rogue Server Update " + new Date().toString() + "\r\n";       
+           // Top of screen
            screen += border;
            
            for (int row=0; row < Constants.SCREEN_HEIGHT; row++)
@@ -118,9 +117,9 @@ public class HumanPlayerTCP extends HumanPlayer
            }
            
            screen += border;       
-           screen += "\r\n";    
-           
-           // TODO Chat messages
+          
+           // TODO On screen messages
+           screen += "Rogue Server Update " + new Date().toString() + "\r\n";      
            screen += "...\r\n";
            
            // TODO network activity char
