@@ -155,6 +155,11 @@ public abstract class HumanPlayer extends Entity
                handleAction(Constants.ACTION_DROP, Constants.HAND_RIGHT);
                break; 
                
+           case '!': // DEBUG special way to commit suicide to debug end of game
+               health = 0;
+               checkHealth();
+               break; 
+               
            // Special cases for Cursor and Function Keys
            case EscapeSequences.ESC:
                escapeSequence.clear();
@@ -320,6 +325,9 @@ public abstract class HumanPlayer extends Entity
        
        // Increment and Timeout.  This is reset in receiveUpdate() above.     
        checkTimeout();
+       
+       // Check health
+       checkHealth();
    }
       
    // Increment and check the timeout

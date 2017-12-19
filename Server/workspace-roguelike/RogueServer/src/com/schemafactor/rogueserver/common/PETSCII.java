@@ -328,6 +328,9 @@ public class PETSCII
                  
              case 42:  // *
                  return (byte)'*';
+                 
+             case '!':  // *
+                 return (byte)'!';
          }
          
          // Everything else becomes a space

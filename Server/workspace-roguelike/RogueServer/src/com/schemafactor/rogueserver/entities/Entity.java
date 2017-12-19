@@ -136,11 +136,22 @@ public abstract class Entity
        
        // TODO, effects of shields, spells, etc. to reduce damage
        
-       if (health < 0 )
-       {
-           health = 0;   // TODO, remove and drop items
-       }
+       checkHealth();
    }  
+
+   protected void checkHealth()
+   {       
+       if (health <= 0 )
+       {
+           health = 0;
+           gameOver();           
+       }    
+   }
+
+   private void gameOver()
+   {
+       removeMe();  // TODO, drop items, etc.
+   }
 
    private Position getTargetPosition(Cell current_cell, byte direction)
    {
@@ -204,7 +215,7 @@ public abstract class Entity
              break;
              
           default:
-             JavaTools.printlnTime("Unknown move direction code " + direction + " from " + description);
+             JavaTools.printlnTime("DEBUG: Unknown move direction code " + direction + " from " + description);
              return this.position; // No Change            
        }
        

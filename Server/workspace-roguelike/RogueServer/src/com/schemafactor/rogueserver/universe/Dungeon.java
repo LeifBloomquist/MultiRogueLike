@@ -82,6 +82,16 @@ public class Dungeon
         JavaTools.printlnTime( "Number of cells loaded: " + temp_chars.size() );
        
         int index = 0;
+        
+        // Fill with dirt  (TODO, remove this, it's for a smaller first level only) 
+        for (int y=0; y < Constants.DUNGEON_SIZE; y++)   
+        {
+            for (int x=0; x < Constants.DUNGEON_SIZE ; x++)   
+            {            
+               Cell c = dungeonMapCells[x][y][level];
+               c.setAttributes( Constants.CHAR_DIRT );
+            }
+        }
            
         for (int y=0; y < Constants.DUNGEON_SIZE / 10; y++)   // TODO, change to DUNGEON_SIZE once first level is ready
         {

@@ -18,6 +18,7 @@ public class TCPListener extends Thread
     private ServerSocket serverSocket;
     private List<ClientThread> clientThreads = new ArrayList<ClientThread>();
     
+    private enum ExitReason { NONE,  DIED, DISCONNECTED, QUIT }
     
     // Force remote Telnet client to not use linemode (i.e. character mode), and to echo.  Adapted from http://www.mudbytes.net/forum/comment/56126/
     private final byte[] telnet_params = 
@@ -113,8 +114,7 @@ public class TCPListener extends Thread
     {
         private Socket clientSocket;
         private BufferedReader input;
-        private PrintWriter output;
-        HumanPlayerTCP who = null;
+        private PrintWriter output;       
         private OutputStream output_stream;
 
         public ClientThread(Socket socket) throws IOException 
@@ -170,78 +170,41 @@ public class TCPListener extends Thread
         
         public void run() 
         {
-            Thread.currentThread().setName("TCP Client Thread");
+            Thread.currentThread().setName("TCP Client Thread");            
+            Dungeon dungeon = Dungeon.getInstance();              
+            sendCharacters(telnet_params);
             
-            Dungeon dungeon = Dungeon.getInstance();  
-            
-            sendCharacters(telnet_params);            
-            sendCharacters(Constants.ANSI_CLEAR);
-            sendString("Connected to the Rogue Test Server");
-            
-            // TODO Move all this to dedicated functions
-            try 
-            {   
-                // Login Loop
-                while(true) 
-                {
-                    // Wait for Login              
-                    sendString("");
-                    sendCharacters("Login: ");                    
-                    String login = input.readLine();
-                    
-                    if (login == null)
+            try            
+            {  
+                while (true) // Infinite cycle of life and death
+                {                    
+                    // 1. Login
+                    HumanPlayerTCP who = doLogin();                
+                    if (who == null)
                     {
-                        JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated at login." );
-                        close();
                         return;
-                    }
-
-                    login = JavaTools.Sanitize(login);       
+                    }                
+                    dungeon.addEntity(who);
                     
-                    if (login.equals(""))
+                    // 2. Game Loop - Blocks until user disconnects or dies
+                    ExitReason exit = gameLoop(who);   
+                    who.removeMe();                
+                    
+                    if (exit == ExitReason.DISCONNECTED)
+                    {
+                        return;
+                    }                    
+    
+                    // 3. Play again?
+                    if (playAgain())
                     {
                         continue;
                     }
-                    
-                    sendString(login);
-                    
-                    // Create a player
-                    JavaTools.printlnTime( "Creating player " + login + " from " + clientSocket.getRemoteSocketAddress().toString() + " [TCP]" );
-                    who = new HumanPlayerTCP(login, output);        
-                    dungeon.addEntity(who);
-                    break;   // To next loop
-                }
-                
-                // Game Loop.  Updates occur in background thread controlled by Dungeon.
-                while (true)
-                {
-                    int ic = input.read();
-                    
-                    if (ic < 0)
-                    {
-                        JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated waiting for input." );
-                        
-                        if (who != null)
-                        {
-                            who.removeMe();
-                        }                        
-                        close();
+                    else
+                    {                     
                         return;
-                    }
-                    
-                    // Close connection for removed characters
-                    if (who != null)
-                    {
-                        if (who.getRemoved())
-                        {
-                            close();
-                            return;
-                        }
-                    }
-                                    
-                    JavaTools.printlnTime("Received: " + (char)ic + " | " + ic + " from " + who.getDescription());  // DEBUG                    
-                    who.handleKeystroke(ic);             
-                }              
+                    }   
+                }
             } 
             catch (IOException e) 
             {
@@ -252,5 +215,102 @@ public class TCPListener extends Thread
                 close();
             }
         }
+
+        private HumanPlayerTCP doLogin() throws IOException
+        {
+            // Login Loop
+            while (true) 
+            {
+                sendCharacters(Constants.ANSI_CLEAR);
+                sendString("Connected to the Rogue Test Server");
+                
+                // Wait for Login              
+                sendString("");
+                sendCharacters("Login: ");                    
+                String login = input.readLine();
+                
+                if (login == null)
+                {
+                    JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated at login." );
+                    close();
+                    return null;
+                }
+
+                login = JavaTools.Sanitize(login);       
+                
+                if (login.equals(""))
+                {
+                    continue;
+                }
+                
+                sendString(login);  // Echo back
+                
+                // Create a player
+                JavaTools.printlnTime( "Creating player " + login + " from " + clientSocket.getRemoteSocketAddress().toString() + " [TCP]" );
+                return new HumanPlayerTCP(login, output);
+            }
+        }
+
+        // Game Loop.  Updates occur in background thread controlled by Dungeon.
+        private ExitReason gameLoop(HumanPlayerTCP who) throws IOException
+        {         
+            while (true)
+            {
+             
+                int ic = input.read();  // Blocks
+                
+                if (ic < 0)
+                {
+                    JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated waiting for input." );
+                    close();
+                    return ExitReason.DISCONNECTED;
+                }                    
+                            
+                JavaTools.printlnTime("DEBUG: Received: " + (char)ic + " | " + ic + " from " + who.getDescription());                  
+                who.handleKeystroke(ic);
+                
+                // Exit for removed entities
+                if (who.getRemoved())
+                {
+                   return ExitReason.DIED;
+                }
+            }
+        }
+        
+        // "Play Again?" loop.  Return true on Yes, false on No.
+        public boolean playAgain() throws IOException
+        {
+            sendCharacters(Constants.ANSI_CLEAR);
+            
+            while (true)
+            {               
+                sendString("You have died!  Play again?  (y/n)");
+                
+                int ic = input.read();
+                
+                if (ic < 0)
+                {
+                    JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated at Play Again prompt." );             
+                    close();
+                    return false;   // We'll take that as a No
+                }
+                
+                switch (ic)
+                {
+                    case 'y':
+                    case 'Y':
+                        return true;
+                        
+                    case 'n':
+                    case 'N':  
+                        close();
+                        return false;
+                        
+                    // Default keep asking
+                }                       
+            }                    
+        }
     }
+
+   
 }

@@ -14,7 +14,7 @@ public class Spider extends ServerControlled
     /** Creates a new instance of the Spider */
     public Spider(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SPIDER, 700f, 3f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SPIDER, 700f, 30f);    
     }
 
     @Override
