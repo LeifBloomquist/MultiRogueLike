@@ -108,55 +108,55 @@ copyscreen:
 copy:  
   ; 17 Rows on screen
   lda udp_inp_data+1,x 
-  sta SCREEN_BASE+1+(40*2),x                 ; Shifted over one column for border  
+  sta SCREEN_BASE+1+(40*1),x                 ; Shifted over one column for border  
   
   lda udp_inp_data+1+(GAME_COLS*1),x
-  sta SCREEN_BASE+1+(40*3),x
+  sta SCREEN_BASE+1+(40*2),x
 
   lda udp_inp_data+1+(GAME_COLS*2),x
-  sta SCREEN_BASE+1+(40*4),x
+  sta SCREEN_BASE+1+(40*3),x
  
   lda udp_inp_data+1+(GAME_COLS*3),x
-  sta SCREEN_BASE+1+(40*5),x
+  sta SCREEN_BASE+1+(40*4),x
  
   lda udp_inp_data+1+(GAME_COLS*4),x
-  sta SCREEN_BASE+1+(40*6),x
+  sta SCREEN_BASE+1+(40*5),x
  
   lda udp_inp_data+1+(GAME_COLS*5),x
-  sta SCREEN_BASE+1+(40*7),x
+  sta SCREEN_BASE+1+(40*6),x
  
   lda udp_inp_data+1+(GAME_COLS*6),x
-  sta SCREEN_BASE+1+(40*8),x
+  sta SCREEN_BASE+1+(40*7),x
  
   lda udp_inp_data+1+(GAME_COLS*7),x
-  sta SCREEN_BASE+1+(40*9),x
+  sta SCREEN_BASE+1+(40*8),x
  
   lda udp_inp_data+1+(GAME_COLS*8),x
-  sta SCREEN_BASE+1+(40*10),x
+  sta SCREEN_BASE+1+(40*9),x
  
   lda udp_inp_data+1+(GAME_COLS*9),x
-  sta SCREEN_BASE+1+(40*11),x
+  sta SCREEN_BASE+1+(40*10),x
  
   lda udp_inp_data+1+(GAME_COLS*10),x
-  sta SCREEN_BASE+1+(40*12),x
+  sta SCREEN_BASE+1+(40*11),x
  
   lda udp_inp_data+1+(GAME_COLS*11),x
-  sta SCREEN_BASE+1+(40*13),x
+  sta SCREEN_BASE+1+(40*12),x
  
   lda udp_inp_data+1+(GAME_COLS*12),x
-  sta SCREEN_BASE+1+(40*14),x
+  sta SCREEN_BASE+1+(40*13),x
  
   lda udp_inp_data+1+(GAME_COLS*13),x
-  sta SCREEN_BASE+1+(40*15),x
+  sta SCREEN_BASE+1+(40*14),x
  
   lda udp_inp_data+1+(GAME_COLS*14),x
-  sta SCREEN_BASE+1+(40*16),x
+  sta SCREEN_BASE+1+(40*15),x
  
   lda udp_inp_data+1+(GAME_COLS*15),x
-  sta SCREEN_BASE+1+(40*17),x
+  sta SCREEN_BASE+1+(40*16),x
  
   lda udp_inp_data+1+(GAME_COLS*16),x
-  sta SCREEN_BASE+1+(40*18),x
+  sta SCREEN_BASE+1+(40*17),x
  
   inx
   cpx #GAME_COLS
@@ -171,20 +171,24 @@ copy:
   
 copy2:  
   ; 17 Rows on screen
-  ldx SCREEN_BASE+1+(40*2),y 
+  ldx SCREEN_BASE+1+(40*1),y 
   lda colortable,x                 
-  sta COLOR_BASE+1+(40*2),y  
+  sta COLOR_BASE+1+(40*1),y  
+
+  ldx SCREEN_BASE+1+(40*2),y
+  lda colortable,x   
+  sta COLOR_BASE+1+(40*2),y
 
   ldx SCREEN_BASE+1+(40*3),y
-  lda colortable,x   
+  lda colortable,x  
   sta COLOR_BASE+1+(40*3),y
-
+ 
   ldx SCREEN_BASE+1+(40*4),y
   lda colortable,x  
   sta COLOR_BASE+1+(40*4),y
  
   ldx SCREEN_BASE+1+(40*5),y
-  lda colortable,x  
+  lda colortable,x
   sta COLOR_BASE+1+(40*5),y
  
   ldx SCREEN_BASE+1+(40*6),y
@@ -234,10 +238,6 @@ copy2:
   ldx SCREEN_BASE+1+(40*17),y
   lda colortable,x
   sta COLOR_BASE+1+(40*17),y
- 
-  ldx SCREEN_BASE+1+(40*18),y
-  lda colortable,x
-  sta COLOR_BASE+1+(40*18),y
  
   iny
   cpy #GAME_COLS
