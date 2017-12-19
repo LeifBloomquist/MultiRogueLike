@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -279,10 +280,10 @@ public class Dungeon
     {
     	Cell c = getCell(p);
     	
-    	// Invalid position - return blank.
+    	// Invalid position - return "Dirt" (for area outside the dungeon)
     	if (c == null)
     	{
-    		return 0;
+    		return Constants.CHAR_DIRT;
     	}
     	
     	// Return the character code, could be cell base code or item code or Entity Code

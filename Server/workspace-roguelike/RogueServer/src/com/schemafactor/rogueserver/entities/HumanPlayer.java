@@ -51,8 +51,8 @@ public abstract class HumanPlayer extends Entity
            boolean handled = handleEscapeSequence(inputchar);
            if (handled)
            {
-               return;
-           }           
+              return;                      
+           }
        }
 
        // Normal keystrokes
@@ -153,8 +153,7 @@ public abstract class HumanPlayer extends Entity
                
            case 'K':
                handleAction(Constants.ACTION_DROP, Constants.HAND_RIGHT);
-               break;
- 
+               break; 
                
            // Special cases for Cursor and Function Keys
            case EscapeSequences.ESC:
@@ -163,7 +162,7 @@ public abstract class HumanPlayer extends Entity
                return;
            
            default:
-           //    JavaTools.printlnTime("DEBUG: Invalid command " + inputchar + " from " + description);
+               JavaTools.printlnTime("DEBUG: Invalid command " + inputchar + " from " + description);
                return;
        }
        
@@ -247,6 +246,11 @@ public abstract class HumanPlayer extends Entity
        }
        else
        {
+           // Hack to break out of invalid escape sequences.  TODO, improve this           
+           if (esc.length >= EscapeSequences.ESCAPE_F2.length)
+           {
+               escapeSequence.clear();
+           }             
            return false;
        }
    }
@@ -289,8 +293,7 @@ public abstract class HumanPlayer extends Entity
           public static final byte ACTION_EXAMINE    = 5;
           public static final byte ACTION_OPEN       = 6;
           public static final byte ACTION_CLOSE      = 7;
-          public static final byte ACTION_CAST       = 8;        
-          public static final byte ACTION_DROP       = 10;
+          public static final byte ACTION_CAST       = 8;
           */
               
           default:
