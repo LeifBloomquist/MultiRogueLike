@@ -35,7 +35,7 @@ public class Main
         JavaTools.onlyOneInstance("rogueserver");
         
         // Create the universe.
-        JavaTools.printlnTime("Creating game universe...");
+        JavaTools.printlnTime("Creating game dungeon...");
         Dungeon dungeon = Dungeon.getInstance();
         dungeon.Create(Constants.DUNGEON_SIZE, Constants.DUNGEON_DEPTH);
         
@@ -43,8 +43,10 @@ public class Main
         JavaTools.printlnTime("Loading game persistence...");
         try 
         {
-            dungeon.LoadCSV("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest0.csv", 0);
-            dungeon.LoadTXT("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest1.txt", 1);
+            //dungeon.LoadCSV("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest0.csv", 0);
+            //dungeon.LoadTXT("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest1.txt", 1);
+            dungeon.LoadCSV("LevelTest0.csv", 0);
+            dungeon.LoadTXT("LevelTest1.txt", 1);
 		} 
         catch (FileNotFoundException e) 
         {
