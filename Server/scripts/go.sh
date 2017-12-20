@@ -1,6 +1,4 @@
-#!/bin/bash
-
-rm *.lock
-/usr/bin/pkill -f gameloop.sh
+rm rogueserver.lock
+rm out.txt
 /usr/bin/pkill -f vortexserver
-/usr/bin/java -Xmx1024M -jar /home/leif/vortex/vortexserver.jar
+java -Xms2048m -Xmx2048m -jar rogueserver.jar >>out.txt 2>&1
