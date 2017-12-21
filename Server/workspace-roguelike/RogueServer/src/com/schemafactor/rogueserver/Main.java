@@ -39,7 +39,7 @@ public class Main
         // Load saved
         JavaTools.printlnTime("Loading game levels...");   // TODO, persistence
         
-        String prefix = "C:/Leif/GitHub/MultiRogueLike/Server/data/test/";
+        String prefix = ""; //C:/Leif/GitHub/MultiRogueLike/Server/data/test/";
                 
         try 
         {
