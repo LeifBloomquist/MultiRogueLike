@@ -136,20 +136,24 @@ public abstract class Entity
        
        // TODO, effects of shields, spells, etc. to reduce damage
        
-       checkHealth();
+       checkHealth(attacker);
    }  
 
-   protected void checkHealth()
+   protected void checkHealth(Entity attacker)
    {       
        if (health <= 0 )
        {
            health = 0;
-           gameOver();           
+           gameOver(attacker);           
        }    
    }
 
-   private void gameOver()
+   private void gameOver(Entity attacker)
    {
+       if (attacker != null)
+       {
+           JavaTools.printlnTime(description + " was killed by " + attacker.description);
+       }
        removeMe();  // TODO, drop items, etc.
    }
 

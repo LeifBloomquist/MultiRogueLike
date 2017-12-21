@@ -157,7 +157,7 @@ public abstract class HumanPlayer extends Entity
                
            case '!': // DEBUG special way to commit suicide to debug end of game
                health = 0;
-               checkHealth();
+               checkHealth(this);
                break; 
                
            // Special cases for Cursor and Function Keys
@@ -327,7 +327,7 @@ public abstract class HumanPlayer extends Entity
        checkTimeout();
        
        // Check health
-       checkHealth();
+       checkHealth(null);
    }
       
    // Increment and check the timeout

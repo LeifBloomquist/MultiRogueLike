@@ -36,7 +36,7 @@ public class Slime extends ServerControlled
             case WANDERING:
             {               
                 // Occasionally go into turbo mode
-                if (JavaTools.generator.nextInt(100) == 1)
+                if (JavaTools.generator.nextInt(10) == 1)
                 {
                     this.actionTime = 100f;                    
                 }

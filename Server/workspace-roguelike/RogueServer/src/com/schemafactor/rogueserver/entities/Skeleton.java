@@ -16,7 +16,7 @@ public class Skeleton extends ServerControlled
     /** Creates a new instance of the Skeleton */
     public Skeleton(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 350f, 10f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 300f, 10f);    
     }
     
     @Override
@@ -31,7 +31,7 @@ public class Skeleton extends ServerControlled
                 // Wait for trouble               
                 
                 // Is a Human entity nearby?
-                List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 8);
+                List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 5);
                 List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(this, entityTypes.HUMAN_PLAYER, nearby);
                 
                 if (nearby_humans.size() == 0) // All clear, keep waiting
@@ -77,7 +77,7 @@ public class Skeleton extends ServerControlled
                     State = States.CHASING;
                 }
                 
-                if (distanceTo(target) > 10)  // Too far
+                if (distanceTo(target) > 10)  // Too far  (just off screen...)
                 {
                     State = States.IDLE;
                 }

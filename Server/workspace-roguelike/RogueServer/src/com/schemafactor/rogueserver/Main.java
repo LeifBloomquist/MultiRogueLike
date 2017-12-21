@@ -94,13 +94,13 @@ public class Main
         
         for (int i=1; i<=50; i++)
         {
-            dungeon.addEntity( new Spider("Spider 1-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                       JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                       1)) );
+            dungeon.addEntity( new Spider("Spider 1-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize() / 4),  // /4 to put them near the player when first coming down the stairs
+                                                                         JavaTools.generator.nextInt(dungeon.getYsize() / 4),
+                                                                         1)) );
             
-            dungeon.addEntity( new Slime("Slime 1-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                     JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                     1)) );             
+            dungeon.addEntity( new Slime("Slime 1-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize() / 4),
+                                                                       JavaTools.generator.nextInt(dungeon.getYsize() / 4),
+                                                                       1)) );             
         } 
         
         // Level 2
