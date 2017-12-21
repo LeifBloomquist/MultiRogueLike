@@ -129,7 +129,7 @@ public class Dungeon
                
                switch (line[x])
                {
-                   case ' ': 
+                   case '.': 
                        charcode = Constants.CHAR_DIRT;
                        break;
                        
@@ -137,8 +137,12 @@ public class Dungeon
                        charcode = Constants.CHAR_BRICKWALL;
                        break;
                        
-                   case '.': 
+                   case ' ': 
                        charcode = Constants.CHAR_EMPTY;
+                       break;
+                       
+                   case 'c': 
+                       charcode = Constants.CHAR_CHEST;
                        break;
                        
                    case '^': 
@@ -300,17 +304,17 @@ public class Dungeon
     	return c.getCharCode();
     }
 
-    public long getXsize() 
+    public int getXsize() 
     {
         return Xsize;
     }
 
-    public long getYsize() 
+    public int getYsize() 
     {
         return Ysize;
     }  
     
-    public long getZsize() 
+    public int getZsize() 
     {
         return Zsize;
     }  

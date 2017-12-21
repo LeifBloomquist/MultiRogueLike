@@ -33,7 +33,7 @@ colortable:
     .byte COLOR_WHITE    ; 8	 	
     .byte COLOR_WHITE    ; 9	 	
     .byte COLOR_WHITE    ; 10	 	
-    .byte COLOR_WHITE    ; 11	 	
+    .byte COLOR_BROWN    ; 11	 // Chest 	
     .byte COLOR_WHITE    ; 12	 	
     .byte COLOR_WHITE    ; 13	 	
     .byte COLOR_WHITE    ; 14	 	

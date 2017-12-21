@@ -2,10 +2,13 @@ package com.schemafactor.rogueserver.entities;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.ServerControlled;
+import com.schemafactor.rogueserver.entities.Entity.entityTypes;
+import com.schemafactor.rogueserver.entities.ServerControlled.States;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Slime extends ServerControlled
@@ -13,11 +16,11 @@ public class Slime extends ServerControlled
     /** Creates a new instance of the Slime */
     public Slime(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SLIME, 1000f, 10f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SLIME, 1000f, 30f);    
     }
 
     @Override
-    public void update() 
+    public void takeAction() 
     {
         boolean moved = false;
         
@@ -32,46 +35,56 @@ public class Slime extends ServerControlled
                
             case WANDERING:
             {               
-                // Occasionally go back to Idle
-                //if (JavaTools.generator.nextInt(3000) == 1)
-                //{
-                //    State = States.IDLE;
-                //    break;
-                //} 
-               
-                Duration elapsed = Duration.between(lastAction, Instant.now());
-                
-                if (elapsed.toMillis() >= actionTime)  // Move at this rate
+                // Occasionally go into turbo mode
+                if (JavaTools.generator.nextInt(100) == 1)
                 {
-                    // Randomly move in a direction. 
-                    moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));
+                    this.actionTime = 100f;                    
                 }
                 
-                break;
-            }
-        
-            case CHASING:
-            {
-                break;
+                // Occasionally exit turbo mode
+                if (JavaTools.generator.nextInt(10) == 1)
+                {
+                    this.actionTime = 1000f;                    
+                }
+                
+                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));               
+                
+                // Is a Human entity too close?
+                List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 3);
+                List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(this, entityTypes.HUMAN_PLAYER, nearby);
+                
+                if (nearby_humans.size() == 0) // All clear
+                {
+                    break;
+                }
+                else  // Attack!
+                {
+                    target = nearby_humans.get(0);
+                    
+                    double target_distance = distanceTo(target);
+                    if (target_distance <= 1.5d)
+                    {
+                        State = States.ATTACKING;
+                    }
+                    break;
+                }
             }
             
             case ATTACKING:
             {
+                // Just take one attack, then wander again
+                byte attack_direction = getDirectionTo(target);
+                moved = attemptAttack(attack_direction);
+                State = States.WANDERING;                
                 break;
             }
+        
+            default:
+                State = States.WANDERING;
+                break;
             
-            case RETREATING:
-            {
-                break;
-            }
         }
         
         finishMove(moved);
-    }
-    
-    @Override
-    public void updateNow()
-    {
-       ;        
     }
 }

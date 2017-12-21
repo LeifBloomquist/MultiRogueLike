@@ -34,7 +34,7 @@ public abstract class Entity
    public Entity(String description, Position startposition, entityTypes type, byte charCode, float baseDamage)
    {
        this.description = new String(description);
-       this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, 10);
+       this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, 20);
        this.myType = type;
        this.charCode = charCode;
        this.baseDamage = baseDamage;

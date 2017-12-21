@@ -27,45 +27,26 @@ public abstract class ServerControlled extends Entity
        this.actionTime = actionTime;
     }
     
-    /*
-    protected void navigateTo(Entity target, double visible_range, double target_attraction, double repelling, double avoidance_range, double avoiding)   
-    {    
-        if (target == null) return;
+    @Override
+    public void update() 
+    {
+        Duration elapsed = Duration.between(lastAction, Instant.now());
         
-        List<Entity> allInRange = universe.getEntities(this, visible_range);
-        
-        // make sure target is always known.  Consider using a Set here.
-        if (!allInRange.contains(target))
+        if (elapsed.toMillis() <= actionTime)   // Move at this rate
         {
-            allInRange.add(target);
+            return;   // Not time to act yet           
         }
-        
-        for (Entity e : allInRange)
+        else
         {
-            double force = 0;
-            
-            if (target == e)
-            {
-                force = target_attraction;    // Attracted to target
-            }
-            else
-            {
-                force = -repelling;  // Note negative - this repels 
-            } 
-            
-            // But don't get too close!
-            if (distanceTo(e) < avoidance_range) 
-            {
-                force = -avoiding;
-            }            
-         
-            double angle2 = angleTo(e); 
-            double Xdelta =  force * Math.cos(angle2); 
-            double Ydelta = -force * Math.sin(angle2);   // Negative here because our y-axis is inverted      
-
-            Xspeed += 0.1*Xdelta;
-            Yspeed += 0.1*Ydelta;              
+            takeAction();
         }
     }
-    */
+    
+    @Override
+    public void updateNow()
+    {
+       ;        
+    }
+    
+    abstract protected void takeAction();  // Action to take when actionTime occurs
 }

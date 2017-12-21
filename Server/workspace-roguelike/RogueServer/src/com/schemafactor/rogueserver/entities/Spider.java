@@ -14,21 +14,14 @@ public class Spider extends ServerControlled
     /** Creates a new instance of the Spider */
     public Spider(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SPIDER, 700f, 30f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SPIDER, 700f, 3f);    
     }
 
     @Override
-    public void update() 
-    {
+    public void takeAction()
+    {   
         boolean moved = false;
-        
-        Duration elapsed = Duration.between(lastAction, Instant.now());
-        
-        if (elapsed.toMillis() <= actionTime)   // Move at this rate
-        {
-            return;   // Not time to act yet           
-        }
-        
+
         if (target != null)
         {
             if (target.getRemoved())   // Target disconnected, or was removed/killed
@@ -89,10 +82,16 @@ public class Spider extends ServerControlled
 
                 moved = attemptAttack(attack_direction);
                 
-                if (distanceTo(target) > 1)
+                if (distanceTo(target) > 2)
                 {
                     State = States.CHASING;
                 }
+                
+                if (distanceTo(target) > 20)  // Too far
+                {
+                    State = States.WANDERING;
+                }
+                
                 break;
             }
             
@@ -103,11 +102,5 @@ public class Spider extends ServerControlled
         }
         
         finishMove(moved);
-    }
-
-    @Override
-    public void updateNow()
-    {
-       ;        
     }
 }

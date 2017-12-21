@@ -147,13 +147,15 @@ public abstract class JavaTools
             if(lck == null) 
             {
                 printlnTime("A previous instance is already running!");
+                lck.close();
                 System.exit(1);
             }
+            lck.close();
             return;
         }
         catch (Exception e)
         {
-           printlnTime("Can't create/read lock file: " + e.toString() );
+           printlnTime("Can't create/read lock file: " + e.toString() );           
         };   
     }
 
@@ -231,6 +233,7 @@ public abstract class JavaTools
        if (length > Integer.MAX_VALUE) 
        {
            // File is too large
+           is.close();
            return null;
        }
    

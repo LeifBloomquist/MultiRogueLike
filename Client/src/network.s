@@ -199,9 +199,9 @@ gameupdate:
 ; Network Constants and Data  
   
 SERVER_IP:
-  .byte 208,79,218,201      ; Vortex VPS  
-  ; .byte 192,168,7,14      ; Dev Laptop
-  ; .byte 192,168,2,114     ; World of Commodore
+; .byte 208,79,218,201    ; Vortex VPS  
+  .byte 192,168,7,14      ; Dev Laptop
+; .byte 192,168,2,114     ; World of Commodore Demo LAN
 
   
 SERVER_PORT = 3006

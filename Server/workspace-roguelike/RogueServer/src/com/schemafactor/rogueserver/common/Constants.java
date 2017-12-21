@@ -66,12 +66,13 @@ public class Constants
     public static final byte CHAR_EMPTY        = (byte) 0;
     public static final byte CHAR_BRICKWALL    = (byte) 1;
     public static final byte CHAR_DIRT         = (byte) 2;
+    public static final byte CHAR_CHEST        = (byte) 11;
     public static final byte CHAR_STAIRS_DOWN  = (byte) 88;
     public static final byte CHAR_STAIRS_UP    = (byte) 89;
     
     // Item Character Codes
-    public static final byte CHAR_ITEM_SWORD       = (byte) 74;
-    
+    public static final byte CHAR_ITEM_NOTE        = (byte) 11;
+    public static final byte CHAR_ITEM_SWORD       = (byte) 74;    
     
     // Monster Character Codes
     public static final byte CHAR_MONSTER_SPIDER   = (byte) 96;    

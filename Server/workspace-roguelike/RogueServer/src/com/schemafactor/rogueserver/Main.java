@@ -1,14 +1,11 @@
 package com.schemafactor.rogueserver;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.entities.Skeleton;
 import com.schemafactor.rogueserver.entities.Slime;
@@ -40,13 +37,17 @@ public class Main
         dungeon.Create(Constants.DUNGEON_SIZE, Constants.DUNGEON_DEPTH);
         
         // Load saved
-        JavaTools.printlnTime("Loading game persistence...");
+        JavaTools.printlnTime("Loading game levels...");   // TODO, persistence
+        
+        String prefix = "C:/Leif/GitHub/MultiRogueLike/Server/data/test/";
+                
         try 
         {
-            //dungeon.LoadCSV("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest0.csv", 0);
-            //dungeon.LoadTXT("C:/Leif/GitHub/MultiRogueLike/Server/data/test/LevelTest1.txt", 1);
-            dungeon.LoadCSV("LevelTest0.csv", 0);
-            dungeon.LoadTXT("LevelTest1.txt", 1);
+            dungeon.LoadCSV(prefix+"LevelTest0.csv", 0);
+            dungeon.LoadTXT(prefix+"LevelTest1.txt", 1);
+            dungeon.LoadTXT(prefix+"LevelTest2.txt", 2);
+            dungeon.LoadTXT(prefix+"LevelTest3.txt", 3);
+            //dungeon.LoadTXT(prefix+"LevelTest4.txt", 4);
 		} 
         catch (FileNotFoundException e) 
         {
@@ -56,26 +57,9 @@ public class Main
 		}
         
         // Add some entities.
-        JavaTools.printlnTime("Creating default entities...");
-        
-        // For now, add some monsters.  TODO, randomly place, or from a file?      
-     //   dungeon.addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
-        dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
-        dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(92,21,0)) );
-       // dungeon.addEntity( new Slime("Slimey", new Position(9,9,0)) );
-        
-        // Add some test items.
-        dungeon.addItem( new Sword("Sword of Doom", 20), 
-                         new Position(10,10,0));
-        
-        /*
-        for (int i=1; i<=Constants.ASTEROID_COUNT; i++)
-        {
-            allEntities.add(new Asteroid("Asteroid #" + i, JavaTools.generator.nextInt((int)Universe.getInstance().getXsize()),
-                                                           JavaTools.generator.nextInt((int)Universe.getInstance().getYsize()) ));                    
-        } 
-        */     
-        
+        JavaTools.printlnTime("Creating and placing default entities...");
+        spawnEntities(dungeon);
+        placeItems(dungeon);
         
         // A mini http server to show stats through a browser
         //JavaTools.printlnTime("Creating debug httpd server...");
@@ -97,4 +81,62 @@ public class Main
         UDPListener udp = new UDPListener();
         udp.start(Constants.LISTEN_PORT);
     }
+
+    private static void spawnEntities(Dungeon dungeon)
+    {        
+        // Level 0 (Entry)
+        
+        dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
+        dungeon.addEntity( new Slime("Slimey Fred", new Position(56,8,0)) );
+        dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(92,21,0)) );        
+        
+        // Level 1
+        
+        for (int i=1; i<=50; i++)
+        {
+            dungeon.addEntity( new Spider("Spider 1-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
+                                                                       JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                       1)) );
+            
+            dungeon.addEntity( new Slime("Slime 1-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
+                                                                     JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                     1)) );             
+        } 
+        
+        // Level 2
+
+        for (int i=1; i<=100; i++)
+        {
+            dungeon.addEntity( new Skeleton("Skeleton 2-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
+                                                                           JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                           2)) );
+            
+            dungeon.addEntity( new Slime("Slime 2-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
+                                                                     JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                     2)) );             
+        } 
+
+        
+        
+        // For now, add some monsters.  TODO, randomly place, or from a file?      
+     //   dungeon.addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
+        
+       // dungeon.addEntity( new Slime("Slimey", new Position(9,9,0)) );
+        
+        // Add some test items.
+        dungeon.addItem( new Sword("Sword of Doom", 20), 
+                         new Position(10,10,0));
+        
+        /*
+    
+        */    
+        
+    }
+    
+    private static void placeItems(Dungeon dungeon)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
