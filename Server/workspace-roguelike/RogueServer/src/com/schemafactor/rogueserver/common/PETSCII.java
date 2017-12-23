@@ -19,9 +19,9 @@ public class PETSCII
            INV,  // 6       
            INV,  // 7       
            INV,  // 8       
-           INV,  // 9       
+           240,  // 9    Note    
            INV,  // 10      
-           INV,  // 11      
+           220,  // 11   Chest   
            INV,  // 12      
            INV,  // 13      
            INV,  // 14      

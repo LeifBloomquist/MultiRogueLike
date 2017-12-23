@@ -10,6 +10,7 @@ import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
+import com.schemafactor.rogueserver.items.Note;
 import com.schemafactor.rogueserver.items.Sword;
 import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.UDPListener;
@@ -125,26 +126,18 @@ public class Main
         } 
 
         
-        
-        // For now, add some monsters.  TODO, randomly place, or from a file?      
-     //   dungeon.addEntity( new Spider("Spider Fred", new Position(90,20,0)) );
-        
-       // dungeon.addEntity( new Slime("Slimey", new Position(9,9,0)) );
-        
-        // Add some test items.
-        dungeon.addItem( new Sword("Sword of Doom", 20), 
-                         new Position(10,10,0));
-        
-        /*
-    
-        */    
-        
     }
     
     private static void placeItems(Dungeon dungeon)
     {
-        // TODO Auto-generated method stub
+        // Add some test items.
+        dungeon.addItem( new Sword("Short Sword", 5), 
+                         new Position(10,10,0));    
         
+        dungeon.addItem( new Sword("Sword of Doom", 20), 
+                         new Position(33,7,1));        
+      
+        dungeon.addItem( new Note("The first Note!"), 
+                         new Position(8,4,0));
     }
-
 }
