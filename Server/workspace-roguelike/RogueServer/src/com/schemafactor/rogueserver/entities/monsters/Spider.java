@@ -10,6 +10,7 @@ import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.monsters.ServerControlled;
+import com.schemafactor.rogueserver.entities.monsters.ServerControlled.States;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Spider extends ServerControlled
@@ -80,8 +81,12 @@ public class Spider extends ServerControlled
             
             case ATTACKING:
             {
-                // TODO - fix case where target is on a different level
                 byte attack_direction = getDirectionTo(target);
+                
+                if (attack_direction == Constants.DIRECTION_NONE)  // Gone, or other level
+                {
+                    State = States.WANDERING;
+                }
 
                 moved = attemptAttack(attack_direction);
                 

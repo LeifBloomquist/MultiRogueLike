@@ -26,6 +26,15 @@ public class Skeleton extends ServerControlled
     {   
         boolean moved = false;
         
+        if (target != null)
+        {
+            if (target.getRemoved())   // Target disconnected, or was removed/killed
+            {
+                target = null;
+                State = States.IDLE;
+            }
+        }
+        
         switch (State)
         {
             case IDLE:
@@ -57,6 +66,12 @@ public class Skeleton extends ServerControlled
             case CHASING:
             {
                 byte chase_direction = getDirectionTo(target);
+                
+                if (chase_direction == Constants.DIRECTION_NONE)  // Gone, or other level
+                {
+                    State = States.IDLE;
+                }
+                
                 moved = attemptMove(chase_direction);
                 
                 double target_distance = distanceTo(target);
@@ -68,9 +83,13 @@ public class Skeleton extends ServerControlled
             }
             
             case ATTACKING:
-            {
-                // TODO - fix case where target is on a different level
+            {                
                 byte attack_direction = getDirectionTo(target);
+                
+                if (attack_direction == Constants.DIRECTION_NONE)  // Gone, or other level
+                {
+                    State = States.IDLE;
+                }
 
                 moved = attemptAttack(attack_direction);
                 

@@ -370,8 +370,11 @@ public abstract class Entity
    
    protected byte getDirectionTo(Entity target)
    {
+       // Ignore targets that have been removed
+       if (target == null) return Constants.DIRECTION_NONE;
+       
        // Ignore targets not on same level
-       if (this.getZpos() != target.getZpos()) return  Constants.DIRECTION_NONE;
+       if (this.getZpos() != target.getZpos()) return Constants.DIRECTION_NONE;
                
        if ((this.getXpos() == target.getXpos()) && (this.getYpos() == target.getYpos())) return Constants.DIRECTION_NONE;
        if ((this.getXpos() >  target.getXpos()) && (this.getYpos() == target.getYpos())) return Constants.DIRECTION_WEST;
