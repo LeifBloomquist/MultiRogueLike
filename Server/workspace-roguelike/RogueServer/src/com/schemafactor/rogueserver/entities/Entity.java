@@ -313,6 +313,15 @@ public abstract class Entity
    protected boolean attemptUse(byte parameter1)
    {
        Cell current_cell = Dungeon.getInstance().getCell(this.position);
+       
+       // First - use any Item in this cell
+       if (current_cell.getItem() != null)
+       {
+           return current_cell.getItem().useItem(this);
+       }
+       
+       // Empty cell - take action based on cell type 
+       
        byte code = current_cell.getTrueCharCode();
        
        switch (code)

@@ -7,6 +7,6 @@ public class Sword extends Item
     /** Creates a new instance of Sword */
    public Sword(String description, float maxDamage)
    {
-       super(description, itemTypes.WEAPON, Constants.CHAR_ITEM_SWORD, true, maxDamage); 
+       super(description, Constants.CHAR_ITEM_SWORD, true, maxDamage); 
    }
 }

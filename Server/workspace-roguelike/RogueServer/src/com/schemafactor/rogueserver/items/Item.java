@@ -1,26 +1,23 @@
 package com.schemafactor.rogueserver.items;
 
+import com.schemafactor.rogueserver.entities.Entity;
+
 public abstract class Item 
 {
-   public static enum itemTypes {NONE, WEAPON, KEY, TREASURE, LEVER }
-   protected itemTypes myType = itemTypes.NONE;
+    // Items don't have a "position" per se, the Entity carrying them or the Cell holding them has a pointer to the Item instance in question.
 	   
    protected String description;
-   // Items don't have a "position" per se, the Entity carrying them or the Cell holding them has a pointer to the Item instance in question.
-   
-   protected byte charCode = 0;   // Character code shown on client screen   
-   protected float maxDamage = 0;   
+   protected byte    charCode  = 0;     // Character code shown on client screen   
+   protected float   maxDamage = 0;     // Maximum damage this items can inflict if used by a weapon
+   protected boolean moveable  = true;  // Can this item be picked up?  True if so
       
    /** Creates a new instance of Item */
-   public Item(String description, itemTypes type, byte charCode, boolean moveable, float maxDamage)
+   public Item(String description, byte charCode, boolean moveable, float maxDamage)
    {
-       this.description = new String(description);    
-       this.myType = type;
+       this.description = new String(description);
        this.charCode = charCode;
        this.maxDamage = maxDamage;
-       
-       // Mark cell this item starts in
-       //Dungeon.getInstance().getCell(startposition).setItem(this);
+       this.moveable = moveable;
    }
    
    public String getDescription() 
@@ -32,14 +29,19 @@ public abstract class Item
 	{
 		return charCode;
 	}
-
-	public itemTypes getType() 
-	{		
-		return myType;
-	} 
 	
 	public float getMaxDamage() 
     {       
         return maxDamage;
+    } 
+	
+	public boolean isMoveable() 
+    {       
+        return moveable;
+    }
+
+    public boolean useItem(Entity entity)
+    {       
+        return false;
     } 
 }

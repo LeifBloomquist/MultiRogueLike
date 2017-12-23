@@ -113,6 +113,13 @@ public class Cell
     public Item takeItem()
     {
         Item taken = this.item;
+        
+        // Some Items can't be picked up
+        if (!taken.isMoveable())
+        {
+            return null;
+        }       
+        
         this.item = null;
         return taken;
     }

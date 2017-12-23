@@ -137,7 +137,7 @@ public class Main
         dungeon.addItem( new Sword("Sword of Doom", 20), 
                          new Position(33,7,1));        
       
-        dungeon.addItem( new Note("The first Note!"), 
+        dungeon.addItem( new Note("Tattered Note", "The first Note. Hello!"), 
                          new Position(8,4,0));
     }
 }
