@@ -232,7 +232,7 @@ public abstract class Entity
 
     protected boolean attemptPickup(int hand)
     {
-       Cell current_cell = Dungeon.getInstance().getCell(this.position);     
+       Cell current_cell = Dungeon.getInstance().getCell(this.position);
         
        if (hand == Constants.HAND_LEFT)
        {
@@ -242,7 +242,11 @@ public abstract class Entity
            }
            
            item_left = current_cell.takeItem();    
-           return true;
+           if (item_left != null)
+           {
+              this.addMessage("Picked up the " + item_left.getDescription());
+              return true;
+           }
        }
        
        if (hand == Constants.HAND_RIGHT)
@@ -253,11 +257,16 @@ public abstract class Entity
            }
            
            item_right = current_cell.takeItem();    
-           return true;
-       }
+           if (item_right != null)
+           {
+              this.addMessage("Picked up the " + item_right.getDescription());
+              return true;
+           }
+       }       
+       
        return false;
    }
-   
+       
    // TODO - Prevent drop on cells that aren't truly empty (i.e stairs)
    protected boolean attemptDrop(int hand)
    {
@@ -274,7 +283,8 @@ public abstract class Entity
            
            if (success)
            {
-               item_left = null;   // No longer carrying the item
+               this.addMessage("Dropped the " + item_left.getDescription());
+               item_left = null;   // No longer carrying the item              
                return true;
            }
        }
@@ -290,7 +300,8 @@ public abstract class Entity
            
            if (success)
            {
-               item_right = null;   // No longer carrying the item
+               this.addMessage("Dropped the " + item_right.getDescription());
+               item_right = null;   // No longer carrying the item               
                return true;
            }
        }

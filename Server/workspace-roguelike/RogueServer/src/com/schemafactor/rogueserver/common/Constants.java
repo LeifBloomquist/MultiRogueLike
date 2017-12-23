@@ -10,7 +10,8 @@ public class Constants
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
     public static final int DUNGEON_SIZE      = 1000;   // Per Side
-    
+    public static final int DUNGEON_DEPTH     = 10;     // Levels
+        
     // Network Constants
     public static final int LISTEN_PORT       = 3006;   // UDP and TCP
     public static final long NETWORK_TIMEOUT  = 1000;   // Seconds
@@ -20,7 +21,8 @@ public class Constants
     public static final int SCREEN_WIDTH      = 21;
     public static final int SCREEN_HEIGHT     = 17;
     public static final int SCREEN_SIZE       = SCREEN_WIDTH*SCREEN_HEIGHT;
-    public static final int MESSAGE_LENGTH    = 40;
+    public static final int MESSAGE_LENGTH    = 40;    
+    public static final int MESSAGE_QUEUE_MAX = 100;  
     
     // Packet types
     public static final byte CLIENT_ANNOUNCE  = 1;
