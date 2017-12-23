@@ -75,10 +75,18 @@ public class Skeleton extends ServerControlled
                 moved = attemptMove(chase_direction);
                 
                 double target_distance = distanceTo(target);
+                
                 if (target_distance <= 1.5d)
                 {
                     State = States.ATTACKING;
+                    break;
                 }
+                
+                if (distanceTo(target) > 10)  // Too far  (just off screen...)
+                {
+                    State = States.IDLE;
+                }
+                
                 break;
             }
             
@@ -89,18 +97,14 @@ public class Skeleton extends ServerControlled
                 if (attack_direction == Constants.DIRECTION_NONE)  // Gone, or other level
                 {
                     State = States.IDLE;
+                    break;
                 }
 
                 moved = attemptAttack(attack_direction);
                 
-                if (distanceTo(target) > 4)
+                if (distanceTo(target) > 1.5d)
                 {
                     State = States.CHASING;
-                }
-                
-                if (distanceTo(target) > 10)  // Too far  (just off screen...)
-                {
-                    State = States.IDLE;
                 }
                 
                 break;
