@@ -117,12 +117,12 @@ public class Main
         for (int i=1; i<=100; i++)
         {
             dungeon.addEntity( new Skeleton("Skeleton 2-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                           JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                           2)) );
+                                                                             JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                             2)) );
             
             dungeon.addEntity( new Slime("Slime 2-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                     JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                     2)) );             
+                                                                       JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                       2)) );             
         } 
 
         
