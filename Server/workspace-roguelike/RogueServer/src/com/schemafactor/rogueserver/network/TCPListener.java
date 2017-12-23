@@ -8,8 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.entities.clients.HumanPlayerTCP;
 import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.entities.HumanPlayerTCP;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class TCPListener extends Thread
@@ -251,12 +251,15 @@ public class TCPListener extends Thread
             }
         }
 
-        // Game Loop.  Updates occur in background thread controlled by Dungeon.
+        // Game Loop.  Updates occur in background thread controlled by UpdaterThread.
         private ExitReason gameLoop(HumanPlayerTCP who) throws IOException
-        {         
+        {   
+            who.addMessage("Welcome to the Rogue Test Server");
+            who.addMessage("Server version: " +  Double.toString(Constants.VERSION) );
+            who.addMessage("Test Message #3 ");
+            
             while (true)
-            {
-             
+            {             
                 int ic = input.read();  // Blocks
                 
                 if (ic < 0)

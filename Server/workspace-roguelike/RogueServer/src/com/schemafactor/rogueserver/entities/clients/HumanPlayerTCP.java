@@ -1,4 +1,4 @@
-package com.schemafactor.rogueserver.entities;
+package com.schemafactor.rogueserver.entities.clients;
 
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -11,6 +11,8 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.ExtendedAscii;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.PETSCII;
+import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class HumanPlayerTCP extends HumanPlayer
@@ -118,9 +120,11 @@ public class HumanPlayerTCP extends HumanPlayer
            
            screen += border;       
           
-           // TODO On screen messages
-           screen += "Rogue Server Update " + new Date().toString() + "\r\n";      
-           screen += "...\r\n";
+           // On screen messages
+           screen += getMessage(0) + "\r\n";
+           screen += getMessage(1) + "\r\n";
+           screen += getMessage(2) + "\r\n";
+           screen += getMessage(3) + "\r\n";
            
            // TODO network activity char
        }     
@@ -131,6 +135,19 @@ public class HumanPlayerTCP extends HumanPlayer
        
        return;
    }  
+   
+   private String getMessage(int index)
+   {
+       String msg = messageQueue.elementAt(messageQueue.size() - index);
+       if (msg == null)
+       {
+           return "";
+       }
+       else
+       {
+           return msg; 
+       }
+   }       
    
    private void sendUpdatePacket(String data)
    {       

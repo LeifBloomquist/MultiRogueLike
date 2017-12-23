@@ -24,10 +24,10 @@ public abstract class Entity
    
    protected Instant lastAction = Instant.now();         // Used by server-controlled entities
    
-   Item item_left  = null;  // Currently carried item in left hand
-   Item item_right = null;  // Currently carried item in right hand
+   protected Item item_left  = null;  // Currently carried item in left hand
+   protected Item item_right = null;  // Currently carried item in right hand
    
-   float health = 100f;
+   protected float health = 100f;
    float baseDamage = 0f;   // How much damage this entity can do on attack without weapons
      
    /** Creates a new instance of Entity */
@@ -56,6 +56,7 @@ public abstract class Entity
        if (dest_cell == null)
        {
            JavaTools.printlnTime("DEBUG: " + description + " attempted to move out of map?  Last known location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
+           this.addMessage("Blocked!!");
            return false;
        }
        
@@ -72,6 +73,7 @@ public abstract class Entity
        else
        {
            //JavaTools.printlnTime("DEBUG: " + description + " was blocked moving to X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
+           this.addMessage("Blocked!");
            return false;
        }    
    }
@@ -132,6 +134,8 @@ public abstract class Entity
    
    private void attackedBy(Entity attacker)
    {
+       this.addMessage("Attacked by " + attacker.description);
+       
        this.health -= attacker.getAttackRoll();
        
        // TODO, effects of shields, spells, etc. to reduce damage
@@ -314,6 +318,7 @@ public abstract class Entity
    
    abstract public void update();       // Called on every game loop
    abstract public void updateNow();    // Called from update(), or from other Entities to force an update
+   abstract public void addMessage(String msg);  // Add a message to this Entity's message queue
    
    /** Return X,Y positions */
    public int getXpos()

@@ -1,4 +1,4 @@
-package com.schemafactor.rogueserver.entities;
+package com.schemafactor.rogueserver.entities.monsters;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public abstract class ServerControlled extends Entity
@@ -46,6 +48,12 @@ public abstract class ServerControlled extends Entity
     public void updateNow()
     {
        ;        
+    }
+    
+    @Override
+    public void addMessage(String msg)
+    {
+        ;    // Monsters don't need the message queue - maybe in future?  
     }
     
     abstract protected void takeAction();  // Action to take when actionTime occurs

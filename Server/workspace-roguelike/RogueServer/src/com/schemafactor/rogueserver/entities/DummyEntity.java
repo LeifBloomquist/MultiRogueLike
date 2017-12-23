@@ -19,4 +19,10 @@ public class DummyEntity extends Entity
     {
        ;        
     }
+
+    @Override
+    public void addMessage(String msg)
+    {
+        ;        
+    }
 }

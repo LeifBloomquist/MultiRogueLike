@@ -19,8 +19,8 @@ import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.HumanPlayer;
-import com.schemafactor.rogueserver.entities.HumanPlayerUDP;
+import com.schemafactor.rogueserver.entities.clients.HumanPlayer;
+import com.schemafactor.rogueserver.entities.clients.HumanPlayerUDP;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 /**

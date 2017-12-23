@@ -1,4 +1,4 @@
-package com.schemafactor.rogueserver.entities;
+package com.schemafactor.rogueserver.entities.clients;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -10,6 +10,8 @@ import java.util.Arrays;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.PETSCII;
+import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class HumanPlayerUDP extends HumanPlayer
@@ -39,7 +41,8 @@ public class HumanPlayerUDP extends HumanPlayer
        {
            case Constants.CLIENT_ANNOUNCE:
            {
-               description = PETSCII.toASCII(Arrays.copyOfRange(data, 2, data.length)) + " [" + JavaTools.packetAddress(packet) + "]";
+               String raw_desc = PETSCII.toASCII(Arrays.copyOfRange(data, 2, data.length));   //  + " [" + JavaTools.packetAddress(packet) + "]";
+               description = JavaTools.Sanitize(raw_desc);
                
                if (!announceReceived)
                {

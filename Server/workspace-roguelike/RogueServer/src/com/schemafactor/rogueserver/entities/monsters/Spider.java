@@ -1,4 +1,4 @@
-package com.schemafactor.rogueserver.entities;
+package com.schemafactor.rogueserver.entities.monsters;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -6,35 +6,53 @@ import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.entities.ServerControlled;
+import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
-import com.schemafactor.rogueserver.entities.ServerControlled.States;
+import com.schemafactor.rogueserver.entities.monsters.ServerControlled;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class Skeleton extends ServerControlled
+public class Spider extends ServerControlled
 {  
-    /** Creates a new instance of the Skeleton */
-    public Skeleton(String name, Position startposition)
+    /** Creates a new instance of the Spider */
+    public Spider(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 300f, 10f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SPIDER, 700f, 3f);    
     }
-    
+
     @Override
     public void takeAction()
     {   
         boolean moved = false;
+
+        if (target != null)
+        {
+            if (target.getRemoved())   // Target disconnected, or was removed/killed
+            {
+                target = null;
+                State = States.WANDERING;
+            }
+        }
         
         switch (State)
         {
             case IDLE:
             {                
-                // Wait for trouble               
+                // Always go wandering
+                State = States.WANDERING;
+                break;
+            }
+               
+            case WANDERING:
+            {   
+                // Randomly move in a direction. 
+                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));
                 
                 // Is a Human entity nearby?
-                List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 5);
+                List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 10);
                 List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(this, entityTypes.HUMAN_PLAYER, nearby);
                 
-                if (nearby_humans.size() == 0) // All clear, keep waiting
+                if (nearby_humans.size() == 0) // All clear
                 {
                     break;
                 }
@@ -45,11 +63,6 @@ public class Skeleton extends ServerControlled
                 }
                 
                 break;
-            }
-            
-            case WANDERING:  // Never
-            { 
-                State = States.IDLE;
             }
         
             case CHASING:
@@ -72,14 +85,14 @@ public class Skeleton extends ServerControlled
 
                 moved = attemptAttack(attack_direction);
                 
-                if (distanceTo(target) > 4)
+                if (distanceTo(target) > 1.5d)
                 {
                     State = States.CHASING;
                 }
                 
-                if (distanceTo(target) > 10)  // Too far  (just off screen...)
+                if (distanceTo(target) > 20)  // Too far
                 {
-                    State = States.IDLE;
+                    State = States.WANDERING;
                 }
                 
                 break;

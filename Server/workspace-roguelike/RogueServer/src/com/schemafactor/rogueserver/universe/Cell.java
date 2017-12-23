@@ -56,9 +56,11 @@ public class Cell
     	
     	switch (charCode)
     	{
+    	    // These cell types are allowed to be walked on
     	    case Constants.CHAR_EMPTY:
     	    case Constants.CHAR_STAIRS_DOWN:
             case Constants.CHAR_STAIRS_UP:
+            case Constants.CHAR_CHEST:
     	        return true;
     	        
     	    default:

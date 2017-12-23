@@ -7,9 +7,9 @@ import java.util.concurrent.TimeUnit;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Position;
-import com.schemafactor.rogueserver.entities.Skeleton;
-import com.schemafactor.rogueserver.entities.Slime;
-import com.schemafactor.rogueserver.entities.Spider;
+import com.schemafactor.rogueserver.entities.monsters.Skeleton;
+import com.schemafactor.rogueserver.entities.monsters.Slime;
+import com.schemafactor.rogueserver.entities.monsters.Spider;
 import com.schemafactor.rogueserver.items.Sword;
 import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.UDPListener;
@@ -39,7 +39,15 @@ public class Main
         // Load saved
         JavaTools.printlnTime("Loading game levels...");   // TODO, persistence
         
-        String prefix = ""; //C:/Leif/GitHub/MultiRogueLike/Server/data/test/";
+        String prefix = "";
+        
+        if (args.length > 0)
+        {
+            if (args[0].equals("-local"))
+            {
+                prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/test/";
+            }
+        }
                 
         try 
         {
@@ -47,7 +55,7 @@ public class Main
             dungeon.LoadTXT(prefix+"LevelTest1.txt", 1);
             dungeon.LoadTXT(prefix+"LevelTest2.txt", 2);
             dungeon.LoadTXT(prefix+"LevelTest3.txt", 3);
-            //dungeon.LoadTXT(prefix+"LevelTest4.txt", 4);
+            dungeon.LoadTXT(prefix+"LevelTest4.txt", 4);
 		} 
         catch (FileNotFoundException e) 
         {

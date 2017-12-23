@@ -1,21 +1,17 @@
-package com.schemafactor.rogueserver.entities;
+package com.schemafactor.rogueserver.entities.clients;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.EscapeSequences;
 import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.universe.Cell;
-import com.schemafactor.rogueserver.universe.Dungeon;
-import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.entities.NonBlockingFixedSizeQueue;
+import com.schemafactor.rogueserver.entities.Position;
 
 public abstract class HumanPlayer extends Entity
 {        
@@ -31,9 +27,12 @@ public abstract class HumanPlayer extends Entity
    // Flag to say help is being shown
    boolean showingHelp = false;
    
+   // Queue of messages
+   NonBlockingFixedSizeQueue<String> messageQueue = new NonBlockingFixedSizeQueue<String>(Constants.MESSAGE_QUEUE_MAX);
+   
    public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
    {
-       super(description, startposition, type, charCode, 1f);     
+       super(description, startposition, type, charCode, 1f);
    }
    
    /** Return the InetAddress, for comparisons */
@@ -251,7 +250,7 @@ public abstract class HumanPlayer extends Entity
        }
        else
        {
-           // Hack to break out of invalid escape sequences.  TODO, improve this           
+           // Hack to break out of invalid escape sequences.  TODO, improve this.  Tri tree?           
            if (esc.length >= EscapeSequences.ESCAPE_F2.length)
            {
                escapeSequence.clear();
@@ -343,5 +342,11 @@ public abstract class HumanPlayer extends Entity
 	            JavaTools.printlnTime( "Player Timed Out: " + description );
 	        }             
        }      
+   }
+   
+   @Override
+   public void addMessage(String msg)
+   {
+       messageQueue.add(msg);
    }
 }
