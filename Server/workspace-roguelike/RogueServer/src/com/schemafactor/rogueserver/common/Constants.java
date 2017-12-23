@@ -21,8 +21,11 @@ public class Constants
     public static final int SCREEN_WIDTH      = 21;
     public static final int SCREEN_HEIGHT     = 17;
     public static final int SCREEN_SIZE       = SCREEN_WIDTH*SCREEN_HEIGHT;
-    public static final int MESSAGE_LENGTH    = 40;    
-    public static final int MESSAGE_QUEUE_MAX = 100;  
+    public static final int MESSAGE_LENGTH    = 40;  
+    
+    // Data Limits 
+    public static final int MESSAGE_QUEUE_MAX       = 100;
+    public static final int EMPTY_CELL_SEARCH_DEPTH = 100;
     
     // Packet types
     public static final byte CLIENT_ANNOUNCE  = 1;
@@ -112,5 +115,4 @@ public class Constants
     public static final char   ANSI_ESC       = (char) 27;
     public static final String ANSI_HOME      = ANSI_ESC + "[H";
     public static final String ANSI_CLEAR     = ANSI_ESC + "[2J" + ANSI_HOME;
-    
 }

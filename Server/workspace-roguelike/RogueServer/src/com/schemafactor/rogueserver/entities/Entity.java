@@ -34,13 +34,13 @@ public abstract class Entity
    public Entity(String description, Position startposition, entityTypes type, byte charCode, float baseDamage)
    {
        this.description = new String(description);
-       this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, 20);
+       this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, Constants.EMPTY_CELL_SEARCH_DEPTH);
        this.myType = type;
        this.charCode = charCode;
        this.baseDamage = baseDamage;
        
        // Mark cell this entity starts in
-       Dungeon.getInstance().getCell(startposition).setEntity(this);
+       Dungeon.getInstance().getCell(this.position).setEntity(this);
    }
    
    /**

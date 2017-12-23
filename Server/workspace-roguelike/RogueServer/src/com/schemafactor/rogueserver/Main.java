@@ -124,8 +124,6 @@ public class Main
                                                                        JavaTools.generator.nextInt(dungeon.getYsize()),
                                                                        2)) );             
         } 
-
-        
     }
     
     private static void placeItems(Dungeon dungeon)

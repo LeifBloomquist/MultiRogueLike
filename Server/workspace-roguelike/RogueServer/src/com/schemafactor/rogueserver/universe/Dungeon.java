@@ -213,12 +213,20 @@ public class Dungeon
     }
 	
 	public Position getClosestEmptyCell(Position start, int depth)
-    {
+    {        
         // Easiest case - Starting cell
-        if (dungeonMapCells[start.x][start.y][start.z].canEnter())
-        {
-            return start;
-        }
+	    
+	    try
+	    {
+	        if (dungeonMapCells[start.x][start.y][start.z].canEnter())
+            {
+                return start;
+            }
+	    }
+	    catch (ArrayIndexOutOfBoundsException aioobe)  // Out of map bounds
+	    {
+	        return null;
+	    }
     
         depth--;
         if (depth <= 0)   // End of search depth reached
@@ -227,7 +235,8 @@ public class Dungeon
         }
     
         // Recursively test all cells around
-        List<Position> neighbors = getNeighbors(start);
+        List<Position> neighbors = getNeighbors(start);        
+        Collections.shuffle(neighbors);   // So it's not always upper-right first      
     
         for (Position pos : neighbors)
         {
@@ -239,7 +248,7 @@ public class Dungeon
             }
         }
 
-        return null;
+        return null;  // No empty cells found
     }
 
     // Get neighbors on same level, also tests boundaries
