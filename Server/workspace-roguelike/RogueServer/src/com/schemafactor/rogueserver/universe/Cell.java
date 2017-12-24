@@ -47,6 +47,7 @@ public class Cell
         return charCode;        
     }
     
+    // Return true if this is cell can be entered.
     public boolean canEnter() 
     {        
     	if (entity != null)  // Someone's already in this cell
@@ -66,7 +67,34 @@ public class Cell
     	    default:
     	        return false;
     	}
-    }    
+    }
+    
+    // Return true if this is cell is completely empty.
+    public boolean isEmpty() 
+    {        
+        // Is someone already in this cell?
+        if (entity != null)  
+        {
+            return false;
+        }
+        
+        // Is there an item in this cell?
+        if (item != null)  
+        {
+            return false;
+        }
+        
+        // Is it an empty cell (no stairs, etc)?
+        if (charCode == Constants.CHAR_EMPTY)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
 
     @Deprecated
     public byte getCharColor() 
@@ -92,9 +120,10 @@ public class Cell
         return entity;
     }
     
-    public boolean addItem(Item i)
+    // Drop an item into this cell.  Returns true on success, false if failure.  
+    public boolean dropItem(Item i)
     {
-        if (item == null)  // Cell is empty
+        if (isEmpty())   // Cell is empty
         {
             item = i;
             return true;

@@ -212,13 +212,15 @@ public class Dungeon
     	}
     }
 	
+	
+	// TODO, this is depth-first...modify to be breadth-first for truly closest cell
 	public Position getClosestEmptyCell(Position start, int depth)
     {        
         // Easiest case - Starting cell
 	    
 	    try
 	    {
-	        if (dungeonMapCells[start.x][start.y][start.z].canEnter())
+	        if (dungeonMapCells[start.x][start.y][start.z].isEmpty())
             {
                 return start;
             }
@@ -462,6 +464,6 @@ public class Dungeon
     
     public void addItem(Item i, Position p)
     {
-        getCell(p).addItem(i);       
+        getCell(p).dropItem(i);       
     }
 }

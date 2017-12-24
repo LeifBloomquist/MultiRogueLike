@@ -166,7 +166,8 @@ public abstract class Entity
        Cell left =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position, Constants.EMPTY_CELL_SEARCH_DEPTH) );       
        if (left != null) 
        {
-           left.addItem(item_left);  
+           left.dropItem(item_left);
+           item_left = null;
        }
        else
        {
@@ -178,7 +179,8 @@ public abstract class Entity
 
        if (right != null) 
        {
-           right.addItem(item_right);  
+           right.dropItem(item_right);  
+           item_right = null;
        }
        else
        {
@@ -304,7 +306,7 @@ public abstract class Entity
                return false;
            }
            
-           boolean success = current_cell.addItem(item_left);  
+           boolean success = current_cell.dropItem(item_left);  
            
            if (success)
            {
@@ -321,7 +323,7 @@ public abstract class Entity
                return false;
            }
            
-           boolean success = current_cell.addItem(item_right);  
+           boolean success = current_cell.dropItem(item_right);  
            
            if (success)
            {

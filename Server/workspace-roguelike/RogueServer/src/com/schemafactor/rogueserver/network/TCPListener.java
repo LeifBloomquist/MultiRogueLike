@@ -270,7 +270,7 @@ public class TCPListener extends Thread
                     return ExitReason.DISCONNECTED;
                 }                    
                             
-                JavaTools.printlnTime("DEBUG: Received: " + (char)ic + " | " + ic + " from " + who.getDescription());                  
+                // JavaTools.printlnTime("DEBUG: Received: " + (char)ic + " | " + ic + " from " + who.getDescription());                  
                 who.handleKeystroke(ic);
                 
                 // Exit for removed entities
