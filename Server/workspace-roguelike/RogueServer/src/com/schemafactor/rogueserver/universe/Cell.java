@@ -111,8 +111,14 @@ public class Cell
     }
     
     public Item takeItem()
-    {
+    {   
         Item taken = this.item;
+        
+        // If cell is empty, return null
+        if (taken == null)
+        {
+            return null;
+        }        
         
         // Some Items can't be picked up
         if (!taken.isMoveable())
@@ -120,7 +126,10 @@ public class Cell
             return null;
         }       
         
+        // Clear item
         this.item = null;
+        
+        // Return pointer to picker-upper
         return taken;
     }
 }

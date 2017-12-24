@@ -10,7 +10,7 @@ public class Note extends Item
     /** Creates a new instance of Note */
    public Note(String description, String text)
    {
-       super(description, Constants.CHAR_ITEM_NOTE, false, 0);  // TODO.  Notes are immoveable for now
+       super(description, Constants.CHAR_ITEM_NOTE, true, 0);  // TODO.  Make Notes immoveable for now (until Signs are ready)
        this.text =  "\"" + text + "\""; 
    }
    

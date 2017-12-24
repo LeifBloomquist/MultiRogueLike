@@ -158,14 +158,39 @@ public abstract class Entity
        {
            JavaTools.printlnTime(description + " was killed by " + attacker.description);
        }
-       removeMe();  // TODO, drop items, etc.
+       
+       // Remove from game and map
+       removeMe();  
+       
+       // Drop currently carried items       
+       Cell left =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position, Constants.EMPTY_CELL_SEARCH_DEPTH) );       
+       if (left != null) 
+       {
+           left.addItem(item_left);  
+       }
+       else
+       {
+           JavaTools.printlnTime("DEBUG: Can't drop left item!! ");
+       }
+
+       
+       Cell right =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position, Constants.EMPTY_CELL_SEARCH_DEPTH) );       
+
+       if (right != null) 
+       {
+           right.addItem(item_right);  
+       }
+       else
+       {
+           JavaTools.printlnTime("DEBUG: Can't drop right item!! ");
+       }
    }
 
    private Position getTargetPosition(Cell current_cell, byte direction)
    {
-        int dx=0;
-        int dy=0;
-        int dz=0;
+       int dx=0;
+       int dy=0;
+       int dz=0;
        
        switch (direction)
        {

@@ -223,6 +223,7 @@ public class TCPListener extends Thread
             {
                 sendCharacters(Constants.ANSI_CLEAR);
                 sendString("Connected to the Rogue Test Server");
+                sendString("Server version: " + Double.toString(Constants.VERSION) );
                 
                 // Wait for Login              
                 sendString("");
@@ -255,7 +256,7 @@ public class TCPListener extends Thread
         private ExitReason gameLoop(HumanPlayerTCP who) throws IOException
         {   
             who.addMessage("Welcome to the Rogue Test Server");
-            who.addMessage("Server version: " +  Double.toString(Constants.VERSION) );
+            who.addMessage("Server version: " + Double.toString(Constants.VERSION) );
             who.addMessage("Test Message #3 ");
             
             while (true)
