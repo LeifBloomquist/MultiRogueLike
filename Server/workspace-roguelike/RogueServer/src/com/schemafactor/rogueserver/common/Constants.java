@@ -66,31 +66,50 @@ public class Constants
     public static final byte DIRECTION_DOWN    = 10;
     public static final byte DIRECTION_COUNT   = 11;  
     
-    // Scenery Character Codes
+    // Terrain Character Codes
     public static final byte CHAR_EMPTY            = (byte) 0;
     public static final byte CHAR_BRICKWALL        = (byte) 1;
     public static final byte CHAR_DIRT             = (byte) 2;
-    public static final byte CHAR_CHEST            = (byte) 11;
-    public static final byte CHAR_STAIRS_DOWN      = (byte) 88;
-    public static final byte CHAR_STAIRS_UP        = (byte) 89;
-    
-    // Item Character Codes
-    public static final byte CHAR_ITEM_NOTE        = (byte) 9;
-    public static final byte CHAR_ITEM_SWORD       = (byte) 74;    
+    public static final byte CHAR_DOOR_CLOSED      = (byte) 3;
+    public static final byte CHAR_WALL2            = (byte) 4;
+    public static final byte CHAR_STAIRS2          = (byte) 5;
+    public static final byte CHAR_CLOSEDDOOR2      = (byte) 6;
+    public static final byte CHAR_DOOR_OPEN        = (byte) 7;
+    public static final byte CHAR_STAIRS_DOWN      = (byte) 8;
+    public static final byte CHAR_STAIRS_UP        = (byte) 9;
+    public static final byte CHAR_DEBRIS           = (byte) 10;
+    public static final byte CHAR_SQUARES          = (byte) 11; 
     
     // Monster Character Codes
     public static final byte CHAR_MONSTER_SPIDER   = (byte) 96;    
     public static final byte CHAR_MONSTER_SKELETON = (byte) 97;
     public static final byte CHAR_MONSTER_BAT      = (byte) 98;
     public static final byte CHAR_MONSTER_DEMON    = (byte) 99;
-    public static final byte CHAR_MONSTER_GHOUL    = (byte) 100;
+    public static final byte CHAR_MONSTER_SPECTRE  = (byte) 100;
     public static final byte CHAR_MONSTER_GHOST    = (byte) 101;
     public static final byte CHAR_MONSTER_FROG     = (byte) 102;
     public static final byte CHAR_MONSTER_SLIME    = (byte) 103;
     public static final byte CHAR_MONSTER_ZOMBIE   = (byte) 104;
+    public static final byte CHAR_MONSTER_GOLEM    = (byte) 105;
     
     // Player Character Codes
-    public static final byte CHAR_PLAYER_NONE      = (byte) 127;
+    public static final byte CHAR_PLAYER_NONE      = (byte) 128;
+    public static final byte CHAR_PLAYER_MAGE      = (byte) 129;
+    
+    // Item Character Codes
+    public static final byte CHAR_ITEM_SWORD       = (byte) 192;
+    public static final byte CHAR_ITEM_SHIELD      = (byte) 193;   
+    public static final byte CHAR_ITEM_BOW         = (byte) 194;
+    public static final byte CHAR_ITEM_ARROW       = (byte) 195;  
+    public static final byte CHAR_ITEM_POTION      = (byte) 196;
+    public static final byte CHAR_ITEM_GEM         = (byte) 197;  
+    public static final byte CHAR_ITEM_NOTE        = (byte) 198;
+    public static final byte CHAR_ITEM_CHEST       = (byte) 199;  
+    public static final byte CHAR_ITEM_CROOK       = (byte) 200;
+    public static final byte CHAR_ITEM_GOLD        = (byte) 201;  
+    public static final byte CHAR_ITEM_ZZZ         = (byte) 202;
+    public static final byte CHAR_ITEM_ROPE        = (byte) 203;  
+    public static final byte CHAR_ITEM_KEY         = (byte) 204;  
     
     // C64 colors
     public static final byte COLOR_BLACK      = 0;

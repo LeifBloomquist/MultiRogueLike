@@ -294,7 +294,7 @@ public abstract class Entity
        return false;
    }
        
-   // TODO - Prevent drop on cells that aren't truly empty (i.e stairs)
+   // Drop an item at the current location.  True on success
    protected boolean attemptDrop(int hand)
    {
        Cell current_cell = Dungeon.getInstance().getCell(this.position);    
