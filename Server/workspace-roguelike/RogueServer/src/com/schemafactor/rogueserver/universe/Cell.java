@@ -61,7 +61,7 @@ public class Cell
     	    case Constants.CHAR_EMPTY:
     	    case Constants.CHAR_STAIRS_DOWN:
             case Constants.CHAR_STAIRS_UP:
-            case Constants.CHAR_CHEST:
+            case Constants.CHAR_ITEM_CHEST:  // TODO, this will eventually become an item
     	        return true;
     	        
     	    default:

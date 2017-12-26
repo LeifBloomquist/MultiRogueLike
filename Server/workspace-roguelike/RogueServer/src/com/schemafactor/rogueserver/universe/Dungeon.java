@@ -142,7 +142,7 @@ public class Dungeon
                        break;
                        
                    case 'c': 
-                       charcode = Constants.CHAR_CHEST;
+                       charcode = Constants.CHAR_ITEM_CHEST;
                        break;
                        
                    case '^': 

@@ -23,7 +23,7 @@ public class PETSCII
                 return 176;
            
             case Constants.CHAR_DOOR_CLOSED:
-                return 32;
+                return INVALID;
                 
             case Constants.CHAR_STAIRS_DOWN:
                 return 118;
@@ -32,7 +32,7 @@ public class PETSCII
                 return 94;
            
             case Constants.CHAR_DEBRIS:
-                return 32;
+                return 249;
            
             case Constants.CHAR_MONSTER_SPIDER:
                 return 210;
@@ -44,16 +44,16 @@ public class PETSCII
                 return 126;
            
             case Constants.CHAR_MONSTER_DEMON:
-                return 32;
+                return 232;
            
             case Constants.CHAR_MONSTER_SPECTRE:
-                return 32;
+                return 233;
            
             case Constants.CHAR_MONSTER_GHOST:
-                return 32;
+                return 225;
            
             case Constants.CHAR_MONSTER_FROG:
-                return 32;
+                return 234;
            
             case Constants.CHAR_MONSTER_SLIME:
                 return 239;
@@ -62,31 +62,31 @@ public class PETSCII
                 return 232;
            
             case Constants.CHAR_MONSTER_GOLEM:
-                return 32;
+                return 228;
            
             case Constants.CHAR_PLAYER_NONE:
                 return 64;
            
             case Constants.CHAR_PLAYER_MAGE:
-                return 32;
+                return 33;
            
             case Constants.CHAR_ITEM_SWORD:
                 return 197;
            
             case Constants.CHAR_ITEM_SHIELD:
-                return 32;
+                return 180;
            
             case Constants.CHAR_ITEM_BOW:
-                return 32;
+                return 68;
            
             case Constants.CHAR_ITEM_ARROW:
-                return 32;
+                return 124;
            
             case Constants.CHAR_ITEM_POTION:
-                return 32;
+                return 147;
            
             case Constants.CHAR_ITEM_GEM:
-                return 32;
+                return 42;
            
             case Constants.CHAR_ITEM_NOTE:
                 return 240;
@@ -95,16 +95,19 @@ public class PETSCII
                 return 220;
            
             case Constants.CHAR_ITEM_CROOK:
-                return 32;
+                return 159;
            
             case Constants.CHAR_ITEM_GOLD:
-                return 32;
+                return 236;
            
             case Constants.CHAR_ITEM_ROPE:
-                return 32;
+                return 128;
            
             case Constants.CHAR_ITEM_KEY:
-                return 32;
+                return 183;
+                
+            case Constants.CHAR_ITEM_SIGN:
+                return 80;
                
             
             default:
