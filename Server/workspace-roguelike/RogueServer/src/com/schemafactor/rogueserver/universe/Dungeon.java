@@ -155,7 +155,7 @@ public class Dungeon
                        break;
 
                    default:
-                       charcode = '*';
+                       charcode = '?';
                        break;                   
                }
            

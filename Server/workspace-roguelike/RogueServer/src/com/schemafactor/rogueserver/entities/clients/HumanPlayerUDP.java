@@ -92,7 +92,7 @@ public class HumanPlayerUDP extends HumanPlayer
        System.arraycopy( Dungeon.getInstance().getScreenCentered(position), 0, buffer, offset, Constants.SCREEN_SIZE );
        offset += Constants.SCREEN_SIZE;
        
-       // TODO 40 bytes - On screen messages
+       // TODO 40 bytes*5 - On screen messages
        byte[] message = new byte[Constants.MESSAGE_LENGTH];
        System.arraycopy( message, 0, buffer, offset, Constants.MESSAGE_LENGTH );
        offset += Constants.MESSAGE_LENGTH;
