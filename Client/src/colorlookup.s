@@ -40,8 +40,8 @@ colortable:
     .byte COLOR_GREY2    ; 14	Secret Door?	
     .byte COLOR_LIGHTRED ; 15	Lava? 	
     .byte COLOR_BLUE     ; 16	Water? 	
-    .byte COLOR_WHITE    ; 17	 	
-    .byte COLOR_WHITE    ; 18	 	
+    .byte COLOR_WHITE    ; 17	?	
+    .byte COLOR_LIGHTBLUE; 18   Portal	 	
     .byte COLOR_WHITE    ; 19	 	
     .byte COLOR_WHITE    ; 20	 	
     .byte COLOR_WHITE    ; 21	 	

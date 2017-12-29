@@ -358,6 +358,12 @@ public abstract class Entity
                 
             case Constants.CHAR_STAIRS_DOWN:
                 return attemptMove(Constants.DIRECTION_DOWN);       
+
+            case Constants.CHAR_PORTAL:
+                //return attemptTeleport();       
+
+                
+            // Default do nothing
        }
        
        return false;

@@ -66,7 +66,7 @@ public class Constants
     public static final byte DIRECTION_DOWN    = 10;
     public static final byte DIRECTION_COUNT   = 11;  
     
-    // Terrain Character Codes
+    // Terrain Character Codes - Refer to Tile Types.xlsx
     public static final byte CHAR_EMPTY            = (byte) 0;
     public static final byte CHAR_BRICKWALL        = (byte) 1;
     public static final byte CHAR_DIRT             = (byte) 2;
@@ -79,6 +79,13 @@ public class Constants
     public static final byte CHAR_STAIRS_UP        = (byte) 9;
     public static final byte CHAR_DEBRIS           = (byte) 10;
     public static final byte CHAR_SQUARES          = (byte) 11; 
+    public static final byte CHAR_BIGWALL          = (byte) 12; 
+    public static final byte CHAR_OPENDOOR2        = (byte) 13; 
+    public static final byte CHAR_SECRET_DOOR      = (byte) 14; 
+    public static final byte CHAR_LAVA             = (byte) 15; 
+    public static final byte CHAR_WATER            = (byte) 16; 
+    public static final byte CHAR_TBD              = (byte) 17; 
+    public static final byte CHAR_PORTAL           = (byte) 18; 
     
     // Monster Character Codes
     public static final byte CHAR_MONSTER_SPIDER   = (byte) 96;    
