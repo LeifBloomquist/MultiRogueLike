@@ -20,25 +20,26 @@ COLOR_GREY3      = 15
 
 ; Rather than have the server send an entire extra screen's worth of color data, we use this lookup table to 
 ; map character codes to color codes.
+; Refer to Tile Types.xlsx
 
 colortable:
     .byte COLOR_BLACK    ; 0    Empty Space
     .byte COLOR_GREY2    ; 1    Brick Wall	
     .byte COLOR_GREY1    ; 2	Dirt 	
-    .byte COLOR_WHITE    ; 3	 	
-    .byte COLOR_WHITE    ; 4	 	
-    .byte COLOR_WHITE    ; 5	 	
-    .byte COLOR_WHITE    ; 6	 	
-    .byte COLOR_WHITE    ; 7	 	
-    .byte COLOR_WHITE    ; 8	 	
-    .byte COLOR_WHITE    ; 9	 	
-    .byte COLOR_WHITE    ; 10	 	
-    .byte COLOR_BROWN    ; 11	 // Chest 	
-    .byte COLOR_WHITE    ; 12	 	
-    .byte COLOR_WHITE    ; 13	 	
-    .byte COLOR_WHITE    ; 14	 	
-    .byte COLOR_WHITE    ; 15	 	
-    .byte COLOR_WHITE    ; 16	 	
+    .byte COLOR_GREY2    ; 3	Closed Door 	
+    .byte COLOR_GREY2    ; 4	Broken Wall 	
+    .byte COLOR_WHITE    ; 5	Alternate Stairs Down 	
+    .byte COLOR_WHITE    ; 6    Closed Door Big
+    .byte COLOR_WHITE    ; 7	Open Door
+    .byte COLOR_GREY3    ; 8	Stairs Down	
+    .byte COLOR_GREY3    ; 9    Stairs Up
+    .byte COLOR_GREY1    ; 10	Debris 	
+    .byte COLOR_GREY2    ; 11	Squares 	
+    .byte COLOR_GREY2    ; 12	Big Wall 	
+    .byte COLOR_GREY2    ; 13	Open Door? 	
+    .byte COLOR_GREY2    ; 14	Secret Door?	
+    .byte COLOR_LIGHTRED ; 15	Lava? 	
+    .byte COLOR_BLUE     ; 16	Water? 	
     .byte COLOR_WHITE    ; 17	 	
     .byte COLOR_WHITE    ; 18	 	
     .byte COLOR_WHITE    ; 19	 	
@@ -54,9 +55,9 @@ colortable:
     .byte COLOR_WHITE    ; 29	 	
     .byte COLOR_WHITE    ; 30	 	
     .byte COLOR_WHITE    ; 31	 	
-    .byte COLOR_WHITE    ; 32	 	
+    .byte COLOR_WHITE    ; 32	Punctuation... 	
     .byte COLOR_WHITE    ; 33	 	
-    .byte COLOR_GREY2    ; 34   Thick Brick Wall 	
+    .byte COLOR_WHITE    ; 34    	
     .byte COLOR_WHITE    ; 35	 	
     .byte COLOR_WHITE    ; 36	 	
     .byte COLOR_WHITE    ; 37	 	
@@ -86,7 +87,7 @@ colortable:
     .byte COLOR_WHITE    ; 61	 	
     .byte COLOR_WHITE    ; 62	 	
     .byte COLOR_WHITE    ; 63	 	
-    .byte COLOR_WHITE    ; 64	 	
+    .byte COLOR_WHITE    ; 64  ASCII Letters...	 	
     .byte COLOR_WHITE    ; 65	 	
     .byte COLOR_WHITE    ; 66	 	
     .byte COLOR_WHITE    ; 67	 	
@@ -96,7 +97,7 @@ colortable:
     .byte COLOR_WHITE    ; 71	 	
     .byte COLOR_WHITE    ; 72	 	
     .byte COLOR_WHITE    ; 73	 	
-    .byte COLOR_LIGHTBLUE; 74  Sword	 	
+    .byte COLOR_WHITE    ; 74	 	
     .byte COLOR_WHITE    ; 75	 	
     .byte COLOR_WHITE    ; 76	 	
     .byte COLOR_WHITE    ; 77	 	
@@ -121,13 +122,13 @@ colortable:
     .byte COLOR_RED      ; 96	 	Spider
     .byte COLOR_WHITE    ; 97	 	Skeleton
     .byte COLOR_BROWN    ; 98	    Bat	
-    .byte COLOR_WHITE    ; 99	 	
-    .byte COLOR_WHITE    ; 100	 	
-    .byte COLOR_WHITE    ; 101	 	
-    .byte COLOR_WHITE    ; 102	 	
-    .byte COLOR_GREEN    ; 103      Slime  	 	
+    .byte COLOR_LIGHTRED ; 99	 	Demon
+    .byte COLOR_CYAN     ; 100	 	Spectre
+    .byte COLOR_WHITE    ; 101	 	Ghost
+    .byte COLOR_GREEN    ; 102	 	Frog Thing
+    .byte COLOR_GREEN    ; 103      Slime	 	
     .byte COLOR_LIGHTGREEN ; 104    Zombie	 	
-    .byte COLOR_WHITE    ; 105	 	
+    .byte COLOR_ORANGE   ; 105	 	Golem
     .byte COLOR_WHITE    ; 106	 	
     .byte COLOR_WHITE    ; 107	 	
     .byte COLOR_WHITE    ; 108	 	
@@ -149,9 +150,9 @@ colortable:
     .byte COLOR_WHITE    ; 124	 	
     .byte COLOR_WHITE    ; 125	 	
     .byte COLOR_WHITE    ; 126	 	
-    .byte COLOR_WHITE    ; 127	 	Generic Player
-    .byte COLOR_WHITE    ; 128	 	
-    .byte COLOR_WHITE    ; 129	 	
+    .byte COLOR_WHITE    ; 127	 	
+    .byte COLOR_WHITE    ; 128	 	Generic Player
+    .byte COLOR_WHITE    ; 129	 	Mage
     .byte COLOR_WHITE    ; 130	 	
     .byte COLOR_WHITE    ; 131	 	
     .byte COLOR_WHITE    ; 132	 	
@@ -214,20 +215,20 @@ colortable:
     .byte COLOR_WHITE    ; 189	 	
     .byte COLOR_WHITE    ; 190	 	
     .byte COLOR_WHITE    ; 191	 	
-    .byte COLOR_WHITE    ; 192	 	
-    .byte COLOR_WHITE    ; 193	 	
-    .byte COLOR_WHITE    ; 194	 	
-    .byte COLOR_WHITE    ; 195	 	
-    .byte COLOR_WHITE    ; 196	 	
-    .byte COLOR_WHITE    ; 197	 	
-    .byte COLOR_WHITE    ; 198	 	
-    .byte COLOR_WHITE    ; 199	 	
-    .byte COLOR_WHITE    ; 200	 	
-    .byte COLOR_WHITE    ; 201	 	
-    .byte COLOR_WHITE    ; 202	 	
-    .byte COLOR_WHITE    ; 203	 	
-    .byte COLOR_WHITE    ; 204	 	
-    .byte COLOR_WHITE    ; 205	 	
+    .byte COLOR_LIGHTBLUE; 192   Sword	 	
+    .byte COLOR_GREY3    ; 193	 Shield	
+    .byte COLOR_ORANGE   ; 194	 Bow	
+    .byte COLOR_ORANGE   ; 195	 Arrow	
+    .byte COLOR_VIOLET   ; 196	 Potion	
+    .byte COLOR_CYAN     ; 197	 Gem	
+    .byte COLOR_WHITE    ; 198	 Note	
+    .byte COLOR_BROWN    ; 199	 Chest
+    .byte COLOR_WHITE    ; 200	 Crook	
+    .byte COLOR_YELLOW   ; 201	 Gold	
+    .byte COLOR_WHITE    ; 202   ?	 	
+    .byte COLOR_BROWN    ; 203	 Rope	
+    .byte COLOR_YELLOW   ; 204	 Key	
+    .byte COLOR_GREY3    ; 205   Sign	 	
     .byte COLOR_WHITE    ; 206	 	
     .byte COLOR_WHITE    ; 207	 	
     .byte COLOR_WHITE    ; 208	 	
