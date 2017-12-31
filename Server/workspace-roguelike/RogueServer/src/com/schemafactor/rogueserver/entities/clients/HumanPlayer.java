@@ -346,7 +346,7 @@ public abstract class HumanPlayer extends Entity
    
    protected String getMessage(int index)
    {
-       String msg = messageQueue.elementAt(messageQueue.size() - index);
+       String msg = messageQueue.elementAt(messageQueue.size() - index - 1);
        if (msg == null)
        {
            return "";

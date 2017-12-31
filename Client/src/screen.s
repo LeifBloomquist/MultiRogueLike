@@ -252,13 +252,14 @@ colorlookup:
 ; Copy server messages from UDP buffer to screen
 
 copymessages:  
-  ldx #160   ; 40x4 messages
+  ldx #$00
   
-copym:  
-  lda udp_inp_data+(358),x 
+copym:
+  lda udp_inp_data+358,x 
   sta SCREEN_BASE+(40*20),x 
   
-  dex
+  inx
+  cpx #160   ; 40x4 messages
   bne copym
 
   ; Current Cell
