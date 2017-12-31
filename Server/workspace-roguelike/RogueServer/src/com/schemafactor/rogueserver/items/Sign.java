@@ -10,7 +10,7 @@ public class Sign extends Item
     /** Creates a new instance of Note */
    public Sign(String description, String text)
    {
-       super(description, Constants.CHAR_ITEM_SIGN, false, 0);
+       super(description, Constants.CHAR_ITEM_SIGN, false, 0, 5);
        this.text =  "\"" + text + "\""; 
    }
    
