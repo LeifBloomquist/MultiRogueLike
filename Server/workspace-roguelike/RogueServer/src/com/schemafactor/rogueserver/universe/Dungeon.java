@@ -220,7 +220,7 @@ public class Dungeon
 	    
 	    try
 	    {
-	        if (dungeonMapCells[start.x][start.y][start.z].isEmpty())
+	        if (dungeonMapCells[start.x][start.y][start.z].isEmpty(false))
             {
                 return start;
             }

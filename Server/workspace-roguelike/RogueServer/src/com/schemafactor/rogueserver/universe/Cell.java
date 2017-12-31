@@ -70,12 +70,15 @@ public class Cell
     }
     
     // Return true if this is cell is completely empty.
-    public boolean isEmpty() 
+    public boolean isEmpty(boolean drop) 
     {        
         // Is someone already in this cell?
-        if (entity != null)  
+        if (!drop)
         {
-            return false;
+            if (entity != null)
+            {
+                return false;
+            }
         }
         
         // Is there an item in this cell?
@@ -123,7 +126,7 @@ public class Cell
     // Drop an item into this cell.  Returns true on success, false if failure.  
     public boolean dropItem(Item i)
     {
-        if (isEmpty())   // Cell is empty
+        if (isEmpty(true))   // Cell is empty, except for entities
         {
             item = i;
             return true;
