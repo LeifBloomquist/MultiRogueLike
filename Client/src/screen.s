@@ -62,12 +62,32 @@ screen_init:
   sta COLOR_BASE+$200,x
   sta COLOR_BASE+$2E8,x
   inx
-  bne :-	
+  bne :-    
+    
+  ; Grayscale gradient for messages - brighter=newest
+
+  ldx #$00
+
+gray: 
+  lda #COLOR_GREY1
+  sta COLOR_BASE+(40*20),x 
   
-  ; TODO: Message colors?
+  lda #COLOR_GREY2
+  sta COLOR_BASE+(40*21),x 
+  
+  lda #COLOR_GREY3
+  sta COLOR_BASE+(40*22),x 
+  
+  lda #COLOR_WHITE
+  sta COLOR_BASE+(40*23),x 
+  
+  inx
+  cpx #40
+  bne gray
   
   ; Assume for now, don't have to bank out BASIC
-  
+
+setupvic:  
   ; Set up VIC to Bank 1  ($4000-$7FFF)
   lda $DD00
   and #%11111100
