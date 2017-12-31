@@ -1,16 +1,11 @@
 package com.schemafactor.rogueserver.entities.monsters;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
-import com.schemafactor.rogueserver.entities.Entity.entityTypes;
-import com.schemafactor.rogueserver.entities.monsters.ServerControlled;
-import com.schemafactor.rogueserver.entities.monsters.ServerControlled.States;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Spider extends ServerControlled

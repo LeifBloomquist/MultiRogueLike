@@ -344,6 +344,19 @@ public abstract class HumanPlayer extends Entity
        }      
    }
    
+   protected String getMessage(int index)
+   {
+       String msg = messageQueue.elementAt(messageQueue.size() - index);
+       if (msg == null)
+       {
+           return "";
+       }
+       else
+       {
+           return msg; 
+       }
+   }       
+   
    @Override
    public void addMessage(String msg)
    {

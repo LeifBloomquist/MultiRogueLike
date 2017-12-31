@@ -199,10 +199,10 @@ gameupdate:
 ; Network Constants and Data  
   
 SERVER_IP:
-  .byte 208,79,218,201    ; Vortex VPS  
+; .byte 208,79,218,201    ; Vortex VPS  
 ; .byte 192,168,7,14      ; Dev Laptop
 ; .byte 192,168,2,114     ; World of Commodore Demo LAN
-
+  .byte 192,168,1,106     ; Fort York Apartment
   
 SERVER_PORT = 3006
 SRC_PORT    = 3000  ; In theory, having these match makes NAT work on some routers

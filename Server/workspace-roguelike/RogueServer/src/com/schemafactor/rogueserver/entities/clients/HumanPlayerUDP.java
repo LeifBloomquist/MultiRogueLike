@@ -64,7 +64,7 @@ public class HumanPlayerUDP extends HumanPlayer
                lastActionCounter = actioncounter;     
                
                byte petscii_char = data[2];
-               byte ascii_char = PETSCII.toASCII(petscii_char);               
+               byte ascii_char = PETSCII.toASCII(petscii_char);     
                handleKeystroke(ascii_char);              
            }
            break;
@@ -83,7 +83,7 @@ public class HumanPlayerUDP extends HumanPlayer
    public void updateNow()
    { 
        // Send data packet to the client              
-       byte[] buffer = new byte[500];       
+       byte[] buffer = new byte[525];       
        buffer[0] = Constants.PACKET_UPDATE;
        
        int offset = 1;
@@ -92,10 +92,13 @@ public class HumanPlayerUDP extends HumanPlayer
        System.arraycopy( Dungeon.getInstance().getScreenCentered(position), 0, buffer, offset, Constants.SCREEN_SIZE );
        offset += Constants.SCREEN_SIZE;
        
-       // TODO 40 bytes*5 - On screen messages
-       byte[] message = new byte[Constants.MESSAGE_LENGTH];
-       System.arraycopy( message, 0, buffer, offset, Constants.MESSAGE_LENGTH );
-       offset += Constants.MESSAGE_LENGTH;
+       // On screen messages
+       for (int i=3; i >= 0; i--)
+       {
+           byte[] message = getMessage(i).toUpperCase().getBytes();
+           System.arraycopy( message, 0, buffer, offset, Math.min(message.length, Constants.MESSAGE_LENGTH) );
+           offset += Constants.MESSAGE_LENGTH;
+       }
        
        // Item underneath current position
        buffer[offset++] = Dungeon.getInstance().getCell(position).getItemCharCode();
@@ -107,7 +110,7 @@ public class HumanPlayerUDP extends HumanPlayer
        }
        else
        {
-           buffer[offset++] = 0;
+           buffer[offset++] = Constants.CHAR_EMPTY;
        }
        
        // Item currently held (right)
@@ -117,8 +120,18 @@ public class HumanPlayerUDP extends HumanPlayer
        }
        else
        {
-           buffer[offset++] = 0;
+           buffer[offset++] = Constants.CHAR_EMPTY;
        }
+       
+       // Health Value
+       int ih = (int)health;  // Round
+       String sh = String.format("%1$3d", ih);  // To String with padding
+       byte[] bh = sh.getBytes();
+       System.arraycopy( bh, 0, buffer, offset, 3 );
+       offset += 3;
+       
+       // End of packet marker
+       buffer[offset++] = (byte)255;
        
        // Send the packet.
        sendUpdatePacket(buffer);

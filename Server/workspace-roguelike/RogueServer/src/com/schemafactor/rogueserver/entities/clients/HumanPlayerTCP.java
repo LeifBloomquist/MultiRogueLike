@@ -119,12 +119,13 @@ public class HumanPlayerTCP extends HumanPlayer
            }
            
            screen += border;       
+           screen += "\r\n";
           
            // On screen messages
-           screen += getMessage(0) + "\r\n";
-           screen += getMessage(1) + "\r\n";
-           screen += getMessage(2) + "\r\n";
-           screen += getMessage(3) + "\r\n";
+           for (int i=3; i >= 0; i--)
+           {
+               screen += getMessage(i) + "\r\n";
+           }
            
            // TODO network activity char
        }     
@@ -135,19 +136,6 @@ public class HumanPlayerTCP extends HumanPlayer
        
        return;
    }  
-   
-   private String getMessage(int index)
-   {
-       String msg = messageQueue.elementAt(messageQueue.size() - index);
-       if (msg == null)
-       {
-           return "";
-       }
-       else
-       {
-           return msg; 
-       }
-   }       
    
    private void sendUpdatePacket(String data)
    {       

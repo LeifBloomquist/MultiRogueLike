@@ -20,7 +20,7 @@ login:
   
 TITLEMESSAGE:
   .byte 147, CG_LCS, CG_DCS, CG_RED
-  .byte "rOGUE vERSION 0.001", 13, 13
+  .byte "rOGUE vERSION 0.002", 13, 13
   .byte CG_LBL, "cONCEPT+gAME cODE: ", CG_WHT, "lEIF bLOOMQUIST", 13, 13
   .byte CG_LBL, "nETWORKING cODE:   ", CG_WHT, "jONNO dOWNES", 13
   .byte CG_LBL, "                   ", CG_WHT, "pER oLOFSSON", 13, 13

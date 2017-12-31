@@ -13,7 +13,7 @@ public class Constants
     public static final int DUNGEON_DEPTH     = 10;     // Levels
         
     // Network Constants
-    public static final int LISTEN_PORT       = 3006;   // UDP and TCP
+    public static final int  LISTEN_PORT      = 3006;   // UDP and TCP
     public static final long NETWORK_TIMEOUT  = 1000;   // Seconds
     public static final long UPDATE_TIME      = 1;      // Seconds   
     
@@ -24,7 +24,7 @@ public class Constants
     public static final int MESSAGE_LENGTH    = 40;  
     
     // Data Limits 
-    public static final int MESSAGE_QUEUE_MAX       = 100;
+    public static final int MESSAGE_QUEUE_MAX       = 10;
     public static final int EMPTY_CELL_SEARCH_DEPTH = 100;
     
     // Packet types

@@ -14,11 +14,13 @@ CELL_COLOR   = COLOR_BASE  + $006F
 LEFT_CHAR    = SCREEN_BASE + $00BF
 LEFT_COLOR   = COLOR_BASE  + $00BF
 
-RIGHT_CHAR   = LEFT_CHAR  + 40
-RIGHT_COLOR  = LEFT_COLOR + 40
+RIGHT_CHAR   = LEFT_CHAR   + 40
+RIGHT_COLOR  = LEFT_COLOR  + 40
 
-COMMS_CHAR  = SCREEN_BASE + $03E7
-COMMS_COLOR = COLOR_BASE  + $03E7
+HEALTH_CHARS = RIGHT_CHAR  + 80
+
+COMMS_CHAR  = SCREEN_BASE  + $03E7
+COMMS_COLOR = COLOR_BASE   + $03E7
 
 GAME_ROWS   = 17
 GAME_COLS   = 21
@@ -61,6 +63,8 @@ screen_init:
   sta COLOR_BASE+$2E8,x
   inx
   bne :-	
+  
+  ; TODO: Message colors?
   
   ; Assume for now, don't have to bank out BASIC
   
@@ -169,7 +173,7 @@ copy:
 
   ldy #$00
   
-copy2:  
+colorlookup:  
   ; 17 Rows on screen
   ldx SCREEN_BASE+1+(40*1),y 
   lda colortable,x                 
@@ -241,31 +245,50 @@ copy2:
  
   iny
   cpy #GAME_COLS
-  beq copy_x
-  jmp copy2
+  beq copymessages
+  jmp colorlookup   ; Loop
 
-copy_x:  
+; -------------------------------------------------------------------------
+; Copy server messages from UDP buffer to screen
 
-  ; TODO - messages at udp_inp_data+358  
+copymessages:  
+  ldx #160   ; 40x4 messages
+  
+copym:  
+  lda udp_inp_data+(358),x 
+  sta SCREEN_BASE+(40*20),x 
+  
+  dex
+  bne copym
 
   ; Current Cell
-  ldx udp_inp_data+398
+  ldx udp_inp_data+518
   stx CELL_CHAR
   lda colortable,x
   sta CELL_COLOR
 
   ; Held - Left
-  ldx udp_inp_data+399
+  ldx udp_inp_data+519
   stx LEFT_CHAR
   lda colortable,x
   sta LEFT_COLOR
   
   ; Held - Right
-  ldx udp_inp_data+400
+  ldx udp_inp_data+520
   stx RIGHT_CHAR
   lda colortable,x
   sta RIGHT_COLOR
+  
+  ; Health
+  lda udp_inp_data+521
+  sta HEALTH_CHARS
+  lda udp_inp_data+522
+  sta HEALTH_CHARS+1
+  lda udp_inp_data+523
+  sta HEALTH_CHARS+2
 
+  ; TODO, XP, gold?
+  
   rts
 
 ;c64 c/g Constants 
@@ -293,5 +316,4 @@ CG_ECS = 9  ;enable shift+C=
 
 CG_LCS = 14 ;switch to lowercase
 CG_UCS = 142 ;switch to uppercase
-
   
