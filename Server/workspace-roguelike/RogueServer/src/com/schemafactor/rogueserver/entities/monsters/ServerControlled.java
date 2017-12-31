@@ -56,5 +56,11 @@ public abstract class ServerControlled extends Entity
         ;    // Monsters don't need the message queue - maybe in future?  
     }
     
+    @Override
+    public void playSound(byte id)
+    {
+        ;
+    }
+    
     abstract protected void takeAction();  // Action to take when actionTime occurs
 }

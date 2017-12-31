@@ -30,6 +30,12 @@ public abstract class HumanPlayer extends Entity
    // Queue of messages
    NonBlockingFixedSizeQueue<String> messageQueue = new NonBlockingFixedSizeQueue<String>(Constants.MESSAGE_QUEUE_MAX);
    
+   // Sound effect counter
+   byte soundCounter = 0;
+   
+   // Sound Effect ID
+   byte soundFXID = Constants.SOUND_NONE;
+   
    public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f);
@@ -362,4 +368,11 @@ public abstract class HumanPlayer extends Entity
    {
        messageQueue.add(msg);
    }
+   
+   @Override
+   public void playSound(byte id)
+   {
+       soundCounter++;
+       soundFXID = id;
+   }   
 }

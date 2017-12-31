@@ -1,6 +1,13 @@
 ; -------------------------------------------------------------------------
-; Vortex II Sound Code
+; Rogue Sound Code
 
+SOUND_NONE         = 0
+SOUND_PLAYER_STEP  = 1
+SOUND_BLOCKED      = 2
+SOUND_ATTACK       = 3
+SOUND_MISS         = 4
+SOUND_ATTACKED     = 5
+SOUND_MONSTER_STEP = 6
 
 ;------------------------------------------------------------------------------
 ; Setup - clear sound chip and set maximum volume!
@@ -18,5 +25,99 @@ sound_setup:
   sta $d418
   rts
 
+;------------------------------------------------------------------------------
+; Sound Effects Dispatcher - sound to play in A
+; Check the SOUND_ constants in Constants.java
+
+sound_play:
+   sta $d020
+   
+   cmp #SOUND_NONE 
+   beq sound_x
+   
+   cmp #SOUND_PLAYER_STEP 
+   beq sound_step
+
+   cmp #SOUND_BLOCKED 
+   beq sound_blocked
+   
+   cmp #SOUND_ATTACK 
+   beq sound_attack
+
+   cmp #SOUND_ATTACKED 
+   beq sound_attacked
+   
+sound_x:
+   rts
+
+;------------------------------------------------------------------------------
+; Player Steps - Use Voice 1
+
+; TODO - these are for voice 2, fix
+sound_step:
+  lda #$00
+  sta $d40c  
+  lda #$02
+  sta $d40d
+  lda #$30    ; Pitch 
+  sta $d408
+  lda #$00
+  sta $d407
+  lda #$81
+  sta $d40b
+  lda #$80
+  sta $d40b
+  rts
   
+
+
+; TODO - these are for voice 2, fix
+sound_blocked:
+  lda #$0f
+  sta $d40c  
+  lda #$0A
+  sta $d40d
+  lda #$10    ; Pitch 
+  sta $d408
+  lda #$00
+  sta $d407
+  lda #$81
+  sta $d40b
+  lda #$80
+  sta $d40b
+  rts
+  
+;------------------------------------------------------------------------------
+sound_attack: 
+  lda #$00    ; 0 Attack, 0 Decay
+  sta $d40c  
+  lda #$09    ; 0 Sustain, ?? release 
+  sta $d40d
+  lda #$09    ; Pitch (High)
+  sta $d408
+  lda #$00    ; Pitch (Low)
+  sta $d407
+  lda #$81    ; Trigger
+  sta $d40b
+  lda #$80    ; Release
+  sta $d40b
+  rts
+
+;------------------------------------------------------------------------------
+sound_attacked: 
+  lda #$00    ; 0 Attack, 0 Decay
+  sta $d40c  
+  lda #$09    ; 0 Sustain, ?? release 
+  sta $d40d
+  lda #$05    ; Pitch (High)
+  sta $d408
+  lda #$00    ; Pitch (Low)
+  sta $d407
+  lda #$81    ; Trigger
+  sta $d40b
+  lda #$80    ; Release
+  sta $d40b
+  rts
+
+
 ; EOF!

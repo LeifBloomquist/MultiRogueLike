@@ -83,7 +83,7 @@ public class HumanPlayerUDP extends HumanPlayer
    public void updateNow()
    { 
        // Send data packet to the client              
-       byte[] buffer = new byte[525];       
+       byte[] buffer = new byte[527];       
        buffer[0] = Constants.PACKET_UPDATE;
        
        int offset = 1;
@@ -130,6 +130,10 @@ public class HumanPlayerUDP extends HumanPlayer
        System.arraycopy( bh, 0, buffer, offset, 3 );
        offset += 3;
        
+       // Sound Effects
+       buffer[offset++] = soundCounter;
+       buffer[offset++] = soundFXID;
+       
        // End of packet marker
        buffer[offset++] = (byte)255;
        
@@ -141,7 +145,7 @@ public class HumanPlayerUDP extends HumanPlayer
    }  
    
    private void sendUpdatePacket(byte[] data)
-   {       
+   {
        try
        {            
            // Initialize a datagram packet with data and address

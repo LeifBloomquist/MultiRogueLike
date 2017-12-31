@@ -10,6 +10,7 @@ import java.util.List;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.clients.HumanPlayerTCP;
 import com.schemafactor.rogueserver.common.Constants;
+import com.schemafactor.rogueserver.common.EscapeSequences;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class TCPListener extends Thread
@@ -221,7 +222,7 @@ public class TCPListener extends Thread
             // Login Loop
             while (true) 
             {
-                sendCharacters(Constants.ANSI_CLEAR);
+                sendCharacters(EscapeSequences.ANSI_CLEAR);
                 sendString("Connected to the Rogue Test Server");
                 sendString("Server version: " + Double.toString(Constants.VERSION) );
                 
@@ -284,7 +285,7 @@ public class TCPListener extends Thread
         // "Play Again?" loop.  Return true on Yes, false on No.
         public boolean playAgain() throws IOException
         {
-            sendCharacters(Constants.ANSI_CLEAR);
+            sendCharacters(EscapeSequences.ANSI_CLEAR);
             
             while (true)
             {               

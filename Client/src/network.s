@@ -232,5 +232,8 @@ FAILMESSAGE:
 gamepacketreceived:
    .byte 0           
 
+soundcounter:
+   .byte 0           
+
 bittab:
    .byte $01,$02,$04,$08,$10,$20,$40,$80

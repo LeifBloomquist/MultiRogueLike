@@ -308,7 +308,17 @@ copym:
   lda udp_inp_data+523
   sta HEALTH_CHARS+2
 
+  ; Sound effects
+  lda udp_inp_data+524
+  cmp soundcounter
+  beq nosound
+  
+  sta soundcounter
+  lda udp_inp_data+525
+  jsr sound_play
+
   ; TODO, XP, gold?
+nosound:
   
   rts
 

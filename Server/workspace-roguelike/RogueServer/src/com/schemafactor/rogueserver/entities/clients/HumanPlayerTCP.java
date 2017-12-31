@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.schemafactor.rogueserver.common.Constants;
+import com.schemafactor.rogueserver.common.EscapeSequences;
 import com.schemafactor.rogueserver.common.ExtendedAscii;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.PETSCII;
@@ -41,7 +42,7 @@ public class HumanPlayerTCP extends HumanPlayer
    @Override
    public void updateNow()
    {   
-       String screen = Constants.ANSI_CLEAR;
+       String screen = EscapeSequences.ANSI_CLEAR;
        
        if (showingHelp)
        {

@@ -136,10 +136,13 @@ public class Constants
     public static final byte COLOR_LIGHTGREEN = 13;
     public static final byte COLOR_LIGHTBLUE  = 14;
     public static final byte COLOR_GREY3      = 15;
-    
-    // ANSI Codes    
-    // http://www.termsys.demon.co.uk/vtansi.htm
-    public static final char   ANSI_ESC       = (char) 27;
-    public static final String ANSI_HOME      = ANSI_ESC + "[H";
-    public static final String ANSI_CLEAR     = ANSI_ESC + "[2J" + ANSI_HOME;
+
+    public static final byte SOUND_NONE         = 0;
+    public static final byte SOUND_PLAYER_STEP  = 1;
+    public static final byte SOUND_BLOCKED      = 2;
+    public static final byte SOUND_ATTACK       = 3;
+    public static final byte SOUND_MISS         = 4;
+    public static final byte SOUND_ATTACKED     = 5;
+    public static final byte SOUND_MONSTER_STEP = 6;
+    // TODO: Sounds for other monster types, doors, opening chests, other actions, spells, achievements...
 }

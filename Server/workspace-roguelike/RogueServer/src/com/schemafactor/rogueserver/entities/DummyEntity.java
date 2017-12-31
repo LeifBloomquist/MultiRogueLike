@@ -25,4 +25,10 @@ public class DummyEntity extends Entity
     {
         ;        
     }
+    
+    @Override
+    public void playSound(byte id)
+    {
+        ;        
+    }
 }

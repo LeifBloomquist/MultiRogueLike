@@ -68,12 +68,14 @@ public abstract class Entity
            current_cell.setEntity(null);
            
            //JavaTools.printlnTime("DEBUG: " + description + " moved to location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
+           this.playSound(Constants.SOUND_PLAYER_STEP);
            return true;
        }
        else
        {
            //JavaTools.printlnTime("DEBUG: " + description + " was blocked moving to X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
            this.addMessage("Blocked!");
+           this.playSound(Constants.SOUND_BLOCKED);
            return false;
        }    
    }
@@ -104,12 +106,13 @@ public abstract class Entity
        if (target != null)
        {
            target.attackedBy(this);
-           
+           this.playSound(Constants.SOUND_ATTACK);    
            JavaTools.printlnTime("DEBUG: " + description + " attacked " + target.getDescription() );
            return true;
        }
        else
        {
+           this.playSound(Constants.SOUND_MISS);
            JavaTools.printlnTime("DEBUG: " + description + " attacked the darkness at  X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
            return false;
        }    
@@ -158,8 +161,13 @@ public abstract class Entity
        
        // TODO, tweak this
        damage -= protection;
-       if (damage < 0) damage = 0;
+       if (damage < 0) damage = 0f;
        this.health -= damage;
+       
+       if (damage > 0f)
+       {
+           this.playSound(Constants.SOUND_ATTACKED);
+       }
 
        checkHealth(attacker);
    }  
@@ -393,6 +401,8 @@ public abstract class Entity
    abstract public void update();       // Called on every game loop
    abstract public void updateNow();    // Called from update(), or from other Entities to force an update
    abstract public void addMessage(String msg);  // Add a message to this Entity's message queue
+   abstract public void playSound(byte id);  // Play a sound with this Entity
+
    
    /** Return X,Y positions */
    public int getXpos()
