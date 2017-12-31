@@ -73,11 +73,11 @@ sound_step:
 
 ; TODO - these are for voice 2, fix
 sound_blocked:
-  lda #$0f
+  lda #$00
   sta $d40c  
-  lda #$0A
+  lda #$02
   sta $d40d
-  lda #$10    ; Pitch 
+  lda #$03    ; Pitch 
   sta $d408
   lda #$00
   sta $d407
@@ -91,9 +91,9 @@ sound_blocked:
 sound_attack: 
   lda #$00    ; 0 Attack, 0 Decay
   sta $d40c  
-  lda #$09    ; 0 Sustain, ?? release 
+  lda #$03    ; 0 Sustain, ?? release 
   sta $d40d
-  lda #$09    ; Pitch (High)
+  lda #$10    ; Pitch (High)
   sta $d408
   lda #$00    ; Pitch (Low)
   sta $d407
@@ -107,7 +107,7 @@ sound_attack:
 sound_attacked: 
   lda #$00    ; 0 Attack, 0 Decay
   sta $d40c  
-  lda #$09    ; 0 Sustain, ?? release 
+  lda #$03    ; 0 Sustain, ?? release 
   sta $d40d
   lda #$05    ; Pitch (High)
   sta $d408
