@@ -6,7 +6,7 @@ public abstract class Item
 {
     // Items don't have a "position" per se, the Entity carrying them or the Cell holding them has a pointer to the Item instance in question.
 	   
-   protected String description;
+   protected String  description;
    protected byte    charCode   = 0;     // Character code shown on client screen   
    protected float   maxDamage  = 0;     // Maximum damage this items can inflict if used by a weapon
    protected float   maxProtect = 0;     // Maximum damage this item can deflect

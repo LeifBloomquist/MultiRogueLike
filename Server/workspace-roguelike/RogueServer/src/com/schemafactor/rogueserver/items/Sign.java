@@ -7,7 +7,7 @@ public class Sign extends Item
 {
     String text = "";
     
-    /** Creates a new instance of Note */
+    /** Creates a new instance of Sign */
    public Sign(String description, String text)
    {
        super(description, Constants.CHAR_ITEM_SIGN, false, 0, 5);

@@ -10,6 +10,7 @@ import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
+import com.schemafactor.rogueserver.items.Chest;
 import com.schemafactor.rogueserver.items.Key;
 import com.schemafactor.rogueserver.items.Note;
 import com.schemafactor.rogueserver.items.Shield;
@@ -149,5 +150,9 @@ public class Main
         
         dungeon.addItem( new Note("Tattered Note", "The first Note. Hello!"), 
                          new Position(9,4,0));
+        
+        dungeon.addItem( new Chest("Fancy Chest", 
+                         new Key("Shiny Key", null)), 
+                         new Position(10,5,0));
     }
 }
