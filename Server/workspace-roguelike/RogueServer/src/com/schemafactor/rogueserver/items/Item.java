@@ -37,6 +37,11 @@ public abstract class Item
     {       
         return maxDamage;
     } 
+
+    public float getMaxProtection() 
+    {       
+        return maxProtect;
+    } 
 	
 	public boolean isMoveable() 
     {       

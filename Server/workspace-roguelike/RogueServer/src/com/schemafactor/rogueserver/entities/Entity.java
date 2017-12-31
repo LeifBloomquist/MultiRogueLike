@@ -132,14 +132,35 @@ public abstract class Entity
        return max_damage * JavaTools.generator.nextFloat();     
    }
    
+   private float getProtection()
+   {
+       float max_protect = 0;
+       
+       if (item_left != null)
+       {
+           max_protect += item_left.getMaxProtection();
+       }
+       
+       if (item_right!= null)
+       {
+           max_protect += item_right.getMaxProtection();
+       }
+       
+       return max_protect * JavaTools.generator.nextFloat();     
+   }
+   
    private void attackedBy(Entity attacker)
    {
        this.addMessage("Attacked by " + attacker.description);
        
-       this.health -= attacker.getAttackRoll();
+       float damage = attacker.getAttackRoll();
+       float protection = this.getProtection();
        
-       // TODO, effects of shields, spells, etc. to reduce damage
-       
+       // TODO, tweak this
+       damage -= protection;
+       if (damage < 0) damage = 0;
+       this.health -= damage;
+
        checkHealth(attacker);
    }  
 
