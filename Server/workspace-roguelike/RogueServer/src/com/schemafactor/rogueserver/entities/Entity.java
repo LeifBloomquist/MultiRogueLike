@@ -197,7 +197,7 @@ public abstract class Entity implements java.io.Serializable
        Cell left =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position, Constants.EMPTY_CELL_SEARCH_DEPTH) );       
        if (left != null) 
        {
-           left.dropItem(item_left);
+           left.placeItem(item_left);
            item_left = null;
        }
        else
@@ -210,7 +210,7 @@ public abstract class Entity implements java.io.Serializable
 
        if (right != null) 
        {
-           right.dropItem(item_right);  
+           right.placeItem(item_right);  
            item_right = null;
        }
        else
@@ -337,7 +337,7 @@ public abstract class Entity implements java.io.Serializable
                return false;
            }
            
-           boolean success = current_cell.dropItem(item_left);  
+           boolean success = current_cell.placeItem(item_left);  
            
            if (success)
            {
@@ -354,7 +354,7 @@ public abstract class Entity implements java.io.Serializable
                return false;
            }
            
-           boolean success = current_cell.dropItem(item_right);  
+           boolean success = current_cell.placeItem(item_right);  
            
            if (success)
            {

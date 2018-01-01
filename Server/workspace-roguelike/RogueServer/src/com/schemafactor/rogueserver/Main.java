@@ -57,7 +57,7 @@ public class Main
                 
         try 
         {
-            dungeon.LoadCSV(prefix+"LevelTest0.csv", 0);
+            dungeon.LoadTXT(prefix+"LevelTest0.txt", 0);
             dungeon.LoadTXT(prefix+"LevelTest1.txt", 1);
             dungeon.LoadTXT(prefix+"LevelTest2.txt", 2);
             dungeon.LoadTXT(prefix+"LevelTest3.txt", 3);
@@ -103,9 +103,9 @@ public class Main
     {        
         // Level 0 (Entry)
         
-        dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
+       // dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
         dungeon.addEntity( new Slime("Slimey Fred", new Position(56,8,0)) );
-        dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(92,21,0)) );        
+        dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(90,10,0)) );        
         
         // Level 1
         
@@ -137,26 +137,26 @@ public class Main
     private static void placeItems(Dungeon dungeon)
     {
         // Add some test items.
-        dungeon.addItem( new Sword("Short Sword", 5, 5), 
-                         new Position(10,10,0));    
+        dungeon.placeItem( new Sword("Short Sword", 5, 5), 
+                           new Position(10,10,0));    
       
-        dungeon.addItem( new Shield("Wooden Shield", 1, 10), 
-                         new Position(11,10,0));    
+        dungeon.placeItem( new Shield("Wooden Shield", 1, 10), 
+                           new Position(11,10,0));    
 
-        dungeon.addItem( new Key("Rusty Key", null), 
-                         new Position(12,10,0));  
+        dungeon.placeItem( new Key("Rusty Key", null), 
+                           new Position(12,10,0));  
         
-        dungeon.addItem( new Sword("Sword of Doom", 20, 10), 
-                         new Position(33,7,1));        
+        dungeon.placeItem( new Sword("Sword of Doom", 20, 10), 
+                           new Position(33,7,1));        
 
-        dungeon.addItem( new Sign("Crooked Sign", "Welcome to Level 0"), 
-                         new Position(8,4,0));
+        dungeon.placeItem( new Sign("Crooked Sign", "Welcome to Level 0"), 
+                           new Position(8,4,0));
         
-        dungeon.addItem( new Note("Tattered Note", "The first Note. Hello!"), 
-                         new Position(9,4,0));
+        dungeon.placeItem( new Note("Tattered Note", "The first Note. Hello!"), 
+                           new Position(9,4,0));
         
-        dungeon.addItem( new Chest("Fancy Chest", 
-                         new Key("Shiny Key", null)), 
-                         new Position(10,5,0));
+        dungeon.placeItem( new Chest("Fancy Chest", 
+                           new Key("Shiny Key", null)), 
+                           new Position(10,5,0));
     }
 }

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +13,7 @@ import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.DummyEntity;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.items.Chest;
 import com.schemafactor.rogueserver.items.Item;
 
 public class Dungeon implements java.io.Serializable
@@ -67,44 +67,7 @@ public class Dungeon implements java.io.Serializable
         Ysize = size;
         Zsize = depth;
     }
-    
-    public void LoadCSV(String filename, int level) throws FileNotFoundException
-    {
-    	ArrayList<String> temp_chars = new ArrayList<String>();
-    	    	
-    	Scanner scanner = new Scanner(new File(filename));
-        scanner.useDelimiter(",|\r\n");
-        
-        while(scanner.hasNext())
-        {
-        	temp_chars.add(scanner.next());
-        }
-        scanner.close();
-        
-        JavaTools.printlnTime( "Number of cells loaded: " + temp_chars.size() );
-       
-        int index = 0;
-        
-        // Fill with dirt  (TODO, remove this, it's for a smaller first level only) 
-        for (int y=0; y < Constants.DUNGEON_SIZE; y++)   
-        {
-            for (int x=0; x < Constants.DUNGEON_SIZE ; x++)   
-            {            
-               Cell c = dungeonMapCells[x][y][level];
-               c.setAttributes( Constants.CHAR_DIRT );
-            }
-        }
-           
-        for (int y=0; y < Constants.DUNGEON_SIZE / 10; y++)   // TODO, change to DUNGEON_SIZE once first level is ready
-        {
-            for (int x=0; x < Constants.DUNGEON_SIZE / 10; x++)   // TODO, change to DUNGEON_SIZE once first level is ready
-            {            
-               Cell c = dungeonMapCells[x][y][level];
-               c.setAttributes( Integer.parseInt(temp_chars.get(index++)) );
-            }
-        }
-    }
-    
+
     public void LoadTXT(String filename, int level) throws FileNotFoundException
     {
         ArrayList<String> lines = new ArrayList<String>();
@@ -126,7 +89,7 @@ public class Dungeon implements java.io.Serializable
            
            for (int x=0; x < line.length; x++)
            {  
-               Cell c = dungeonMapCells[x][y][level];               
+               Cell cell = dungeonMapCells[x][y][level];               
                int charcode = 0;
                
                switch (line[x])
@@ -143,8 +106,9 @@ public class Dungeon implements java.io.Serializable
                        charcode = Constants.CHAR_EMPTY;
                        break;
                        
-                   case 'c': 
-                       charcode = Constants.CHAR_ITEM_CHEST;
+                   case 'c':    // Hardcoded chests - this will be phased out
+                       charcode = Constants.CHAR_EMPTY;
+                       cell.placeItem( new Chest("Chest", null) );
                        break;
                        
                    case '^': 
@@ -156,12 +120,20 @@ public class Dungeon implements java.io.Serializable
                        charcode = Constants.CHAR_STAIRS_DOWN;
                        break;
 
+                   case 'd': 
+                       charcode = Constants.CHAR_DOOR_CLOSED;
+                       break;
+
+                   case 'O': 
+                       charcode = Constants.CHAR_PORTAL;
+                       break;
+                       
                    default:
                        charcode = '?';
                        break;                   
                }
            
-               c.setAttributes( charcode );
+               cell.setAttributes( charcode );
            }
         }
     }    
@@ -464,8 +436,8 @@ public class Dungeon implements java.io.Serializable
          }        	 
     }
     
-    public void addItem(Item i, Position p)
+    public void placeItem(Item i, Position p)
     {
-        getCell(p).dropItem(i);       
+        getCell(p).placeItem(i);       
     }
 }
