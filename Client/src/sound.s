@@ -30,8 +30,6 @@ sound_setup:
 ; Check the SOUND_ constants in Constants.java
 
 sound_play:
-   sta $d020
-   
    cmp #SOUND_NONE 
    beq sound_x
    

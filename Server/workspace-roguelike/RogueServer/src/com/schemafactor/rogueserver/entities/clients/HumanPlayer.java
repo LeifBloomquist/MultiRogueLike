@@ -39,6 +39,9 @@ public abstract class HumanPlayer extends Entity
    public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f);
+   
+       this.addMessage("Welcome to the Rogue Test Server");
+       this.addMessage("Server version: " + Double.toString(Constants.VERSION) );   
    }
    
    /** Return the InetAddress, for comparisons */
