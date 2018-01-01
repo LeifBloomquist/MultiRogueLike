@@ -34,7 +34,7 @@ public class Chest extends Item
     }
     
     @Override
-    public byte getCharCode() 
+    public byte getSeenCharCode()
     {
         if (!opened)
         {
@@ -42,14 +42,27 @@ public class Chest extends Item
         }
         else
         {
-            if (myItem != null)
+            if (myItem != null)   // Not empty?
             {
                 return myItem.charCode;
             }
             else
             {
-                return charCode;  // TODO, character for open but empty chests? 
+                return Constants.CHAR_ITEM_CHEST_OPEN; 
             }
+        }
+    }
+    
+    @Override
+    public byte getCharCode() 
+    {
+        if (opened)
+        {
+            return Constants.CHAR_ITEM_CHEST_OPEN;
+        }
+        else
+        {
+            return Constants.CHAR_ITEM_CHEST;
         }
     }
 
@@ -77,8 +90,15 @@ public class Chest extends Item
     {
         if (opened)
         {
-            myItem = item;
-            return true;
+            if (myItem == null)  // Empty
+            {
+                myItem = item;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {

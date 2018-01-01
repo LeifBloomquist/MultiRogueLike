@@ -36,6 +36,11 @@ public abstract class Item implements java.io.Serializable
 		return charCode;
 	}
 	
+    public byte getSeenCharCode()   // In case of containers - seen char code may be different
+    {
+        return charCode;
+    }
+	
 	public float getMaxDamage() 
     {       
         return maxDamage;

@@ -222,7 +222,7 @@ colortable:
     .byte COLOR_VIOLET   ; 196	 Potion	
     .byte COLOR_CYAN     ; 197	 Gem	
     .byte COLOR_WHITE    ; 198	 Note	
-    .byte COLOR_BROWN    ; 199	 Chest
+    .byte COLOR_BROWN    ; 199	 Chest  (Closed)
     .byte COLOR_WHITE    ; 200	 Crook	
     .byte COLOR_YELLOW   ; 201	 Gold	
     .byte COLOR_WHITE    ; 202   ?	 	
@@ -232,7 +232,7 @@ colortable:
     .byte COLOR_WHITE    ; 206	 	
     .byte COLOR_WHITE    ; 207	 	
     .byte COLOR_WHITE    ; 208	 	
-    .byte COLOR_WHITE    ; 209	 	
+    .byte COLOR_BROWN    ; 209   Chest (Open but empty)	 	
     .byte COLOR_WHITE    ; 210	 	
     .byte COLOR_WHITE    ; 211	 	
     .byte COLOR_WHITE    ; 212	 	
