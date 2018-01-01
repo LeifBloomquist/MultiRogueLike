@@ -33,6 +33,7 @@ public class Constants
     public static final byte PACKET_UPDATE    = (byte) 129;
     
     // Handedness
+    public static final byte HAND_NONE         = 0;
     public static final byte HAND_LEFT         = 1;
     public static final byte HAND_RIGHT        = 2;
     

@@ -116,7 +116,15 @@ public abstract class HumanPlayer extends Entity
                break;
                
            case '*':
-               handleAction(Constants.ACTION_USE, Constants.DIRECTION_NONE);
+               handleAction(Constants.ACTION_USE, Constants.HAND_NONE);
+               break;
+          
+           case ',':
+               handleAction(Constants.ACTION_USE, Constants.HAND_LEFT);
+               break;
+          
+           case '.':
+               handleAction(Constants.ACTION_USE, Constants.HAND_RIGHT);
                break;
                
            case 'Q':

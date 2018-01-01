@@ -403,8 +403,27 @@ public abstract class Entity implements java.io.Serializable
       return false;
    }
    
-   // Attempt to use the item under this entity.  True on success, false on failure.
-   protected boolean attemptUse(byte parameter1)
+   public boolean attemptUse(byte parameter1)
+   {
+       switch (parameter1)
+       {
+           case Constants.HAND_NONE:
+               return attemptUseCell();
+               
+           case Constants.HAND_LEFT:
+               return attemptUseItem(item_left);
+               
+           case Constants.HAND_RIGHT:
+               return attemptUseItem(item_right);
+           
+           default:
+               return false;
+       }
+       
+   }
+   
+   // Attempt to use the item in the cell under this entity.  True on success, false on failure. 
+   private boolean attemptUseCell()
    {
        Cell current_cell = Dungeon.getInstance().getCell(this.position);
        
@@ -433,6 +452,17 @@ public abstract class Entity implements java.io.Serializable
        }
        
        return false;
+   }
+   
+   // Attempt to use a carried item 
+   private boolean attemptUseItem(Item item)
+   {
+       if (item == null)
+       {
+           return false;
+       }
+       
+       return item.useItem(this);
    }
    
    abstract public void update();       // Called on every game loop
