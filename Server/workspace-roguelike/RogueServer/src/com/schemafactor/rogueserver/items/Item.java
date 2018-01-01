@@ -69,5 +69,10 @@ public abstract class Item implements java.io.Serializable
     public void clearContainedItem()
     {
         ;
-    } 
+    }
+    
+    public boolean placeItem(Item item)
+    {
+        return false;
+    }
 }

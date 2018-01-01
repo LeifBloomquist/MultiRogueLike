@@ -71,4 +71,18 @@ public class Chest extends Item
     {
         myItem = null;
     } 
+    
+    @Override
+    public boolean placeItem(Item item)
+    {
+        if (opened)
+        {
+            myItem = item;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
