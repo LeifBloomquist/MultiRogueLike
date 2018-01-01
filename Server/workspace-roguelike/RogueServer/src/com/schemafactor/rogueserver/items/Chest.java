@@ -56,7 +56,14 @@ public class Chest extends Item
     @Override
     public Item getContainedItem()
     {
-        return myItem;
+        if (opened)
+        {
+            return myItem;
+        }
+        else
+        {
+            return null;
+        }
     } 
     
     @Override
