@@ -5,8 +5,10 @@ import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.items.Item;
 
-public class Cell 
+public class Cell implements java.io.Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
     Entity entity = null;  // Which entity is in this cell, if any.  null if none.
     Item item = null;
         
@@ -33,12 +35,12 @@ public class Cell
     
     public byte getItemCharCode() 
     {    
-        if (item != null)  // Cell is empty
+        if (item != null)  // Cell is not empty
         {
-            return item.getCharCode();
+            return item.getSeenCharCode();
         }
 
-        // Unoccupied cell.
+        // Unoccupied cell, return base char code.
         return charCode;      
     }
 
@@ -61,6 +63,8 @@ public class Cell
     	    case Constants.CHAR_EMPTY:
     	    case Constants.CHAR_STAIRS_DOWN:
             case Constants.CHAR_STAIRS_UP:
+            case Constants.CHAR_PORTAL:
+            case Constants.CHAR_DOOR_OPEN:
             case Constants.CHAR_ITEM_CHEST:  // TODO, this will eventually become an item
     	        return true;
     	        
@@ -123,8 +127,8 @@ public class Cell
         return entity;
     }
     
-    // Drop an item into this cell.  Returns true on success, false if failure.  
-    public boolean dropItem(Item i)
+    // Place an item into this cell.  Returns true on success, false if failure.  
+    public boolean placeItem(Item i)
     {
         if (isEmpty(true))   // Cell is empty, except for entities
         {
@@ -133,6 +137,11 @@ public class Cell
         }
         else
         {
+            // Maybe a container?
+            if ( (item != null) && (item.isContainer()) )
+            {
+                return item.placeItem(i);
+            }
             return false;
         }
     }
@@ -150,7 +159,24 @@ public class Cell
         if (taken == null)
         {
             return null;
-        }        
+        }
+        
+        // Is this Item a container?
+        if (taken.isContainer())
+        {
+            Item contained = taken.getContainedItem();
+            
+            // If container is empty, return null
+            if (contained == null)
+            {
+                return null;
+            }
+            else     // If not, clear and return the contained item instead
+            {
+                taken.clearContainedItem();
+                return contained;
+            }    
+        }
         
         // Some Items can't be picked up
         if (!taken.isMoveable())

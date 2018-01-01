@@ -144,6 +144,6 @@ public class Constants
     public static final byte SOUND_ATTACKED     = 5;
     public static final byte SOUND_MONSTER_STEP = 6;
     public static final byte SOUND_TELEPORT     = 7;
-    // TODO: Sounds for other monster types, doors, opening chests, other actions, spells, achievements...
+    // TODO: Sounds for other monster types, doors, opening chests, unlocking doors, other actions, spells, achievements...
     
 }
