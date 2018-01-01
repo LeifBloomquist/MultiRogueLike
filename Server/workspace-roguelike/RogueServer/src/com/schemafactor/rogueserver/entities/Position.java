@@ -1,8 +1,10 @@
 package com.schemafactor.rogueserver.entities;
 
-public class Position 
+public class Position implements java.io.Serializable
 {
-	public int x;
+	private static final long serialVersionUID = 1L;
+    
+    public int x;
 	public int y;
 	public int z;  // Level
 	

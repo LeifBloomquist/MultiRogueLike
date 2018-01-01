@@ -9,15 +9,11 @@ public class Chest extends Item
     private boolean opened = false;
     
     /** Creates a new instance of Chest */
-   public Chest(String description, Item inside)
-   {
-       super(description, Constants.CHAR_ITEM_CHEST, false, 0, 0); 
-       this.myItem = inside; 
-   }
-
-    public Item getMyItem()
+    public Chest(String description, Item inside)
     {
-        return myItem;
+       super(description, Constants.CHAR_ITEM_CHEST, false, 0, 0); 
+       this.myItem = inside;
+       this.isContainer = true;
     }
     
     @Override
@@ -52,8 +48,20 @@ public class Chest extends Item
             }
             else
             {
-                return charCode;  // TODO, character for open chests? 
+                return charCode;  // TODO, character for open but empty chests? 
             }
         }
     }
+
+    @Override
+    public Item getContainedItem()
+    {
+        return myItem;
+    } 
+    
+    @Override
+    public void clearContainedItem()
+    {
+        myItem = null;
+    } 
 }

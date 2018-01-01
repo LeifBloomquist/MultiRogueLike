@@ -16,8 +16,10 @@ import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.items.Item;
 
-public class Dungeon 
+public class Dungeon implements java.io.Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     // Dungeon is a Singleton
     private static final Dungeon instance = new Dungeon();
  

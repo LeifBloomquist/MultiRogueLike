@@ -19,6 +19,7 @@ import com.schemafactor.rogueserver.items.Sword;
 import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.UDPListener;
 import com.schemafactor.rogueserver.universe.Dungeon;
+import com.schemafactor.rogueserver.universe.Persistence;
 
 public class Main 
 {
@@ -88,6 +89,9 @@ public class Main
         JavaTools.printlnTime("Creating TCP listener...");
         TCPListener tcp = new TCPListener();
         tcp.start(Constants.LISTEN_PORT);
+        
+        // Serialization test
+       // Persistence.Serialize(dungeon);
         
         // Instantiate a UDP listener, and let it take over.
         JavaTools.printlnTime("Creating UDP listener...");

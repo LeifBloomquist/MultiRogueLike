@@ -9,8 +9,10 @@ import com.schemafactor.rogueserver.items.Item;
 import com.schemafactor.rogueserver.universe.Cell;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public abstract class Entity 
+public abstract class Entity implements java.io.Serializable
 {
+    private static final long serialVersionUID = 1L;
+
    public static enum entityTypes {NONE, HUMAN_PLAYER, NPC, MONSTER}
    protected entityTypes myType = entityTypes.NONE;
 	   
