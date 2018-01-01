@@ -8,7 +8,7 @@ public class Constants
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
     public static final int DUNGEON_SIZE      = 1000;   // Per Side
-    public static final int DUNGEON_DEPTH     = 10;     // Levels
+    public static final int DUNGEON_DEPTH     = 5;     // Levels
         
     // Network Constants
     public static final int  LISTEN_PORT      = 3006;   // UDP and TCP
@@ -142,5 +142,7 @@ public class Constants
     public static final byte SOUND_MISS         = 4;
     public static final byte SOUND_ATTACKED     = 5;
     public static final byte SOUND_MONSTER_STEP = 6;
+    public static final byte SOUND_TELEPORT     = 7;
     // TODO: Sounds for other monster types, doors, opening chests, other actions, spells, achievements...
+    
 }

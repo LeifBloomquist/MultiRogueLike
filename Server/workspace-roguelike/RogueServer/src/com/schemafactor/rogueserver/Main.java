@@ -105,7 +105,7 @@ public class Main
         
        // dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
         dungeon.addEntity( new Slime("Slimey Fred", new Position(56,8,0)) );
-        dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(90,10,0)) );        
+        dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(89,11,0)) );        
         
         // Level 1
         

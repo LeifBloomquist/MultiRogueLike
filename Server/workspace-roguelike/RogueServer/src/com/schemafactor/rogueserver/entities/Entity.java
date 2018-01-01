@@ -82,6 +82,42 @@ public abstract class Entity implements java.io.Serializable
        }    
    }
    
+   protected boolean attemptTeleport() 
+   {   
+       int destx = JavaTools.generator.nextInt(Dungeon.getInstance().getXsize());
+       int desty = JavaTools.generator.nextInt(Dungeon.getInstance().getYsize());
+       int destz = JavaTools.generator.nextInt(Dungeon.getInstance().getZsize());
+       
+       if (destz == 0) destz=1;  // TODO, don't teleport to top level
+       
+       Position target_pos = new Position(destx, desty, destz);
+       
+       Cell current_cell = Dungeon.getInstance().getCell(this.position); 
+       Position dest_pos = Dungeon.getInstance().getClosestEmptyCell(target_pos, Constants.EMPTY_CELL_SEARCH_DEPTH);
+       Cell dest_cell = Dungeon.getInstance().getCell( dest_pos );       
+       
+       if (dest_cell.canEnter())
+       {
+           // Update cell references
+           this.position = dest_pos;
+           dest_cell.setEntity(this);
+           current_cell.setEntity(null);
+           
+           //JavaTools.printlnTime("DEBUG: " + description + " moved to location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
+           this.playSound(Constants.SOUND_TELEPORT);
+           this.addMessage("Teleported!");
+           return true;
+       }
+       else
+       {
+           JavaTools.printlnTime("DEBUG: " + description + " was blocked teleporting to X=" + dest_pos.x + " Y=" + dest_pos.y + " Z=" + dest_pos.z);
+           this.addMessage("Teleport failed!");
+           this.playSound(Constants.SOUND_BLOCKED);
+           return false;
+       }    
+   }
+   
+   
    /**
     * @param direction
     * @return true on success, false if failed
@@ -391,9 +427,8 @@ public abstract class Entity implements java.io.Serializable
                 return attemptMove(Constants.DIRECTION_DOWN);       
 
             case Constants.CHAR_PORTAL:
-                //return attemptTeleport();       
+                return attemptTeleport();       
 
-                
             // Default do nothing
        }
        
