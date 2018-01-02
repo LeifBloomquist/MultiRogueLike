@@ -127,6 +127,14 @@ public class Dungeon implements java.io.Serializable
                    case 'O': 
                        charcode = Constants.CHAR_PORTAL;
                        break;
+
+                   case 'l': 
+                       charcode = Constants.CHAR_LAVA;
+                       break;
+
+                   case 'w': 
+                       charcode = Constants.CHAR_WATER;
+                       break;
                        
                    default:
                        charcode = '?';
@@ -391,8 +399,7 @@ public class Dungeon implements java.io.Serializable
         DummyEntity dummy = new DummyEntity(pos);
         return getEntitiesRange(dummy, range);       
     }
-    
-    
+        
     // Get list of entities visible on screen from this top left coordinate
     private List<Entity> getEntitiesOnScreen(Position topleft)
     {
