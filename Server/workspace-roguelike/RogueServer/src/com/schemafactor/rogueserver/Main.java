@@ -174,7 +174,7 @@ public class Main
         
         
         // Chests all through dungeon containing gold
-        for (int i=1; i<=100; i++)
+        for (int i=1; i<=50; i++)
         {
             Position p = new Position( 
                     JavaTools.generator.nextInt(dungeon.getXsize()),  
@@ -184,6 +184,19 @@ public class Main
             int gold = JavaTools.generator.nextInt(100);
             
             dungeon.placeItem( new Chest("Chest", gold), p);
-        }      
+        }
+        
+        // Chests all through dungeon containing potions
+        for (int i=1; i<=30; i++)
+        {
+            Position p = new Position( 
+                    JavaTools.generator.nextInt(dungeon.getXsize()),  
+                    JavaTools.generator.nextInt(dungeon.getYsize()),
+                    1 + JavaTools.generator.nextInt(dungeon.getZsize()-1 ));  // Not on starting level
+        
+            int health = JavaTools.generator.nextInt(100);
+            
+            dungeon.placeItem( new Chest("Chest", new Potion(health)), p);
+        }
     }
 }
