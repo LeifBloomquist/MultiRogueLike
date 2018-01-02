@@ -91,7 +91,13 @@ public class Chest extends Item
     public void clearContainedItem()
     {
         myItem = null;
-    } 
+    }
+    
+    // Only used by "Magic" items
+    public void setContainedItem(Item magicitem)
+    {
+        myItem = magicitem;
+    }
     
     @Override
     public boolean placeItem(Item item)

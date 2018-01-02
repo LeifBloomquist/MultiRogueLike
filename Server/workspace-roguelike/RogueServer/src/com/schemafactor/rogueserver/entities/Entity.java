@@ -7,6 +7,7 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.items.Item;
+import com.schemafactor.rogueserver.items.MagicKey;
 import com.schemafactor.rogueserver.universe.Cell;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
@@ -567,6 +568,20 @@ public abstract class Entity implements java.io.Serializable
         if (health > 100)
         {
            health=100;
+        }
+    }
+
+    // Forcibly drop (remove) items from inventory
+    public void forceDrop(Item magicitem)
+    {
+        if (item_left.equals(magicitem))
+        {
+            item_left = null;
+        }
+        
+        if (item_right.equals(magicitem))
+        {
+            item_right = null;
         }
     }   
 }

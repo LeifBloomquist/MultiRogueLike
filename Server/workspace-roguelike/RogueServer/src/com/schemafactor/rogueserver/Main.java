@@ -130,7 +130,7 @@ public class Main
                                                                       JavaTools.generator.nextInt(dungeon.getYsize()),
                                                                       2)) );
             
-            dungeon.addEntity( new Slime("Slime" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
+            dungeon.addEntity( new Slime("Slime", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
                                                                     JavaTools.generator.nextInt(dungeon.getYsize()),
                                                                     2)) );             
         } 
@@ -147,7 +147,7 @@ public class Main
         dungeon.placeItem( new Shield("Wooden Shield", 1, 10), 
                            new Position(11,10,0));    
 
-        dungeon.placeItem( new Sign("Crooked Sign", "Welcome to Level 0"), 
+        dungeon.placeItem( new Sign("Crooked Sign", "Welcome. Adventure awaits! Find a key..."), 
                 new Position(8,4,0));
   
         dungeon.placeItem( new Gold(500), 
@@ -163,7 +163,7 @@ public class Main
         dungeon.placeItem( new Key("Glowing Key", new Position(38,41,0)),
                            new Position(96,63,0)); 
 
-        dungeon.placeItem( new Note("Tattered Note", "The first Note. Hello!"), 
+        dungeon.placeItem( new Note("Tattered Note", "Use portals to teleport to random areas"), 
                 new Position(9,4,0));
 
         
@@ -187,7 +187,7 @@ public class Main
         }
         
         // Chests all through dungeon containing potions
-        for (int i=1; i<=30; i++)
+        for (int i=1; i<=20; i++)
         {
             Position p = new Position( 
                     JavaTools.generator.nextInt(dungeon.getXsize()),  
