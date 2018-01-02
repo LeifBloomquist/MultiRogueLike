@@ -26,6 +26,11 @@ public class Key extends Item
     @Override
     public boolean useItem(Entity entity)
     {   
+       if (myDoor == null)   // No door assigned
+       {
+           return false; 
+       }
+        
        List<Position> nearby = (ArrayList<Position>) Dungeon.getInstance().getNeighbors(entity.getPosition());
        
        for (Position pos : nearby)

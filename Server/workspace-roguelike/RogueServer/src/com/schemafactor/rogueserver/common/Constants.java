@@ -72,14 +72,14 @@ public class Constants
     public static final byte CHAR_DOOR_CLOSED      = (byte) 3;
     public static final byte CHAR_WALL2            = (byte) 4;
     public static final byte CHAR_STAIRS2          = (byte) 5;
-    public static final byte CHAR_CLOSEDDOOR2      = (byte) 6;
-    public static final byte CHAR_DOOR_OPEN        = (byte) 7;
+    public static final byte CHAR_BIGDOOR_CLOSED   = (byte) 6;
+    public static final byte CHAR_BIGDOOR_OPEN     = (byte) 7;
     public static final byte CHAR_STAIRS_DOWN      = (byte) 8;
     public static final byte CHAR_STAIRS_UP        = (byte) 9;
     public static final byte CHAR_DEBRIS           = (byte) 10;
     public static final byte CHAR_SQUARES          = (byte) 11; 
     public static final byte CHAR_BIGWALL          = (byte) 12; 
-    public static final byte CHAR_OPENDOOR2        = (byte) 13; 
+    public static final byte CHAR_DOOR_OPEN        = (byte) 13; 
     public static final byte CHAR_SECRET_DOOR      = (byte) 14; 
     public static final byte CHAR_LAVA             = (byte) 15; 
     public static final byte CHAR_WATER            = (byte) 16; 

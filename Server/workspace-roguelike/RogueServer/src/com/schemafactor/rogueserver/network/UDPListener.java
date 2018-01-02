@@ -106,11 +106,12 @@ public class UDPListener
             catch (Exception ex)  // Fail silently on cast exceptions.  TODO, messy
             {
                 ;
+                return;
             }
         }
         
         // No match, create new user and add to list
-        JavaTools.printlnTime( "Creating player from " + JavaTools.packetAddress(packet) + " [UDP]");
+        JavaTools.printlnTime( "Creating new player from " + JavaTools.packetAddress(packet) + " [UDP]");
         HumanPlayer who = new HumanPlayerUDP(packet);        
         dungeon.addEntity(who);
         
