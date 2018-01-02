@@ -33,7 +33,7 @@ public class Main
     public static void main(String[] args) 
     {
         JavaTools.printlnTime("-----------------------------------------------");
-        JavaTools.printlnTime("Rogue Server Version " + Constants.VERSION );
+        JavaTools.printlnTime("Rogue Server (Mini) Version " + Constants.VERSION );
         
         JavaTools.onlyOneInstance("rogueserver");
         
@@ -51,7 +51,7 @@ public class Main
         {
             if (args[0].equals("-local"))
             {
-                prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/test/";
+                prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/mini/";
             }
         }
                 
