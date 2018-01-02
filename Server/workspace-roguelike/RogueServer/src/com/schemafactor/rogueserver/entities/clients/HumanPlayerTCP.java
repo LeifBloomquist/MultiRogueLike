@@ -12,7 +12,7 @@ import com.schemafactor.rogueserver.common.EscapeSequences;
 import com.schemafactor.rogueserver.common.ExtendedAscii;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.PETSCII;
-import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.universe.Dungeon;
 

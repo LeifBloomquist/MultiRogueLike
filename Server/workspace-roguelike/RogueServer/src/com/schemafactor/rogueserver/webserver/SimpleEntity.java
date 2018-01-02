@@ -22,8 +22,8 @@ public class SimpleEntity
 	
 	public SimpleEntity(Entity original)
 	{
-		this.x = Math.round( original.getXpos() );
-		this.y = Math.round( original.getYpos() );
+		this.x = Math.round( original.getPosition().x );
+		this.y = Math.round( original.getPosition().y );
 		this.name = original.getDescription();
 		//this.color = JavaTools.toHexString( original.getRGBColor() );		 
 	}

@@ -1,5 +1,7 @@
 package com.schemafactor.rogueserver.entities;
 
+import com.schemafactor.rogueserver.common.Position;
+
 public class DummyEntity extends Entity
 {  
     /** Creates a new instance */

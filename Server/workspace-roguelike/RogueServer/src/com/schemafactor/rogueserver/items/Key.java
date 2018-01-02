@@ -1,11 +1,20 @@
 package com.schemafactor.rogueserver.items;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.universe.Cell;
+import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Key extends Item
 {
     private Position myDoor = null;
+    
+    Dungeon dungeon = Dungeon.getInstance();
     
     /** Creates a new instance of Key */
     public Key(String description, Position whichDoor)
@@ -14,5 +23,41 @@ public class Key extends Item
        this.myDoor = whichDoor; 
     }
     
-    zzz handle action here
+    @Override
+    public boolean useItem(Entity entity)
+    {   
+       List<Position> nearby = (ArrayList<Position>) Dungeon.getInstance().getNeighbors(entity.getPosition());
+       
+       for (Position pos : nearby)
+       {
+           if (pos.equals(myDoor)) 
+           {
+              return lockUnlock(entity);
+           }
+       }
+       
+       return false;
+    }
+
+    private boolean lockUnlock(Entity entity)
+    {
+        Cell door = dungeon.getCell(myDoor);
+        
+        if (door.getTrueCharCode() == Constants.CHAR_DOOR_CLOSED)
+        {
+            door.setAttributes(Constants.CHAR_DOOR_OPEN);
+            entity.addMessage("Door unlocked.");
+            return true;
+        }
+
+        if (door.getTrueCharCode() == Constants.CHAR_DOOR_OPEN)
+        {
+            door.setAttributes(Constants.CHAR_DOOR_CLOSED);
+            entity.addMessage("Door locked.");
+            return true;
+        }
+
+        JavaTools.printlnTime("DEBUG: Invalid character code when unlocking door at " + myDoor.toString());
+        return false;
+    }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.items.Item;
 import com.schemafactor.rogueserver.universe.Cell;
 import com.schemafactor.rogueserver.universe.Dungeon;
@@ -75,8 +76,6 @@ public abstract class Entity implements java.io.Serializable
        }
        else
        {
-           //JavaTools.printlnTime("DEBUG: " + description + " was blocked moving to X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
-           this.addMessage("Blocked!");
            this.playSound(Constants.SOUND_BLOCKED);
            return false;
        }    
@@ -470,21 +469,10 @@ public abstract class Entity implements java.io.Serializable
    abstract public void addMessage(String msg);  // Add a message to this Entity's message queue
    abstract public void playSound(byte id);  // Play a sound with this Entity
 
-   
-   /** Return X,Y positions */
-   public int getXpos()
+   /** Return position */
+   public Position getPosition()
    {
-       return position.x;
-   }
-   
-   public int getYpos()
-   {
-       return position.y;
-   }
-   
-   public int getZpos()
-   {
-       return position.z;
+       return position;
    }
    
    public String getDescription() 
@@ -500,12 +488,13 @@ public abstract class Entity implements java.io.Serializable
            return Double.MAX_VALUE;
        }
        
-       if (this.getZpos() != target.getZpos())  // Don't see targets on other levels  
+       if (this.getPosition().z != target.getPosition().z)  // Don't see targets on other levels  
        {
            return Double.MAX_VALUE;
        }
        
-       return Math.sqrt( Math.pow((this.getXpos() - target.getXpos()), 2) + Math.pow((this.getYpos() - target.getYpos()), 2)); 
+       return Math.sqrt( Math.pow((this.getPosition().x - target.getPosition().x), 2) + 
+                         Math.pow((this.getPosition().y - target.getPosition().y), 2) ); 
    }
    
    protected byte getDirectionTo(Entity target)
@@ -514,17 +503,17 @@ public abstract class Entity implements java.io.Serializable
        if (target == null) return Constants.DIRECTION_NONE;
        
        // Ignore targets not on same level
-       if (this.getZpos() != target.getZpos()) return Constants.DIRECTION_NONE;
+       if (this.getPosition().z != target.getPosition().z) return Constants.DIRECTION_NONE;
                
-       if ((this.getXpos() == target.getXpos()) && (this.getYpos() == target.getYpos())) return Constants.DIRECTION_NONE;
-       if ((this.getXpos() >  target.getXpos()) && (this.getYpos() == target.getYpos())) return Constants.DIRECTION_WEST;
-       if ((this.getXpos() <  target.getXpos()) && (this.getYpos() == target.getYpos())) return Constants.DIRECTION_EAST;
-       if ((this.getXpos() == target.getXpos()) && (this.getYpos() >  target.getYpos())) return Constants.DIRECTION_NORTH;
-       if ((this.getXpos() == target.getXpos()) && (this.getYpos() <  target.getYpos())) return Constants.DIRECTION_SOUTH;
-       if ((this.getXpos() >  target.getXpos()) && (this.getYpos() >  target.getYpos())) return Constants.DIRECTION_NW;
-       if ((this.getXpos() <  target.getXpos()) && (this.getYpos() <  target.getYpos())) return Constants.DIRECTION_SE;
-       if ((this.getXpos() >  target.getXpos()) && (this.getYpos() <  target.getYpos())) return Constants.DIRECTION_SW;
-       if ((this.getXpos() <  target.getXpos()) && (this.getYpos() >  target.getYpos())) return Constants.DIRECTION_NE;
+       if ((this.getPosition().x == target.getPosition().x) && (this.getPosition().y == target.getPosition().y)) return Constants.DIRECTION_NONE;
+       if ((this.getPosition().x >  target.getPosition().x) && (this.getPosition().y == target.getPosition().y)) return Constants.DIRECTION_WEST;
+       if ((this.getPosition().x <  target.getPosition().x) && (this.getPosition().y == target.getPosition().y)) return Constants.DIRECTION_EAST;
+       if ((this.getPosition().x == target.getPosition().x) && (this.getPosition().y >  target.getPosition().y)) return Constants.DIRECTION_NORTH;
+       if ((this.getPosition().x == target.getPosition().x) && (this.getPosition().y <  target.getPosition().y)) return Constants.DIRECTION_SOUTH;
+       if ((this.getPosition().x >  target.getPosition().x) && (this.getPosition().y >  target.getPosition().y)) return Constants.DIRECTION_NW;
+       if ((this.getPosition().x <  target.getPosition().x) && (this.getPosition().y <  target.getPosition().y)) return Constants.DIRECTION_SE;
+       if ((this.getPosition().x >  target.getPosition().x) && (this.getPosition().y <  target.getPosition().y)) return Constants.DIRECTION_SW;
+       if ((this.getPosition().x <  target.getPosition().x) && (this.getPosition().y >  target.getPosition().y)) return Constants.DIRECTION_NE;
        
        // Should never reach here, but just in case
        return Constants.DIRECTION_NONE;

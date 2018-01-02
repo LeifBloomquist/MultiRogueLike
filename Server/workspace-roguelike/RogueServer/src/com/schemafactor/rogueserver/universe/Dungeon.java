@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.DummyEntity;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.items.Chest;
 import com.schemafactor.rogueserver.items.Item;
 
@@ -228,7 +228,7 @@ public class Dungeon implements java.io.Serializable
     }
 
     // Get neighbors on same level, also tests boundaries
-    private List<Position> getNeighbors(Position center)
+    public List<Position> getNeighbors(Position center)
     {
         List<Position> neighbors = new ArrayList<Position>();
     
@@ -400,8 +400,10 @@ public class Dungeon implements java.io.Serializable
     	 
 	    for (Entity e : allEntities)
 	    {
-	        int dx = e.getXpos() - topleft.x;
-	        int dy = e.getYpos() - topleft.y;
+	        Position ep = e.getPosition(); 
+	        
+	        int dx = ep.x - topleft.x;
+	        int dy = ep.y - topleft.y;
 	        
 	        if ( (dx < Constants.SCREEN_WIDTH ) && (dx >= 0) && 
                  (dy < Constants.SCREEN_HEIGHT) && (dy >= 0) 

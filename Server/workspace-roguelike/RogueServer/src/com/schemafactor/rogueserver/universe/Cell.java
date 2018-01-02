@@ -1,8 +1,8 @@
 package com.schemafactor.rogueserver.universe;
 
 import com.schemafactor.rogueserver.common.Constants;
+import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.Position;
 import com.schemafactor.rogueserver.items.Item;
 
 public class Cell implements java.io.Serializable

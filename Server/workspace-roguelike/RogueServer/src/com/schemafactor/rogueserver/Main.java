@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.entities.Position;
+import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
@@ -75,10 +75,15 @@ public class Main
         spawnEntities(dungeon);
         placeItems(dungeon);
         
+        
+        // Serialization test
+        // Persistence.Serialize(dungeon);
+
+        
         // A mini http server to show stats through a browser
         //JavaTools.printlnTime("Creating debug httpd server...");
         //VortexDebugServer vdbg = new VortexDebugServer(80);
-                
+       
         // Start the thread that updates everything at a fixed interval
         JavaTools.printlnTime("Creating update scheduler...");
         UpdaterThread ut = new UpdaterThread();        
@@ -90,9 +95,6 @@ public class Main
         TCPListener tcp = new TCPListener();
         tcp.start(Constants.LISTEN_PORT);
         
-        // Serialization test
-       // Persistence.Serialize(dungeon);
-        
         // Instantiate a UDP listener, and let it take over.
         JavaTools.printlnTime("Creating UDP listener...");
         UDPListener udp = new UDPListener();
@@ -103,34 +105,34 @@ public class Main
     {        
         // Level 0 (Entry)
         
-       // dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
+        // dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
         dungeon.addEntity( new Slime("Slimey Fred", new Position(56,8,0)) );
         dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(89,11,0)) );        
         
         // Level 1
         
-        for (int i=1; i<=50; i++)
+        for (int i=1; i<=20; i++)
         {
-            dungeon.addEntity( new Spider("Spider 1-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize() / 4),  // /4 to put them near the player when first coming down the stairs
-                                                                         JavaTools.generator.nextInt(dungeon.getYsize() / 4),
-                                                                         1)) );
+            dungeon.addEntity( new Spider("Spider", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),  // /4 to put them near the player when first coming down the stairs
+                                                                  JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                  1)) );
             
-            dungeon.addEntity( new Slime("Slime 1-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize() / 4),
-                                                                       JavaTools.generator.nextInt(dungeon.getYsize() / 4),
-                                                                       1)) );             
+            dungeon.addEntity( new Slime("Slime", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
+                                                                JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                1)) );             
         } 
         
         // Level 2
 
-        for (int i=1; i<=100; i++)
+        for (int i=1; i<=50; i++)
         {
-            dungeon.addEntity( new Skeleton("Skeleton 2-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                             JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                             2)) );
+            dungeon.addEntity( new Skeleton("Skeleton", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
+                                                                      JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                      2)) );
             
-            dungeon.addEntity( new Slime("Slime 2-" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                       JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                       2)) );             
+            dungeon.addEntity( new Slime("Slime" + i, new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
+                                                                    JavaTools.generator.nextInt(dungeon.getYsize()),
+                                                                    2)) );             
         } 
     }
     

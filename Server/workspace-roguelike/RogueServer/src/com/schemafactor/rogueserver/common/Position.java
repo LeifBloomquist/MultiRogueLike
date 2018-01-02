@@ -1,4 +1,4 @@
-package com.schemafactor.rogueserver.entities;
+package com.schemafactor.rogueserver.common;
 
 public class Position implements java.io.Serializable
 {
@@ -21,4 +21,9 @@ public class Position implements java.io.Serializable
 		this.y = pos.y;
 		this.z = pos.z;
 	}
+
+	public String toString()
+    {
+        return "X=" + x + " Y=" + y + " Z=" + z;
+    }
 }

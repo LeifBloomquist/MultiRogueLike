@@ -185,7 +185,7 @@ public class VortexDebugServer extends NanoHTTPD
         
         for (Entity e : entitiesCopy)
         {
-            msg += "<tr><td>" + e.getDescription() + "</td><td>" + e.getXpos() + "</td><td>" + e.getYpos() + "</td></tr>";
+            msg += "<tr><td>" + e.getDescription() + "</td><td>" + e.getPosition().x + "</td><td>" + e.getPosition().y + "</td></tr>";
         }
         
         msg += "</table>";
@@ -203,7 +203,7 @@ public class VortexDebugServer extends NanoHTTPD
         
         for (Entity e : allPlayers)
         {
-            msg += "<tr><td>" + e.getDescription() + "</td><td>" + e.getXpos() + "</td><td>" + e.getYpos() + "</td></tr>";
+            msg += "<tr><td>" + e.getDescription() + "</td><td>" + e.getPosition().x + "</td><td>" + e.getPosition().y + "</td></tr>";
         }
         
         msg += "</table>";
