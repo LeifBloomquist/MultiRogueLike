@@ -14,6 +14,7 @@ import com.schemafactor.rogueserver.items.Chest;
 import com.schemafactor.rogueserver.items.Gold;
 import com.schemafactor.rogueserver.items.Key;
 import com.schemafactor.rogueserver.items.Note;
+import com.schemafactor.rogueserver.items.Potion;
 import com.schemafactor.rogueserver.items.Shield;
 import com.schemafactor.rogueserver.items.Sign;
 import com.schemafactor.rogueserver.items.Sword;
@@ -150,8 +151,11 @@ public class Main
                 new Position(8,4,0));
   
         dungeon.placeItem( new Gold(500), 
-                new Position(9,4,0));
-  
+                new Position(10,4,0));
+
+        dungeon.placeItem( new Potion(100), 
+                new Position(11,4,0));
+
         dungeon.placeItem( new Chest("Fancy Chest", 
                 new Key("Shiny Key", new Position(56,17,0))), 
                 new Position(87,38,0));        

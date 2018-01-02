@@ -558,5 +558,15 @@ public abstract class Entity implements java.io.Serializable
                 e.updateNow();
             }            
         }        
+    }
+
+    public void addHealth(int h)
+    {
+        health += h;
+        
+        if (health > 100)
+        {
+           health=100;
+        }
     }   
 }
