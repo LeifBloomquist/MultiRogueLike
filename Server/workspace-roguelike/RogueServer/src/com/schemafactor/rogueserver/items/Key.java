@@ -20,7 +20,7 @@ public class Key extends Item
     public Key(String description, Position whichDoor)
     {
        super(description, Constants.CHAR_ITEM_KEY, true, 0, 0); 
-       this.myDoor = whichDoor; 
+       this.myDoor = whichDoor;
     }
     
     @Override

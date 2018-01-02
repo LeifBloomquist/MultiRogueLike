@@ -11,6 +11,7 @@ import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
 import com.schemafactor.rogueserver.items.Chest;
+import com.schemafactor.rogueserver.items.Gold;
 import com.schemafactor.rogueserver.items.Key;
 import com.schemafactor.rogueserver.items.Note;
 import com.schemafactor.rogueserver.items.Shield;
@@ -147,6 +148,9 @@ public class Main
 
         dungeon.placeItem( new Sign("Crooked Sign", "Welcome to Level 0"), 
                 new Position(8,4,0));
+  
+        dungeon.placeItem( new Gold(500), 
+                new Position(9,4,0));
   
         dungeon.placeItem( new Chest("Fancy Chest", 
                 new Key("Shiny Key", new Position(56,17,0))), 
