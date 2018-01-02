@@ -47,17 +47,17 @@
 ..........   ...          .......    ...                                c.........   ........    ...
 ..........   ....        ........     ..                            ...............               ..
 ..........   .....      .........             ...                   ................               .
-..........   .....      .........       .    .....                 .................               .
-.........    .....      .........      ...   .....                 .................               .
-........      ...wwwwww ........       ..    .....                ..................               .
-.......wwwwwwwwwwwwwwwww........wwwwwwwwwwwww....wwww.# #wwwwwwww...............wwwwww..wwwwwwwwwww.
-....wwwwwwwwwwwwwwwwwwww.......wwwwwwwwwwwwwwwwwwwwww.# #wwwwwwww.............wwwwwwww..wwwwwwwwwww.
+..........www.....      .........       .    .....                 .................               .
+......... www.....      .........      ...   .....                 .................               .
+........wwwwww...wwwwww ........ wwwww ..www .....    # #         ..................               .
+.......wwwwwwwwwwwwwwwww........wwwwwwwwwwwww....wwww## #wwwwwwww...............wwwwww..wwwwwwwwwww.
+....wwwwwwwwwwwwwwwwwwww.......wwwwwwwwwwwwwwwwwwwwww## #wwwwwwww.............wwwwwwww..wwwwwwwwwww.
 ...wwwww......wwwwwwwwww.......wwww...wwwwwwwwwwwwwwww# #wwwwwwww...........wwwwwwwwwwwwwwwwwwwwwww.
 ..wwwww..........wwwwwww......wwww.....wwwwwwwww..wwww# #wwwwwwww.........wwwwwwwwwwwwwwwwwwwwwwwww.
 ...www............wwwwww......wwww.....wwwwwwwww..wwww# #.wwwwwwwww......wwwwwwwwwwwwwwwwwwwwwwwwww.
 ..................wwwwww.....wwwww.....www..wwwwwwwwww# #wwwwwwwwwww.....wwwwwwwwwwwwwwwwwwwwwwwwww.
-.................       .....      ...   ....       ..# #.      wwww....wwwww  ...                 .
-................        ....             .....                     .....      .....                .
+.................       .....      ...   ....        .# #.      wwww....wwwww  ...                 .
+................        ....             .....        # #          .....      .....                .
 ...............         ...               ...  ..             ...........      ....                .
 .............            .                     ...            ...........       ...                .
 ...........                                     .             ............                ..........

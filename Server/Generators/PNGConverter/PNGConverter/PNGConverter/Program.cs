@@ -13,7 +13,7 @@ namespace PNGConverter
         static void Main(string[] args)
         {
             string prefix = @"C:\Leif\GitHub\MultiRogueLike\Server\data\Conway\";
-            Bitmap img = new Bitmap(prefix + "conway-maze-blob-1x1.png");
+            Bitmap img = new Bitmap(prefix + "maze100.png");
             string output = "";
 
             for (int i = 0; i < img.Width; i++)
@@ -31,10 +31,10 @@ namespace PNGConverter
                         output += "#";
                     }
                 }
-                output += "\n";
+                output += "\r\n";
             }
 
-            File.WriteAllText(prefix + "Conwayblob200.txt", output);
+            File.WriteAllText(prefix + "Conwayblob100.txt", output);
         }
     }
 } 
