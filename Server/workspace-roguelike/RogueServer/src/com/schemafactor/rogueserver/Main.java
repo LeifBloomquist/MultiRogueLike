@@ -179,7 +179,7 @@ public class Main
             Position p = new Position( 
                     JavaTools.generator.nextInt(dungeon.getXsize()),  
                     JavaTools.generator.nextInt(dungeon.getYsize()),
-                    1 + JavaTools.generator.nextInt(dungeon.getZsize()-1 ));  // Not on starting level
+                1 + JavaTools.generator.nextInt(dungeon.getZsize()-1 ));  // Not on starting level
         
             int gold = JavaTools.generator.nextInt(100);
             
