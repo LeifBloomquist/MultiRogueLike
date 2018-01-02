@@ -158,8 +158,8 @@ public class Main
                            new Position(9,4,0));
         
         dungeon.placeItem( new Chest("Fancy Chest", 
-                           new Key("Shiny Key", null)), 
-                           new Position(10,5,0));
+                             new Key("Shiny Key", new Position(56,17,0))), 
+                             new Position(10,5,0));
 
         dungeon.placeItem( new Chest("Fancy Chest 2", 
                 new Key("Shiny Key", null)), 

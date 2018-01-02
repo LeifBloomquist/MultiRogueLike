@@ -22,8 +22,16 @@ public class Position implements java.io.Serializable
 		this.z = pos.z;
 	}
 
+	@Override
 	public String toString()
     {
         return "X=" + x + " Y=" + y + " Z=" + z;
+    }
+	
+	public boolean equals(Position other)
+    {	    
+        return ( (this.x == other.x) &&
+                 (this.y == other.y) &&
+                 (this.z == other.z) );            
     }
 }

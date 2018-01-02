@@ -176,6 +176,14 @@ public class PETSCII
                  
              case '!':  // *
                  return (byte)'!';
+
+             case ',':  // *
+                 return (byte)',';
+
+             case '.':  // *
+                 return (byte)'.';
+
+                 
          }
          
          // Everything else becomes a space

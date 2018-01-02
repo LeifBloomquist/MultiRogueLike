@@ -417,8 +417,7 @@ public abstract class Entity implements java.io.Serializable
            
            default:
                return false;
-       }
-       
+       }       
    }
    
    // Attempt to use the item in the cell under this entity.  True on success, false on failure. 
