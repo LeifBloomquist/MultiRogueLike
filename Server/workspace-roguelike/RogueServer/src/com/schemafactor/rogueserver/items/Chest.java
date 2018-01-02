@@ -16,6 +16,14 @@ public class Chest extends Item
        this.isContainer = true;
     }
     
+    /** Creates a new instance of Chest containing gold*/
+    public Chest(String description, int gold)
+    {
+       super(description, Constants.CHAR_ITEM_CHEST, false, 0, 0); 
+       this.myItem = new Gold(gold);
+       this.isContainer = true;
+    }
+    
     @Override
     public boolean useItem(Entity entity)
     { 

@@ -445,8 +445,9 @@ public class Dungeon implements java.io.Serializable
          }        	 
     }
     
-    public void placeItem(Item i, Position p)
+    public void placeItem(Item i, Position start)
     {
-        getCell(p).placeItem(i);       
+        Position place = getClosestEmptyCell(start, Constants.EMPTY_CELL_SEARCH_DEPTH);
+        getCell(place).placeItem(i);       
     }
 }

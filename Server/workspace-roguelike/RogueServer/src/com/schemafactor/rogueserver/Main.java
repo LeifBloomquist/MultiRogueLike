@@ -62,7 +62,7 @@ public class Main
             dungeon.LoadTXT(prefix+"LevelTest1.txt", 1);
             dungeon.LoadTXT(prefix+"LevelTest2.txt", 2);
             dungeon.LoadTXT(prefix+"LevelTest3.txt", 3);
-            dungeon.LoadTXT(prefix+"LevelTest4.txt", 4);
+            dungeon.LoadTXT(prefix+"LevelTest1.txt", 4);
 		} 
         catch (FileNotFoundException e) 
         {
@@ -112,7 +112,7 @@ public class Main
         
         for (int i=1; i<=20; i++)
         {
-            dungeon.addEntity( new Spider("Spider", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),  // /4 to put them near the player when first coming down the stairs
+            dungeon.addEntity( new Spider("Spider", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
                                                                   JavaTools.generator.nextInt(dungeon.getYsize()),
                                                                   1)) );
             
@@ -123,7 +123,7 @@ public class Main
         
         // Level 2
 
-        for (int i=1; i<=50; i++)
+        for (int i=1; i<=30; i++)
         {
             dungeon.addEntity( new Skeleton("Skeleton", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
                                                                       JavaTools.generator.nextInt(dungeon.getYsize()),
@@ -158,14 +158,28 @@ public class Main
         
         dungeon.placeItem( new Key("Glowing Key", new Position(38,41,0)),
                            new Position(96,63,0)); 
+
+        dungeon.placeItem( new Note("Tattered Note", "The first Note. Hello!"), 
+                new Position(9,4,0));
+
         
         // Level 1
         
         dungeon.placeItem( new Sword("Sword of Doom", 20, 10), 
-                           new Position(97,5,1));        
-
-        dungeon.placeItem( new Note("Tattered Note", "The first Note. Hello!"), 
-                           new Position(9,4,0));
+                           new Position(97,5,1));
         
+        
+        // Chests all through dungeon containing gold
+        for (int i=1; i<=100; i++)
+        {
+            Position p = new Position( 
+                    JavaTools.generator.nextInt(dungeon.getXsize()),  
+                    JavaTools.generator.nextInt(dungeon.getYsize()),
+                    1 + JavaTools.generator.nextInt(dungeon.getZsize()-1 ));  // Not on starting level
+        
+            int gold = JavaTools.generator.nextInt(100);
+            
+            dungeon.placeItem( new Chest("Chest", gold), p);
+        }      
     }
 }
