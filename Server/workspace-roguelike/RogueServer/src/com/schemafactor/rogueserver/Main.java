@@ -75,10 +75,8 @@ public class Main
         spawnEntities(dungeon);
         placeItems(dungeon);
         
-        
         // Serialization test
-        // Persistence.Serialize(dungeon);
-
+        Persistence.Serialize(dungeon);
         
         // A mini http server to show stats through a browser
         //JavaTools.printlnTime("Creating debug httpd server...");
@@ -135,35 +133,35 @@ public class Main
                                                                     2)) );             
         } 
     }
-    
+
+    // Add some test items.
     private static void placeItems(Dungeon dungeon)
     {
-        // Add some test items.
+        // Level 0
+        
         dungeon.placeItem( new Sword("Short Sword", 5, 5), 
                            new Position(10,10,0));    
       
         dungeon.placeItem( new Shield("Wooden Shield", 1, 10), 
                            new Position(11,10,0));    
 
-        dungeon.placeItem( new Key("Rusty Key", null), 
-                           new Position(12,10,0));  
+        dungeon.placeItem( new Sign("Crooked Sign", "Welcome to Level 0"), 
+                new Position(8,4,0));
+  
+        dungeon.placeItem( new Chest("Fancy Chest", 
+                new Key("Shiny Key", new Position(56,17,0))), 
+                new Position(87,38,0));        
+        
+        dungeon.placeItem( new Key("Glowing Key", new Position(38,41,0)),
+                           new Position(96,63,0)); 
+        
+        // Level 1
         
         dungeon.placeItem( new Sword("Sword of Doom", 20, 10), 
-                           new Position(33,7,1));        
+                           new Position(97,5,1));        
 
-        dungeon.placeItem( new Sign("Crooked Sign", "Welcome to Level 0"), 
-                           new Position(8,4,0));
-        
         dungeon.placeItem( new Note("Tattered Note", "The first Note. Hello!"), 
                            new Position(9,4,0));
-        
-        dungeon.placeItem( new Chest("Fancy Chest", 
-                             new Key("Shiny Key", new Position(56,17,0))), 
-                             new Position(10,5,0));
-
-        dungeon.placeItem( new Chest("Fancy Chest 2", 
-                new Key("Shiny Key", null)), 
-                new Position(87,38,0));
         
     }
 }
