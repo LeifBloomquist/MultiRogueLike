@@ -1,10 +1,13 @@
 package com.schemafactor.rogueserver.items;
 
 import com.schemafactor.rogueserver.common.Constants;
+import com.schemafactor.rogueserver.common.interfaces.Container;
 import com.schemafactor.rogueserver.entities.Entity;
 
-public class Chest extends Item
+public class Chest extends Item implements java.io.Serializable, Container
 {
+    private static final long serialVersionUID = 1L;
+    
     private Item myItem = null;
     private boolean opened = false;
     
@@ -75,7 +78,7 @@ public class Chest extends Item
     }
 
     @Override
-    public Item getContainedItem()
+    public Item getItem()
     {
         if (opened)
         {
@@ -85,12 +88,6 @@ public class Chest extends Item
         {
             return null;
         }
-    } 
-    
-    @Override
-    public void clearContainedItem()
-    {
-        myItem = null;
     }
     
     // Only used by "Magic" items
@@ -118,5 +115,28 @@ public class Chest extends Item
         {
             return false;
         }
+    }
+
+    @Override
+    public Item takeItem()
+    {
+        if (!opened)   // Chests have to be open
+        {
+            return null;
+        }
+        
+        Item taken = this.myItem;
+        
+        // If cell is empty, return null
+        if (taken == null)
+        {
+            return null;
+        }   
+        
+        // Clear item
+        this.myItem = null;
+        
+        // Return to picker-upper
+        return taken;
     }
 }

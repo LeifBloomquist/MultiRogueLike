@@ -1,18 +1,18 @@
 package com.schemafactor.rogueserver.universe;
 
 import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.common.interfaces.Container;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.items.Item;
 
-public class Cell implements java.io.Serializable
+public class Cell implements java.io.Serializable, Container
 {
     private static final long serialVersionUID = 1L;
     
     Entity entity = null;  // Which entity is in this cell, if any.  null if none.
     Item item = null;
         
-    private byte charCode = 0;   // Character code shown on client screen
+    private byte charCode = 0;                        // Character code shown on client screen
     private byte charColor = Constants.COLOR_BLACK;   // Foreground color code shown to the client  (though will likely use a lookup table)    
     
     public byte getCharCode() 
@@ -65,7 +65,7 @@ public class Cell implements java.io.Serializable
             case Constants.CHAR_STAIRS_UP:
             case Constants.CHAR_PORTAL:
             case Constants.CHAR_DOOR_OPEN:
-            case Constants.CHAR_ITEM_CHEST:  // TODO, this will eventually become an item
+            case Constants.CHAR_ITEM_CHEST:
     	        return true;
     	        
     	    default:
@@ -140,7 +140,8 @@ public class Cell implements java.io.Serializable
             // Maybe a container?
             if ( (item != null) && (item.isContainer()) )
             {
-                return item.placeItem(i);
+                Container con = (Container)item;
+                return con.placeItem(i);
             }
             return false;
         }
@@ -164,18 +165,8 @@ public class Cell implements java.io.Serializable
         // Is this Item a container?
         if (taken.isContainer())
         {
-            Item contained = taken.getContainedItem();
-            
-            // If container is empty, return null
-            if (contained == null)
-            {
-                return null;
-            }
-            else     // If not, clear and return the contained item instead
-            {
-                taken.clearContainedItem();
-                return contained;
-            }    
+            Container con = (Container)taken;
+            return con.takeItem();
         }
         
         // Some Items can't be picked up
@@ -187,7 +178,19 @@ public class Cell implements java.io.Serializable
         // Clear item
         this.item = null;
         
-        // Return pointer to picker-upper
+        // Return item pointer to picker-upper
         return taken;
+    }
+
+    @Override
+    public byte getSeenCharCode()
+    {       
+        return getItemCharCode();
+    }
+
+    @Override
+    public void setContainedItem(Item item)
+    {
+        this.item = item;        
     }
 }

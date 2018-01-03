@@ -64,20 +64,5 @@ public abstract class Item implements java.io.Serializable
     public boolean isContainer()
     {
         return this.isContainer;
-    } 
-    
-    public Item getContainedItem()
-    {
-        return null;
-    }
-
-    public void clearContainedItem()
-    {
-        ;
-    }
-    
-    public boolean placeItem(Item item)
-    {
-        return false;
     }
 }
