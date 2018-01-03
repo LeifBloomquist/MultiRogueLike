@@ -13,7 +13,7 @@ public class Bat extends ServerControlled
     /** Creates a new instance of the Bat */
     public Bat(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_BAT, 700f, 3f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_BAT, 400f, 3f);    
     }
 
     @Override
@@ -31,19 +31,7 @@ public class Bat extends ServerControlled
             }
                
             case WANDERING:
-            {               
-                // Occasionally go into turbo mode
-                if (JavaTools.generator.nextInt(10) == 1)
-                {
-                    this.actionTime = 100f;                    
-                }
-                
-                // Occasionally exit turbo mode
-                if (JavaTools.generator.nextInt(10) == 1)
-                {
-                    this.actionTime = 1000f;                    
-                }
-                
+            {                               
                 moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));               
                 
                 // Is a Human entity too close?

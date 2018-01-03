@@ -223,6 +223,7 @@ public abstract class Entity implements java.io.Serializable
    {
        if (attacker != null)
        {
+           addMessage("Killed by " + attacker.description);
            JavaTools.printlnTime(description + " was killed by " + attacker.description);
        }
        

@@ -7,11 +7,11 @@ import java.util.concurrent.TimeUnit;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.entities.monsters.Bat;
 import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
 import com.schemafactor.rogueserver.items.Chest;
-import com.schemafactor.rogueserver.items.Gold;
 import com.schemafactor.rogueserver.items.Key;
 import com.schemafactor.rogueserver.items.MagicKey;
 import com.schemafactor.rogueserver.items.Note;
@@ -108,6 +108,7 @@ public class Main
         
         // dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
         dungeon.addEntity( new Slime("Slimey Fred", new Position(56,8,0)) );
+        dungeon.addEntity( new Bat("Batty von Bats", new Position(57,8,0)) );
         dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(89,11,0)) );        
         
         // Level 1
@@ -148,7 +149,7 @@ public class Main
         dungeon.placeItem( new Shield("Wooden Shield", 1, 10), 
                            new Position(11,10,0));    
 
-        dungeon.placeItem( new Sign("Crooked Sign", "Welcome. Adventure awaits! Find a key..."), 
+        dungeon.placeItem( new Sign("Crooked Sign", "Adventure awaits! Find a key..."), 
                 new Position(8,4,0));
   
         
