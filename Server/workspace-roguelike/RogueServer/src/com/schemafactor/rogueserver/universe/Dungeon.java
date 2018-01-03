@@ -461,7 +461,7 @@ public class Dungeon implements java.io.Serializable
     
     public Position getRandomPosition()
     {
-        return getRandomPosition(JavaTools.generator.nextInt(getXsize()));
+        return getRandomPosition(JavaTools.generator.nextInt(getZsize()));
     }    
     
     public Position getRandomPosition(int level)
