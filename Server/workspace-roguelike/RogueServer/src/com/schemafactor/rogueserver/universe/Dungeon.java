@@ -136,6 +136,14 @@ public class Dungeon implements java.io.Serializable
                        charcode = Constants.CHAR_WATER;
                        break;
                        
+                   case 's': 
+                       charcode = Constants.CHAR_SECRET_DOOR;
+                       break;
+                       
+                   case ':': 
+                       charcode = Constants.CHAR_DEBRIS;
+                       break;
+                       
                    default:
                        charcode = '?';
                        break;                   
@@ -449,5 +457,19 @@ public class Dungeon implements java.io.Serializable
     {
         Position place = getClosestEmptyCell(start, Constants.EMPTY_CELL_SEARCH_DEPTH);
         getCell(place).placeItem(i);       
+    }
+    
+    public Position getRandomPosition()
+    {
+        return getRandomPosition(JavaTools.generator.nextInt(getXsize()));
+    }    
+    
+    public Position getRandomPosition(int level)
+    {
+        Position p = new Position( 
+                JavaTools.generator.nextInt(getXsize()),  
+                JavaTools.generator.nextInt(getYsize()),
+                level);
+        return p;
     }
 }

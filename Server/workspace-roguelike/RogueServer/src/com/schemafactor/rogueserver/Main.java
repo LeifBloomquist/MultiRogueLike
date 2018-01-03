@@ -8,6 +8,7 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.monsters.Bat;
+import com.schemafactor.rogueserver.entities.monsters.Ghost;
 import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
@@ -21,8 +22,8 @@ import com.schemafactor.rogueserver.items.Sign;
 import com.schemafactor.rogueserver.items.Sword;
 import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.UDPListener;
+import com.schemafactor.rogueserver.universe.Cell;
 import com.schemafactor.rogueserver.universe.Dungeon;
-import com.schemafactor.rogueserver.universe.Persistence;
 
 public class Main 
 {
@@ -64,7 +65,6 @@ public class Main
             dungeon.LoadTXT(prefix+"LevelTest1.txt", 1);
             dungeon.LoadTXT(prefix+"LevelTest2.txt", 2);
             dungeon.LoadTXT(prefix+"LevelTest3.txt", 3);
-            dungeon.LoadTXT(prefix+"LevelTest1.txt", 4);
 		} 
         catch (FileNotFoundException e) 
         {
@@ -79,7 +79,7 @@ public class Main
         placeItems(dungeon);
         
         // Serialization test
-        Persistence.Serialize(dungeon);
+        // Persistence.Serialize(dungeon);
         
         // A mini http server to show stats through a browser
         //JavaTools.printlnTime("Creating debug httpd server...");
@@ -104,97 +104,124 @@ public class Main
 
     private static void spawnEntities(Dungeon dungeon)
     {        
-        // Level 0 (Entry)
+        // Level 0 (Entry) -----------------------------------------------------------------------------------------------------
         
-        // dungeon.addEntity( new Spider("Spider Mike", new Position(7,7,0)) );
-        dungeon.addEntity( new Slime("Slimey Fred", new Position(56,8,0)) );
-        dungeon.addEntity( new Bat("Batty von Bats", new Position(57,8,0)) );
-        dungeon.addEntity( new Skeleton("Skeleton Pete", new Position(89,11,0)) );        
+        dungeon.addEntity( new Slime("Slimey", new Position(56,8,0)) );
+        dungeon.addEntity( new Skeleton("Skeleton", new Position(89,11,0)) ); 
+        dungeon.addEntity( new Spider("Spider", new Position(38,38,0)) );
         
-        // Level 1
+        // Level 1 -------------------------------------------------------------------------------------------------------------
         
         for (int i=1; i<=20; i++)
         {
-            dungeon.addEntity( new Spider("Spider", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                  JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                  1)) );
-            
-            dungeon.addEntity( new Slime("Slime", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                1)) );             
+            dungeon.addEntity( new Spider("Spider", dungeon.getRandomPosition(1)) );            
+            dungeon.addEntity( new Slime("Slime", dungeon.getRandomPosition(1)) );             
         } 
         
-        // Level 2
+        // Level 2   -------------------------------------------------------------------------------------------------------------
 
         for (int i=1; i<=30; i++)
-        {
-            dungeon.addEntity( new Skeleton("Skeleton", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                      JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                      2)) );
-            
-            dungeon.addEntity( new Slime("Slime", new Position( JavaTools.generator.nextInt(dungeon.getXsize()),
-                                                                    JavaTools.generator.nextInt(dungeon.getYsize()),
-                                                                    2)) );             
+        {            
+            dungeon.addEntity( new Bat("Bat", dungeon.getRandomPosition(2)) );             
         } 
+        
+        for (int i=1; i<=10; i++)
+        {
+            dungeon.addEntity( new Skeleton("Skeleton", dungeon.getRandomPosition(2)) ); 
+        } 
+        
+        // Level 3   -------------------------------------------------------------------------------------------------------------
+        
+        for (int i=1; i<=10; i++)
+        {
+            dungeon.addEntity( new Ghost("Ghost", dungeon.getRandomPosition(3)) );
+            dungeon.addEntity( new Skeleton("Skeleton",dungeon.getRandomPosition(3)) );
+            dungeon.addEntity( new Spider("Spider", dungeon.getRandomPosition(3)) );            
+            dungeon.addEntity( new Slime("Slime", dungeon.getRandomPosition(3)) );     
+        }
     }
 
     // Add some test items.
     private static void placeItems(Dungeon dungeon)
     {
-        // Level 0
-        
-        dungeon.placeItem( new Sword("Short Sword", 5, 5), 
-                           new Position(10,10,0));    
-      
-        dungeon.placeItem( new Shield("Wooden Shield", 1, 10), 
-                           new Position(11,10,0));    
+        // Level 0 -------------------------------------------------------------------------------------------------------------
 
         dungeon.placeItem( new Sign("Crooked Sign", "Adventure awaits! Find a key..."), 
-                new Position(8,4,0));
-  
+                           new Position(17,12,0));
         
-        Chest startup = new Chest("Fancy Chest", null);
-        MagicKey mkey = new MagicKey("Shiny Key", new Position(56,17,0), startup);        
-        startup.setContainedItem(mkey);
-        dungeon.placeItem(startup, new Position(87,38,0));
+        dungeon.placeItem( new Note("Tattered Note", "Portals teleport to random areas"), 
+                           new Position(87,45,0));
+        
+        // Key to the stairs
+        Cell keystart = dungeon.getCell(new Position(87,38,0));
+        MagicKey stairkey = new MagicKey("Shiny Key", new Position(56,17,0), keystart);
+        keystart.placeItem(stairkey);
 
-        dungeon.placeItem( new Key("Glowing Key", new Position(38,41,0)),
-                           new Position(96,63,0)); 
+        // Key to the Portal Room, in a chest
+        Chest portalchest = new Chest("Ornate Chest", null);
+        MagicKey portalkey = new MagicKey("Glowing Key", new Position(38,41,0), portalchest);
+        portalchest.setContainedItem(portalkey);
+        dungeon.placeItem(portalchest, new Position(94,67,0));
+        
+        // Emergency Potions
+        dungeon.placeItem( new Chest("Decorated Chest", new Potion(1000)), new Position(37,57,0));
+        dungeon.placeItem( new Chest("Decorated Chest", new Potion(1000)), new Position(39,57,0));
 
-        dungeon.placeItem( new Note("Tattered Note", "Use portals to teleport to random areas"), 
-                new Position(9,4,0));
-
+        // Sign at the end
+        dungeon.placeItem( new Sign("Large Sign", "Quest Complete!"), new Position(8,52,0));
         
-        // Level 1
+        // Level 1  -------------------------------------------------------------------------------------------------------------        
         
-        dungeon.placeItem( new Sword("Sword of Doom", 20, 10), 
-                           new Position(97,5,1));
+        dungeon.placeItem( new Sword("Sword of Doom", 50, 20), dungeon.getRandomPosition(1) );
+        dungeon.placeItem( new Shield("Large Shield", 50), dungeon.getRandomPosition(1) );
         
+        for (int i=1; i<=10; i++)
+        {        
+            dungeon.placeItem( new Sword("Short Sword", 10, 5), dungeon.getRandomPosition(1));
+            dungeon.placeItem( new Shield("Small Shield", 10), new Position(11,10,0));
+        }
+        
+        // Level 2  -------------------------------------------------------------------------------------------------------------        
+        
+        for (int i=1; i<=10; i++)
+        {        
+            dungeon.placeItem( new Chest("Old Chest", new Sword("Long Sword", 20, 10)), dungeon.getRandomPosition(2));
+            dungeon.placeItem( new Chest("Old Chest", new Shield("Shield", 20)), dungeon.getRandomPosition(2));
+        }
+        
+        // Key to the Upstairs Room
+        Cell endkeyloc = dungeon.getCell(new Position(24,6,2));
+        MagicKey endkey = new MagicKey("Rusty Key", new Position(13,52,0), endkeyloc);
+        endkeyloc.placeItem(endkey);
+        
+        // All Levels -------------------------------------------------------------------------------------------------------------        
         
         // Chests all through dungeon containing gold
         for (int i=1; i<=50; i++)
         {
-            Position p = new Position( 
-                    JavaTools.generator.nextInt(dungeon.getXsize()),  
-                    JavaTools.generator.nextInt(dungeon.getYsize()),
-                1 + JavaTools.generator.nextInt(dungeon.getZsize()-1 ));  // Not on starting level
-        
-            int gold = JavaTools.generator.nextInt(100);
+            Position p = dungeon.getRandomPosition();
+            if (p.z == 0) p.z++;  // Not on starting level
             
+            int gold = JavaTools.generator.nextInt(100);            
             dungeon.placeItem( new Chest("Chest", gold), p);
         }
         
         // Chests all through dungeon containing potions
         for (int i=1; i<=20; i++)
         {
-            Position p = new Position( 
-                    JavaTools.generator.nextInt(dungeon.getXsize()),  
-                    JavaTools.generator.nextInt(dungeon.getYsize()),
-                    1 + JavaTools.generator.nextInt(dungeon.getZsize()-1 ));  // Not on starting level
+            Position p = dungeon.getRandomPosition();
+            if (p.z == 0) p.z++;  // Not on starting level
         
-            int health = JavaTools.generator.nextInt(100);
-            
+            int health = JavaTools.generator.nextInt(100);            
             dungeon.placeItem( new Chest("Chest", new Potion(health)), p);
+        }
+        
+        // Empty chests to keep life interesting
+        for (int i=1; i<=30; i++)
+        {
+            Position p = dungeon.getRandomPosition();
+            if (p.z == 0) p.z++;  // Not on starting level
+            dungeon.placeItem( new Chest("Chest", null), p);
         }
     }
 }

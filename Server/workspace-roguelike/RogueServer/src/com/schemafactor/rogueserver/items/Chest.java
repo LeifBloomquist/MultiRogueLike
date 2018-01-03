@@ -5,9 +5,7 @@ import com.schemafactor.rogueserver.common.interfaces.Container;
 import com.schemafactor.rogueserver.entities.Entity;
 
 public class Chest extends Item implements java.io.Serializable, Container
-{
-    private static final long serialVersionUID = 1L;
-    
+{    
     private Item myItem = null;
     private boolean opened = false;
     

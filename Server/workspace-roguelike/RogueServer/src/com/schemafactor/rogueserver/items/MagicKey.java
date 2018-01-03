@@ -1,22 +1,16 @@
 package com.schemafactor.rogueserver.items;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.common.interfaces.Container;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.universe.Cell;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 // A "magic" Key has a home Chest that it returns to after it has been used  (TODO, general Container?)
 public class MagicKey extends Key
 {    
-    Chest home = null;
+    Container home = null;
     
     /** Creates a new instance of Key */
-    public MagicKey(String description, Position whichDoor, Chest home)
+    public MagicKey(String description, Position whichDoor, Container home)
     {
        super(description, whichDoor); 
        this.home = home;

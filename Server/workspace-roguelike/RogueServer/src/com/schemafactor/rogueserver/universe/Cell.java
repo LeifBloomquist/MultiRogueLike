@@ -66,6 +66,7 @@ public class Cell implements java.io.Serializable, Container
             case Constants.CHAR_PORTAL:
             case Constants.CHAR_DOOR_OPEN:
             case Constants.CHAR_ITEM_CHEST:
+            case Constants.CHAR_SECRET_DOOR:
     	        return true;
     	        
     	    default:

@@ -1,24 +1,24 @@
 package com.schemafactor.rogueserver.entities.monsters;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.Entity.entityTypes;
-import com.schemafactor.rogueserver.entities.monsters.ServerControlled;
-import com.schemafactor.rogueserver.entities.monsters.ServerControlled.States;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Skeleton extends ServerControlled
 {  
+    private static final long serialVersionUID = 1L;
+    
+    // Skeletons return home TODO
+    Position home = null;
+
     /** Creates a new instance of the Skeleton */
     public Skeleton(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 300f, 10f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 300f, 10f);
+       home = this.position;
     }
     
     @Override

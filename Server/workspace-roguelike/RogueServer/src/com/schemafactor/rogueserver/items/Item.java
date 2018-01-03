@@ -6,7 +6,7 @@ public abstract class Item implements java.io.Serializable
 {
     // Items don't have a "position" per se, the Entity carrying them or the Cell holding them has a pointer to the Item instance in question.
 	   
-   private static final long serialVersionUID = 1L;
+   protected static final long serialVersionUID = 1L;
     
    protected String  description;
    protected byte    charCode   = 0;     // Character code shown on client screen   
@@ -15,8 +15,7 @@ public abstract class Item implements java.io.Serializable
    protected boolean moveable   = true;  // Can this item be picked up?  True if so
    protected boolean isContainer= false; // Can this item contain other Items?  True if so
       
-   /** Creates a new instance of Item 
- * @param maxProtection */
+   /** Creates a new instance of Item */
    public Item(String description, byte charCode, boolean moveable, float maxDamage, float maxProtection)
    {
        this.description = new String(description);

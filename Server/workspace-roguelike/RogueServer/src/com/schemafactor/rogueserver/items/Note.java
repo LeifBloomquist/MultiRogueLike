@@ -10,7 +10,7 @@ public class Note extends Item
     /** Creates a new instance of Note */
    public Note(String description, String text)
    {
-       super(description, Constants.CHAR_ITEM_NOTE, true, 0, 0); 
+       super(description, Constants.CHAR_ITEM_NOTE, false, 0, 0);  // TODO - for now, notes can't be moved 
        this.text =  "\"" + text + "\""; 
    }
    
