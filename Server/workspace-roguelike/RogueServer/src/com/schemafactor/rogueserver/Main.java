@@ -147,7 +147,7 @@ public class Main
         // Level 0 -------------------------------------------------------------------------------------------------------------
 
         dungeon.placeItem( new Sign("Crooked Sign", "Adventure awaits! Find a key..."), 
-                           new Position(17,12,0));
+                           new Position(18,12,0));
         
         dungeon.placeItem( new Note("Tattered Note", "Portals teleport to random areas"), 
                            new Position(87,45,0));
@@ -177,8 +177,8 @@ public class Main
         
         for (int i=1; i<=10; i++)
         {        
-            dungeon.placeItem( new Sword("Short Sword", 10, 5), dungeon.getRandomPosition(1));
-            dungeon.placeItem( new Shield("Small Shield", 10), new Position(11,10,0));
+            dungeon.placeItem( new Sword("Short Sword", 10, 5), dungeon.getRandomPosition(1) );
+            dungeon.placeItem( new Shield("Small Shield", 10), dungeon.getRandomPosition(1) );
         }
         
         // Level 2  -------------------------------------------------------------------------------------------------------------        

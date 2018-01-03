@@ -11,12 +11,11 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=RogueServer/src"/>
         <file path="/RogueServer/.project"/>
+        <file path="/RogueServer/.classpath"/>
         <folder path="/RogueServer/fonts"/>
         <folder path="/RogueServer/lib"/>
-        <javaElement handleIdentifier="=RogueServer/src"/>
-        <file path="/RogueServer/.classpath"/>
-        <file path="/RogueServer/rogueserver.lock"/>
         <folder path="/RogueServer/html"/>
     </selectedElements>
 </jardesc>
