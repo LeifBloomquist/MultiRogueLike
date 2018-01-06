@@ -192,7 +192,7 @@ public abstract class Entity implements java.io.Serializable
    
    private void attackedBy(Entity attacker)
    {
-       this.addMessage("Attacked by " + attacker.description);
+       this.addMessage("Attacked by " + attacker.description + "!");
        
        float damage = attacker.getAttackRoll();
        float protection = this.getProtection();
@@ -223,7 +223,7 @@ public abstract class Entity implements java.io.Serializable
    {
        if (attacker != null)
        {
-           addMessage("Killed by " + attacker.description);
+           addMessage("Killed by " + attacker.description + "!");
            JavaTools.printlnTime(description + " was killed by " + attacker.description);
        }
        
@@ -339,7 +339,7 @@ public abstract class Entity implements java.io.Serializable
            item_left = current_cell.takeItem();    
            if (item_left != null)
            {
-              this.addMessage("Picked up the " + item_left.getDescription());
+              this.addMessage("Picked up the " + item_left.getDescription() + ".");
               return true;
            }
        }
@@ -354,7 +354,7 @@ public abstract class Entity implements java.io.Serializable
            item_right = current_cell.takeItem();    
            if (item_right != null)
            {
-              this.addMessage("Picked up the " + item_right.getDescription());
+              this.addMessage("Picked up the " + item_right.getDescription() + ".");
               return true;
            }
        }       
@@ -378,7 +378,7 @@ public abstract class Entity implements java.io.Serializable
            
            if (success)
            {
-               this.addMessage("Dropped the " + item_left.getDescription());
+               this.addMessage("Dropped the " + item_left.getDescription() + ".");
                item_left = null;   // No longer carrying the item              
                return true;
            }
@@ -395,7 +395,7 @@ public abstract class Entity implements java.io.Serializable
            
            if (success)
            {
-               this.addMessage("Dropped the " + item_right.getDescription());
+               this.addMessage("Dropped the " + item_right.getDescription()+ ".");
                item_right = null;   // No longer carrying the item               
                return true;
            }

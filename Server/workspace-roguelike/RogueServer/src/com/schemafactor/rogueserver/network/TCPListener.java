@@ -150,7 +150,7 @@ public class TCPListener extends Thread
         
         public void sendString(String message) 
         {
-            output.println(message);
+            output.print(message + "\r\n");
             output.flush();
         }
 

@@ -228,7 +228,7 @@ colortable:
     .byte COLOR_WHITE    ; 202   ?	 	
     .byte COLOR_BROWN    ; 203	 Rope	
     .byte COLOR_YELLOW   ; 204	 Key	
-    .byte COLOR_GREY3    ; 205   Sign	 	
+    .byte COLOR_BROWN    ; 205   Sign	 	
     .byte COLOR_WHITE    ; 206	 	
     .byte COLOR_WHITE    ; 207	 	
     .byte COLOR_WHITE    ; 208	 	
