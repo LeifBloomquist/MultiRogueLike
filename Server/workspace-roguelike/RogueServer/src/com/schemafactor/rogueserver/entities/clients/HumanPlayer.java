@@ -12,6 +12,7 @@ import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.NonBlockingFixedSizeQueue;
+import com.schemafactor.rogueserver.universe.Dungeon;
 
 public abstract class HumanPlayer extends Entity
 {        
@@ -30,19 +31,26 @@ public abstract class HumanPlayer extends Entity
    // Queue of messages
    NonBlockingFixedSizeQueue<String> messageQueue = new NonBlockingFixedSizeQueue<String>(Constants.MESSAGE_QUEUE_MAX);
    
-   // Sound effect counter
+   // Current Sound effect counter
    byte soundCounter = 0;
    
-   // Sound Effect ID
+   // Current Sound Effect ID
    byte soundFXID = Constants.SOUND_NONE;
    
    public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f);
-   
-       this.addMessage("Welcome to the Rogue Test Server");
-       this.addMessage("Server version: " + Double.toString(Constants.VERSION) );   
+       InitPlayer();
    }
+   
+  private void InitPlayer()
+  {
+      health = 100;
+      this.position = Dungeon.getInstance().getClosestEmptyCell(start_position, Constants.EMPTY_CELL_SEARCH_DEPTH);
+      
+      this.addMessage("Welcome to the Rogue Test Server");
+      this.addMessage("Server version: " + Double.toString(Constants.VERSION) );
+  }
    
    /** Return the InetAddress, for comparisons */
    public InetAddress getAddress()
@@ -105,6 +113,7 @@ public abstract class HumanPlayer extends Entity
                
            case 'h':
                showingHelp = !showingHelp;
+               updateNow();
                break;
                
            case 'j':
@@ -176,6 +185,23 @@ public abstract class HumanPlayer extends Entity
                checkHealth(this);
                break; 
                
+           case 'y':    // Restart Game 
+           case 'Y':
+               if (isDead())
+               {
+                   InitPlayer();
+                   updateNow();
+               }
+               break; 
+
+           case 'n':    // End Game 
+           case 'N':
+               if (isDead())
+               {
+                   removeMe();
+               }               
+               break; 
+
            // Special cases for Cursor and Function Keys
            case EscapeSequences.ESC:
                escapeSequence.clear();
@@ -189,7 +215,6 @@ public abstract class HumanPlayer extends Entity
        
        lastUpdateReceived = Instant.now();
    }
-
 
    // Special handling for escape sequences
    private boolean handleEscapeSequence(int inputchar)

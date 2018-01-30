@@ -42,6 +42,15 @@ public abstract class ServerControlled extends Entity
         {
             takeAction();
         }
+        
+        // Check health
+        checkHealth(null);
+        
+        // For server-controlled entities, remove from game immediately
+        if (isDead()) 
+        {
+            removeMeFlag = true;
+        }
     }
     
     @Override

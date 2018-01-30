@@ -13,13 +13,14 @@ import com.schemafactor.rogueserver.universe.Dungeon;
 
 public abstract class Entity implements java.io.Serializable
 {
-    private static final long serialVersionUID = 1L;
+   protected static final long serialVersionUID = 1L;
 
    public static enum entityTypes {NONE, HUMAN_PLAYER, NPC, MONSTER}
    protected entityTypes myType = entityTypes.NONE;
 	   
    protected String description;
-   protected Position position;
+   protected Position position;  // Current position
+   protected Position start_position;   
    
    protected byte charCode = 0;   // Character code shown on client screen
    
@@ -38,6 +39,7 @@ public abstract class Entity implements java.io.Serializable
    public Entity(String description, Position startposition, entityTypes type, byte charCode, float baseDamage)
    {
        this.description = new String(description);
+       this.start_position = startposition;
        this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, Constants.EMPTY_CELL_SEARCH_DEPTH);
        this.myType = type;
        this.charCode = charCode;
@@ -218,6 +220,11 @@ public abstract class Entity implements java.io.Serializable
            gameOver(attacker);           
        }    
    }
+   
+   protected boolean isDead()
+   {       
+      return (health <= 0);
+   }
 
    private void gameOver(Entity attacker)
    {
@@ -227,8 +234,16 @@ public abstract class Entity implements java.io.Serializable
            JavaTools.printlnTime(description + " was killed by " + attacker.description);
        }
        
-       // Remove from game and map
-       removeMe();  
+       // TODO:  This is a bit hacky.  Remove monsters instantly, but keep human players in game to keep sending updates.       
+       if (myType == entityTypes.HUMAN_PLAYER)
+       {
+           // Remove from map only.   This clears the cell for the drops below.
+           Dungeon.getInstance().getCell(position).setEntity(null);
+       }
+       else
+       {
+           removeMe();
+       }
        
        // Drop currently carried items       
        Cell left =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position, Constants.EMPTY_CELL_SEARCH_DEPTH) );       
@@ -239,9 +254,8 @@ public abstract class Entity implements java.io.Serializable
        }
        else
        {
-           JavaTools.printlnTime("DEBUG: Can't drop left item!! ");
+           JavaTools.printlnTime("DEBUG: " + description + " Can't drop left item!! ");
        }
-
        
        Cell right =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position, Constants.EMPTY_CELL_SEARCH_DEPTH) );       
 
@@ -252,7 +266,7 @@ public abstract class Entity implements java.io.Serializable
        }
        else
        {
-           JavaTools.printlnTime("DEBUG: Can't drop right item!! ");
+           JavaTools.printlnTime("DEBUG: " + description + " Can't drop right item!! ");
        }
    }
 
