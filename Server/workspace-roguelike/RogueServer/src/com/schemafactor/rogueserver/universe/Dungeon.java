@@ -415,6 +415,12 @@ public class Dungeon implements java.io.Serializable
     	 
 	    for (Entity e : allEntities)
 	    {
+	        // Skip entities on other levels
+	        if (topleft.z != e.getPosition().z)
+	        {
+	            continue;
+	        }
+	        
 	        Position ep = e.getPosition(); 
 	        
 	        int dx = ep.x - topleft.x;

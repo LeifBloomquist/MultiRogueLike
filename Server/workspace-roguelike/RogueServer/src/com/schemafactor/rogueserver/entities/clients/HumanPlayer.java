@@ -40,16 +40,17 @@ public abstract class HumanPlayer extends Entity
    public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f);
-       InitPlayer();
+       
+       this.addMessage("Welcome to the Rogue Test Server");
+       this.addMessage("Server version: " + Double.toString(Constants.VERSION) );       
    }
    
-  private void InitPlayer()
+  private void reInitPlayer()
   {
       health = 100;
       this.position = Dungeon.getInstance().getClosestEmptyCell(start_position, Constants.EMPTY_CELL_SEARCH_DEPTH);
       
-      this.addMessage("Welcome to the Rogue Test Server");
-      this.addMessage("Server version: " + Double.toString(Constants.VERSION) );
+      this.addMessage("Restarted...");
   }
    
    /** Return the InetAddress, for comparisons */
@@ -189,7 +190,7 @@ public abstract class HumanPlayer extends Entity
            case 'Y':
                if (isDead())
                {
-                   InitPlayer();
+                   reInitPlayer();
                    updateNow();
                }
                break; 
