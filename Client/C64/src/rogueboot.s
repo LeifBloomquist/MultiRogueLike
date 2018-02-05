@@ -32,7 +32,7 @@
 
 basicstub:
 	.word @nextline
-	.word 2014
+	.word 2018
 	.byte $9e
 	.byte <(((init / 1000) .mod 10) + $30)
 	.byte <(((init / 100 ) .mod 10) + $30)
@@ -118,7 +118,7 @@ tftpget:
   ldax #tftpname
   stax tftp_filename
   
-  ldax #$3000
+  ldax #$4000
   stax tftp_load_address
   
   jsr tftp_clear_callbacks    

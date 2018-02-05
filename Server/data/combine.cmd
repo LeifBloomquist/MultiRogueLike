@@ -1,9 +1,9 @@
 @rem batch file to pad+combine all Rogue data for TFTP download
 
-trunc music.raw    4096
-trunc chars.raw    2048
-trunc screen.raw   1024
-trunc Sprites.raw 13312
+@copy ..\..\Client\C64\src\rogue8000.bin .
+
+trunc rogue-font.raw 2048
+trunc empty.raw      14336
 @rem leave rogue8000.bin as-is, since it's last
 
-copy /b /v /y music.raw+chars.raw+screen.raw+Sprites.raw+rogue8000.bin tftpboot\roguedata
+copy /b /v /y rogue-font.raw+empty.raw+rogue8000.bin tftpboot\roguedata
