@@ -58,7 +58,7 @@ init:
 
 main: 
   ; Save bootloader version if needed
-  lda #10     ; decimal 1.0             
+  lda #12     ; decimal 1.2             
   sta $cFFF
 
   jmp $8000
@@ -186,24 +186,25 @@ CG_UCS = 142 ;switch to uppercase
  
    
 NETWORKMESSAGE:
-  .byte 147, CG_LCS, CG_DCS, CG_LBL
-  .byte "vORTEX 2 nETWORK bOOTLOADER 1.0",13
+  .byte 147, CG_LCS, CG_DCS, CG_GR3
+  .byte "rOGUE nETWORK bOOTLOADER 1.0",13
   .byte "fORWARD udp pORT 3000 TO YOUR c64",13,13
+  .byte CG_LBL
   .byte 0
 
 DOWNLOADMESSAGE:
-  .byte "dOWNLOADING GAME DATA"
+  .byte CG_GR3, "dOWNLOADING GAME DATA", CG_GRN
   .byte 0
 
 OKMESSAGE:
-  .byte "ok",13
+  .byte CG_LGN, "ok",13
   .byte 0                      
 
 FAILMESSAGE:
-  .byte "...failed",13
+  .byte CG_RED, "...failed",13
   .byte 0                    
   
 tftpname:
-  .byte "vortexdata", 0
+  .byte "roguedata", 0
 
 ; EOF!
