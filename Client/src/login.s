@@ -24,8 +24,9 @@ TITLEMESSAGE:
   .byte CG_LBL, "cONCEPT+gAME cODE: ", CG_WHT, "lEIF bLOOMQUIST", 13, 13
   .byte CG_LBL, "nETWORKING cODE:   ", CG_WHT, "jONNO dOWNES", 13
   .byte CG_LBL, "                   ", CG_WHT, "pER oLOFSSON", 13, 13
-  .byte CG_LBL, "cONTRIBUTORS:      ", CG_WHT, "rOBIN hARBRON", 13, 13
-;  .byte CG_LBL, "pLAYTESTERS:       ", CG_WHT, "rOBIN hARBRON", 13, 13
+  .byte CG_LBL, "cONTRIBUTORS:      ", CG_WHT, "rOBIN hARBRON", 13
+  .byte CG_LBL, "                   ", CG_WHT, "Q0W/aTLANTIS", 13, 13
+;  .byte CG_LBL, "pLAYTESTERS:       ", CG_WHT, "", 13, 13
   .byte 13
   .byte 0   
 
