@@ -1,5 +1,7 @@
 package com.schemafactor.rogueserver.common;
 
+import java.util.Date;
+
 public class Constants 
 {
     // Server version
@@ -9,6 +11,7 @@ public class Constants
     public static final int TICK_TIME         = 50;     // milliseconds
     public static final int DUNGEON_SIZE      = 100;    // Per Side  (Mini Server to start!  TODO go back to 1000)
     public static final int DUNGEON_DEPTH     = 4;      // Levels
+    public static final long DOOR_RELOCK_TIME = 10000;  // 10 seconds
         
     // Network Constants
     public static final int  LISTEN_PORT      = 3006;   // UDP and TCP
@@ -137,6 +140,7 @@ public class Constants
     public static final byte COLOR_LIGHTBLUE  = 14;
     public static final byte COLOR_GREY3      = 15;
 
+    // Sounds
     public static final byte SOUND_NONE         = 0;
     public static final byte SOUND_PLAYER_STEP  = 1;
     public static final byte SOUND_BLOCKED      = 2;
@@ -146,5 +150,7 @@ public class Constants
     public static final byte SOUND_MONSTER_STEP = 6;
     public static final byte SOUND_TELEPORT     = 7;
     // TODO: Sounds for other monster types, doors, opening chests, unlocking doors, other actions, spells, achievements...
+
+   
     
 }

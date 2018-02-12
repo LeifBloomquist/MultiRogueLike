@@ -3,7 +3,6 @@ package com.schemafactor.rogueserver.entities.clients;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 
@@ -11,7 +10,6 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.common.Position;
-import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class HumanPlayerUDP extends HumanPlayer

@@ -50,15 +50,49 @@ public class Key extends Item
         
         if (door.getTrueCharCode() == Constants.CHAR_DOOR_CLOSED)
         {
-            door.setAttributes(Constants.CHAR_DOOR_OPEN);
-            entity.addMessage("Door unlocked.");
-            return true;
+            return unlock(entity);
         }
 
         if (door.getTrueCharCode() == Constants.CHAR_DOOR_OPEN)
         {
+            return lock(entity);
+        }
+
+        JavaTools.printlnTime("DEBUG: Invalid character code when (un)locking door at " + myDoor.toString());
+        return false;
+    }
+    
+    protected boolean lock(Entity entity)
+    {
+        Cell door = dungeon.getCell(myDoor);
+
+        if (door.getTrueCharCode() == Constants.CHAR_DOOR_OPEN)
+        {
             door.setAttributes(Constants.CHAR_DOOR_CLOSED);
-            entity.addMessage("Door locked.");
+            
+            if (entity != null)
+            {
+                entity.addMessage("Door locked.");
+            }
+            return true;
+        }
+
+        JavaTools.printlnTime("DEBUG: Invalid character code when locking door at " + myDoor.toString());
+        return false;
+    }
+    
+    protected boolean unlock(Entity entity)
+    {
+        Cell door = dungeon.getCell(myDoor);
+        
+        if (door.getTrueCharCode() == Constants.CHAR_DOOR_CLOSED)
+        {
+            door.setAttributes(Constants.CHAR_DOOR_OPEN);
+            
+            if (entity != null)
+            {
+                entity.addMessage("Door unlocked.");
+            }
             return true;
         }
 
