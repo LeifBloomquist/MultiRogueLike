@@ -62,7 +62,7 @@ public abstract class HumanPlayer extends Entity
    /** Update me with command from client */
    public void handleKeystroke(int inputchar)
    {   
-       // Special handling for escape sequences
+       // Special handling for escape sequences (ignore timing)
        if (escapeSequence.size() > 0)
        {
            boolean handled = handleEscapeSequence(inputchar);
@@ -71,6 +71,19 @@ public abstract class HumanPlayer extends Entity
               return;                      
            }
        }
+       
+       // Filter out commands coming in too fast.
+       Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());     
+       JavaTools.printlnTime("DEBUG: Elapsed millis = " + elapsed.toMillis());
+       
+       lastUpdateReceived = Instant.now();
+       
+       if (elapsed.toMillis() <= Constants.CLIENT_ACTION_TIME)   // Too fast!
+       {             
+           //return;   // Not time to act yet   TODO, FIX
+       }
+      
+      
 
        // Normal keystrokes
        
@@ -213,8 +226,6 @@ public abstract class HumanPlayer extends Entity
                JavaTools.printlnTime("DEBUG: Invalid command " + inputchar + " from " + description);
                return;
        }
-       
-       lastUpdateReceived = Instant.now();
    }
 
    // Special handling for escape sequences

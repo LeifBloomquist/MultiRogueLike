@@ -17,7 +17,7 @@ public abstract class Entity implements java.io.Serializable
 
    public static enum entityTypes {NONE, HUMAN_PLAYER, NPC, MONSTER}
    protected entityTypes myType = entityTypes.NONE;
-	   
+   
    protected String description;
    protected Position position;  // Current position
    protected Position start_position;   

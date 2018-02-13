@@ -16,8 +16,8 @@ public abstract class ServerControlled extends Entity
     protected States State = States.IDLE;
     
     // Time in between moves.  May change based on state.  
-    float actionTime = 1000f;  // Milliseconds    
-       
+    protected float actionTime = 1000f;   // Milliseconds   
+           
     /** Creates a new instance of Server Controlled */
     public ServerControlled(String name, Position startposition, entityTypes type, byte charCode, float actionTime, float maxDamage)
     {
