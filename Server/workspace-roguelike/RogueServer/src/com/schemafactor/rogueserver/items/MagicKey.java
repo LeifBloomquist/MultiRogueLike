@@ -60,9 +60,9 @@ public class MagicKey extends Key
        return success;
     }
     
-    public boolean relock()
-    {
+    public void relock()
+    {        
+        door.setAttributes(Constants.CHAR_DOOR_CLOSED);
         JavaTools.printlnTime("DEBUG: Magic Key " + description + " relocked door");
-        return super.lock(null);
     }
 }

@@ -26,7 +26,9 @@ TITLEMESSAGE:
   .byte CG_LBL, "                   ", CG_WHT, "pER oLOFSSON", 13, 13
   .byte CG_LBL, "cONTRIBUTORS:      ", CG_WHT, "rOBIN hARBRON", 13
   .byte CG_LBL, "                   ", CG_WHT, "Q0W/aTLANTIS", 13, 13
-;  .byte CG_LBL, "pLAYTESTERS:       ", CG_WHT, "", 13, 13
+  ;.byte CG_LBL, "pLAYTESTERS:       ", CG_WHT, "yOU!", 13, 13
+  .byte CG_LGN, "jOYSTICK IN pORT 2 ", 13
+  ;.byte CG_LGN, "f1 FOR hELP", 13
   .byte 13
   .byte 0   
 

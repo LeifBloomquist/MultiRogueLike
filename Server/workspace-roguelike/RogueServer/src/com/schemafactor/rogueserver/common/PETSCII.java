@@ -181,13 +181,11 @@ public class PETSCII
                  return (byte)',';
 
              case '.':  // *
-                 return (byte)'.';
-
-                 
+                 return (byte)'.';        
          }
          
-         // Everything else becomes a space
-         return 32;       
+         // Everything else becomes a null
+         return 0;       
     }
     
     public static String toExtendedASCII(byte[] petscii_charcodes)

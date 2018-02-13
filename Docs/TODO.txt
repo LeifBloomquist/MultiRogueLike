@@ -2,10 +2,12 @@
 -Limit client step speed (key repeats)
 -More Monsters and types
 -Potions recharge     
--Joystick support
+-Occluded vision
+-Respawn mosters
 
 Done!
 
 -Better restart on C64
 -TFTP Server
 -Skeletons return home
+-Joystick support

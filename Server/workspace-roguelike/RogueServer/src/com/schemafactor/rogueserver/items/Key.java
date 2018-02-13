@@ -13,6 +13,7 @@ import com.schemafactor.rogueserver.universe.Dungeon;
 public class Key extends Item
 {
     private Position myDoor = null;
+    Cell door = null;
     
     Dungeon dungeon = Dungeon.getInstance();
     
@@ -21,6 +22,7 @@ public class Key extends Item
     {
        super(description, Constants.CHAR_ITEM_KEY, true, 0, 0); 
        this.myDoor = whichDoor;
+       this.door = dungeon.getCell(whichDoor);
     }
     
     @Override
@@ -30,24 +32,27 @@ public class Key extends Item
        {
            return false; 
        }
+       
+       return lockUnlock(entity);
+    }
+    
+    private boolean isDoorNearby(Entity entity)
+    {
+        List<Position> nearby = (ArrayList<Position>) Dungeon.getInstance().getNeighbors(entity.getPosition());
         
-       List<Position> nearby = (ArrayList<Position>) Dungeon.getInstance().getNeighbors(entity.getPosition());
-       
-       for (Position pos : nearby)
-       {
-           if (pos.equals(myDoor)) 
-           {
-              return lockUnlock(entity);
-           }
-       }
-       
-       return false;
+        for (Position pos : nearby)
+        {
+            if (pos.equals(myDoor)) 
+            {
+               return true;
+            }
+        }
+        
+        return false;
     }
 
     private boolean lockUnlock(Entity entity)
-    {
-        Cell door = dungeon.getCell(myDoor);
-        
+    {        
         if (door.getTrueCharCode() == Constants.CHAR_DOOR_CLOSED)
         {
             return unlock(entity);
@@ -64,7 +69,10 @@ public class Key extends Item
     
     protected boolean lock(Entity entity)
     {
-        Cell door = dungeon.getCell(myDoor);
+        if (!isDoorNearby(entity))
+        {
+           return false;
+        }    
 
         if (door.getTrueCharCode() == Constants.CHAR_DOOR_OPEN)
         {
@@ -83,7 +91,10 @@ public class Key extends Item
     
     protected boolean unlock(Entity entity)
     {
-        Cell door = dungeon.getCell(myDoor);
+        if (!isDoorNearby(entity))
+        {
+           return false;
+        }
         
         if (door.getTrueCharCode() == Constants.CHAR_DOOR_CLOSED)
         {

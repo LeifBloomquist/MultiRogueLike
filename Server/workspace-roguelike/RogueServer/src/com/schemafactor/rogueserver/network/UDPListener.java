@@ -87,8 +87,7 @@ public class UDPListener
         
         Dungeon dungeon = Dungeon.getInstance();        
                 
-        // Determine player
-        // Copy list to get around the dreaded Concurrent modification exception  (shallow copy)
+        // Determine player        
         List<Entity> humans = dungeon.getEntities(null, Entity.entityTypes.HUMAN_PLAYER);
         
         for (Entity e : humans)
