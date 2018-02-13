@@ -11,14 +11,14 @@ public class Skeleton extends ServerControlled
 {  
     private static final long serialVersionUID = 1L;
     
-    // Skeletons return home TODO
+    // Skeletons return home when idle
     Position home = null;
 
     /** Creates a new instance of the Skeleton */
     public Skeleton(String name, Position startposition)
     {
        super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 300f, 10f);
-       home = this.position;
+       home = new Position(this.position);  // Copy
     }
     
     @Override
@@ -38,16 +38,15 @@ public class Skeleton extends ServerControlled
         switch (State)
         {
             case IDLE:
-            {                
-                // Wait for trouble               
-                
+            {   
                 // Is a Human entity nearby?
                 List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 5);
                 List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(this, entityTypes.HUMAN_PLAYER, nearby);
                 
-                if (nearby_humans.size() == 0) // All clear, keep waiting
+                if (nearby_humans.size() == 0) // All clear, keep waiting or head home
                 {
-                    break;
+                    byte move_direction = getDirectionTo(home);                    
+                    moved = attemptMove(move_direction);
                 }
                 else  // Attack!
                 {
@@ -112,7 +111,7 @@ public class Skeleton extends ServerControlled
             
             case RETREATING:
             {
-                break;
+                State = States.IDLE;  // Never retreat!
             }
         }
         

@@ -1,5 +1,11 @@
 
 -Limit client step speed (key repeats)
--More Monsters
+-More Monsters and types
+-Potions recharge     
+-Joystick support
+
+Done!
+
 -Better restart on C64
 -TFTP Server
+-Skeletons return home
