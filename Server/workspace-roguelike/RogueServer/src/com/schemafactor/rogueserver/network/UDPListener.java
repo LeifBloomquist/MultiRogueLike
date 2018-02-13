@@ -105,7 +105,7 @@ public class UDPListener
             }
             catch (Exception ex)  // Fail silently on cast exceptions.  TODO, messy
             {
-                ;
+                JavaTools.printlnTime("EXCEPTION: " + ex.getMessage() + " when receiving from UDP client");
                 return;
             }
         }

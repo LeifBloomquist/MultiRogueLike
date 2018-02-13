@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.schemafactor.rogueserver.common.Constants;
+import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.common.interfaces.Container;
 import com.schemafactor.rogueserver.entities.Entity;
@@ -14,17 +15,7 @@ import com.schemafactor.rogueserver.entities.Entity;
 public class MagicKey extends Key
 {    
     Container home = null;
-    
     Timer timer = new Timer();
-    
-    TimerTask closeDoorTask = new TimerTask() 
-    {
-        @Override
-        public void run() 
-        {
-            MagicKey.this.relock();
-        }
-    };
     
     /** Creates a new instance of Key */
     public MagicKey(String description, Position whichDoor, Container home)
@@ -40,13 +31,30 @@ public class MagicKey extends Key
     
        if (success)
        {
+           JavaTools.printlnTime("DEBUG: Magic Key " + description + " unlocked door");
+          
+           TimerTask closeDoorTask = new TimerTask() 
+           {
+               @Override
+               public void run() 
+               {
+                   MagicKey.this.relock();
+               }
+           };
+          
            timer.schedule(closeDoorTask, Constants.DOOR_RELOCK_TIME); 
            
            if (home != null)
            {
                entity.forceDrop(this);        // Remove from player's inventory
                home.setContainedItem(this);   // Return home
+               
+               JavaTools.printlnTime("DEBUG: Magic Key " + description + " returned home");
            }
+       }  
+       else
+       {
+           JavaTools.printlnTime("DEBUG: Magic Key " + description + " unlock door FAILED!");
        }
        
        return success;
@@ -54,6 +62,7 @@ public class MagicKey extends Key
     
     public boolean relock()
     {
+        JavaTools.printlnTime("DEBUG: Magic Key " + description + " relocked door");
         return super.lock(null);
     }
 }

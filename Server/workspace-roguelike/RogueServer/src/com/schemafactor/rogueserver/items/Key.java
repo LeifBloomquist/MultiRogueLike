@@ -95,6 +95,11 @@ public class Key extends Item
             }
             return true;
         }
+        
+        if (door.getTrueCharCode() == Constants.CHAR_DOOR_OPEN)  // Already open
+        {
+            return true;        
+        }
 
         JavaTools.printlnTime("DEBUG: Invalid character code when unlocking door at " + myDoor.toString());
         return false;

@@ -81,7 +81,7 @@ public class Dungeon implements java.io.Serializable
         }
         scanner.close();
         
-        JavaTools.printlnTime( "Number of lines loaded: " + lines.size() );
+        JavaTools.printlnTime( "Level " + level + " number of lines loaded: " + lines.size() );
            
         for (int y=0; y < lines.size(); y++)
         {   
