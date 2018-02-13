@@ -1,9 +1,12 @@
 
 -Limit client step speed (key repeats)
+
 -More Monsters and types
 -Potions recharge     
 -Occluded vision
--Respawn mosters
+-Respawn monsters
+-Monsters stealing items?
+-Fix bug with Human players via TCP not being removed
 
 Done!
 
