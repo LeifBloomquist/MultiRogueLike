@@ -202,7 +202,7 @@ public class Spawner
 
     public static void respawn(Dungeon dungeon)
     {        
-        // Monsters        
+        // Respawn Monsters        
         List<Monster> monsters = new ArrayList<Monster>();
         monsters.addAll(welcomingCommittee);
         monsters.addAll(allMonsters);
@@ -223,10 +223,10 @@ public class Spawner
            }
         }
         
-        // Potions
+        // Recharge Potions
         for (Potion p : allPotions)
         {
-           // TODO, not sure what to do here?
+           p.recharge();
         }
     }
 }
