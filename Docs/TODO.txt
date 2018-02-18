@@ -3,8 +3,6 @@ Before Alpha release:
 
 -Respawn monsters                     
 -Potions recharge
--Fix up Maze
-
 
 Soon:
 

@@ -10,15 +10,11 @@ import com.schemafactor.rogueserver.universe.Dungeon;
 public class Skeleton extends Monster
 {  
     private static final long serialVersionUID = 1L;
-    
-    // Skeletons return home when idle
-    Position home = null;
 
     /** Creates a new instance of the Skeleton */
     public Skeleton(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 300f, 10f);
-       home = new Position(this.position);  // Copy
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SKELETON, 300f, 10f);      
     }
     
     @Override

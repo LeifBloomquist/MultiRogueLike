@@ -8,6 +8,8 @@ import com.schemafactor.rogueserver.entities.Entity;
 
 public abstract class Monster extends Entity
 {  
+    protected static final long serialVersionUID = 1L;
+
     // The entity this creature is currently chasing    
     Entity target = null;   
     
@@ -17,12 +19,13 @@ public abstract class Monster extends Entity
     
     // Time in between moves.  May change based on state.  
     protected float actionTime = 1000f;   // Milliseconds   
-           
+    
     /** Creates a new instance of Server Controlled */
     public Monster(String name, Position startposition, entityTypes type, byte charCode, float actionTime, float maxDamage)
     {
        super(name, startposition, type, charCode, maxDamage);  
        this.actionTime = actionTime;
+       home = new Position(this.position);  // Copy
     }
     
     @Override

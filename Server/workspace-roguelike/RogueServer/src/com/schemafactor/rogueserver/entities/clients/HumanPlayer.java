@@ -16,6 +16,8 @@ import com.schemafactor.rogueserver.universe.Dungeon;
 
 public abstract class HumanPlayer extends Entity
 {        
+   private static final long serialVersionUID = 1L;
+   
    protected InetAddress userIP;                           // User IP Address
    protected boolean announceReceived = false;
    protected Instant lastUpdateReceived = Instant.now();   // For timeouts
@@ -44,14 +46,6 @@ public abstract class HumanPlayer extends Entity
        this.addMessage("Welcome to the Rogue Test Server");
        this.addMessage("Server version: " + Double.toString(Constants.VERSION) );       
    }
-   
-  private void reInitPlayer()
-  {
-      health = 100;
-      this.position = Dungeon.getInstance().getClosestEmptyCell(start_position, Constants.EMPTY_CELL_SEARCH_DEPTH);
-      
-      this.addMessage("Restarted...");
-  }
    
    /** Return the InetAddress, for comparisons */
    public InetAddress getAddress()
@@ -89,11 +83,31 @@ public abstract class HumanPlayer extends Entity
        
        lastUpdateReceived = Instant.now();
       
+       // Yes/No at Game over
+       
+       if (isDead())
+       {
+           switch (inputchar)
+           {
+               case 'y':    // Restart Game 
+               case 'Y':
+                       respawn();
+                       updateNow();
+                       break; 
 
-       // Normal keystrokes
+               case 'n':    // End Game 
+               case 'N':
+                   removeMe();
+           }
+           
+           return;
+       }
+       
+       // Normal keystrokes       
        
        switch (inputchar)
        {
+       
            case 'q':
                handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NW);
                break;
@@ -202,24 +216,7 @@ public abstract class HumanPlayer extends Entity
            case '!': // DEBUG special way to commit suicide to debug end of game
                health = 0;
                checkHealth(this);
-               break; 
-               
-           case 'y':    // Restart Game 
-           case 'Y':
-               if (isDead())
-               {
-                   reInitPlayer();
-                   updateNow();
-               }
-               break; 
-
-           case 'n':    // End Game 
-           case 'N':
-               if (isDead())
-               {
-                   removeMe();
-               }               
-               break; 
+               break;
 
            // Special cases for Cursor and Function Keys
            case EscapeSequences.ESC:
@@ -397,8 +394,9 @@ public abstract class HumanPlayer extends Entity
 	    {	        
 	        if (!removeMeFlag)
 	        {
-	            removeMe();
 	            JavaTools.printlnTime( "Player Timed Out: " + description );
+	            gameOver(null);
+	            removeMe();	            
 	        }             
        }      
    }

@@ -18,7 +18,8 @@ public class HumanPlayerUDP extends HumanPlayer
    public HumanPlayerUDP(DatagramPacket packet)
    {
        // Random starting positions on Level 0 for multiple players  TODO
-       super("Human Player [" + JavaTools.packetAddress(packet)+"]", new Position(5,5,0), entityTypes.HUMAN_PLAYER, Constants.CHAR_PLAYER_NONE);
+       super("Human Player", new Position(5,5,0), entityTypes.HUMAN_PLAYER, Constants.CHAR_PLAYER_NONE);
+       // [" + JavaTools.packetAddress(packet)+"]
 
        userIP = packet.getAddress();
        receiveUpdate(packet);

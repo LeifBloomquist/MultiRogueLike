@@ -19,8 +19,8 @@ public abstract class Entity implements java.io.Serializable
    protected entityTypes myType = entityTypes.NONE;
    
    protected String description;
-   protected Position position;  // Current position
-   protected Position start_position;   
+   protected Position position;      // Current position
+   protected Position home = null;   // Home.  For respawning or returning to spawn point
    
    protected byte charCode = 0;   // Character code shown on client screen
    
@@ -38,15 +38,23 @@ public abstract class Entity implements java.io.Serializable
    /** Creates a new instance of Entity */
    public Entity(String description, Position startposition, entityTypes type, byte charCode, float baseDamage)
    {
-       this.description = new String(description);
-       this.start_position = startposition;
+       this.description = new String(description);       
        this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, Constants.EMPTY_CELL_SEARCH_DEPTH);
+       this.home = startposition;
+       
        this.myType = type;
        this.charCode = charCode;
        this.baseDamage = baseDamage;
        
        // Mark cell this entity starts in
        Dungeon.getInstance().getCell(this.position).setEntity(this);
+   }
+   
+   public void respawn()
+   {
+       position = new Position(home);
+       health = 100;
+       this.addMessage("Restarted...");
    }
    
    /**
@@ -153,7 +161,7 @@ public abstract class Entity implements java.io.Serializable
        else
        {
            this.playSound(Constants.SOUND_MISS);
-           JavaTools.printlnTime("DEBUG: " + description + " attacked the darkness at  X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
+           //JavaTools.printlnTime("DEBUG: " + description + " attacked the darkness at  X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
            return false;
        }    
    }
@@ -221,12 +229,12 @@ public abstract class Entity implements java.io.Serializable
        }    
    }
    
-   protected boolean isDead()
+   public boolean isDead()
    {       
       return (health <= 0);
    }
 
-   private void gameOver(Entity attacker)
+   protected void gameOver(Entity attacker)
    {
        if (attacker != null)
        {

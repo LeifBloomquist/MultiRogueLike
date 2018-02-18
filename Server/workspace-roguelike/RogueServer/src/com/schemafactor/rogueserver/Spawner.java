@@ -1,5 +1,8 @@
 package com.schemafactor.rogueserver;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,8 +10,10 @@ import java.util.List;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.monsters.Bat;
 import com.schemafactor.rogueserver.entities.monsters.Ghost;
+import com.schemafactor.rogueserver.entities.monsters.Monster;
 import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
@@ -24,51 +29,84 @@ import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Spawner
 {
-    // List of entities that always respawn
-    private static List<Entity> RespawnList = Collections.synchronizedList(new ArrayList<Entity>()); 
+    // List of monsters that always respawn
+    private static List<Monster> welcomingCommittee = Collections.synchronizedList(new ArrayList<Monster>());
+    
+    // List of all other monsters, that may respawn rendomly    
+    private static List<Monster> allMonsters = Collections.synchronizedList(new ArrayList<Monster>());
     
     public static void spawnEntities(Dungeon dungeon)
-    {        
+    {   
+        Slime slimey = new Slime("Slimey", new Position(56,8,0));
+        Skeleton mrbones = new Skeleton("Skeleton", new Position(89,11,0));
+        Spider mike = new Spider("Spider", new Position(38,38,0));
+        
+        welcomingCommittee.add( slimey );
+        welcomingCommittee.add( mrbones );
+        welcomingCommittee.add( mike );
+        
         // Level 0 (Entry) -----------------------------------------------------------------------------------------------------
         
-        dungeon.addEntity( new Slime("Slimey", new Position(56,8,0)) );
-        dungeon.addEntity( new Skeleton("Skeleton", new Position(89,11,0)) ); 
-        dungeon.addEntity( new Spider("Spider", new Position(38,38,0)) );
+        dungeon.addEntity( slimey );
+        dungeon.addEntity( mrbones ); 
+        dungeon.addEntity( mike );
         
         // Level 1 -------------------------------------------------------------------------------------------------------------
         
         for (int i=1; i<=20; i++)
         {
-            dungeon.addEntity( new Spider("Spider", dungeon.getRandomPosition(1)) );            
-            dungeon.addEntity( new Slime("Slime", dungeon.getRandomPosition(1)) );             
+            allMonsters.add( new Spider("Spider", dungeon.getRandomPosition(1)) );            
+            allMonsters.add( new Slime("Slime", dungeon.getRandomPosition(1)) );             
         } 
         
         // Level 2   -------------------------------------------------------------------------------------------------------------
 
         for (int i=1; i<=30; i++)
         {            
-            dungeon.addEntity( new Bat("Bat", dungeon.getRandomPosition(2)) );             
+            allMonsters.add( new Bat("Bat", dungeon.getRandomPosition(2)) );             
         } 
         
         for (int i=1; i<=10; i++)
         {
-            dungeon.addEntity( new Skeleton("Skeleton", dungeon.getRandomPosition(2)) ); 
+            allMonsters.add( new Skeleton("Skeleton", dungeon.getRandomPosition(2)) ); 
         } 
         
         // Level 3   -------------------------------------------------------------------------------------------------------------
         
         for (int i=1; i<=10; i++)
         {
-            dungeon.addEntity( new Ghost("Ghost", dungeon.getRandomPosition(3)) );
-            dungeon.addEntity( new Skeleton("Skeleton",dungeon.getRandomPosition(3)) );
-            dungeon.addEntity( new Spider("Spider", dungeon.getRandomPosition(3)) );            
-            dungeon.addEntity( new Slime("Slime", dungeon.getRandomPosition(3)) );     
+            allMonsters.add( new Ghost("Ghost", dungeon.getRandomPosition(3)) );
+            allMonsters.add( new Skeleton("Skeleton",dungeon.getRandomPosition(3)) );
+            allMonsters.add( new Spider("Spider", dungeon.getRandomPosition(3)) );            
+            allMonsters.add( new Slime("Slime", dungeon.getRandomPosition(3)) );     
         }
+        
+        // Add to dungeon --------------------------------------------------------------------------------------------------------
+        
+        for (Monster m : allMonsters)
+        {
+            dungeon.addEntity(m);
+        }
+        
     }
 
     // Add some test items.
     public static void placeItems(Dungeon dungeon)
     {
+       // Magic Word -----------------------------------------------------------------------------------------------------------
+        
+        String magic = "Magic Word: 12345";
+        
+        try
+        {
+            magic = new String(Files.readAllBytes(Paths.get("magic.txt")));
+        }
+        catch (IOException e)
+        {
+             JavaTools.printlnTime( "EXCEPTION reading magic file: " + e.getMessage());
+             magic = "Magic Word: 54321";
+        }        
+        
         // Level 0 -------------------------------------------------------------------------------------------------------------
 
         dungeon.placeItem( new Sign("Crooked Sign", "Adventure awaits! Find a key..."), 
@@ -89,18 +127,18 @@ public class Spawner
         dungeon.placeItem(portalchest, new Position(94,67,0));
         
         // Emergency Potions
-        dungeon.placeItem( new Chest("Decorated Chest", new Potion(1000)), new Position(37,57,0));
-        dungeon.placeItem( new Chest("Decorated Chest", new Potion(1000)), new Position(39,57,0));
+        dungeon.placeItem( new Chest("Decorated Chest", new Potion(500)), new Position(37,57,0));
+        dungeon.placeItem( new Chest("Decorated Chest", new Potion(500)), new Position(39,57,0));
 
         // Sign at the end
-        dungeon.placeItem( new Sign("Large Sign", "Quest Complete!"), new Position(8,52,0));
+        dungeon.placeItem( new Sign("Large Sign", magic), new Position(8,52,0));
         
         // Level 1  -------------------------------------------------------------------------------------------------------------        
         
         dungeon.placeItem( new Sword("Sword of Doom", 50, 20), dungeon.getRandomPosition(1) );
         dungeon.placeItem( new Shield("Large Shield", 50), dungeon.getRandomPosition(1) );
         
-        for (int i=1; i<=10; i++)
+        for (int i=1; i<=5; i++)
         {        
             dungeon.placeItem( new Sword("Short Sword", 10, 5), dungeon.getRandomPosition(1) );
             dungeon.placeItem( new Shield("Small Shield", 10), dungeon.getRandomPosition(1) );
@@ -122,7 +160,7 @@ public class Spawner
         // All Levels -------------------------------------------------------------------------------------------------------------        
         
         // Chests all through dungeon containing gold
-        for (int i=1; i<=50; i++)
+        for (int i=1; i<=30; i++)
         {
             Position p = dungeon.getRandomPosition();
             if (p.z == 0) p.z++;  // Not on starting level
@@ -142,11 +180,34 @@ public class Spawner
         }
         
         // Empty chests to keep life interesting
-        for (int i=1; i<=30; i++)
+        for (int i=1; i<=20; i++)
         {
             Position p = dungeon.getRandomPosition();
             if (p.z == 0) p.z++;  // Not on starting level
-            dungeon.placeItem( new Chest("Chest", null), p);
+            dungeon.placeItem( new Chest("Empty Chest", null), p);
         }
+    }
+
+    public static void respawn(Dungeon dungeon)
+    {
+        List<Monster> monsters = new ArrayList<Monster>();
+        monsters.addAll(welcomingCommittee);
+        monsters.addAll(allMonsters);
+        
+       for (Monster m : monsters)
+       {
+           if (m.isDead())
+           {
+               List<Entity> nearby = Dungeon.getInstance().getEntitiesOnScreenCentered(m.getPosition());
+               List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(m, entityTypes.HUMAN_PLAYER, nearby);
+               
+               if (nearby_humans.size() == 0)
+               {
+                   JavaTools.printlnTime( "Respawning: " + m.getDescription());
+                   m.respawn();
+                   dungeon.addEntity(m);
+               }
+           }
+       }
     }
 }

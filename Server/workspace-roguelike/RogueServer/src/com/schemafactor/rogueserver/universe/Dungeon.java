@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import com.schemafactor.rogueserver.Spawner;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
@@ -157,10 +158,12 @@ public class Dungeon implements java.io.Serializable
     
     public void update()
     {
+        Spawner.respawn(this);
+        
     	// Do timed animation here?
     }
     
-    /** Get a full screen's worth of cell data, with out of range replaced by 0 for screen edges*/
+    /** Get a full screen's worth of cell data, with out of range replaced by "dirt" for screen edges*/
     private byte[] getScreen(Position topleft)
     {
     	byte[] screen = new byte[Constants.SCREEN_SIZE];        
@@ -338,7 +341,7 @@ public class Dungeon implements java.io.Serializable
             case Constants.COLOR_GREEN:      col = Color.GREEN;  break;     
             case Constants.COLOR_BLUE:       col = Color.BLUE;  break;      
             case Constants.COLOR_YELLOW:     col = Color.YELLOW;  break;    
-            case Constants.COLOR_ORANGE:     col = Color.ORANGE;  break;    
+            case Constants.COLOR_ORANGE:     col = Color.ORANGE;  break;
             case Constants.COLOR_BROWN:      col = new Color(150, 75, 0);  break;     
             case Constants.COLOR_LIGHTRED:   col = Color.PINK;  break;  
             case Constants.COLOR_GREY1:      col = Color.DARK_GRAY;  break;     
@@ -401,7 +404,7 @@ public class Dungeon implements java.io.Serializable
         return allInRange;
     }
     
-    /** Get a list of all entities within a certain radius of a position */
+    /** Get a list of all entities within a certain radius of a position - use for future spells or range attacks?*/
     private List<Entity> getEntitiesRange(Position pos, double range)
     {
         DummyEntity dummy = new DummyEntity(pos);
@@ -450,7 +453,10 @@ public class Dungeon implements java.io.Serializable
          {
          	synchronized(allEntities)
          	{
-         		allEntities.add(who);
+         		if (!allEntities.contains(who))
+         		{
+         		    allEntities.add(who);
+         		}
          	}         	
          }
     	 catch (Exception ex)
