@@ -32,12 +32,15 @@ public class Spawner
     // List of monsters that always respawn
     private static List<Monster> welcomingCommittee = Collections.synchronizedList(new ArrayList<Monster>());
     
-    // List of all other monsters, that may respawn rendomly    
+    // List of all other monsters, that may respawn randomly    
     private static List<Monster> allMonsters = Collections.synchronizedList(new ArrayList<Monster>());
+    
+    // List of all potions    
+    private static List<Potion> allPotions = Collections.synchronizedList(new ArrayList<Potion>());
     
     public static void spawnEntities(Dungeon dungeon)
     {   
-        Slime slimey = new Slime("Slimey", new Position(56,8,0));
+        Slime slimey = new Slime("Slime", new Position(56,8,0));
         Skeleton mrbones = new Skeleton("Skeleton", new Position(89,11,0));
         Spider mike = new Spider("Spider", new Position(38,38,0));
         
@@ -127,8 +130,14 @@ public class Spawner
         dungeon.placeItem(portalchest, new Position(94,67,0));
         
         // Emergency Potions
-        dungeon.placeItem( new Chest("Decorated Chest", new Potion(500)), new Position(37,57,0));
-        dungeon.placeItem( new Chest("Decorated Chest", new Potion(500)), new Position(39,57,0));
+        Potion p1 = new Potion(500);
+        Potion p2 = new Potion(500);
+        
+        allPotions.add(p1);
+        allPotions.add(p2);
+        
+        dungeon.placeItem( new Chest("Decorated Chest", p1), new Position(37,57,0));
+        dungeon.placeItem( new Chest("Decorated Chest", p2), new Position(39,57,0));
 
         // Sign at the end
         dungeon.placeItem( new Sign("Large Sign", magic), new Position(8,52,0));
@@ -172,11 +181,14 @@ public class Spawner
         // Chests all through dungeon containing potions
         for (int i=1; i<=20; i++)
         {
+            int health = JavaTools.generator.nextInt(100);    
+            Potion potion = new Potion(health);
+            
+            allPotions.add(potion);
+            
             Position p = dungeon.getRandomPosition();
             if (p.z == 0) p.z++;  // Not on starting level
-        
-            int health = JavaTools.generator.nextInt(100);            
-            dungeon.placeItem( new Chest("Chest", new Potion(health)), p);
+            dungeon.placeItem( new Chest("Chest", potion ), p);
         }
         
         // Empty chests to keep life interesting
@@ -189,13 +201,14 @@ public class Spawner
     }
 
     public static void respawn(Dungeon dungeon)
-    {
+    {        
+        // Monsters        
         List<Monster> monsters = new ArrayList<Monster>();
         monsters.addAll(welcomingCommittee);
         monsters.addAll(allMonsters);
         
-       for (Monster m : monsters)
-       {
+        for (Monster m : monsters)
+        {
            if (m.isDead())
            {
                List<Entity> nearby = Dungeon.getInstance().getEntitiesOnScreenCentered(m.getPosition());
@@ -208,6 +221,12 @@ public class Spawner
                    dungeon.addEntity(m);
                }
            }
-       }
+        }
+        
+        // Potions
+        for (Potion p : allPotions)
+        {
+           // TODO, not sure what to do here?
+        }
     }
 }
