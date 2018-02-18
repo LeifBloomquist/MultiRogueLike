@@ -5,7 +5,7 @@ import java.util.Date;
 public class Constants 
 {
     // Server version
-    public static final double VERSION        = 0.003;
+    public static final double VERSION        = 0.004;
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds

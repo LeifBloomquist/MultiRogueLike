@@ -5,6 +5,7 @@ NAMELENGTH=15
 
 login:  
   kernal_print TITLEMESSAGE  
+  kernal_print TITLEMESSAGE2 
   kernal_print MOTD
   kernal_print LOGINPROMPT
   
@@ -20,17 +21,19 @@ login:
   
 TITLEMESSAGE:
   .byte 147, CG_LCS, CG_DCS, CG_RED
-  .byte "rOGUE vERSION 0.003", 13, 13
+  .byte "rOGUE vERSION 0.004", 13, 13
   .byte CG_LBL, "cONCEPT+gAME cODE: ", CG_WHT, "lEIF bLOOMQUIST", 13, 13
   .byte CG_LBL, "nETWORKING cODE:   ", CG_WHT, "jONNO dOWNES", 13
   .byte CG_LBL, "                   ", CG_WHT, "pER oLOFSSON", 13, 13
   .byte CG_LBL, "cONTRIBUTORS:      ", CG_WHT, "rOBIN hARBRON", 13
   .byte CG_LBL, "                   ", CG_WHT, "Q0W/aTLANTIS", 13, 13
-;  .byte CG_LBL, "pLAYTESTERS:       ", CG_WHT, "yOU!", 13, 13
-;  .byte CG_LGN, "jOYSTICK IN pORT 2 ", 13
-;  .byte CG_LGN, "f1 FOR hELP", 13
-  .byte 13
   .byte 0   
+   
+TITLEMESSAGE2: 
+  .byte CG_LBL, "pLAYTESTERS:       ", CG_WHT, "yOU!", 13, 13
+  .byte CG_LBL, "cONTROLS:          ", CG_YEL, "jOYSTICK IN pORT 2", 13
+  .byte CG_LBL, "                   ", CG_YEL, "pRESS f1 FOR kEYS", 13, 13
+  .byte 0
 
 MOTD: 
   .byte CG_GRN, "mESSAGE OF THE dAY:", 13, 13     
