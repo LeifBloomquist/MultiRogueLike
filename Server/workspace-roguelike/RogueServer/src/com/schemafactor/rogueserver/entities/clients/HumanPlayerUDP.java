@@ -73,8 +73,6 @@ public class HumanPlayerUDP extends HumanPlayer
                return;
            }
        }
-       
-       lastUpdateReceived = Instant.now();
    }
    
    // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second as above

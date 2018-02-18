@@ -33,6 +33,10 @@ init:
   sta $d020
   sta $d021
   
+  ; Turn off BASIC ROM
+  ;lda #$36
+  ;sta $01
+  
   ; jsr music_init
   jsr login
 

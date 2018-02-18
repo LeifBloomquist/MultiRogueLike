@@ -1,15 +1,22 @@
 
--Limit client step speed (key repeats)
+Before Alpha release:
 
--More Monsters and types
--Potions recharge     
--Occluded vision
--Respawn monsters
+-Respawn monsters                     
+-Potions recharge
+-Fix up Maze
+
+
+Soon:
+
+-More Monsters and types     
+-Occluded vision        
 -Monsters stealing items?
 -Fix bug with Human players via TCP not being removed
+-Ranged Weapons
 
 Done!
 
+-Limit client step speed (key repeats)
 -Better restart on C64
 -TFTP Server
 -Skeletons return home

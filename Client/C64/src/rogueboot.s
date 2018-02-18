@@ -61,7 +61,7 @@ main:
   lda #12     ; decimal 1.2             
   sta $cFFF
 
-  jmp $8000
+  jmp $6000
 
 
 ; -------------------------------------------------------------------------
@@ -187,7 +187,7 @@ CG_UCS = 142 ;switch to uppercase
    
 NETWORKMESSAGE:
   .byte 147, CG_LCS, CG_DCS, CG_GR3
-  .byte "rOGUE nETWORK bOOTLOADER 1.0",13
+  .byte "rOGUE nETWORK bOOTLOADER 1.2",13
   .byte "fORWARD udp pORT 3000 TO YOUR c64",13,13
   .byte CG_LBL
   .byte 0

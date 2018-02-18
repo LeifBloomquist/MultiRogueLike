@@ -4,7 +4,7 @@
 .macro kernal_print address
   lda #<address
   ldy #>address
-  jsr $ab1e   
+  jsr $ab1e 
 .endmacro
  
 
