@@ -15,7 +15,5 @@
         <file path="/RogueServer/.project"/>
         <file path="/RogueServer/.classpath"/>
         <folder path="/RogueServer/fonts"/>
-        <folder path="/RogueServer/lib"/>
-        <folder path="/RogueServer/html"/>
     </selectedElements>
 </jardesc>

@@ -1,0 +1,13 @@
+/usr/bin/pkill -f rogueserver
+
+cd /home/leif/rogue/
+
+rm out.txt
+rm *.log
+
+while true
+do
+  rm /home/leif/rogue/rogueserver.lock
+  /usr/bin/java -Xms1024m -Xmx1024m -jar /home/leif/rogue/rogueserver.jar >>out.txt 2>&1
+  sleep 1
+done
