@@ -8,7 +8,7 @@ import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class Spider extends ServerControlled
+public class Spider extends Monster
 {  
     /** Creates a new instance of the Spider */
     public Spider(String name, Position startposition)
@@ -42,7 +42,7 @@ public class Spider extends ServerControlled
             case WANDERING:
             {   
                 // Randomly move in a direction. 
-                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));
+                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_2D));
                 
                 // Is a Human entity nearby?
                 List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 10);

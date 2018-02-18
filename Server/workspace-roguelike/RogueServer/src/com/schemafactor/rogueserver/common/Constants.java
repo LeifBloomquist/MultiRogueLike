@@ -65,6 +65,7 @@ public class Constants
     public static final byte DIRECTION_SW      = 6;
     public static final byte DIRECTION_WEST    = 7;
     public static final byte DIRECTION_NW      = 8;
+    public static final byte DIRECTION_2D      = 9;
     public static final byte DIRECTION_UP      = 9;
     public static final byte DIRECTION_DOWN    = 10;
     public static final byte DIRECTION_COUNT   = 11;  

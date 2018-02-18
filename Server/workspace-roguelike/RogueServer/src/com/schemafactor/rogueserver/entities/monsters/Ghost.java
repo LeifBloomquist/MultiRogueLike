@@ -8,7 +8,7 @@ import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class Ghost extends ServerControlled
+public class Ghost extends Monster
 {  
     private static final long serialVersionUID = 1L;
     

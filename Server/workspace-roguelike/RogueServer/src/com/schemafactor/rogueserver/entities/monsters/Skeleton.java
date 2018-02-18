@@ -7,7 +7,7 @@ import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class Skeleton extends ServerControlled
+public class Skeleton extends Monster
 {  
     private static final long serialVersionUID = 1L;
     

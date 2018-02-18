@@ -6,7 +6,7 @@ import java.time.Instant;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
 
-public abstract class ServerControlled extends Entity
+public abstract class Monster extends Entity
 {  
     // The entity this creature is currently chasing    
     Entity target = null;   
@@ -19,7 +19,7 @@ public abstract class ServerControlled extends Entity
     protected float actionTime = 1000f;   // Milliseconds   
            
     /** Creates a new instance of Server Controlled */
-    public ServerControlled(String name, Position startposition, entityTypes type, byte charCode, float actionTime, float maxDamage)
+    public Monster(String name, Position startposition, entityTypes type, byte charCode, float actionTime, float maxDamage)
     {
        super(name, startposition, type, charCode, maxDamage);  
        this.actionTime = actionTime;

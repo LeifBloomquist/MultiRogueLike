@@ -8,7 +8,7 @@ import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class Bat extends ServerControlled
+public class Bat extends Monster
 {  
     /** Creates a new instance of the Bat */
     public Bat(String name, Position startposition)
@@ -32,7 +32,7 @@ public class Bat extends ServerControlled
                
             case WANDERING:
             {                               
-                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));               
+                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_2D));      // Stay on level           
                 
                 // Is a Human entity too close?
                 List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 3);

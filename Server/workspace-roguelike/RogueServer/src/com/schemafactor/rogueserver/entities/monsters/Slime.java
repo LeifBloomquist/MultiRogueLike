@@ -9,11 +9,11 @@ import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
-import com.schemafactor.rogueserver.entities.monsters.ServerControlled;
-import com.schemafactor.rogueserver.entities.monsters.ServerControlled.States;
+import com.schemafactor.rogueserver.entities.monsters.Monster;
+import com.schemafactor.rogueserver.entities.monsters.Monster.States;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class Slime extends ServerControlled
+public class Slime extends Monster
 {  
     /** Creates a new instance of the Slime */
     public Slime(String name, Position startposition)
@@ -49,7 +49,7 @@ public class Slime extends ServerControlled
                     this.actionTime = 1000f;                    
                 }
                 
-                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_COUNT));               
+                moved = attemptMove((byte)JavaTools.generator.nextInt(Constants.DIRECTION_2D));               
                 
                 // Is a Human entity too close?
                 List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 3);
