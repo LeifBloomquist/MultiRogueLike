@@ -1,0 +1,557 @@
+Modules list:
+-------------
+rogue.o:
+    CODE              Offs = 000000   Size = 0001A8
+    RODATA            Offs = 000000   Size = 0000DE
+    BSS               Offs = 000000   Size = 000007
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+    CLIENTCODE        Offs = 000000   Size = 000DA6
+ip65/ip65/ip65.lib(copymem.o):
+    CODE              Offs = 0001A8   Size = 000027
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000007   Size = 000001
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+    IP65ZP            Offs = 000000   Size = 000004
+ip65/ip65/ip65.lib(config.o):
+    CODE              Offs = 0001CF   Size = 00001D
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000008   Size = 00001F
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+    IP65_DEFAULTS     Offs = 000000   Size = 00001F
+ip65/ip65/ip65.lib(timer.o):
+    CODE              Offs = 0001EC   Size = 000018
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000027   Size = 000002
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/ip65/ip65.lib(eth.o):
+    CODE              Offs = 000204   Size = 000020
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000029   Size = 000BE0
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/ip65/ip65.lib(arp.o):
+    CODE              Offs = 000224   Size = 000202
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000C09   Size = 000066
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+    IP65ZP            Offs = 000004   Size = 000002
+ip65/ip65/ip65.lib(ip65.o):
+    CODE              Offs = 000426   Size = 00005D
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000C6F   Size = 000004
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/ip65/ip65.lib(dhcp.o):
+    CODE              Offs = 000483   Size = 00028A
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000C73   Size = 000005
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/ip65/ip65.lib(output_buffer.o):
+    CODE              Offs = 00070D   Size = 000000
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000C78   Size = 000208
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/ip65/ip65.lib(ip.o):
+    CODE              Offs = 00070D   Size = 0001FF
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000E80   Size = 00000C
+    DATA              Offs = 000000   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+    IP65ZP            Offs = 000006   Size = 000002
+ip65/ip65/ip65.lib(icmp.o):
+    CODE              Offs = 00090C   Size = 000230
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000E8C   Size = 000009
+    DATA              Offs = 000000   Size = 000003
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+    TCP_VARS          Offs = 000000   Size = 000008
+ip65/ip65/ip65.lib(udp.o):
+    CODE              Offs = 000B3C   Size = 000177
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000E95   Size = 00001F
+    DATA              Offs = 000003   Size = 000003
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/drivers/c64rrnet.lib(c64print.o):
+    CODE              Offs = 000CB3   Size = 000058
+    RODATA            Offs = 0000DE   Size = 000000
+    BSS               Offs = 000EB4   Size = 000001
+    DATA              Offs = 000006   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/drivers/c64rrnet.lib(rr-net.o):
+    CODE              Offs = 000D0B   Size = 000009
+    RODATA            Offs = 0000DE   Size = 000009
+    BSS               Offs = 000EB5   Size = 000000
+    DATA              Offs = 000006   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/drivers/c64rrnet.lib(c64timer.o):
+    CODE              Offs = 000D14   Size = 00003F
+    RODATA            Offs = 0000E7   Size = 000000
+    BSS               Offs = 000EB5   Size = 000000
+    DATA              Offs = 000006   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/drivers/c64rrnet.lib(c64inputs.o):
+    CODE              Offs = 000D53   Size = 0000DA
+    RODATA            Offs = 0000E7   Size = 000000
+    BSS               Offs = 000EB5   Size = 00002D
+    DATA              Offs = 000006   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/drivers/c64rrnet.lib(petscii_charconv.o):
+    CODE              Offs = 000E2D   Size = 00000A
+    RODATA            Offs = 0000E7   Size = 000200
+    BSS               Offs = 000EE2   Size = 000000
+    DATA              Offs = 000006   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+ip65/drivers/c64rrnet.lib(cs8900a.o):
+    CODE              Offs = 000E37   Size = 000151
+    RODATA            Offs = 0002E7   Size = 000000
+    BSS               Offs = 000EE2   Size = 000000
+    DATA              Offs = 000006   Size = 000000
+    ZEROPAGE          Offs = 000000   Size = 000000
+    NULL              Offs = 000000   Size = 000000
+    IP65ZP            Offs = 000008   Size = 000002
+
+
+Segment list:
+-------------
+Name                  Start   End     Size
+--------------------------------------------
+NULL                  000000  000000  000000
+ZEROPAGE              000002  000002  000000
+IP65ZP                00005F  000068  00000A
+BSS                   0007FF  0016E0  000EE2
+CLIENTCODE            006000  006DA5  000DA6
+CODE                  006DA6  007D2D  000F88
+DATA                  007D2E  007D33  000006
+RODATA                007D34  00801A  0002E7
+IP65_DEFAULTS         00801B  008039  00001F
+TCP_VARS              00803A  008041  000008
+
+
+Exports list:
+-------------
+__CODE_LOAD__             006DA6  LA    __CODE_RUN__              006DA6  LA    
+__CODE_SIZE__             000F88  EA    __DATA_LOAD__             007D2E  LA    
+__DATA_RUN__              007D2E  LA    __DATA_SIZE__             000006  EA    
+__IP65_DEFAULTS_LOAD__    00801B  LA    __IP65_DEFAULTS_RUN__     00801B  LA    
+__IP65_DEFAULTS_SIZE__    00001F  EA    __RODATA_LOAD__           007D34  LA    
+__RODATA_RUN__            007D34  LA    __RODATA_SIZE__           0002E7  EA    
+ac_size                   000008  EZ    arp_add                   007156  LA    
+arp_cache                 001413  LA    arp_calculate_gateway_mask 006FD4 RLA    
+arp_init                  006FCA RLA    arp_ip                    00140F RLA    
+arp_lookup                006FF9 RLA    arp_mac                   001409 RLA    
+arp_process               0070D8 RLA    ascii_to_native           007BD8 RLA    
+beep                      007A63  LA    cfg_default_drive         000825  LA    
+cfg_dns                   000819 RLA    cfg_gateway               000815 RLA    
+cfg_get_configuration_ptr 006F75 RLA    cfg_init                  006F7B RLA    
+cfg_ip                    00080D RLA    cfg_mac                   000807 RLA    
+cfg_mac_default           00801B  LA    cfg_netmask               000811 RLA    
+cfg_size                  000020  EA    cfg_tftp_server           000821 RLA    
+check_for_abort_key       007B08 RLA    cls                       007A5E  LA    
+copy_dest                 000061 RLZ    copy_src                  00005F RLZ    
+copymem                   006F4E RLA    cs_init                   007AB1 RLA    
+cs_packet_data            00DE04 REA    cs_packet_page            00DE02 REA    
+cs_rxtx_data              00DE08 REA    cs_tx_cmd                 00DE0C REA    
+cs_tx_len                 00DE0E REA    dhcp_init                 007229 RLA    
+dhcp_msg                  007DBC  LA    dhcp_server               00081D RLA    
+dhcp_state                001472  LA    dns_server_msg            007D8F  LA    
+eth_data                  00000E REZ    eth_dest                  000000 REZ    
+eth_driver_io_base        007E19 RLA    eth_driver_name           007E12 RLA    
+eth_init                  007BDD RLA    eth_inp                   00082A RLA    
+eth_inp_len               000828 RLA    eth_outp                  000E1A RLA    
+eth_outp_len              000E18 RLA    eth_proto_arp             000006 REZ    
+eth_proto_ip              000000 REZ    eth_rx                    007C36 RLA    
+eth_set_broadcast_dest    006FAA RLA    eth_set_my_mac_src        006FB5 RLA    
+eth_set_proto             006FC1 RLA    eth_src                   000006 REZ    
+eth_tx                    007C97 RLA    eth_type                  00000C  EZ    
+failed_msg                007DD0  LA    filter_dns                007BAC  LA    
+filter_ip                 007BC7  LA    filter_number             007BC8  LA    
+filter_text               007B9D  LA    filter_url                007BA5  LA    
+gateway_msg               007D80  LA    get_filtered_input        007B1D  LA    
+get_key                   007AF9  LA    get_key_if_available      00F142  EA    
+get_key_ip65              007AFF  LA    icmp_add_listener         00775E  LA    
+icmp_callback             00168B  LA    icmp_cksum                000002  EZ    
+icmp_code                 000001  EZ    icmp_data                 000004  EZ    
+icmp_echo_ip              00803A  LA    icmp_init                 0076B2 RLA    
+icmp_inp                  00084C  EA    icmp_outp                 000E3C  EA    
+icmp_ping                 00782F  LA    icmp_process              0076B8 RLA    
+icmp_remove_listener      00778A  LA    icmp_send_echo            0077BF  LA    
+icmp_type                 000000  EZ    init_msg                  007DC1  LA    
+ip65_ctr                  00146E  LA    ip65_ctr_arp              00146F  LA    
+ip65_ctr_ip               001470  LA    ip65_error                001471 RLA    
+ip65_init                 0071EE RLA    ip65_process              007207 RLA    
+ip65_random_word          0071CC  LA    ip_address_msg            007D62  LA    
+ip_broadcast              001683 RLA    ip_calc_cksum             00760E RLA    
+ip_cksum_ptr              000065 RLZ    ip_create_packet          00757A RLA    
+ip_data                   000014 REZ    ip_dest                   000010 REZ    
+ip_frag                   000006  EZ    ip_header_cksum           00000A REZ    
+ip_id                     000004 REZ    ip_init                   0074B3 RLA    
+ip_inp                    000838 REA    ip_len                    000002 REZ    
+ip_outp                   000E28 REA    ip_process                0074C8 RLA    
+ip_proto                  000009 REZ    ip_proto_icmp             000001 REZ    
+ip_proto_tcp              000006  EZ    ip_proto_udp              000011 REZ    
+ip_send                   0075A7 RLA    ip_src                    00000C REZ    
+ip_tos                    000001  EZ    ip_ttl                    000008  EZ    
+ip_ver_ihl                000000  EZ    mac_address_msg           007D53  LA    
+native_to_ascii           007BD3  LA    netmask_msg               007D71  LA    
+ok_msg                    007DD7  LA    output_buffer             001477 RLA    
+press_a_key_to_continue   007DF9  LA    print                     006E42  LA    
+print_a                   00FFD2 REA    print_a_inverse           007AA2  LA    
+print_ascii_as_native     006E58  LA    print_cr                  007A59 RLA    
+print_dotted_quad         006E71  LA    print_errorcode           006F3E  LA    
+print_hex                 006F25  LA    print_integer             006EAE  LA    
+print_ip_config           006DA6  LA    screen_current_col        0000D3  EZ    
+screen_current_row        0000D6  EZ    tftp_server_msg           007DAD  LA    
+timer_init                007ABA RLA    timer_read                007AED RLA    
+timer_seconds             007AE9  LA    timer_timeout             006F92 RLA    
+udp_add_listener          007915 RLA    udp_callback              001694 RLA    
+udp_cksum                 000006  EZ    udp_data                  000008 REZ    
+udp_dest_port             000002  EZ    udp_init                  0078E2 RLA    
+udp_inp                   00084C REA    udp_len                   000004  EZ    
+udp_outp                  000E3C  EA    udp_process               0078E8 RLA    
+udp_remove_listener       00795C RLA    udp_send                  0079A8 RLA    
+udp_send_dest             001696 RLA    udp_send_dest_port        00169C RLA    
+udp_send_len              00169E RLA    udp_send_src_port         00169A RLA    
+udp_src_port              000000  EZ    
+
+
+Imports list:
+-------------
+__CODE_LOAD__ ([linker generated]):
+__CODE_RUN__ ([linker generated]):
+__CODE_SIZE__ ([linker generated]):
+__DATA_LOAD__ ([linker generated]):
+__DATA_RUN__ ([linker generated]):
+__DATA_SIZE__ ([linker generated]):
+__IP65_DEFAULTS_LOAD__ ([linker generated]):
+__IP65_DEFAULTS_RUN__ ([linker generated]):
+__IP65_DEFAULTS_SIZE__ ([linker generated]):
+__RODATA_LOAD__ ([linker generated]):
+__RODATA_RUN__ ([linker generated]):
+__RODATA_SIZE__ ([linker generated]):
+ac_size (arp.o):
+arp_add (arp.o):
+arp_cache (arp.o):
+arp_calculate_gateway_mask (arp.o):
+    dhcp.o                    dhcp.s(29)
+arp_init (arp.o):
+    ip65.o                    ip65.s(23)
+arp_ip (arp.o):
+    ip.o                      ip.s(48)
+arp_lookup (arp.o):
+    ip.o                      ip.s(46)
+arp_mac (arp.o):
+    ip.o                      ip.s(47)
+arp_process (arp.o):
+    ip65.o                    ip65.s(32)
+ascii_to_native (petscii_charconv.o):
+    rogue.o                   ip65/inc/commonprint.i(32)
+beep (c64print.o):
+cfg_default_drive (config.o):
+cfg_dns (config.o):
+    dhcp.o                    dhcp.s(27)
+cfg_gateway (config.o):
+    arp.o                     arp.s(28)
+    dhcp.o                    dhcp.s(26)
+cfg_get_configuration_ptr (config.o):
+    rogue.o                   ip65/inc/commonprint.i(102)
+cfg_init (config.o):
+    ip65.o                    ip65.s(19)
+cfg_ip (config.o):
+    arp.o                     arp.s(26)
+    udp.o                     udp.s(54)
+    ip.o                      ip.s(30)
+    dhcp.o                    dhcp.s(24)
+cfg_mac (config.o):
+    cs8900a.o                 cs8900a.s(35)
+    arp.o                     arp.s(25)
+    eth.o                     eth.s(21)
+    ip.o                      ip.s(29)
+    dhcp.o                    dhcp.s(23)
+cfg_mac_default (config.o):
+cfg_netmask (config.o):
+    arp.o                     arp.s(27)
+    dhcp.o                    dhcp.s(25)
+cfg_size (config.o):
+cfg_tftp_server (config.o):
+    rogue.o                   ip65/inc/commonprint.i(38)
+check_for_abort_key (c64inputs.o):
+    dhcp.o                    dhcp.s(49)
+cls (c64print.o):
+copy_dest (copymem.o):
+    udp.o                     udp.s(52)
+    config.o                  config.s(21)
+copy_src (copymem.o):
+    c64inputs.o               c64inputs.s(11)
+    udp.o                     udp.s(51)
+    ip.o                      ip.s(60)
+    config.o                  config.s(20)
+    rogue.o                   ip65/inc/commonprint.i(37)
+copymem (copymem.o):
+    udp.o                     udp.s(50)
+    config.o                  config.s(19)
+cs_init (rr-net.o):
+    cs8900a.o                 cs8900a.s(28)
+cs_packet_data (rr-net.o):
+    cs8900a.o                 cs8900a.s(30)
+cs_packet_page (rr-net.o):
+    cs8900a.o                 cs8900a.s(29)
+cs_rxtx_data (rr-net.o):
+    cs8900a.o                 cs8900a.s(31)
+cs_tx_cmd (rr-net.o):
+    cs8900a.o                 cs8900a.s(32)
+cs_tx_len (rr-net.o):
+    cs8900a.o                 cs8900a.s(33)
+dhcp_init (dhcp.o):
+    rogue.o                   ip65/inc/net.i(11)
+dhcp_msg (rogue.o):
+dhcp_server (config.o):
+    dhcp.o                    dhcp.s(19)
+dhcp_state (dhcp.o):
+dns_server_msg (rogue.o):
+eth_data (eth.o):
+    ip.o                      ip.s(42)
+eth_dest (eth.o):
+    ip.o                      ip.s(39)
+eth_driver_io_base (rr-net.o):
+    rogue.o                   ip65/inc/commonprint.i(36)
+eth_driver_name (rr-net.o):
+    rogue.o                   ip65/inc/commonprint.i(35)
+eth_init (cs8900a.o):
+    ip65.o                    ip65.s(21)
+eth_inp (eth.o):
+    cs8900a.o                 cs8900a.s(18)
+    arp.o                     arp.s(15)
+    icmp.o                    icmp.s(52)
+    ip.o                      ip.s(34)
+    ip65.o                    ip65.s(27)
+eth_inp_len (eth.o):
+    cs8900a.o                 cs8900a.s(19)
+    icmp.o                    icmp.s(53)
+    ip.o                      ip.s(35)
+eth_outp (eth.o):
+    cs8900a.o                 cs8900a.s(20)
+    arp.o                     arp.s(17)
+    icmp.o                    icmp.s(54)
+    ip.o                      ip.s(36)
+    ip65.o                    ip65.s(28)
+eth_outp_len (eth.o):
+    cs8900a.o                 cs8900a.s(21)
+    arp.o                     arp.s(18)
+    icmp.o                    icmp.s(55)
+    ip.o                      ip.s(37)
+eth_proto_arp (eth.o):
+    arp.o                     arp.s(23)
+    ip65.o                    ip65.s(34)
+eth_proto_ip (eth.o):
+    ip.o                      ip.s(43)
+eth_rx (cs8900a.o):
+    ip65.o                    ip65.s(29)
+eth_set_broadcast_dest (eth.o):
+    arp.o                     arp.s(20)
+eth_set_my_mac_src (eth.o):
+    arp.o                     arp.s(21)
+eth_set_proto (eth.o):
+    arp.o                     arp.s(22)
+    ip.o                      ip.s(33)
+eth_src (eth.o):
+    ip.o                      ip.s(40)
+eth_tx (cs8900a.o):
+    arp.o                     arp.s(19)
+    icmp.o                    icmp.s(51)
+    ip.o                      ip.s(32)
+eth_type (eth.o):
+failed_msg (rogue.o):
+filter_dns (c64inputs.o):
+filter_ip (c64inputs.o):
+filter_number (c64inputs.o):
+filter_text (c64inputs.o):
+filter_url (c64inputs.o):
+gateway_msg (rogue.o):
+get_filtered_input (c64inputs.o):
+get_key (c64inputs.o):
+get_key_if_available (c64inputs.o):
+get_key_ip65 (c64inputs.o):
+icmp_add_listener (icmp.o):
+icmp_callback (icmp.o):
+icmp_cksum (icmp.o):
+icmp_code (icmp.o):
+icmp_data (icmp.o):
+icmp_echo_ip (icmp.o):
+icmp_init (icmp.o):
+    ip.o                      ip.s(50)
+icmp_inp (icmp.o):
+icmp_outp (icmp.o):
+icmp_ping (icmp.o):
+icmp_process (icmp.o):
+    ip.o                      ip.s(51)
+icmp_remove_listener (icmp.o):
+icmp_send_echo (icmp.o):
+icmp_type (icmp.o):
+init_msg (rogue.o):
+ip65_ctr (ip65.o):
+ip65_ctr_arp (ip65.o):
+ip65_ctr_ip (ip65.o):
+ip65_error (ip65.o):
+    cs8900a.o                 cs8900a.s(37)
+    udp.o                     udp.s(11)
+    icmp.o                    icmp.s(33)
+    dhcp.o                    dhcp.s(22)
+    rogue.o                   ip65/inc/commonprint.i(28)
+ip65_init (ip65.o):
+    rogue.o                   ip65/inc/net.i(1)
+ip65_process (ip65.o):
+    c64inputs.o               c64inputs.s(13)
+    icmp.o                    icmp.s(32)
+    dhcp.o                    dhcp.s(31)
+    rogue.o                   ip65/inc/net.i(2)
+ip65_random_word (ip65.o):
+ip_address_msg (rogue.o):
+ip_broadcast (ip.o):
+    icmp.o                    icmp.s(38)
+ip_calc_cksum (ip.o):
+    udp.o                     udp.s(35)
+    icmp.o                    icmp.s(35)
+ip_cksum_ptr (ip.o):
+    udp.o                     udp.s(40)
+    icmp.o                    icmp.s(44)
+ip_create_packet (ip.o):
+    udp.o                     udp.s(37)
+    icmp.o                    icmp.s(40)
+ip_data (ip.o):
+    udp.o                     udp.s(44)
+    icmp.o                    icmp.s(48)
+ip_dest (ip.o):
+    udp.o                     udp.s(43)
+    icmp.o                    icmp.s(47)
+ip_frag (ip.o):
+ip_header_cksum (ip.o):
+    icmp.o                    icmp.s(45)
+ip_id (ip.o):
+    udp.o                     udp.s(47)
+ip_init (ip.o):
+    ip65.o                    ip65.s(24)
+ip_inp (ip.o):
+    udp.o                     udp.s(38)
+    icmp.o                    icmp.s(36)
+ip_len (ip.o):
+    udp.o                     udp.s(48)
+    icmp.o                    icmp.s(49)
+ip_outp (ip.o):
+    udp.o                     udp.s(39)
+    icmp.o                    icmp.s(37)
+ip_process (ip.o):
+    ip65.o                    ip65.s(31)
+ip_proto (ip.o):
+    udp.o                     udp.s(45)
+    icmp.o                    icmp.s(41)
+ip_proto_icmp (ip.o):
+    icmp.o                    icmp.s(42)
+ip_proto_tcp (ip.o):
+ip_proto_udp (ip.o):
+    udp.o                     udp.s(46)
+ip_send (ip.o):
+    udp.o                     udp.s(36)
+    icmp.o                    icmp.s(39)
+ip_src (ip.o):
+    icmp.o                    icmp.s(46)
+ip_tos (ip.o):
+ip_ttl (ip.o):
+ip_ver_ihl (ip.o):
+mac_address_msg (rogue.o):
+native_to_ascii (petscii_charconv.o):
+netmask_msg (rogue.o):
+ok_msg (rogue.o):
+output_buffer (output_buffer.o):
+    dhcp.o                    dhcp.s(43)
+press_a_key_to_continue (rogue.o):
+print (rogue.o):
+print_a (c64print.o):
+    rogue.o                   ip65/inc/commonprint.i(88)
+print_a_inverse (c64print.o):
+print_ascii_as_native (rogue.o):
+print_cr (c64print.o):
+    rogue.o                   ip65/inc/commonprint.i(89)
+print_dotted_quad (rogue.o):
+print_errorcode (rogue.o):
+print_hex (rogue.o):
+print_integer (rogue.o):
+print_ip_config (rogue.o):
+screen_current_col (c64print.o):
+screen_current_row (c64print.o):
+tftp_server_msg (rogue.o):
+timer_init (c64timer.o):
+    ip65.o                    ip65.s(22)
+timer_read (c64timer.o):
+    arp.o                     arp.s(30)
+    timer.o                   timer.s(13)
+    icmp.o                    icmp.s(56)
+    dhcp.o                    dhcp.s(50)
+    ip65.o                    ip65.s(25)
+timer_seconds (c64timer.o):
+timer_timeout (timer.o):
+    arp.o                     arp.s(31)
+    icmp.o                    icmp.s(57)
+udp_add_listener (udp.o):
+    dhcp.o                    dhcp.s(33)
+    rogue.o                   network.s(25)
+udp_callback (udp.o):
+    dhcp.o                    dhcp.s(36)
+    rogue.o                   network.s(26)
+udp_cksum (udp.o):
+udp_data (udp.o):
+    dhcp.o                    dhcp.s(41)
+    rogue.o                   network.s(29)
+udp_dest_port (udp.o):
+udp_init (udp.o):
+    ip.o                      ip.s(53)
+    rogue.o                   network.s(18)
+udp_inp (udp.o):
+    dhcp.o                    dhcp.s(39)
+    rogue.o                   network.s(28)
+udp_len (udp.o):
+udp_outp (udp.o):
+udp_process (udp.o):
+    ip.o                      ip.s(54)
+udp_remove_listener (udp.o):
+    dhcp.o                    dhcp.s(34)
+udp_send (udp.o):
+    dhcp.o                    dhcp.s(37)
+    rogue.o                   network.s(19)
+udp_send_dest (udp.o):
+    dhcp.o                    dhcp.s(45)
+    rogue.o                   network.s(20)
+udp_send_dest_port (udp.o):
+    dhcp.o                    dhcp.s(47)
+    rogue.o                   network.s(21)
+udp_send_len (udp.o):
+    dhcp.o                    dhcp.s(48)
+    rogue.o                   network.s(23)
+udp_send_src_port (udp.o):
+    dhcp.o                    dhcp.s(46)
+    rogue.o                   network.s(22)
+udp_src_port (udp.o):
+
