@@ -12,13 +12,13 @@ import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class HumanPlayerUDP extends HumanPlayer
+public class ClientC64 extends Client
 {         
-   /** Creates a new instance of Human Player */
-   public HumanPlayerUDP(DatagramPacket packet)
+   /** Creates a new instance of C64 Client */
+   public ClientC64(DatagramPacket packet)
    {
        // Random starting positions on Level 0 for multiple players  TODO
-       super("Human Player", new Position(5,5,0), entityTypes.HUMAN_PLAYER, Constants.CHAR_PLAYER_NONE);
+       super("C64 Client", new Position(5,5,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
        // [" + JavaTools.packetAddress(packet)+"]
 
        userIP = packet.getAddress();

@@ -15,7 +15,7 @@ public abstract class Entity implements java.io.Serializable
 {
    protected static final long serialVersionUID = 1L;
 
-   public static enum entityTypes {NONE, HUMAN_PLAYER, NPC, MONSTER}
+   public static enum entityTypes {NONE, CLIENT, NPC, MONSTER}
    protected entityTypes myType = entityTypes.NONE;
    
    protected String description;
@@ -242,8 +242,8 @@ public abstract class Entity implements java.io.Serializable
            JavaTools.printlnTime(description + " was killed by " + attacker.description);
        }
        
-       // TODO:  This is a bit hacky.  Remove monsters instantly, but keep human players in game to keep sending updates.       
-       if (myType == entityTypes.HUMAN_PLAYER)
+       // TODO:  This is a bit hacky.  Remove monsters instantly, but keep clients in game to keep sending updates.       
+       if (myType == entityTypes.CLIENT)
        {
            // Remove from map only.   This clears the cell for the drops below.
            Dungeon.getInstance().getCell(position).setEntity(null);

@@ -13,15 +13,16 @@ import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public class HumanPlayerTCP extends HumanPlayer
+public class ClientTelnet extends Client
 {   
+    private static final long serialVersionUID = 1L;
     PrintWriter output= null;
     
-   /** Creates a new instance of Human Player 
+   /** Creates a new instance of Telnet Client 
  * @param output */         
-   public HumanPlayerTCP(String login, PrintWriter output)
+   public ClientTelnet(String login, PrintWriter output)
    {
-       super(login, new Position(15,15,0), entityTypes.HUMAN_PLAYER, Constants.CHAR_PLAYER_NONE);
+       super(login, new Position(15,15,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
        
        announceReceived = true;
        this.output = output;

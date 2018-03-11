@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.entities.clients.HumanPlayerTCP;
+import com.schemafactor.rogueserver.entities.clients.ClientTelnet;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.EscapeSequences;
 import com.schemafactor.rogueserver.universe.Dungeon;
@@ -180,7 +180,7 @@ public class TCPListener extends Thread
                 while (true) // Infinite cycle of life and death
                 {                    
                     // 1. Login
-                    HumanPlayerTCP who = doLogin();                
+                    ClientTelnet who = doLogin();                
                     if (who == null)
                     {
                         return;
@@ -217,7 +217,7 @@ public class TCPListener extends Thread
             }
         }
 
-        private HumanPlayerTCP doLogin() throws IOException
+        private ClientTelnet doLogin() throws IOException
         {
             // Login Loop
             while (true) 
@@ -249,12 +249,12 @@ public class TCPListener extends Thread
                 
                 // Create a player
                 JavaTools.printlnTime( "Creating player " + login + " from " + clientSocket.getRemoteSocketAddress().toString() + " [TCP]" );
-                return new HumanPlayerTCP(login, output);
+                return new ClientTelnet(login, output);
             }
         }
 
         // Game Loop.  Updates occur in background thread controlled by UpdaterThread.
-        private ExitReason gameLoop(HumanPlayerTCP who) throws IOException
+        private ExitReason gameLoop(ClientTelnet who) throws IOException
         {            
             while (true)
             {             

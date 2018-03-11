@@ -14,7 +14,7 @@ import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.NonBlockingFixedSizeQueue;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-public abstract class HumanPlayer extends Entity
+public abstract class Client extends Entity
 {        
    private static final long serialVersionUID = 1L;
    
@@ -39,7 +39,7 @@ public abstract class HumanPlayer extends Entity
    // Current Sound Effect ID
    byte soundFXID = Constants.SOUND_NONE;
    
-   public HumanPlayer(String description, Position startposition, entityTypes type, byte charCode)
+   public Client(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f);
        

@@ -212,7 +212,7 @@ public class Spawner
            if (m.isDead())
            {
                List<Entity> nearby = Dungeon.getInstance().getEntitiesOnScreenCentered(m.getPosition());
-               List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(m, entityTypes.HUMAN_PLAYER, nearby);
+               List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(m, entityTypes.CLIENT, nearby);
                
                if (nearby_humans.size() == 0)
                {

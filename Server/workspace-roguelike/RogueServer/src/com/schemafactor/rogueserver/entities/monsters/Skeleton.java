@@ -37,7 +37,7 @@ public class Skeleton extends Monster
             {   
                 // Is a Human entity nearby?
                 List<Entity> nearby = Dungeon.getInstance().getEntitiesRange(this, 5);
-                List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(this, entityTypes.HUMAN_PLAYER, nearby);
+                List<Entity> nearby_humans = Dungeon.getInstance().getEntitiesType(this, entityTypes.CLIENT, nearby);
                 
                 if (nearby_humans.size() == 0) // All clear, keep waiting or head home
                 {

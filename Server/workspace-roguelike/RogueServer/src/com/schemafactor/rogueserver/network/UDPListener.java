@@ -17,8 +17,8 @@ import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.clients.HumanPlayer;
-import com.schemafactor.rogueserver.entities.clients.HumanPlayerUDP;
+import com.schemafactor.rogueserver.entities.clients.Client;
+import com.schemafactor.rogueserver.entities.clients.ClientC64;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 /**
@@ -88,13 +88,13 @@ public class UDPListener
         Dungeon dungeon = Dungeon.getInstance();        
                 
         // Determine player        
-        List<Entity> humans = dungeon.getEntities(null, Entity.entityTypes.HUMAN_PLAYER);
+        List<Entity> clients = dungeon.getEntities(null, Entity.entityTypes.CLIENT);
         
-        for (Entity e : humans)
+        for (Entity e : clients)
         {   
             try
             {
-                HumanPlayerUDP hp = (HumanPlayerUDP)e;
+                ClientC64 hp = (ClientC64)e;
                 
                 if ( hp.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable, HashSet etc.
                 {
@@ -108,14 +108,14 @@ public class UDPListener
             }
             catch (Exception ex) 
             {
-                JavaTools.printlnTime("EXCEPTION: " + ex.getMessage() + " when receiving from UDP client");
+                JavaTools.printlnTime("EXCEPTION: " + ex.getMessage() + " when receiving from C64 UDP client");
                 continue;
             }
         }
         
         // No match, create new user and add to list
         JavaTools.printlnTime( "Creating new player from " + JavaTools.packetAddress(packet) + " [UDP]");
-        HumanPlayer who = new HumanPlayerUDP(packet);        
+        Client who = new ClientC64(packet);        
         dungeon.addEntity(who);
         
         return;  
