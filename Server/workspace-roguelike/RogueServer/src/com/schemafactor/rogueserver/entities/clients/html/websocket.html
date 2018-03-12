@@ -13,18 +13,19 @@
 <button onclick="moveWest()">West</button>
 <button onclick="moveEast()">East</button>
 <p>
-<button onclick="testDraw()">Draw</button>
+
+<p id ="action" style="color:white">No Action Yet</p>
 
 <p align="center">
   <canvas id="screen" width="640" height="400"></canvas>
 </p>
 
-<b><p id="live">Live!</p></b>
-<b><p id="hex">Hex</p></b>
+<b><p id="live" style="color:white">Live!</p></b>
+<b><p id="hex" style="color:white">Hex</p></b>
 
 <p id="demo">Top</p>
    <body>           
-   <script type="text/javascript" src="rogue.js"></script>   
+      <script type="text/javascript" src="rogue.js"></script>   
                                        
       <div id="sse">
          <a href="javascript:WebSocketTest()">Connect WebSocket</a>

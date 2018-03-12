@@ -1,7 +1,17 @@
 // rogue.js
 
-   var screen = document.querySelector("screen");                       
-   var context = canvas.getContext("2d");
+   var imgfont = document.createElement("img");
+   imgfont.src = "c64font.png";
+   
+   var actiontext = document.getElementById("action");
+
+   var screen = document.getElementById("screen");                       
+   var context = screen.getContext("2d");
+   
+   context.imageSmoothingEnabled = false;
+   context.mozImageSmoothingEnabled = false;
+   context.webkitImageSmoothingEnabled = true;
+   context.msImageSmoothingEnabled = true;
    
    function toHexString(byteArray) 
    {
@@ -21,8 +31,7 @@
          context.fillRect(10, 10, 100, 50);
          
          // Let us open a web socket
-         var ws = new WebSocket("ws://localhost:3007/Rogue");
-         
+         var ws = new WebSocket("ws://localhost:3007/Rogue");         
          ws.binaryType = 'arraybuffer';
 	
          ws.onopen = function()
@@ -34,12 +43,9 @@
 	
          ws.onmessage = function (evt) 
          { 
-            var byteArray = new Uint8Array(evt.data)
-           // document.getElementById("live").innerHTML = received_msg;
+            var byteArray = new Uint8Array(evt.data);           
             document.getElementById("hex").innerHTML = toHexString(byteArray);
-            
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.fillRect(received_msg / 10, received_msg / 10, 100, 50);
+            drawScreen(byteArray.slice(30,357)); 
          };
 	
          ws.onclose = function()
@@ -60,25 +66,6 @@
       }
    }
 
-
-
-  // Test code for websockets
-  var array = new Uint8Array(357); 
-  array[42] = 10; 
-
-
-  var canvas  = document.getElementById("myCanvas");
-  var context = canvas.getContext("2d");
-  var imgfont = document.createElement("img");
-  imgfont.src = "c64font.png";
-
-  context.imageSmoothingEnabled = false;
-  context.mozImageSmoothingEnabled = false;
-  context.webkitImageSmoothingEnabled = true;
-  context.msImageSmoothingEnabled = true;
-
-  var ddscale = document.getElementById("ddScale");
-  var actiontext = document.getElementById("action");
 
   document.onkeydown = function(e) 
   { 
@@ -144,7 +131,7 @@
   function myScale()
   {
      context.setTransform(1, 0, 0, 1, 0, 0);
-     var scale = ddscale.value;
+     var scale = 2;  // ddscale.value;
      context.scale(scale,scale);
      repaint();
   }
@@ -153,7 +140,7 @@
   {
     // Background
     context.fillStyle = "grey"; 
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillRect(0, 0, screen.width, screen.height);
 
     // Screen
     context.fillStyle = "blue";
@@ -180,12 +167,6 @@
     }
   }
 
-  function testDraw()
-  {
-     drawScreen(array.slice(30,357));
-  }
-
-
   function drawChar(num, x, y)
   {
      const FONTWIDTH = 16;
@@ -204,3 +185,5 @@
   }
   
   imgfont.addEventListener("load", load());
+
+// EOF
