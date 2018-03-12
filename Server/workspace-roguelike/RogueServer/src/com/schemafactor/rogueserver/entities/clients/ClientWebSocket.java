@@ -46,18 +46,51 @@ public class ClientWebSocket extends Client
        else
        {
            JavaTools.printlnTime("DEBUG: Attempt to send to closed WebSocket " + description);
+           return;
        }
        
        lastUpdateSent = Instant.now();       
        return;
    }
 
-    public void receiveUpdate(byte[] message)
+    public void receiveUpdate(byte[] data)
     {
-        // TODO Auto-generated method stub
-        
-    }
-   
-   
-   
+        switch (data[0])   // Packet type
+        {
+            case Constants.CLIENT_ANNOUNCE:
+            {
+               // String raw_desc = PETSCII.toASCII(Arrays.copyOfRange(data, 2, data.length));   //  + " [" + JavaTools.packetAddress(packet) + "]";
+             //   description = JavaTools.Sanitize(raw_desc);
+                
+                if (!announceReceived)
+                {
+                    JavaTools.printlnTime( "Player Joined: " + description );                   
+                }
+                
+                announceReceived = true;
+            }
+            break;
+            
+            case Constants.CLIENT_UPDATE:
+            {             
+                int actioncounter=data[1];              
+                if (lastActionCounter == actioncounter) // Duplicate?
+                {
+                   return;
+                }
+                
+                lastActionCounter = actioncounter;     
+                
+                byte ascii_char =  data[2];      
+                handleKeystroke(ascii_char);              
+            }
+            break;
+            
+            default:
+            {
+                JavaTools.printlnTime("Bad packet type " + data[0] + " from " + description);
+                return;
+            }
+        }       
+    }  
 }

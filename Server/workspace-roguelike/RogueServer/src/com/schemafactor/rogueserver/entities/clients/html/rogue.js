@@ -13,6 +13,8 @@
    context.webkitImageSmoothingEnabled = true;
    context.msImageSmoothingEnabled = true;
    
+   var ws = null;
+   
    function toHexString(byteArray) 
    {
         return Array.from(byteArray, function(byte) 
@@ -24,28 +26,22 @@
    function WebSocketTest()
    {
       if ("WebSocket" in window)
-      {
-         document.getElementById("demo").innerHTML += "WebSocket is supported by your Browser!";
-         
-         context.fillStyle = "green";
-         context.fillRect(10, 10, 100, 50);
-         
+      {         
          // Let us open a web socket
-         var ws = new WebSocket("ws://localhost:3007/Rogue");         
+         ws = new WebSocket("ws://localhost:3007/Rogue");         
          ws.binaryType = 'arraybuffer';
 	
          ws.onopen = function()
          {
             // Web Socket is connected, send data using send()
             ws.send("Message to send");
-            document.getElementById("demo").innerHTML += "<p>Message is sent...";
          };
 	
          ws.onmessage = function (evt) 
          { 
             var byteArray = new Uint8Array(evt.data);           
-            document.getElementById("hex").innerHTML = toHexString(byteArray);
-            drawScreen(byteArray.slice(30,357)); 
+            // document.getElementById("hex").innerHTML = toHexString(byteArray);
+            drawScreen(byteArray.slice(1,358)); 
          };
 	
          ws.onclose = function()
@@ -54,8 +50,9 @@
             alert("Connection is closed..."); 
          };
 		
-         window.onbeforeunload = function(event) {
-            socket.close();
+         window.onbeforeunload = function(event) 
+         {
+            ws.close();
          };
       }
       
@@ -65,20 +62,34 @@
          alert("WebSocket NOT supported by your Browser!");
       }
    }
+   
+   var command_counter = 0;
 
+   function sendCommand(key)
+   {
+      var command = new Uint8Array(3);
+      command[0] = 2;   // Client Update  
+      command[1] = command_counter++;   // Counter
+      command[2] = key;
+      
+      if (ws != null)
+      {
+         ws.send(command);
+      }  
+   }
 
-  document.onkeydown = function(e) 
-  { 
-    switch (e.keyCode) 
-    { 
-        case 33:
-           moveUp();
-           break; 
-
-        case 34:
-           moveDown();
-           break; 
-
+   document.onkeypress = function(event) 
+   { 
+      var key = event.which;
+      sendCommand(key); 
+   };   
+  
+   document.onkeydown = function(event) 
+   { 
+      var key = event.which;
+        
+      switch (key) 
+      { 
         case 37: 
            moveWest(); 
            break; 
@@ -93,39 +104,34 @@
 
         case 40:
            moveSouth();
-           break; 
+           break;
      } 
-  };    
+  };     
 
 
-  function moveUp()
+  function Use()
   {
-     action.innerHTML = "Move Up";
-  }
-
-  function moveDown()
-  {
-     action.innerHTML = "Move Down";
+     sendCommand(42);
   }
 
   function moveNorth()
   {
-     action.innerHTML = "Move North";
+    sendCommand(119);
   }
 
   function moveSouth()
   {
-     action.innerHTML = "Move South";
+     sendCommand(115);
   }
 
   function moveWest()
   {
-     action.innerHTML = "Move West";
+     sendCommand(97);
   }
 
   function moveEast()
   {
-     action.innerHTML = "Move East";
+     sendCommand(100);
   }
 
   function myScale()
