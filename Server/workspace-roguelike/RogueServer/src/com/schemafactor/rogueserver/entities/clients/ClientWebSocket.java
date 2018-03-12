@@ -20,12 +20,10 @@ public class ClientWebSocket extends Client
     private static final long serialVersionUID = 1L;
     WebSocket websocket = null;
     
-    long test_counter = 0;
-    
     /** Creates a new instance of WebSocket Client */         
     public ClientWebSocket(WebSocket websocket)
     {
-       super("WebSocket Client", new Position(15,15,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
+       super("WebSocket Client " + websocket.getRemoteSocketAddress().getAddress().getHostAddress(), new Position(15,15,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
        announceReceived = false;       
        this.websocket = websocket;       
    }
@@ -38,19 +36,27 @@ public class ClientWebSocket extends Client
    // Send an update.  Can be called directly i.e. in response to a player action or change
    @Override
    public void updateNow()
-   {       
-       websocket.send("Test Counter: " + test_counter);       
-       test_counter++;
+   {     
+       byte[] buffer = getUpdateByteArray();
+       
+       if (websocket.isOpen())
+       {
+           websocket.send(buffer);       
+       }
+       else
+       {
+           JavaTools.printlnTime("DEBUG: Attempt to send to closed WebSocket " + description);
+       }
        
        lastUpdateSent = Instant.now();       
        return;
    }
 
-public void receiveUpdate(byte[] message)
-{
-    // TODO Auto-generated method stub
-    
-}
+    public void receiveUpdate(byte[] message)
+    {
+        // TODO Auto-generated method stub
+        
+    }
    
    
    

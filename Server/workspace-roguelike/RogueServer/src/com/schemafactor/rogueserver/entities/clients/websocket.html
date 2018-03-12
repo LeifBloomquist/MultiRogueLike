@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+   
+<h2>Websocket test...</h2>
+<p>My First Paragraph</p>
+
+<canvas width ="500" height="300"></canvas>
+
+<b><p id="live">Live!</p></b>
+<b><p id="hex">Hex</p></b>
+
+<p id="demo">Top</p>
+
+<script type="text/javascript">
+          
+   var canvas = document.querySelector("canvas");                       
+   var context = canvas.getContext("2d");
+   
+   function toHexString(byteArray) 
+   {
+        return Array.from(byteArray, function(byte) 
+        {
+             return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+        }).join(' ');
+   }
+
+   function WebSocketTest()
+   {
+      if ("WebSocket" in window)
+      {
+         document.getElementById("demo").innerHTML += "WebSocket is supported by your Browser!";
+         
+         context.fillStyle = "green";
+         context.fillRect(10, 10, 100, 50);
+         
+         // Let us open a web socket
+         var ws = new WebSocket("ws://localhost:3007/Rogue");
+         
+         ws.binaryType = 'arraybuffer';
+         // ws.binaryType = 'blob';
+	
+         ws.onopen = function()
+         {
+            // Web Socket is connected, send data using send()
+            ws.send("Message to send");
+            document.getElementById("demo").innerHTML += "<p>Message is sent...";
+         };
+	
+         ws.onmessage = function (evt) 
+         { 
+            var byteArray = new Uint8Array(evt.data)
+           // document.getElementById("live").innerHTML = received_msg;
+            document.getElementById("hex").innerHTML = toHexString(byteArray);
+            
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.fillRect(received_msg / 10, received_msg / 10, 100, 50);
+         };
+	
+         ws.onclose = function()
+         { 
+            // websocket is closed.
+            alert("Connection is closed..."); 
+         };
+		
+         window.onbeforeunload = function(event) {
+            socket.close();
+         };
+      }
+      
+      else
+      {
+         // The browser doesn't support WebSocket
+         alert("WebSocket NOT supported by your Browser!");
+      }
+   }
+</script>
+
+   </head>
+   <body>
+   
+      <div id="sse">
+         <a href="javascript:WebSocketTest()">Run WebSocket</a>
+      </div>
+      
+   </body>
+</html>

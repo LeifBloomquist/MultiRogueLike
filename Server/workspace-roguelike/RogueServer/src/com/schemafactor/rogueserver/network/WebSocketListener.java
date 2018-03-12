@@ -13,6 +13,7 @@ import org.java_websocket.server.WebSocketServer;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.clients.ClientWebSocket;
+import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class WebSocketListener extends WebSocketServer
 {
@@ -22,14 +23,38 @@ public class WebSocketListener extends WebSocketServer
     public WebSocketListener( int port ) 
     {
         super( new InetSocketAddress( port ) );    // throws UnknownHostException  ?
+    }    
+
+    @Override
+    public void onStart()
+    {
+        JavaTools.printlnTime("WebSocket Server started!");
+    }
+
+    @Override
+    public void onOpen(WebSocket conn, ClientHandshake handshake ) 
+    {
+        JavaTools.printlnTime("New WebSocket connection: " + handshake.getResourceDescriptor() + " from " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );        
+        ClientWebSocket cws = new ClientWebSocket(conn);       
+        wsClients.add(cws);
+        Dungeon.getInstance().addEntity(cws);
     }
     
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote )
     {
         ClientWebSocket which = findClient(conn);
-        wsClients.remove(which);
-        JavaTools.printlnTime("WebSocket connection closed: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );
+        
+        if (which != null)
+        {
+            wsClients.remove(which);
+            which.removeMe();
+            JavaTools.printlnTime("WebSocket connection closed: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );
+        }
+        else
+        {
+            JavaTools.printlnTime("DEBUG Error!  null websocket on close??");
+        }            
     }
 
     @Override
@@ -51,19 +76,7 @@ public class WebSocketListener extends WebSocketServer
         parseMessage(conn, message.array());
     }
 
-    @Override
-    public void onOpen(WebSocket conn, ClientHandshake handshake ) 
-    {
-        JavaTools.printlnTime("New WebSocket connection: " + handshake.getResourceDescriptor() + " from " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );        
-        ClientWebSocket cws = new ClientWebSocket(conn);       
-        wsClients.add(cws);
-    }
 
-    @Override
-    public void onStart()
-    {
-        JavaTools.printlnTime("WebSocket Server started!");
-    }
     
     private ClientWebSocket findClient(WebSocket conn)
     {

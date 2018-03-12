@@ -425,5 +425,132 @@ public abstract class Client extends Entity
    {
        soundCounter++;
        soundFXID = id;
-   }   
+   }  
+   
+   // Used by C64 and WebSocket clients
+   protected byte[] getUpdateByteArray()
+   { 
+       // Send data packet to the client              
+       byte[] buffer = new byte[527];       
+       buffer[0] = Constants.PACKET_UPDATE;
+       
+       int offset = 1;
+              
+       if (showingHelp)
+       {
+           String screen = "";
+          
+           screen += "Help (F1 to Exit)    ";
+           screen += "                     ";
+           screen += "QWE                  ";
+           screen += "ASD = Move           ";
+           screen += "ZXC                  ";
+           screen += "                     ";
+           screen += "SHIFT+Move = Attack  ";
+           screen += "                     ";
+           screen += "J = Pick up (Left)   ";
+           screen += "K = Pick up (Right)  ";
+           screen += "SHIFT+J,K = Drop     ";
+           screen += "                     ";
+           screen += "* = Use item (Seen)  ";
+           screen += ", = Use item (Left)  ";
+           screen += ". = Use item (Right) ";
+           screen += "                     ";
+           screen += "F1 = Help            ";
+                      
+           if (screen.length() != Constants.SCREEN_SIZE)
+           {
+               JavaTools.printlnTime("EXCEPTION: Mismatch in Help string size!!");
+               throw new RuntimeException("Mismatch in Help string size!!");
+           }
+           
+           System.arraycopy( screen.toUpperCase().getBytes(), 0, buffer, offset, Constants.SCREEN_SIZE );
+           
+       }
+       else if (isDead())
+       {
+           String screen = "";
+           String lava = "   " + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + "    ";
+           
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += lava;
+           screen += "   " + (char)Constants.CHAR_LAVA + " GAME  OVER " + (char)Constants.CHAR_LAVA + "    ";           
+           screen += lava;
+           screen += "                     ";
+           screen += "                     ";
+           screen += "   You have died!    ";
+           screen += "                     ";
+           screen += "  Play Again  Y/N?   ";
+           screen += "                     ";
+           screen += "                     ";           
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+                      
+           if (screen.length() != Constants.SCREEN_SIZE)
+           {
+               JavaTools.printlnTime("EXCEPTION: Mismatch in End Game string size!!");
+               throw new RuntimeException("Mismatch in  End Game string size!!");
+           }
+           
+           System.arraycopy( screen.toUpperCase().getBytes(), 0, buffer, offset, Constants.SCREEN_SIZE );
+       }
+       else // All good
+       {      
+           // Get the screen that is visible to this player
+           System.arraycopy( Dungeon.getInstance().getScreenCentered(position), 0, buffer, offset, Constants.SCREEN_SIZE );          
+       }
+       
+       offset += Constants.SCREEN_SIZE;
+       
+       // On screen messages
+       for (int i=3; i >= 0; i--)
+       {
+           byte[] message = getMessage(i).toUpperCase().getBytes();
+           System.arraycopy( message, 0, buffer, offset, Math.min(message.length, Constants.MESSAGE_LENGTH) );
+           offset += Constants.MESSAGE_LENGTH;
+       }
+       
+       // Item underneath current position
+       buffer[offset++] = Dungeon.getInstance().getCell(position).getItemCharCode();
+       
+       // Item currently held (left)
+       if (item_left != null)
+       {
+           buffer[offset++] = item_left.getCharCode();
+       }
+       else
+       {
+           buffer[offset++] = Constants.CHAR_EMPTY;
+       }
+       
+       // Item currently held (right)
+       if (item_right != null)
+       {
+           buffer[offset++] = item_right.getCharCode();
+       }
+       else
+       {
+           buffer[offset++] = Constants.CHAR_EMPTY;
+       }
+       
+       // Health Value
+       int ih = (int)health;  // Round
+       String sh = String.format("%1$3d", ih);  // To String with padding
+       byte[] bh = sh.getBytes();
+       System.arraycopy( bh, 0, buffer, offset, 3 );
+       offset += 3;
+       
+       // Sound Effects
+       buffer[offset++] = soundCounter;
+       buffer[offset++] = soundFXID;
+       
+       // End of packet marker
+       buffer[offset++] = (byte)255;
+       
+       return buffer;
+    }
 }
