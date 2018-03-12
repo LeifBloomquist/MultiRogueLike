@@ -6,23 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.common.Position;
-import com.schemafactor.rogueserver.entities.monsters.Bat;
-import com.schemafactor.rogueserver.entities.monsters.Ghost;
-import com.schemafactor.rogueserver.entities.monsters.Skeleton;
-import com.schemafactor.rogueserver.entities.monsters.Slime;
-import com.schemafactor.rogueserver.entities.monsters.Spider;
-import com.schemafactor.rogueserver.items.Chest;
-import com.schemafactor.rogueserver.items.Key;
-import com.schemafactor.rogueserver.items.MagicKey;
-import com.schemafactor.rogueserver.items.Note;
-import com.schemafactor.rogueserver.items.Potion;
-import com.schemafactor.rogueserver.items.Shield;
-import com.schemafactor.rogueserver.items.Sign;
-import com.schemafactor.rogueserver.items.Sword;
+import com.schemafactor.rogueserver.network.WebSocketListener;
 import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.UDPListener;
-import com.schemafactor.rogueserver.universe.Cell;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Main 
@@ -91,6 +77,12 @@ public class Main
         JavaTools.printlnTime("Creating TCP listener...");
         TCPListener tcp = new TCPListener();
         tcp.start(Constants.LISTEN_PORT);
+        
+        // Instantiate a WebSocket Server
+        JavaTools.printlnTime("Creating WebSocket listener...");
+        WebSocketListener ws = new WebSocketListener(Constants.WEBSOCKET_PORT);
+        ws.start();
+        JavaTools.printlnTime( "WebSocket Server started on port: " + ws.getPort() );
         
         // Instantiate a UDP listener, and let it take over.
         JavaTools.printlnTime("Creating UDP listener...");
