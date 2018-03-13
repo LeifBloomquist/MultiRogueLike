@@ -1,7 +1,7 @@
 // rogue.js
 
    var imgfont = document.createElement("img");
-   imgfont.src = "c64font.png";
+   imgfont.src = "roguefont.png";
    
    var actiontext = document.getElementById("action");
 
@@ -186,7 +186,7 @@
     {
        for (col=0; col < 21; col++)
        {
-          drawChar(charArray[char], row, col);
+          drawChar(charArray[char], row, col);            
           char++;
        }
     }
@@ -194,7 +194,7 @@
 
   function drawChar(num, x, y)
   {
-     const FONTWIDTH = 16;
+     const FONTWIDTH = 32;
      const CHARSIZE  = 8;
      
      var col = num % FONTWIDTH;
