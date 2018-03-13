@@ -165,7 +165,7 @@
   function repaint()
   {
     // Background
-    context.fillStyle = "grey"; 
+    context.fillStyle = "yellow"; 
     context.fillRect(0, 0, screen.width, screen.height);
 
     // Screen

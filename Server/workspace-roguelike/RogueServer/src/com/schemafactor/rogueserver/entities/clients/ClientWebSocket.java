@@ -60,18 +60,18 @@ public class ClientWebSocket extends Client
         {
             case '1':   // As provided by sendAnnounce() in JavaScript code 
             {
-                String description;
+                String name = "";
                 try
                 {
-                    description = new String(data, "UTF-8");
+                    name = new String(data, "UTF-8");
                 } 
                 catch (UnsupportedEncodingException e)
                 {
-                    JavaTools.printlnTime("EXCEPTION parsing string: " + e.getMessage());
+                    JavaTools.printlnTime("EXCEPTION parsing string: " + name + " " + e.getMessage());
                     return;
                 }
                 
-                description = description.substring(1, description.length());
+                this.description = name.substring(1, description.length());
                 
                 JavaTools.printlnTime( "WebSocket Player Joined: " + description );
                 announceReceived = true;
