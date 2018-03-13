@@ -10,44 +10,44 @@
    
    context.imageSmoothingEnabled = false;
    context.mozImageSmoothingEnabled = false;
-   context.webkitImageSmoothingEnabled = true;
-   context.msImageSmoothingEnabled = true;
+   context.webkitImageSmoothingEnabled = false;
+   context.msImageSmoothingEnabled = false;
    
    var ws = null;
-   
-   function toHexString(byteArray) 
-   {
-        return Array.from(byteArray, function(byte) 
-        {
-             return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-        }).join(' ');
-   }
 
    function WebSocketTest()
    {
       if ("WebSocket" in window)
-      {         
+      {
+         var person = prompt("Please enter your name", "");
+
+         if (person == null || person == "")  // Cancelled 
+         {
+            return;
+         }     
+         
+         person = person.substring(0, 16);
+          
          // Let us open a web socket
          ws = new WebSocket("ws://localhost:3007/Rogue");         
          ws.binaryType = 'arraybuffer';
 	
+         // Web Socket is connected
          ws.onopen = function()
-         {
-            // Web Socket is connected, send data using send()
-            ws.send("Message to send");
+         {          
+             sendAnnounce(person);
          };
 	
-         ws.onmessage = function (evt) 
+         ws.onmessage = function(evt) 
          { 
-            var byteArray = new Uint8Array(evt.data);           
-            // document.getElementById("hex").innerHTML = toHexString(byteArray);
+            var byteArray = new Uint8Array(evt.data);
             drawScreen(byteArray.slice(1,358)); 
          };
 	
          ws.onclose = function()
          { 
             // websocket is closed.
-            alert("Connection is closed..."); 
+            alert("Connection is closed!"); 
          };
 		
          window.onbeforeunload = function(event) 
@@ -61,6 +61,27 @@
          // The browser doesn't support WebSocket
          alert("WebSocket NOT supported by your Browser!");
       }
+   }
+   
+   function sendAnnounce(name)
+   {
+     // alert(name);
+      
+     // var announce = [];
+    //  announce.push(1);   // Announce
+
+    //  var utf8 = unescape(encodeURIComponent(name));
+
+   //   var announce = [];
+//      for (var i = 0; i < utf8.length; i++) 
+///      {
+///          announce.push(utf8.charCodeAt(i));
+//      }
+      
+      if (ws != null)
+      {
+         ws.send("1" + name);
+      }  
    }
    
    var command_counter = 0;
@@ -108,7 +129,6 @@
      } 
   };     
 
-
   function Use()
   {
      sendCommand(42);
@@ -116,7 +136,7 @@
 
   function moveNorth()
   {
-    sendCommand(119);
+     sendCommand(119);
   }
 
   function moveSouth()
@@ -151,7 +171,6 @@
     // Screen
     context.fillStyle = "blue";
     context.fillRect(0, 0, 320, 200);
-
   }
 
   function load()
@@ -167,7 +186,7 @@
     {
        for (col=0; col < 21; col++)
        {
-          drawChar(charArray[char], col, row);
+          drawChar(charArray[char], row, col);
           char++;
        }
     }
@@ -187,8 +206,9 @@
      x *= CHARSIZE;
      y *= CHARSIZE;  
    
-     context.drawImage(imgfont, col, row, CHARSIZE, CHARSIZE, x, y, CHARSIZE, CHARSIZE); 
+     context.drawImage(imgfont, col, row, CHARSIZE, CHARSIZE, y, x, CHARSIZE, CHARSIZE); 
   }
+  
   
   imgfont.addEventListener("load", load());
 

@@ -1,6 +1,7 @@
 package com.schemafactor.rogueserver.entities.clients;
 
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.time.Instant;
 import java.util.Arrays;
@@ -57,16 +58,22 @@ public class ClientWebSocket extends Client
     {
         switch (data[0])   // Packet type
         {
-            case Constants.CLIENT_ANNOUNCE:
+            case '1':   // As provided by sendAnnounce() in JavaScript code 
             {
-               // String raw_desc = PETSCII.toASCII(Arrays.copyOfRange(data, 2, data.length));   //  + " [" + JavaTools.packetAddress(packet) + "]";
-             //   description = JavaTools.Sanitize(raw_desc);
-                
-                if (!announceReceived)
+                String description;
+                try
                 {
-                    JavaTools.printlnTime( "Player Joined: " + description );                   
+                    description = new String(data, "UTF-8");
+                } 
+                catch (UnsupportedEncodingException e)
+                {
+                    JavaTools.printlnTime("EXCEPTION parsing string: " + e.getMessage());
+                    return;
                 }
                 
+                description = description.substring(1, description.length());
+                
+                JavaTools.printlnTime( "WebSocket Player Joined: " + description );
                 announceReceived = true;
             }
             break;
