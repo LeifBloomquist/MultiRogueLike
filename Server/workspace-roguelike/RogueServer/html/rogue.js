@@ -15,6 +15,11 @@
    context.webkitImageSmoothingEnabled = false;
    context.msImageSmoothingEnabled = false;
    
+   var audio_counter = -1;
+   var audio_step    = new Audio('sfx/step.mp3');
+   var audio_blocked = new Audio('sfx/blocked.mp3');
+   var audio_attack  = new Audio('sfx/attack.mp3');
+   
    var ws = null;
 
    function WebSocketStart()
@@ -65,6 +70,13 @@
             drawChar(byteArray[521], 31, 8); // Health
             drawChar(byteArray[522], 32, 8); // Health
             drawChar(byteArray[523], 33, 8); // Health
+            
+            // Sound effects
+            if (audio_counter != byteArray[524])
+            {
+               playSound(byteArray[525]);
+            }
+            audio_counter = byteArray[524];
                  
             // TODO, XP, Gold, etc.
          };
@@ -228,8 +240,6 @@
   
   function drawString(text, x, y)
   {
-     drawChar(5,x,y);
-     
      for (var p = 0; p < text.length; p++) 
      {
         var l = text.charCodeAt(p);
@@ -237,6 +247,30 @@
      }
   }
   
+  function playSound(sound)
+  {
+     switch(sound) 
+     {
+        case 0:
+           return;
+  
+        case 1:
+           audio_step.currentTime = 0;
+           audio_step.play();
+           return;
+        
+        case 2:
+           audio_blocked.currentTime = 0;
+           audio_blocked.play();
+           return;
+           
+        case 3:
+        case 5:
+           audio_attack.currentTime = 0;
+           audio_attack.play();
+           return;
+      }
+  }
   
   
   
