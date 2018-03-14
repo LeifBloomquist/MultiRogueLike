@@ -71,7 +71,7 @@ public class ClientWebSocket extends Client
                     return;
                 }
                 
-                this.description = name.substring(1, description.length());
+                this.description = name.substring(1, name.length());
                 
                 JavaTools.printlnTime( "WebSocket Player Joined: " + description );
                 announceReceived = true;
