@@ -15,7 +15,7 @@
    
    var ws = null;
 
-   function WebSocketTest()
+   function WebSocketStart()
    {
       if ("WebSocket" in window)
       {
@@ -64,20 +64,7 @@
    }
    
    function sendAnnounce(name)
-   {
-     // alert(name);
-      
-     // var announce = [];
-    //  announce.push(1);   // Announce
-
-    //  var utf8 = unescape(encodeURIComponent(name));
-
-   //   var announce = [];
-//      for (var i = 0; i < utf8.length; i++) 
-///      {
-///          announce.push(utf8.charCodeAt(i));
-//      }
-      
+   {      
       if (ws != null)
       {
          ws.send("1" + name);
@@ -176,6 +163,7 @@
   function load()
   {
       myScale();
+      WebSocketStart();
   }
 
   function drawScreen(charArray)
@@ -204,7 +192,11 @@
      row *= CHARSIZE;
 
      x *= CHARSIZE;
-     y *= CHARSIZE;  
+     y *= CHARSIZE;
+     
+     // Move the screen down and right by a character, to make room for the border 
+     x += CHARSIZE;
+     y += CHARSIZE;
    
      context.drawImage(imgfont, col, row, CHARSIZE, CHARSIZE, y, x, CHARSIZE, CHARSIZE); 
   }
