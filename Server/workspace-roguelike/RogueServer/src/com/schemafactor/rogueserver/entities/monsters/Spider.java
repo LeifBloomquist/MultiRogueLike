@@ -19,9 +19,15 @@ public class Spider extends Monster
     @Override
     public void takeAction()
     {   
+        // TODO Check logic were Spiders sometimes stop chasing targets
+        
         boolean moved = false;
 
-        if (target != null)
+        if (target == null) //  No target.  Wander around.
+        {
+            State = States.WANDERING;
+        }
+        else
         {
             if (target.getRemoved())   // Target disconnected, or was removed/killed
             {
@@ -100,7 +106,7 @@ public class Spider extends Monster
             
             case RETREATING:
             {
-                break;
+                State = States.WANDERING;
             }
         }
         
