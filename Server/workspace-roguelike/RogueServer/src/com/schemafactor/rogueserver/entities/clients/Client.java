@@ -431,7 +431,7 @@ public abstract class Client extends Entity
    protected byte[] getUpdateByteArray()
    { 
        // Send data packet to the client              
-       byte[] buffer = new byte[527];       
+       byte[] buffer = new byte[528];       
        buffer[0] = Constants.PACKET_UPDATE;
        
        int offset = 1;
@@ -547,6 +547,9 @@ public abstract class Client extends Entity
        // Sound Effects
        buffer[offset++] = soundCounter;
        buffer[offset++] = soundFXID;
+       
+       // Number of players
+       buffer[offset++] = (byte) Dungeon.getInstance().getNumPlayers();
        
        // End of packet marker
        buffer[offset++] = (byte)255;

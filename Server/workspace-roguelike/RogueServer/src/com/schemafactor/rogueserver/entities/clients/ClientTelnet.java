@@ -87,6 +87,10 @@ public class ClientTelnet extends Client
            char seen = PETSCII.getExtendedASCII( Dungeon.getInstance().getCell(position).getItemCharCode() );
            
            // Top of screen
+           screen += "Number of players in dungeon: " + Dungeon.getInstance().getNumPlayers();
+           screen += "\r\n";
+           
+           // Top border
            screen += border;
            
            for (int row=0; row < Constants.SCREEN_HEIGHT; row++)

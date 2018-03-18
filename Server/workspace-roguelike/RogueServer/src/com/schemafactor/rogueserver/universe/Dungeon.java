@@ -360,6 +360,32 @@ public class Dungeon implements java.io.Serializable
         return allEntities;
     }
     
+    public int getNumEntities()
+    {
+        if (allEntities != null)
+        {
+            return allEntities.size();
+        }
+        else
+        {
+            return 0;
+        }
+    }   
+    
+    public int getNumPlayers()
+    {
+        List<Entity> players = getEntities(null, Entity.entityTypes.CLIENT);
+            
+        if (players != null)
+        {
+            return players.size();
+        }
+        else
+        {
+            return 0;
+        }
+    }   
+    
     /** Get a list of all entities matching the given type, excluding the one who is doing the inquiry (who). */
     public List<Entity> getEntities(Entity who, Entity.entityTypes type)
     {
