@@ -10,16 +10,27 @@
 </p>
 
 <p align="center">
-<button onclick="moveNorth()">North</button>
-<br>
-<button onclick="moveWest()">West</button>
-<button onclick="moveEast()">East</button>
-<br>
-<button onclick="moveSouth()">South</button>
+  <button onclick="moveNorth()">North</button>
+  <br>
+  <button onclick="moveWest()">West</button>
+  <button onclick="moveEast()">East</button>
+  <br>
+  <button onclick="moveSouth()">South</button>
 </p>
 
 <p align="center">
-  <button onclick="Use()">Use</button>
+  <button onclick="Use(0)">Use (Seen)</button>
+  <br>
+  <button onclick="Use(1)">Use (Left)</button>
+  <button onclick="Use(2)">Use (Right)</button>
+</p>
+
+<p align="center">
+  <button onclick="PickUp(1)">Pick Up (Left)</button>
+  <button onclick="PickUp(2)">Pick Up (Right)</button>
+  <br>
+  <button onclick="Drop(1)">Drop (Left)</button>
+  <button onclick="Drop(2)">Drop (Right)</button>
 </p>
 
 <script type="text/javascript" src="rogue.js"></script>   
