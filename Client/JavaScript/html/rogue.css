@@ -23,3 +23,7 @@ div.right {
   padding: 50px;
   text-align: left;
 }
+
+body.noScroll { /* ...or body.dialogShowing */
+  overflow: hidden;
+}

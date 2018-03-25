@@ -79,6 +79,8 @@
             }
             audio_counter = byteArray[524];
                  
+            playerstext.innerHTML = "Number of players in dungeon: " + byteArray[526];
+                 
             // TODO, XP, Gold, etc.
          };
 	
@@ -161,6 +163,26 @@
   {
      sendCommand(42);
   }
+  
+  function Help()
+  {
+     var helptext = "Rogue Multiplayer Help (Keys)\n\n";
+     
+     helptext += "QWE\n";
+     helptext += "ASD = Move  (or use Arrow Keys)\n";
+     helptext += "ZXC\n\n";
+     helptext += "SHIFT+Move = Attack\n\n";
+     helptext += "J = Pick up item (Left  Hand)\n";
+     helptext += "K = Pick up item (Right Hand)\n\n";
+     helptext += "SHIFT+J,K = Drop Item (Left, Right)\n\n";
+     helptext += "* = Use item at current location\r\n";
+     helptext += ", = Use item (Left)\n";
+     helptext += ". = Use item (Right)\n\n";
+     helptext += "H = Shows C64 Help Screen\n";
+     
+     alert(helptext);
+  }
+  
 
   function moveNorth()
   {
