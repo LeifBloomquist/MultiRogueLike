@@ -1,0 +1,25 @@
+body {
+    background-color: black;
+}
+
+p {
+    color: white; 
+    font-family: verdana;
+    text-align: center;
+}
+
+div.center {
+  margin: auto;
+  width: 60%;
+  padding:20px;
+}
+
+div.left {
+  float: left;
+  margin-right: 25px;
+}
+
+div.right {
+  padding: 50px;
+  text-align: left;
+}

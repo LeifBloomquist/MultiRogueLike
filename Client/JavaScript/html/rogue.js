@@ -3,7 +3,7 @@
    var imgfont = document.createElement("img");
    imgfont.src = "roguefont.png";
    
-   var actiontext = document.getElementById("action");
+   var playerstext = document.getElementById("players");
 
    var screen = document.getElementById("screen");                       
    var context = screen.getContext("2d");
@@ -85,7 +85,8 @@
          ws.onclose = function()
          { 
             // websocket is closed.
-            alert("Connection is closed!"); 
+            alert("Server connection has been closed.");
+            window.location.replace('index.html'); 
          };
 		
          window.onbeforeunload = function(event) 
