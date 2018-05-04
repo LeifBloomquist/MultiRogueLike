@@ -68,10 +68,8 @@ public abstract class Client extends Entity
        
        // Filter out commands coming in too fast.
        Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());     
-        
-       
-       
-       if (elapsed.toMillis() <= Constants.CLIENT_ACTION_TIME)   // Too fast!
+               
+       if (elapsed.toMillis() <= Constants.CLIENT_ACTION_TIME_LIMIT)   // Too fast!
        {    
            //JavaTools.printlnTime("DEBUG: TOO Fast!   Elapsed millis = " + elapsed.toMillis());
            return;   // Not time to act yet   TODO, Why does this jump to 230 ms?
@@ -106,8 +104,7 @@ public abstract class Client extends Entity
        // Normal keystrokes       
        
        switch (inputchar)
-       {
-       
+       {       
            case 'q':
                handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NW);
                break;

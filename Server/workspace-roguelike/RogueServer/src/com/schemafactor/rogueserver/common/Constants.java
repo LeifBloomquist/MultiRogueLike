@@ -3,14 +3,14 @@ package com.schemafactor.rogueserver.common;
 public class Constants 
 {
     // Server version
-    public static final double VERSION        = 0.006;
+    public static final double VERSION        = 0.007;
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
     public static final int DUNGEON_SIZE      = 100;    // Per Side  (Mini Server to start!  TODO go back to 1000)
     public static final int DUNGEON_DEPTH     = 4;      // Levels
-    public static final long DOOR_RELOCK_TIME = 10000;  // 10 seconds
-    public static final float CLIENT_ACTION_TIME = 50f;  // 250 milliseconds
+    public static final long DOOR_RELOCK_TIME = 5000;   // 5 seconds
+    public static final float CLIENT_ACTION_TIME_LIMIT = 50f;  // 50 milliseconds
         
     // Network Constants
     public static final int  LISTEN_PORT      = 3006;   // UDP and TCP

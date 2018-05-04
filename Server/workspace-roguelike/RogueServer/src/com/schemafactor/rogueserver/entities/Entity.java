@@ -53,7 +53,9 @@ public abstract class Entity implements java.io.Serializable
    public void respawn()
    {
        position = new Position(home);
+       this.removeMeFlag = false;
        health = 100;
+       Dungeon.getInstance().addEntity(this);  // Re-add to main list
        this.addMessage("Restarted...");
    }
    
