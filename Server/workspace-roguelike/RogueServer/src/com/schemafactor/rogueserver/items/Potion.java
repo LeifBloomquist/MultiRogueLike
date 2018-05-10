@@ -2,10 +2,13 @@ package com.schemafactor.rogueserver.items;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.common.interfaces.Rechargeable;
 import com.schemafactor.rogueserver.entities.Entity;
 
-public class Potion extends Item
+public class Potion extends Item implements Rechargeable
 {
+    private static final long serialVersionUID = 1L;
+    
     private float amount = 0;
     private float max_amount = 0;
     

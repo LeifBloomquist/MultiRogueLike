@@ -94,16 +94,16 @@ public abstract class Entity implements java.io.Serializable
        }    
    }
    
-   protected boolean attemptTeleport() 
-   {   
-       int destx = JavaTools.generator.nextInt(Dungeon.getInstance().getXsize());
-       int desty = JavaTools.generator.nextInt(Dungeon.getInstance().getYsize());
-       int destz = JavaTools.generator.nextInt(Dungeon.getInstance().getZsize());
-       
-       if (destz == 0) destz=1;  // TODO, don't teleport to top level
-       
-       Position target_pos = new Position(destx, desty, destz);
-       
+   // Teleport to closest empty cell to a random position.
+   public boolean attemptTeleport()
+   {
+       Position target_pos = Dungeon.getInstance().getRandomPosition();
+       return attemptTeleport(target_pos);
+   }
+   
+   // Teleport to closest empty cell to the specified position.
+   public boolean attemptTeleport(Position target_pos) 
+   {       
        Cell current_cell = Dungeon.getInstance().getCell(this.position); 
        Position dest_pos = Dungeon.getInstance().getClosestEmptyCell(target_pos, Constants.EMPTY_CELL_SEARCH_DEPTH);
        Cell dest_cell = Dungeon.getInstance().getCell( dest_pos );       

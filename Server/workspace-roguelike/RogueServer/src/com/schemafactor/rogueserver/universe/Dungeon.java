@@ -431,7 +431,7 @@ public class Dungeon implements java.io.Serializable
     }
     
     /** Get a list of all entities within a certain radius of a position - use for future spells or range attacks?*/
-    private List<Entity> getEntitiesRange(Position pos, double range)
+    public List<Entity> getEntitiesRange(Position pos, double range)
     {
         DummyEntity dummy = new DummyEntity(pos);
         return getEntitiesRange(dummy, range);       
