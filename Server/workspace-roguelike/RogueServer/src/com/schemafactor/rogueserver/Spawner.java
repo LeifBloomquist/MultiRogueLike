@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.common.interfaces.Rechargeable;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.monsters.Bat;
@@ -18,6 +19,7 @@ import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
 import com.schemafactor.rogueserver.items.Chest;
+import com.schemafactor.rogueserver.items.Gem;
 import com.schemafactor.rogueserver.items.MagicKey;
 import com.schemafactor.rogueserver.items.Note;
 import com.schemafactor.rogueserver.items.Potion;
@@ -36,7 +38,7 @@ public class Spawner
     private static List<Monster> allMonsters = Collections.synchronizedList(new ArrayList<Monster>());
     
     // List of all potions    
-    private static List<Potion> allPotions = Collections.synchronizedList(new ArrayList<Potion>());
+    private static List<Rechargeable> allRechargeItems = Collections.synchronizedList(new ArrayList<Rechargeable>());
     
     public static void spawnEntities(Dungeon dungeon)
     {   
@@ -133,8 +135,8 @@ public class Spawner
         Potion p1 = new Potion(500);
         Potion p2 = new Potion(500);
         
-        allPotions.add(p1);
-        allPotions.add(p2);
+        allRechargeItems.add(p1);
+        allRechargeItems.add(p2);
         
         dungeon.placeItem( new Chest("Decorated Chest", p1), new Position(37,57,0));
         dungeon.placeItem( new Chest("Decorated Chest", p2), new Position(39,57,0));
@@ -166,12 +168,21 @@ public class Spawner
         MagicKey endkey = new MagicKey("Rusty Key", new Position(13,52,0), endkeyloc);
         endkeyloc.placeItem(endkey);
         
+        // Level 3  -------------------------------------------------------------------------------------------------------------        
+
+        // The powerful Teleportation Gem - one only, in a chest
+        
+        Position p = dungeon.getRandomPosition(3);
+        Gem gem = new Gem(10);
+        dungeon.placeItem( new Chest("Chest", gem), p);
+        allRechargeItems.add(gem);        
+        
         // All Levels -------------------------------------------------------------------------------------------------------------        
         
         // Chests all through dungeon containing gold
         for (int i=1; i<=30; i++)
         {
-            Position p = dungeon.getRandomPosition();
+            p = dungeon.getRandomPosition();
             if (p.z == 0) p.z++;  // Not on starting level
             
             int gold = JavaTools.generator.nextInt(100);            
@@ -179,14 +190,14 @@ public class Spawner
         }
         
         // Chests all through dungeon containing potions
-        for (int i=1; i<=20; i++)
+        for (int i=1; i<=10; i++)
         {
             int health = JavaTools.generator.nextInt(100);    
             Potion potion = new Potion(health);
             
-            allPotions.add(potion);
+            allRechargeItems.add(potion);
             
-            Position p = dungeon.getRandomPosition();
+            p = dungeon.getRandomPosition();
             if (p.z == 0) p.z++;  // Not on starting level
             dungeon.placeItem( new Chest("Chest", potion ), p);
         }
@@ -194,7 +205,7 @@ public class Spawner
         // Empty chests to keep life interesting
         for (int i=1; i<=20; i++)
         {
-            Position p = dungeon.getRandomPosition();
+            p = dungeon.getRandomPosition();
             if (p.z == 0) p.z++;  // Not on starting level
             dungeon.placeItem( new Chest("Empty Chest", null), p);
         }
@@ -223,8 +234,8 @@ public class Spawner
            }
         }
         
-        // Recharge Potions
-        for (Potion p : allPotions)
+        // Recharge Items
+        for (Rechargeable p : allRechargeItems)
         {
            p.recharge();
         }
