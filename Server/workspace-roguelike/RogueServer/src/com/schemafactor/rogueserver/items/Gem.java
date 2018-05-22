@@ -20,7 +20,7 @@ public class Gem extends Item implements Rechargeable
     
     private static final float recharge_rate = 10f / (86400f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 10 over a day
 
-    /** Creates a new instance of TeleportGem */
+    /** Creates a new instance of Gem */
     public Gem(int charges)
     {
        super("Blue Gem", Constants.CHAR_ITEM_GEM, true, 0, 0);
