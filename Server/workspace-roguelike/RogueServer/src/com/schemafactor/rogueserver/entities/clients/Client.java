@@ -155,6 +155,7 @@ public abstract class Client extends Entity
                break;
                
            case '*':
+           case 'u':
                handleAction(Constants.ACTION_USE, Constants.HAND_NONE);
                break;
           
@@ -164,6 +165,10 @@ public abstract class Client extends Entity
           
            case '.':
                handleAction(Constants.ACTION_USE, Constants.HAND_RIGHT);
+               break;
+               
+           case 'i':
+               handleAction(Constants.ACTION_EXAMINE, Constants.HAND_NONE);
                break;
                
            case 'Q':
@@ -342,12 +347,13 @@ public abstract class Client extends Entity
              moved = attemptDrop(parameter1);
              break;
              
-
+         case Constants.ACTION_EXAMINE:
+             moved = attemptExamine(parameter1);
+             break;
               
               /*
 
           public static final byte ACTION_DIG        = 3;
-          public static final byte ACTION_EXAMINE    = 5;
           public static final byte ACTION_OPEN       = 6;
           public static final byte ACTION_CLOSE      = 7;
           public static final byte ACTION_CAST       = 8;

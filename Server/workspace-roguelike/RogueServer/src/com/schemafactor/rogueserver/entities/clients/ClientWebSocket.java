@@ -88,7 +88,7 @@ public class ClientWebSocket extends Client
                 
                 lastActionCounter = actioncounter;     
                 
-                byte ascii_char =  data[2];      
+                byte ascii_char = data[2];      
                 handleKeystroke(ascii_char);              
             }
             break;

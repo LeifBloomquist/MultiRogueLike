@@ -478,6 +478,23 @@ public abstract class Entity implements java.io.Serializable
        return false;
    }
    
+// Attempt to examine/inspect the item in the cell under this entity.  True on success, false on failure. 
+   public boolean attemptExamine(byte parameter1)
+   {
+       Cell current_cell = Dungeon.getInstance().getCell(this.position);
+       
+       // First - use any Item in this cell
+       if (current_cell.getItem() != null)
+       {
+           addMessage("You see a " + current_cell.getItem().getDescription() + "." );
+           return true;
+       }
+       
+       // Empty cell 
+       addMessage("You see nothing here.");       
+       return false;
+   }
+   
    // Attempt to use a carried item 
    private boolean attemptUseItem(Item item)
    {
