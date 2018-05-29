@@ -159,9 +159,32 @@
      } 
   };     
 
-  function Use()
+  function Use(hand)
   {
-     sendCommand(42);
+      switch (hand) 
+      {
+        case 0:         
+          sendCommand(42); // *
+          break;
+          
+        case 1:         
+          sendCommand(44); // ,
+          break;
+          
+        case 2:         
+          sendCommand(46); // .
+          break;
+      }          
+  }
+  
+  function Examine(hand)
+  {
+      switch (hand) 
+      {
+        case 0:         
+          sendCommand(105);  // i
+          break;
+      }          
   }
   
   function Help()
@@ -175,9 +198,10 @@
      helptext += "J = Pick up item (Left  Hand)\n";
      helptext += "K = Pick up item (Right Hand)\n\n";
      helptext += "SHIFT+J,K = Drop Item (Left, Right)\n\n";
-     helptext += "* = Use item at current location\r\n";
+     helptext += "U = Use item at current location\r\n";
      helptext += ", = Use item (Left)\n";
      helptext += ". = Use item (Right)\n\n";
+     helptext += "I = Inspect item at current location\n\n";
      helptext += "H = Shows C64 Help Screen\n";
      
      alert(helptext);
