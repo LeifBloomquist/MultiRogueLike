@@ -24,7 +24,8 @@ public class Gem extends Item implements Rechargeable
     public Gem(int charges)
     {
        super("Blue Gem", Constants.CHAR_ITEM_GEM, true, 0, 0);
-       this.max_charges = charges;
+       this.charges = charges;
+       this.max_charges = charges;      
     }
     
     @Override
@@ -62,7 +63,6 @@ public class Gem extends Item implements Rechargeable
         if (charges < max_charges)
         {
             charges += recharge_rate;
-            JavaTools.printlnTime("DEBUG: Teleport Gem recharging to " + charges );
         }
     }
 }

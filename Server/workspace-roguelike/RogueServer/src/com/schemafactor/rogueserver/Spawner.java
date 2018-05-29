@@ -186,7 +186,7 @@ public class Spawner
             if (p.z == 0) p.z++;  // Not on starting level
             
             int gold = JavaTools.generator.nextInt(100);            
-            dungeon.placeItem( new Chest("Chest", gold), p);
+            dungeon.placeItem( new Chest("Wooden Chest", gold), p);
         }
         
         // Chests all through dungeon containing potions
@@ -199,7 +199,7 @@ public class Spawner
             
             p = dungeon.getRandomPosition();
             if (p.z == 0) p.z++;  // Not on starting level
-            dungeon.placeItem( new Chest("Chest", potion ), p);
+            dungeon.placeItem( new Chest("Ornate Chest", potion ), p);
         }
         
         // Empty chests to keep life interesting
@@ -207,7 +207,7 @@ public class Spawner
         {
             p = dungeon.getRandomPosition();
             if (p.z == 0) p.z++;  // Not on starting level
-            dungeon.placeItem( new Chest("Empty Chest", null), p);
+            dungeon.placeItem( new Chest("Chest", null), p);
         }
     }
 
