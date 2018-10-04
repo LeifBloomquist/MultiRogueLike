@@ -52,6 +52,7 @@ public class ClientTelnet extends Client
            screen += "J = Pick up item (Left  Hand)\r\n";
            screen += "K = Pick up item (Right Hand)\r\n\r\n";
            screen += "SHIFT+J,K = Drop Item (Left, Right)\r\n\r\n";
+           screen += "I = Inspect item at current location\r\n";
            screen += "* = Use item at current location\r\n";
            screen += ", = Use item (Left)\r\n";
            screen += ". = Use item (Right)\r\n\r\n";

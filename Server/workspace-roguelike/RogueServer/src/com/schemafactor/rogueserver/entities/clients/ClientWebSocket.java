@@ -1,20 +1,13 @@
 package com.schemafactor.rogueserver.entities.clients;
 
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
 import java.time.Instant;
-import java.util.Arrays;
 
 import org.java_websocket.WebSocket;
 
 import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.common.EscapeSequences;
-import com.schemafactor.rogueserver.common.ExtendedAscii;
 import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.common.Position;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class ClientWebSocket extends Client
 {   

@@ -454,7 +454,7 @@ public abstract class Client extends Entity
            screen += "J = Pick up (Left)   ";
            screen += "K = Pick up (Right)  ";
            screen += "SHIFT+J,K = Drop     ";
-           screen += "                     ";
+           screen += "I = Inspect item     ";
            screen += "* = Use item (Seen)  ";
            screen += ", = Use item (Left)  ";
            screen += ". = Use item (Right) ";

@@ -49,6 +49,7 @@ public class WebSocketListener extends WebSocketServer
         {
             JavaTools.printlnTime("WebSocket connection closed: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );
             wsClients.remove(which);    // Remove from list of WebSocket clients
+            which.removeMe();           // Flag for deletion
             which.gameOver(null);       // Perform end of game routines like drop items
         }
         else
