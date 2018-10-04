@@ -236,7 +236,7 @@ public abstract class Entity implements java.io.Serializable
       return (health <= 0);
    }
 
-   protected void gameOver(Entity attacker)
+   public void gameOver(Entity attacker)
    {
        if (attacker != null)
        {
