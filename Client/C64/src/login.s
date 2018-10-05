@@ -1,12 +1,33 @@
 ; -------------------------------------------------------------------------
 ; Rogue Login Code
+; -------------------------------------------------------------------------
+
+  .import cfg_mac_default
+
+STATIONLENGTH=1
+
+station:  
+  kernal_print TITLEMESSAGE  
+  kernal_print TITLEMESSAGE2 
+  kernal_print MOTD  
+  kernal_print STATIONPROMPT
+  
+  ; Get station
+  ldax #NUMBERS
+  ldy #STATIONLENGTH
+  jsr FILTERED_INPUT  
+  ;Station is now in GOTINPUT  
+  
+  lda GOTINPUT
+  sta cfg_mac_default+5    ; Last byte of MAC address
+  
+  rts    
+
+; -------------------------------------------------------------------------
 
 NAMELENGTH=15
 
 login:  
-  kernal_print TITLEMESSAGE  
-  kernal_print TITLEMESSAGE2 
-  kernal_print MOTD
   kernal_print LOGINPROMPT
   
   ; Get name
@@ -17,11 +38,13 @@ login:
   
   rts  
 
+
 ; -------------------------------------------------------------------------
-  
+
+
 TITLEMESSAGE:
   .byte 147, CG_LCS, CG_DCS, CG_RED
-  .byte "rOGUE vERSION 0.004", 13, 13
+  .byte "rOGUE vERSION 0.004A", 13, 13
   .byte CG_LBL, "cONCEPT+gAME cODE: ", CG_WHT, "lEIF bLOOMQUIST", 13, 13
   .byte CG_LBL, "nETWORKING cODE:   ", CG_WHT, "jONNO dOWNES", 13
   .byte CG_LBL, "                   ", CG_WHT, "pER oLOFSSON", 13, 13
@@ -29,20 +52,22 @@ TITLEMESSAGE:
   .byte CG_LBL, "                   ", CG_WHT, "QZEROW", 13, 13
   .byte 0   
    
-TITLEMESSAGE2: 
-  .byte CG_LBL, "pLAYTESTERS:       ", CG_WHT, "yOU!", 13, 13
+TITLEMESSAGE2:
   .byte CG_LBL, "cONTROLS:          ", CG_YEL, "jOYSTICK IN pORT 2", 13
   .byte CG_LBL, "                   ", CG_YEL, "pRESS f1 FOR kEYS", 13, 13
   .byte 0
 
 MOTD: 
-  .byte CG_GRN, "mESSAGE OF THE dAY:", 13, 13     
-  .byte CG_LGN, "  tHANKS FOR TRYING THE DEMO!", 13
+  .byte CG_GRN, "lan vERSION FOR ",CG_LGN, "rOGUElIKE cELEBRATION!", 13
   .byte 13
   .byte 0
   
-LOGINPROMPT:  
-  .byte CG_RED, "lOGIN: ", CG_PNK
+STATIONPROMPT: 
+  .byte CG_RED, "lan sTATION#: ", CG_YEL
   .byte 0
   
+LOGINPROMPT:  
+  .byte " ", 13, 13, CG_RED, "lOGIN: ", CG_PNK
+  .byte 0
+
 ; EOF!

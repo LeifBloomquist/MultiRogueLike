@@ -37,7 +37,9 @@ init:
   ;lda #$36
   ;sta $01
   
+
   ; jsr music_init
+  jsr station  
   jsr login
 
   lda #$02
