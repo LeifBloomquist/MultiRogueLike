@@ -36,8 +36,8 @@
          person = person.substring(0, 16);
           
          // Let us open a web socket
-         // ws = new WebSocket("ws://localhost:3007/Rogue");         
-         ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
+         ws = new WebSocket("ws://localhost:3007/Rogue");         
+         //ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
          ws.binaryType = 'arraybuffer';
 	
          // Web Socket is connected
@@ -325,5 +325,14 @@
   
   
   imgfont.addEventListener("load", load());
+  
+  //Simply prevent the default browser action:
+  window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+  }, false);
+
 
 // EOF

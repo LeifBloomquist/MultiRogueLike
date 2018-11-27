@@ -43,17 +43,14 @@ public class Spawner
     public static void spawnEntities(Dungeon dungeon)
     {   
         Slime slimey = new Slime("Slime", new Position(56,8,0));
-        Skeleton mrbones = new Skeleton("Skeleton", new Position(89,11,0));
         Spider mike = new Spider("Spider", new Position(38,38,0));
         
         welcomingCommittee.add( slimey );
-        welcomingCommittee.add( mrbones );
         welcomingCommittee.add( mike );
         
         // Level 0 (Entry) -----------------------------------------------------------------------------------------------------
         
-        dungeon.addEntity( slimey );
-        dungeon.addEntity( mrbones ); 
+        dungeon.addEntity( slimey ); 
         dungeon.addEntity( mike );
         
         // Level 1 -------------------------------------------------------------------------------------------------------------

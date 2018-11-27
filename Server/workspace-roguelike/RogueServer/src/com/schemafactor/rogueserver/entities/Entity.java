@@ -153,17 +153,19 @@ public abstract class Entity implements java.io.Serializable
        
        Entity target = dest_cell.getEntity();
        
-       if (target != null)
+       if (target != null) // A real target
        {
-           target.attackedBy(this);
-           this.playSound(Constants.SOUND_ATTACK);    
+           this.addMessage("You attack the " + target.description);
+           this.playSound(Constants.SOUND_ATTACK);
+
+           target.attackedBy(this);           
            JavaTools.printlnTime("DEBUG: " + description + " attacked " + target.getDescription() );
            return true;
        }
-       else
+       else // Empty cell
        {
+           this.addMessage("You attack the darkness!");
            this.playSound(Constants.SOUND_MISS);
-           //JavaTools.printlnTime("DEBUG: " + description + " attacked the darkness at  X=" + destination.x + " Y=" + destination.y + " Z=" + destination.z);
            return false;
        }    
    }
@@ -478,7 +480,7 @@ public abstract class Entity implements java.io.Serializable
        return false;
    }
    
-// Attempt to examine/inspect the item in the cell under this entity.  True on success, false on failure. 
+   // Attempt to examine/inspect the item in the cell under this entity.  True on success, false on failure. 
    public boolean attemptExamine(byte parameter1)
    {
        Cell current_cell = Dungeon.getInstance().getCell(this.position);

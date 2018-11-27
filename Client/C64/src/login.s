@@ -58,7 +58,7 @@ TITLEMESSAGE2:
   .byte 0
 
 MOTD: 
-  .byte CG_GRN, "lan vERSION FOR ",CG_LGN, "rOGUElIKE cELEBRATION!", 13
+  .byte CG_GRN, "lan vERSION FOR ",CG_LGN, "rOGUELIKE cELEBRATION!", 13
   .byte 13
   .byte 0
   
