@@ -212,12 +212,14 @@ public abstract class Entity implements java.io.Serializable
        damage -= protection;
        if (damage < 0) damage = 0f;  
        
-       if (damage > 0f)
+       int idamage = (int)Math.floor(damage);       
+       
+       if (idamage > 0)
        {
-           this.health -= damage;
+           this.health -= idamage;
            this.playSound(Constants.SOUND_ATTACKED);
-               this.addMessage("Hit by "  + attacker.description + " for " + damage + " damage!");
-           attacker.addMessage("You hit " + attacker.description + " for " + damage + " damage!");
+           this.addMessage("Hit by "  + attacker.description + " for " + idamage + " damage!");
+           attacker.addMessage("You hit " + this.description + " for " + idamage + " damage!");
        }
        else
        {
@@ -247,7 +249,7 @@ public abstract class Entity implements java.io.Serializable
    {
        if (attacker != null)
        {
-           String obit = description + " was killed by " + attacker.description;
+           String obit = description + " was killed by " + attacker.description + "!";
            this.addMessage(obit);
            attacker.addMessage(obit);
            JavaTools.printlnTime(obit);
@@ -531,6 +533,10 @@ public abstract class Entity implements java.io.Serializable
                 }
                 return true;
                 
+            case Constants.CHAR_DOOR_CLOSED:
+                addMessage("You see a closed door.");       
+                return true;
+                
             case Constants.CHAR_ITEM_CHEST:              
                 addMessage("You see a chest.");       
                 return true;
@@ -541,6 +547,10 @@ public abstract class Entity implements java.io.Serializable
                     addMessage("You have found a secret door!");       
                 }
                 return true;
+                
+            default:  // Should never see this
+                addMessage("You see nothing interesting."); 
+                return false;
        }
    }
    

@@ -19,6 +19,7 @@
    var audio_step    = new Audio('sfx/step.mp3');
    var audio_blocked = new Audio('sfx/blocked.mp3');
    var audio_attack  = new Audio('sfx/attack.mp3');
+   // TODO, missed?
    
    var ws = null;
 

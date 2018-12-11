@@ -101,8 +101,7 @@ public class Cell implements java.io.Serializable, Container
         {
             return false;
         }
-    }
-    
+    }    
 
     @Deprecated
     public byte getCharColor() 

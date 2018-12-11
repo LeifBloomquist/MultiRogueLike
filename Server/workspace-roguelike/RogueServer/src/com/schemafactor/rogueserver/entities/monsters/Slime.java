@@ -18,7 +18,7 @@ public class Slime extends Monster
     /** Creates a new instance of the Slime */
     public Slime(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SLIME, 1000f, 30f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SLIME, 1000f, 20f);    
     }
 
     @Override
