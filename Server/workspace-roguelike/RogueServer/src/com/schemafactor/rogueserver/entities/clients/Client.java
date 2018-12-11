@@ -64,24 +64,9 @@ public abstract class Client extends Entity
            {
               return;                      
            }
-       }
-       
-       // Filter out commands coming in too fast.
-       Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());     
-               
-       if (elapsed.toMillis() <= Constants.CLIENT_ACTION_TIME_LIMIT)   // Too fast!
-       {    
-           //JavaTools.printlnTime("DEBUG: TOO Fast!   Elapsed millis = " + elapsed.toMillis());
-           return;   // Not time to act yet   TODO, Why does this jump to 230 ms?
-       }
-       else
-       {     
-          // JavaTools.printlnTime("DEBUG: Elapsed millis = " + elapsed.toMillis());
-       }
-       
-       lastUpdateReceived = Instant.now();
+       }       
       
-       // Yes/No at Game over
+       // Yes/No at Game over - don't filter
        
        if (isDead())
        {
@@ -100,6 +85,21 @@ public abstract class Client extends Entity
            
            return;
        }
+       
+       // Filter out commands coming in too fast.
+       Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());     
+               
+       if (elapsed.toMillis() <= Constants.CLIENT_ACTION_TIME_LIMIT)   // Too fast!
+       {    
+           //JavaTools.printlnTime("DEBUG: TOO Fast!   Elapsed millis = " + elapsed.toMillis());
+           return;   // Not time to act yet   TODO, Why does this jump to 230 ms?
+       }
+       else
+       {     
+          // JavaTools.printlnTime("DEBUG: Elapsed millis = " + elapsed.toMillis());
+       }
+       
+       lastUpdateReceived = Instant.now();
        
        // Normal keystrokes       
        
@@ -348,7 +348,7 @@ public abstract class Client extends Entity
              break;
              
          case Constants.ACTION_EXAMINE:
-             moved = attemptExamine(parameter1);
+             moved = attemptInspect(true); 
              break;
               
               /*

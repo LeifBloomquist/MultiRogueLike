@@ -85,6 +85,7 @@ public abstract class Entity implements java.io.Serializable
            
            //JavaTools.printlnTime("DEBUG: " + description + " moved to location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
            this.playSound(Constants.SOUND_PLAYER_STEP);
+           attemptInspect(false);  // Report what is in the new cell, if anything
            return true;
        }
        else
@@ -154,10 +155,8 @@ public abstract class Entity implements java.io.Serializable
        Entity target = dest_cell.getEntity();
        
        if (target != null) // A real target
-       {
-           this.addMessage("You attack the " + target.description);
+       {          
            this.playSound(Constants.SOUND_ATTACK);
-
            target.attackedBy(this);           
            JavaTools.printlnTime("DEBUG: " + description + " attacked " + target.getDescription() );
            return true;
@@ -205,21 +204,27 @@ public abstract class Entity implements java.io.Serializable
    }
    
    private void attackedBy(Entity attacker)
-   {
-       this.addMessage("Attacked by " + attacker.description + "!");
-       
+   {       
        float damage = attacker.getAttackRoll();
        float protection = this.getProtection();
        
-       // TODO, tweak this
+       // TODO, tweak this.  Really, the combat system boils down to this single line
        damage -= protection;
-       if (damage < 0) damage = 0f;
-       this.health -= damage;
+       if (damage < 0) damage = 0f;  
        
        if (damage > 0f)
        {
+           this.health -= damage;
            this.playSound(Constants.SOUND_ATTACKED);
+               this.addMessage("Hit by "  + attacker.description + " for " + damage + " damage!");
+           attacker.addMessage("You hit " + attacker.description + " for " + damage + " damage!");
        }
+       else
+       {
+           this.playSound(Constants.SOUND_BLOCKED);
+           this.addMessage("You block the " + attacker.description + "!");
+           attacker.addMessage( this.description + " blocks!");           
+       }       
 
        checkHealth(attacker);
    }  
@@ -242,8 +247,10 @@ public abstract class Entity implements java.io.Serializable
    {
        if (attacker != null)
        {
-           addMessage("Killed by " + attacker.description + "!");
-           JavaTools.printlnTime(description + " was killed by " + attacker.description);
+           String obit = description + " was killed by " + attacker.description;
+           this.addMessage(obit);
+           attacker.addMessage(obit);
+           JavaTools.printlnTime(obit);
        }
        
        // TODO:  This is a bit hacky.  Remove monsters instantly, but keep clients in game to keep sending updates.       
@@ -480,8 +487,8 @@ public abstract class Entity implements java.io.Serializable
        return false;
    }
    
-   // Attempt to examine/inspect the item in the cell under this entity.  True on success, false on failure. 
-   public boolean attemptExamine(byte parameter1)
+   // Attempt to inspect the item in the cell under this entity.  True on success, false on failure. 
+   public boolean attemptInspect(boolean report_empty)
    {
        Cell current_cell = Dungeon.getInstance().getCell(this.position);
        
@@ -492,9 +499,49 @@ public abstract class Entity implements java.io.Serializable
            return true;
        }
        
-       // Empty cell 
-       addMessage("You see nothing here.");       
-       return false;
+       // Empty cell        
+       
+       byte code = current_cell.getTrueCharCode();
+       
+       switch (code)   // Refer to Cell.canEnter() for allowable codes 
+       {
+           case Constants.CHAR_EMPTY:
+               if (report_empty)
+               {
+                   addMessage("You see nothing here.");       
+               }
+               return false;
+           
+           case Constants.CHAR_STAIRS_DOWN:
+               addMessage("You see stairs going down.");
+               return true; 
+           
+            case Constants.CHAR_STAIRS_UP:
+                addMessage("You see stairs going up.");
+                return true;
+
+            case Constants.CHAR_PORTAL:
+                addMessage("You see a glowing portal.");
+                return true;
+                
+            case Constants.CHAR_DOOR_OPEN:
+                if (report_empty)
+                {
+                    addMessage("You see an open door.");       
+                }
+                return true;
+                
+            case Constants.CHAR_ITEM_CHEST:              
+                addMessage("You see a chest.");       
+                return true;
+                
+            case Constants.CHAR_SECRET_DOOR:              
+                if (report_empty)
+                {
+                    addMessage("You have found a secret door!");       
+                }
+                return true;
+       }
    }
    
    // Attempt to use a carried item 

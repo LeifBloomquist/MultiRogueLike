@@ -49,7 +49,7 @@ public class Cell implements java.io.Serializable, Container
         return charCode;        
     }
     
-    // Return true if this is cell can be entered.
+    // Return true if this is cell can be entered.  Refer to Entity.attemptInspect() for text descriptions.
     public boolean canEnter() 
     {        
     	if (entity != null)  // Someone's already in this cell

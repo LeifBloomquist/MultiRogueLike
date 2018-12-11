@@ -3,7 +3,7 @@ package com.schemafactor.rogueserver.common;
 public class Constants 
 {
     // Server version
-    public static final double VERSION        = 0.009;
+    public static final double VERSION        = 0.010;
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
@@ -15,7 +15,7 @@ public class Constants
     // Network Constants
     public static final int  LISTEN_PORT      = 3006;   // UDP and TCP
     public static final int  WEBSOCKET_PORT   = 3007;   // WebSockets (TCP)
-    public static final long NETWORK_TIMEOUT  = 300;    // Seconds
+    public static final long NETWORK_TIMEOUT  = 30;     // Seconds
     public static final long UPDATE_TIME      = 1;      // Seconds   
     
     // Screen constants
@@ -26,7 +26,7 @@ public class Constants
     
     // Data Limits 
     public static final int MESSAGE_QUEUE_MAX       = 10;
-    public static final int EMPTY_CELL_SEARCH_DEPTH = 100;
+    public static final int EMPTY_CELL_SEARCH_DEPTH = 50;
     
     // Packet types
     public static final byte CLIENT_ANNOUNCE  = 1;
