@@ -8,6 +8,7 @@ import org.java_websocket.WebSocket;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class ClientWebSocket extends Client
 {   
@@ -92,5 +93,15 @@ public class ClientWebSocket extends Client
                 return;
             }
         }       
-    }  
+    }
+    
+    @Override
+    public void removeMe() 
+    {   
+        // Do all the usual end of turn stuff        
+        super.removeMe();  
+        
+        // Then forcibly close the Websocket
+        websocket.close();
+    }
 }

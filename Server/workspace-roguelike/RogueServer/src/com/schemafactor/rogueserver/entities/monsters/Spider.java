@@ -19,7 +19,7 @@ public class Spider extends Monster
     @Override
     public void takeAction()
     {   
-        // TODO Check logic were Spiders sometimes stop chasing targets
+        // TODO Check logic where Spiders sometimes stop chasing targets
         
         boolean moved = false;
 
