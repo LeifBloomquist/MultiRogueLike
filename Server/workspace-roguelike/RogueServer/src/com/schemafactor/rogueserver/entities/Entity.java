@@ -155,8 +155,7 @@ public abstract class Entity implements java.io.Serializable
        Entity target = dest_cell.getEntity();
        
        if (target != null) // A real target
-       {          
-           this.playSound(Constants.SOUND_ATTACK);
+       {
            target.attackedBy(this);           
            JavaTools.printlnTime("DEBUG: " + description + " attacked " + target.getDescription() );
            return true;
@@ -218,12 +217,14 @@ public abstract class Entity implements java.io.Serializable
        {
            this.health -= idamage;
            this.playSound(Constants.SOUND_ATTACKED);
+           attacker.playSound(Constants.SOUND_ATTACK);
            this.addMessage("Hit by "  + attacker.description + " for " + idamage + " damage!");
            attacker.addMessage("You hit " + this.description + " for " + idamage + " damage!");
        }
        else
        {
-           this.playSound(Constants.SOUND_BLOCKED);
+           this.playSound(Constants.SOUND_MISS);
+           attacker.playSound(Constants.SOUND_MISS);
            this.addMessage("You block the " + attacker.description + "!");
            attacker.addMessage( this.description + " blocks!");           
        }       

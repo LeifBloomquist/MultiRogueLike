@@ -19,7 +19,7 @@
    var audio_step    = new Audio('sfx/step.mp3');
    var audio_blocked = new Audio('sfx/blocked.mp3');
    var audio_attack  = new Audio('sfx/attack.mp3');
-   // TODO, missed?
+   var audio_miss    = new Audio('sfx/miss.mp3');
    
    var ws = null;
 
@@ -319,6 +319,11 @@
         case 5:
            audio_attack.currentTime = 0;
            audio_attack.play();
+           return;
+
+        case 4:
+           audio_miss.currentTime = 0;
+           audio_miss.play();
            return;
       }
   }
