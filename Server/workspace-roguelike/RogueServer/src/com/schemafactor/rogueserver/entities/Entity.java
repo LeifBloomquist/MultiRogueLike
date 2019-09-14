@@ -7,7 +7,6 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.items.Item;
-import com.schemafactor.rogueserver.items.MagicKey;
 import com.schemafactor.rogueserver.universe.Cell;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
@@ -218,7 +217,7 @@ public abstract class Entity implements java.io.Serializable
            this.health -= idamage;
            this.playSound(Constants.SOUND_ATTACKED);
            attacker.playSound(Constants.SOUND_ATTACK);
-           this.addMessage("Hit by "  + attacker.description + " for " + idamage + " damage!");
+           this.addMessage(attacker.description + " hits you for " + idamage + " damage!");
            attacker.addMessage("You hit " + this.description + " for " + idamage + " damage!");
        }
        else
@@ -250,10 +249,10 @@ public abstract class Entity implements java.io.Serializable
    {
        if (attacker != null)
        {
-           String obit = description + " was killed by " + attacker.description + "!";
-           this.addMessage(obit);
-           attacker.addMessage(obit);
-           JavaTools.printlnTime(obit);
+           String obituary = description + " was killed by " + attacker.description + "!";
+           this.addMessage(obituary);
+           attacker.addMessage(obituary);
+           JavaTools.printlnTime(obituary);
        }
        
        // TODO:  This is a bit hacky.  Remove monsters instantly, but keep clients in game to keep sending updates.       

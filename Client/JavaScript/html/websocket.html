@@ -17,20 +17,34 @@
   <canvas id="screen" width="640" height="400"></canvas>
 </p>
 
-<p align="center">
-  <button onclick="moveNorth()">North</button>
+<div class="btn-group" style="width:50%">
+  <button style="width:33.3%" onclick="sendCommand(MOVE_NW)>NW</button>
+  <button style="width:33.3%" onclick="sendCommand(MOVE_N)>North</button>
+  <button style="width:33.3%" onclick="sendCommand(MOVE_NE)>NE</button>
   <br>
-  <button onclick="moveWest()">West</button>
+  <button style="width:33.3%" onclick="sendCommand(MOVE_W)>West</button>
+  <button style="width:33.3%">Move</button>
+  <button style="width:33.3%" onclick="sendCommand(MOVE_E)>East</button>
+  <br>
+  <button style="width:33.3%" onclick="sendCommand(MOVE_SW)>SW</button>
+  <button style="width:33.3%" onclick="sendCommand(MOVE_S)>South</button>
+  <button style="width:33.3%" onclick="sendCommand(MOVE_SE)>South-East</button>
+</div>
+
+<p align="center">
+  <button onclick="sendCommand(MOVE_N)">Move North</button>
+  <br>
+  <button onclick="sendCommand(MOVE_W)">West</button>
   <button onclick="moveEast()">East</button>
   <br>
   <button onclick="moveSouth()">South</button>
 </p>
 <p align="center">
-  <button onclick="Use(1)">Use (Left)</button>
+  <button onclick="Use(1)">Use (Left Hand)</button>
   <button onclick="Use(0)">Use (Seen)</button>
-  <button onclick="Use(2)">Use (Right)</button>
+  <button onclick="Use(2)">Use (Right Hand)</button>
   <br>
-  <button onclick="Examine(0)">Examine</button>
+  <button onclick="sendCommand(INSPECT)">Inspect</button>
 </p>
 <p align="center"> 
   <button onclick="Help()">Help</button>

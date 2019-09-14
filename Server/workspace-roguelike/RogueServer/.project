@@ -14,4 +14,76 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Clients/JavaScript</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/c64font.png</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/c64font.png</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/index.html</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/index.html</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/rogue.css</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/rogue.css</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/rogue.js</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/rogue.js</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/roguefont - Mono.png</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/roguefont - Mono.png</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/roguefont.png</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/roguefont.png</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/sfx</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/websocket.html</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/websocket.html</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/sfx/attack.mp3</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/sfx/attack.mp3</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/sfx/blocked.mp3</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/sfx/blocked.mp3</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/sfx/miss.mp3</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/sfx/miss.mp3</location>
+		</link>
+		<link>
+			<name>Clients/JavaScript/html/sfx/step.mp3</name>
+			<type>1</type>
+			<location>C:/Leif/GitHub/MultiRogueLike/Client/JavaScript/html/sfx/step.mp3</location>
+		</link>
+	</linkedResources>
 </projectDescription>

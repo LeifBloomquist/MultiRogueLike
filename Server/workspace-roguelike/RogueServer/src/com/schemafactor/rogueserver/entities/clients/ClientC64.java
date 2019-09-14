@@ -40,7 +40,7 @@ public class ClientC64 extends Client
        {
            case Constants.CLIENT_ANNOUNCE:
            {
-               String raw_desc = PETSCII.toASCII(Arrays.copyOfRange(data, 2, data.length));   //  + " [" + JavaTools.packetAddress(packet) + "]";
+               String raw_desc = PETSCII.toASCII(Arrays.copyOfRange(data, 2, data.length));
                description = JavaTools.Sanitize(raw_desc);
                
                if (!announceReceived)

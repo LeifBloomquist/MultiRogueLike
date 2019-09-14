@@ -22,6 +22,25 @@
    var audio_miss    = new Audio('sfx/miss.mp3');
    
    var ws = null;
+   
+   // For handling Shift
+   var attacking = false;
+   
+   // Constants
+   const MOVE_NW = 113; // q
+   const MOVE_N  = 119; // w   
+   const MOVE_NE = 101; // e
+   const MOVE_W  = 97;  // a
+   const MOVE_S  = 115; // s
+   const MOVE_E  = 100; // d
+   const MOVE_SW = 122; // z
+   const MOVE_SE = 99;  // c 
+   
+   const INSPECT = 105; // i
+   
+   const HAND_NONE  = 0;
+   const HAND_LEFT  = 1;
+   const HAND_RIGHT = 2;
 
    function WebSocketStart()
    {
@@ -82,7 +101,7 @@
                  
             playerstext.innerHTML = "Number of players in dungeon: " + byteArray[526];
                  
-            // TODO, XP, Gold, etc.
+            // TODO: XP, Gold, etc.
          };
 	
          ws.onclose = function()
@@ -132,16 +151,29 @@
    document.onkeypress = function(event) 
    { 
       var key = event.which;
+      
+      // Capture 'H'
+      if ((key == 104) || (key == 72)) {
+        Help();
+        return;
+      }
+      
       sendCommand(key); 
    };   
   
-   // Handle arrow keys
+   // Handle arrow and shift keys (Down)
    document.onkeydown = function(event) 
    { 
       var key = event.which;
+      
+      //alert(key);
         
       switch (key) 
       { 
+        case 16: 
+           attacking=true; 
+           break; 
+           
         case 37: 
            moveWest(); 
            break; 
@@ -158,32 +190,34 @@
            moveSouth();
            break;
      } 
-  };     
+  };  
+  
+   // Handle arrow and shift keys (Up)
+   document.onkeyup = function(event) 
+   { 
+      var key = event.which;
+      switch (key) 
+      { 
+        case 16: 
+           attacking=false; 
+           break;
+     } 
+  };        
 
   function Use(hand)
   {
       switch (hand) 
       {
-        case 0:         
+        case HAND_NONE:         
           sendCommand(42); // *
           break;
           
-        case 1:         
+        case HAND_LEFT:         
           sendCommand(44); // ,
           break;
           
-        case 2:         
+        case HAND_RIGHT:         
           sendCommand(46); // .
-          break;
-      }          
-  }
-  
-  function Examine(hand)
-  {
-      switch (hand) 
-      {
-        case 0:         
-          sendCommand(105);  // i
           break;
       }          
   }
@@ -196,39 +230,19 @@
      helptext += "ASD = Move  (or use Arrow Keys)\n";
      helptext += "ZXC\n\n";
      helptext += "SHIFT+Move = Attack\n\n";
-     helptext += "J = Pick up item (Left  Hand)\n";
-     helptext += "K = Pick up item (Right Hand)\n\n";
-     helptext += "SHIFT+J,K = Drop Item (Left, Right)\n\n";
-     helptext += "U = Use item at current location\r\n";
-     helptext += ", = Use item (Left)\n";
-     helptext += ". = Use item (Right)\n\n";
+     helptext += "J = Pick up item (Left hand)\n";
+     helptext += "K = Pick up item (Right hand)\n\n";
+     helptext += "SHIFT+J = Drop item (Left hand)\n";
+     helptext += "SHIFT+K = Drop item (Right hand)\n\n";
+     helptext += "U = Use item at current location\n";
+     helptext += ", = Use item (Left hand)\n";
+     helptext += ". = Use item (Right hand)\n\n";
      helptext += "I = Inspect item at current location\n\n";
-     helptext += "H = Shows C64 Help Screen\n";
+     helptext += "H = Help\n";
      
      alert(helptext);
   }
   
-
-  function moveNorth()
-  {
-     sendCommand(119);
-  }
-
-  function moveSouth()
-  {
-     sendCommand(115);
-  }
-
-  function moveWest()
-  {
-     sendCommand(97);
-  }
-
-  function moveEast()
-  {
-     sendCommand(100);
-  }
-
   function myScale()
   {
      context.setTransform(1, 0, 0, 1, 0, 0);
