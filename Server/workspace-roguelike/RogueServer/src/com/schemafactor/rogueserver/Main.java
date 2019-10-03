@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.network.WebSocketListener;
 import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.UDPListener;
@@ -42,6 +43,12 @@ public class Main
             if (args[0].equals("-local"))
             {
                 prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/mini/";
+            }
+            
+            if (args[0].equals("-demo"))
+            {
+                JavaTools.printlnTime("Demo Mode specified - Timeouts disabled.");
+                 Client.setDemoMode();
             }
         }
                 

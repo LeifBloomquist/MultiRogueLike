@@ -142,22 +142,22 @@ public class Spawner
         dungeon.placeItem( new Sign("Large Sign", magic), new Position(8,52,0));
         
         // Level 1  -------------------------------------------------------------------------------------------------------------        
-        
-        dungeon.placeItem( new Sword("Sword of Doom", 50, 20), dungeon.getRandomPosition(1) );
-        dungeon.placeItem( new Shield("Large Shield", 50), dungeon.getRandomPosition(1) );
-        
+       
         for (int i=1; i<=5; i++)
         {        
-            dungeon.placeItem( new Sword("Short Sword", 10, 5), dungeon.getRandomPosition(1) );
-            dungeon.placeItem( new Shield("Small Shield", 10), dungeon.getRandomPosition(1) );
+            dungeon.placeItem( new Sword("Short Sword", 5, 2), dungeon.getRandomPosition(1) );
+            dungeon.placeItem( new Shield("Small Shield", 4), dungeon.getRandomPosition(1) );
         }
         
         // Level 2  -------------------------------------------------------------------------------------------------------------        
         
+        dungeon.placeItem( new Sword("Sword of Doom", 20, 10), dungeon.getRandomPosition(2) );
+        dungeon.placeItem( new Shield("Large Shield", 10), dungeon.getRandomPosition(2) );
+        
         for (int i=1; i<=10; i++)
         {        
-            dungeon.placeItem( new Chest("Old Chest", new Sword("Long Sword", 20, 10)), dungeon.getRandomPosition(2));
-            dungeon.placeItem( new Chest("Old Chest", new Shield("Shield", 20)), dungeon.getRandomPosition(2));
+            dungeon.placeItem( new Chest("Old Chest", new Sword("Long Sword", 10, 4)), dungeon.getRandomPosition(2));
+            dungeon.placeItem( new Chest("Old Chest", new Shield("Shield", 6)), dungeon.getRandomPosition(2));
         }
         
         // Key to the Upstairs Room
@@ -225,8 +225,7 @@ public class Spawner
                if (nearby_humans.size() == 0)
                {
                    JavaTools.printlnTime( "Respawning: " + m.getDescription());
-                   m.respawn();
-                   dungeon.addEntity(m);
+                   m.respawn(); // Also adds self back to dungeon entities list
                }
            }
         }

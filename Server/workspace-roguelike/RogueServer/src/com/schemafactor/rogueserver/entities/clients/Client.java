@@ -39,6 +39,9 @@ public abstract class Client extends Entity
    // Current Sound Effect ID
    byte soundFXID = Constants.SOUND_NONE;
    
+   // Demo mode?
+   static boolean demoMode = false;   
+   
    public Client(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f);
@@ -391,6 +394,8 @@ public abstract class Client extends Entity
    // Increment and check the timeout
    private void checkTimeout()
    {
+       if (demoMode) return;   // Disable Timeout in demo mode
+       
 		Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
 	    
 	    if (elapsed.getSeconds() > Constants.NETWORK_TIMEOUT)
@@ -430,6 +435,11 @@ public abstract class Client extends Entity
        soundFXID = id;
    }  
    
+   public static void setDemoMode()
+   {
+       demoMode = true;
+   }
+
    // Used by C64 and WebSocket clients
    protected byte[] getUpdateByteArray()
    { 

@@ -19,7 +19,6 @@ public class ClientC64 extends Client
    {
        // Random starting positions on Level 0 for multiple players  TODO
        super("C64 Client", new Position(5,5,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
-       // [" + JavaTools.packetAddress(packet)+"]
 
        userIP = packet.getAddress();
        receiveUpdate(packet);
