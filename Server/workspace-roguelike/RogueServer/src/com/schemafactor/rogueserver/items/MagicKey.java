@@ -27,7 +27,7 @@ public class MagicKey extends Key
     @Override
     public boolean useItem(Entity entity)
     {   
-       boolean success = super.unlock(entity);  // Magic Keys only unlock doors
+       boolean success = super.unlock(entity);  // Magic Keys only unlock doors - no lock
     
        if (success)
        {

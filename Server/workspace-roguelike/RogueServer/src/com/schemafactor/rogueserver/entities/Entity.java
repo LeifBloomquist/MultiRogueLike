@@ -75,7 +75,7 @@ public abstract class Entity implements java.io.Serializable
            return false;
        }
        
-       if (dest_cell.canEnter())
+       if (dest_cell.canEnter(this))
        {
            // Update cell references
            this.position = destination;
@@ -108,7 +108,7 @@ public abstract class Entity implements java.io.Serializable
        Position dest_pos = Dungeon.getInstance().getClosestEmptyCell(target_pos, Constants.EMPTY_CELL_SEARCH_DEPTH);
        Cell dest_cell = Dungeon.getInstance().getCell( dest_pos );       
        
-       if (dest_cell.canEnter())
+       if (dest_cell.canEnter(this))
        {
            // Update cell references
            this.position = dest_pos;

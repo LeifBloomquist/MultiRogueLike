@@ -13,7 +13,7 @@ public class Cell implements java.io.Serializable, Container
     Item item = null;
         
     private byte charCode = 0;                        // Character code shown on client screen
-    private byte charColor = Constants.COLOR_BLACK;   // Foreground color code shown to the client  (though will likely use a lookup table)    
+    private byte charColor = Constants.COLOR_BLACK;   // Foreground color code shown to the client  (though client will likely use a lookup table)    
     
     public byte getCharCode() 
     {
@@ -50,7 +50,7 @@ public class Cell implements java.io.Serializable, Container
     }
     
     // Return true if this is cell can be entered.  Refer to Entity.attemptInspect() for text descriptions.
-    public boolean canEnter() 
+    public boolean canEnter(Entity who) 
     {        
     	if (entity != null)  // Someone's already in this cell
     	{
@@ -65,10 +65,24 @@ public class Cell implements java.io.Serializable, Container
             case Constants.CHAR_STAIRS_UP:
             case Constants.CHAR_PORTAL:
             case Constants.CHAR_DOOR_OPEN:
-            case Constants.CHAR_ITEM_CHEST:
-            case Constants.CHAR_SECRET_DOOR:
+            case Constants.CHAR_ITEM_CHEST:            
     	        return true;
     	        
+    	    // Special cases(allowed)    	        
+            case Constants.CHAR_SECRET_DOOR:
+                who.addMessage("You found a secret door!");
+                return true;                
+    	    
+    	    // Special cases (not allowed)
+            case Constants.CHAR_DOOR_CLOSED:
+                  who.addMessage("Door is locked!");
+                  return false;
+    	    
+            case Constants.CHAR_LAVA:
+                  who.addMessage("You can't walk on lava!");
+                  return false;
+                  
+            // Everything else - not allowed
     	    default:
     	        return false;
     	}
