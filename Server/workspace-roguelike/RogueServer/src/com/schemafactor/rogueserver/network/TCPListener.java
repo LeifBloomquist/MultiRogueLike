@@ -48,7 +48,7 @@ public class TCPListener extends Thread
             try 
             {
                 serverSocket = new ServerSocket(port);
-                JavaTools.printlnTime("TCP server is listening on port " + port);
+                JavaTools.printlnTime("TCP server [Telnet] is listening on port " + port);
                 
                 /* Loop Forever, waiting for connections. */  
                 while(true) 

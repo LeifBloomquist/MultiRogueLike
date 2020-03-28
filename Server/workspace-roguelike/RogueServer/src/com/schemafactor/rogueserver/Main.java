@@ -9,6 +9,7 @@ import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.network.WebSocketListener;
 import com.schemafactor.rogueserver.network.TCPListener;
+import com.schemafactor.rogueserver.network.TCPListenerU64;
 import com.schemafactor.rogueserver.network.UDPListener;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
@@ -81,9 +82,14 @@ public class Main
         s.scheduleAtFixedRate(ut, 0, Constants.TICK_TIME, TimeUnit.MILLISECONDS );
         
         // Instantiate a TCP listener, runs in background thread
-        JavaTools.printlnTime("Creating TCP listener...");
+        JavaTools.printlnTime("Creating TCP listener (Telnet)...");
         TCPListener tcp = new TCPListener();
         tcp.start(Constants.LISTEN_PORT);
+        
+        // Instantiate a TCP listener, runs in background thread
+        JavaTools.printlnTime("Creating TCP listener (Ultimate 64)...");
+        TCPListenerU64 tcpU64 = new TCPListenerU64();
+        tcpU64.start(Constants.LISTEN_PORT_U64);
         
         // Instantiate a WebSocket Server
         JavaTools.printlnTime("Creating WebSocket listener...");

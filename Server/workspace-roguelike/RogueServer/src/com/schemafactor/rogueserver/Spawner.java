@@ -42,6 +42,8 @@ public class Spawner
     
     public static void spawnEntities(Dungeon dungeon)
     {   
+        JavaTools.generator.setSeed(12345678);
+        
         Slime slimey = new Slime("Slime", new Position(56,8,0));
         Spider mike = new Spider("Spider", new Position(38,38,0));
         

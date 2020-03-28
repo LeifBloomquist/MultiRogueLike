@@ -3,7 +3,7 @@
 
 SEND_LENGTH   = 0017
 
-; Packet Types - C64 to CLIENT
+; Packet Types - C64 to Server
 PACKET_ANNOUNCE       = 1
 PACKET_CLIENT_UPDATE  = 2
 

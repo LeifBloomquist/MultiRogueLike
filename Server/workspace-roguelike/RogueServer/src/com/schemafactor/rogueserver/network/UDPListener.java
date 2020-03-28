@@ -13,6 +13,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.Arrays;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
@@ -94,11 +95,12 @@ public class UDPListener
         {   
             try
             {
-                ClientC64 hp = (ClientC64)e;
+                ClientC64 c64 = (ClientC64)e;
                 
-                if ( hp.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable, HashSet etc.
+                if ( c64.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable, HashSet etc.
                 {
-                    hp.receiveUpdate(packet);
+                    byte[] data = Arrays.copyOf(packet.getData(), packet.getLength());
+                    c64.receiveUpdate(data);
                     return;
                 }
             }
@@ -115,8 +117,9 @@ public class UDPListener
         
         // No match, create new user and add to list
         JavaTools.printlnTime( "Creating new player from " + JavaTools.packetAddress(packet) + " [UDP]");
-        Client who = new ClientC64(packet);        
-        dungeon.addEntity(who);
+        byte[] data = Arrays.copyOf(packet.getData(), packet.getLength());
+        Client c64 = new ClientC64(data, packet.getAddress());        
+        dungeon.addEntity(c64);
         
         return;  
    }

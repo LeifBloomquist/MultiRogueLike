@@ -14,14 +14,14 @@ import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class ClientC64 extends Client
 {         
-   /** Creates a new instance of C64 Client */
-   public ClientC64(DatagramPacket packet)
+   /** Creates a new instance of C64 Client from UDP Packet (i.e. C64 with CS8900) */
+   public ClientC64(byte[] data, InetAddress address)
    {
        // Random starting positions on Level 0 for multiple players  TODO
        super("C64 Client", new Position(5,5,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
 
-       userIP = packet.getAddress();
-       receiveUpdate(packet);
+       userIP = address;       
+       receiveUpdate(data);
    }
 
    /** Return the InetAddress, for comparisons */
@@ -31,10 +31,8 @@ public class ClientC64 extends Client
    }
 
    /** Update me with new data from client */
-   public void receiveUpdate(DatagramPacket packet)
-   {
-       byte[] data = Arrays.copyOf(packet.getData(), packet.getLength());    
-       
+   public void receiveUpdate(byte[] data)
+   {   
        switch (data[0])   // Packet type
        {
            case Constants.CLIENT_ANNOUNCE:
@@ -75,7 +73,7 @@ public class ClientC64 extends Client
        }
    }
    
-   // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second as above
+   // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second
    public void updateNow()
    {
        byte[] buffer = getUpdateByteArray();

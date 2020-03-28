@@ -1,6 +1,8 @@
 ; -------------------------------------------------------------------------
 ; Rogue Color Lookup Table
 
+.export color_table
+
 COLOR_BLACK	     = 0	
 COLOR_WHITE	     = 1	
 COLOR_RED	     = 2	
@@ -22,7 +24,7 @@ COLOR_GREY3      = 15
 ; map character codes to color codes.
 ; Refer to Tile Types.xlsx
 
-colortable:
+color_table:
     .byte COLOR_BLACK    ; 0    Empty Space
     .byte COLOR_GREY2    ; 1    Brick Wall	
     .byte COLOR_GREY1    ; 2	Dirt 	
