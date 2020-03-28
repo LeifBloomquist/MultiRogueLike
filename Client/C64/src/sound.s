@@ -1,6 +1,8 @@
 ; -------------------------------------------------------------------------
 ; Rogue Sound Code
 
+.export _sound_init
+
 SOUND_NONE         = 0
 SOUND_PLAYER_STEP  = 1
 SOUND_BLOCKED      = 2
@@ -12,7 +14,8 @@ SOUND_MONSTER_STEP = 6
 ;------------------------------------------------------------------------------
 ; Setup - clear sound chip and set maximum volume!
 
-sound_setup:
+_sound_init:
+sound_init:
   ldx #$00
   txa
 :

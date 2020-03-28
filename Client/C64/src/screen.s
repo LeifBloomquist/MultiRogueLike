@@ -2,9 +2,10 @@
 ; Rogue Screen Routines
 
 .import default_screen
-.import color_table
 
 .export _screen_init
+.export COLOR_BASE
+.export SCREEN_BASE
 
 ; -------------------------------------------------------------------------
 ; Screen Constants

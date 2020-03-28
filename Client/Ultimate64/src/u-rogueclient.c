@@ -32,11 +32,10 @@ Rogue Test Client for Ultimate 64
 //LEFT_COLOR = COLOR_BASE + $00BF
 //RIGHT_COLOR = LEFT_COLOR + 40
 
-
-
-
 // Prototypes to call assembly routines
 void fastcall screen_init();
+void fastcall sound_init();
+void fastcall color_lookup();
 
 // Data Types
 typedef unsigned char byte;
@@ -86,6 +85,7 @@ void handle_server_update(byte *uii_data)
 	memcpy(SCREEN_RAM + 601, uii_data + 295, 21);
 	memcpy(SCREEN_RAM + 641, uii_data + 316, 21);
 	memcpy(SCREEN_RAM + 681, uii_data + 337, 21);
+	color_lookup();
 
 	// Messages
 	memcpy(SCREEN_RAM + 800, uii_data + 358, 160);
@@ -144,6 +144,7 @@ void main(void)
 	
 	clear_screen();
 	screen_init();
+	sound_init();
 
 	printf("Rogue U64 Test\n");
 

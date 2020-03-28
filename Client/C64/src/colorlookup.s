@@ -1,7 +1,11 @@
 ; -------------------------------------------------------------------------
 ; Rogue Color Lookup Table
 
-.export color_table
+.export _color_lookup
+
+.import COLOR_BASE
+.import SCREEN_BASE
+.import GAME_COLS
 
 COLOR_BLACK	     = 0	
 COLOR_WHITE	     = 1	
@@ -281,4 +285,93 @@ color_table:
     .byte COLOR_WHITE    ; 253	 	
     .byte COLOR_WHITE    ; 254	 	
     .byte COLOR_WHITE    ; 255	 	
-                              
+ 
+ 
+ ; -------------------------------------------------------------------------
+; Fill in Color Data from Lookup Table
+
+_color_lookup:
+
+;  BORDER $01
+
+  ldy #$00
+  
+colorlookup:  
+  ; 17 Rows on screen
+  ldx SCREEN_BASE+1+(40*1),y 
+  lda color_table,x                 
+  sta COLOR_BASE+1+(40*1),y  
+
+  ldx SCREEN_BASE+1+(40*2),y
+  lda color_table,x   
+  sta COLOR_BASE+1+(40*2),y
+
+  ldx SCREEN_BASE+1+(40*3),y
+  lda color_table,x  
+  sta COLOR_BASE+1+(40*3),y
+ 
+  ldx SCREEN_BASE+1+(40*4),y
+  lda color_table,x  
+  sta COLOR_BASE+1+(40*4),y
+ 
+  ldx SCREEN_BASE+1+(40*5),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*5),y
+ 
+  ldx SCREEN_BASE+1+(40*6),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*6),y
+ 
+  ldx SCREEN_BASE+1+(40*7),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*7),y
+ 
+  ldx SCREEN_BASE+1+(40*8),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*8),y
+ 
+  ldx SCREEN_BASE+1+(40*9),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*9),y
+ 
+  ldx SCREEN_BASE+1+(40*10),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*10),y
+ 
+  ldx SCREEN_BASE+1+(40*11),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*11),y
+ 
+  ldx SCREEN_BASE+1+(40*12),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*12),y
+ 
+  ldx SCREEN_BASE+1+(40*13),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*13),y
+ 
+  ldx SCREEN_BASE+1+(40*14),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*14),y
+ 
+  ldx SCREEN_BASE+1+(40*15),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*15),y
+ 
+  ldx SCREEN_BASE+1+(40*16),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*16),y
+ 
+  ldx SCREEN_BASE+1+(40*17),y
+  lda color_table,x
+  sta COLOR_BASE+1+(40*17),y
+ 
+  iny
+  cpy #21 ;GAME_COLS
+  beq colorlookup_x
+  jmp colorlookup   ; Loop
+
+colorlookup_x:
+  rts
+
+; EOF
