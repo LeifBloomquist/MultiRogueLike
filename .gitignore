@@ -188,3 +188,6 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 *.ser
+*.db
+*.db-shm
+*.db-wal
