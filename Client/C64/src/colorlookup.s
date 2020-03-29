@@ -5,7 +5,13 @@
 
 .import COLOR_BASE
 .import SCREEN_BASE
-.import GAME_COLS
+.import CELL_CHAR  
+.import CELL_COLOR 
+.import LEFT_CHAR  
+.import LEFT_COLOR 
+.import RIGHT_CHAR 
+.import RIGHT_COLOR
+;.import GAME_COLS
 
 COLOR_BLACK	     = 0	
 COLOR_WHITE	     = 1	
@@ -372,6 +378,22 @@ colorlookup:
   jmp colorlookup   ; Loop
 
 colorlookup_x:
+
+; Current Cell
+  ldx CELL_CHAR
+  lda color_table,x
+  sta CELL_COLOR
+
+  ; Held - Left
+  ldx LEFT_CHAR
+  lda color_table,x
+  sta LEFT_COLOR
+  
+  ; Held - Right
+  ldx RIGHT_CHAR
+  lda color_table,x
+  sta RIGHT_COLOR
+
   rts
 
 ; EOF

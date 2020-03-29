@@ -13,11 +13,9 @@
     <Filter Include="Source Files\lib">
       <UniqueIdentifier>{bc798e07-649c-40b9-a40f-f6e543a616db}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\ultimateii-dos-lib-master\build.bat">
-      <Filter>Build Scripts</Filter>
-    </None>
+    <Filter Include="Source Files\assembly">
+      <UniqueIdentifier>{c97cd1b0-a661-4257-b034-dffbf1e1cce5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\lib\ultimate_lib_net.c">
@@ -31,5 +29,25 @@
     <ClInclude Include="..\..\src\lib\ultimate_lib_net.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\build.bat">
+      <Filter>Build Scripts</Filter>
+    </None>
+    <None Include="..\..\..\C64\src\colorlookup.s">
+      <Filter>Source Files\assembly</Filter>
+    </None>
+    <None Include="..\..\..\C64\src\defaultscreen.s">
+      <Filter>Source Files\assembly</Filter>
+    </None>
+    <None Include="..\..\..\C64\src\screen.s">
+      <Filter>Source Files\assembly</Filter>
+    </None>
+    <None Include="..\..\..\C64\src\sound.s">
+      <Filter>Source Files\assembly</Filter>
+    </None>
+    <None Include="..\..\..\C64\src\login.s">
+      <Filter>Source Files\assembly</Filter>
+    </None>
   </ItemGroup>
 </Project>

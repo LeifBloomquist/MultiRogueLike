@@ -78,20 +78,14 @@ copym:
   ; Current Cell
   ldx udp_inp_data+518
   stx CELL_CHAR
-  lda colortable,x
-  sta CELL_COLOR
 
   ; Held - Left
   ldx udp_inp_data+519
   stx LEFT_CHAR
-  lda colortable,x
-  sta LEFT_COLOR
   
   ; Held - Right
   ldx udp_inp_data+520
   stx RIGHT_CHAR
-  lda colortable,x
-  sta RIGHT_COLOR
   
   ; Health
   lda udp_inp_data+521

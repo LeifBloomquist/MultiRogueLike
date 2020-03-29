@@ -159,6 +159,7 @@ public abstract class Client extends Entity
                
            case '*':
            case 'u':
+           case 'U':
                handleAction(Constants.ACTION_USE, Constants.HAND_NONE);
                break;
           
@@ -211,10 +212,14 @@ public abstract class Client extends Entity
                break;
                
            case 'J':
+           case 'n':
+           case 'N':
                handleAction(Constants.ACTION_DROP, Constants.HAND_LEFT);
                break;
                
            case 'K':
+           case 'm':
+           case 'M':               
                handleAction(Constants.ACTION_DROP, Constants.HAND_RIGHT);
                break; 
                
@@ -463,9 +468,9 @@ public abstract class Client extends Entity
            screen += "                     ";
            screen += "J = Pick up (Left)   ";
            screen += "K = Pick up (Right)  ";
-           screen += "SHIFT+J,K = Drop     ";
+           screen += "N,M = Drop           ";
            screen += "I = Inspect item     ";
-           screen += "* = Use item (Seen)  ";
+           screen += "U = Use item (Seen)  ";
            screen += ", = Use item (Left)  ";
            screen += ". = Use item (Right) ";
            screen += "                     ";

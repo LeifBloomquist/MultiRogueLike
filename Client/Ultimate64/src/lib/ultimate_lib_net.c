@@ -9,6 +9,7 @@ Network Interface only version by Leif Bloomquist
 
 ******************************************************************/
 #include <string.h>
+#include <peekpoke.h>
 #include "ultimate_lib_net.h"
 
 static unsigned char *cmddatareg = (unsigned char *)CMD_DATA_REG;
@@ -25,6 +26,8 @@ int uii_data_index;
 int uii_data_len;
 
 unsigned char uii_target = TARGET_NETWORK;
+
+unsigned char read_cmd[] = { 0x00,NET_CMD_TCP_SOCKET_READ, 0x00, 0x00, 0x00 };
 
 void uii_logtext(char *text)
 {
@@ -78,24 +81,24 @@ void uii_sendcommand(unsigned char *bytes, int count)
 	while(success == 0)
 	{
 		// Wait for idle state
-		uii_logtext("\nwaiting for cmd_busy to clear...");
-		uii_logstatusreg();
+		//uii_logtext("\nwaiting for cmd_busy to clear...");
+		//uii_logstatusreg();
 		
 		while ( !(((*statusreg & 32) == 0) && ((*statusreg & 16) == 0)))  {
-			uii_logtext("\nwaiting...");
-			uii_logstatusreg();
+	//		uii_logtext("\nwaiting...");
+	//		uii_logstatusreg();
 		};
 		
 		// Write byte by byte to data register
-		uii_logtext("\nwriting command...");
+//		uii_logtext("\nwriting command...");
 		while(x<count)
 			*cmddatareg = bytes[x++];
 		
 		// Send PUSH_CMD
-		uii_logtext("\npushing command...");
+//		uii_logtext("\npushing command...");
 		*controlreg |= 0x01;
 		
-		uii_logstatusreg();
+//		uii_logstatusreg();
 		
 		// check ERROR bit.  If set, clear it via ctrl reg, and try again
 		if ((*statusreg & 4) == 4)
@@ -110,14 +113,14 @@ void uii_sendcommand(unsigned char *bytes, int count)
 			// check for cmd busy
 			while ( ((*statusreg & 32) == 0) && ((*statusreg & 16) == 16) )
 			{
-				uii_logtext("\nstate is busy");
+	//			uii_logtext("\nstate is busy");
 			}
 			success = 1;
 		}
 	}
 	
-	uii_logstatusreg();
-	uii_logtext("\ncommand sent");
+	//uii_logstatusreg();
+	//uii_logtext("\ncommand sent");
 	
 }
 
@@ -153,44 +156,38 @@ void uii_abort(void)
 	*controlreg |= 0x04;
 }
 
-int uii_readdata(void) 
+unsigned int uii_readdata(void) 
 {
-	int count = 0;
-	int z = 0;
-	
+	unsigned int count = 0;
 	uii_data[0] = 0;
-	
-	uii_logtext("\n\nreading data...");
-	uii_logstatusreg();
 
 	// If there is data to read
-	while (uii_isdataavailable())
+	//while (uii_isdataavailable())
+	while ((*statusreg & 128) == 128)
 	{
-		uii_data[z] = *respdatareg;
-		z++;
-		count++;		
+		uii_data[count++] = *respdatareg;
+		//count++;		
 	}
-	uii_data[z] = 0;
+
+	uii_data[count] = 0;
 	return count;
 }
 
 int uii_readstatus(void) 
 {
 	int count = 0;
-	int z = 0;
 	
 	uii_status[0] = 0;
 	
-	uii_logtext("\n\nreading status...");
-	uii_logstatusreg();
+	//uii_logtext("\n\nreading status...");
+	//uii_logstatusreg();
 
 	while(uii_isstatusdataavailable())
 	{
-		uii_status[z++] = *statusdatareg;
-		count++;
+		uii_status[count++] = *statusdatareg;
 	}
 	
-	uii_status[z] = 0;
+	uii_status[count] = 0;
 	return count;
 }
 
@@ -292,6 +289,32 @@ int uii_tcpsocketread(unsigned char socketid, unsigned short length)
 	
 	uii_target = tempTarget;
 	return uii_data[0] | (uii_data[1]<<8);
+}
+
+int uii_tcpsocketread_opt(unsigned char socketid, unsigned short length)
+{
+	unsigned int count = 0;
+
+	read_cmd[2] = socketid;
+	read_cmd[3] = length & 0xff;
+	read_cmd[4] = (length >> 8) & 0xff;
+
+	uii_sendcommand(read_cmd, 0x05);
+
+	// Read 	uii_readdata();
+	uii_data[0] = 0;
+
+	// If there is data to read	
+	while (*statusreg & 128)  //while (uii_isdataavailable())       ((*statusreg & 128) == 128)
+	{
+		uii_data[count++] = *respdatareg;
+	}
+	uii_data[count] = 0;
+
+	// Accept
+	*controlreg |= 0x02;  //uii_accept();
+
+	return count;
 }
 
 int uii_tcplistenstart(unsigned short port)

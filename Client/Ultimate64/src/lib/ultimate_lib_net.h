@@ -116,7 +116,7 @@ unsigned char uii_tcpgetlistensocket(void);
 void uii_logtext(char *text);
 void uii_logstatusreg(void);
 void uii_sendcommand(unsigned char *bytes, int count);
-int uii_readdata(void);
+unsigned int uii_readdata(void);
 int uii_readstatus(void);
 void uii_accept(void);
 void uii_abort(void);

@@ -4,24 +4,22 @@
 .import default_screen
 
 .export _screen_init
-.export COLOR_BASE
-.export SCREEN_BASE
 
 ; -------------------------------------------------------------------------
 ; Screen Constants
 
-CHAR_BASE    = $4000
-SCREEN_BASE  = $4800
-COLOR_BASE   = $D800
+.export CHAR_BASE    = $4000
+.export SCREEN_BASE  = $4800
+.export COLOR_BASE   = $D800
 
-CELL_CHAR    = SCREEN_BASE + $006F
-CELL_COLOR   = COLOR_BASE  + $006F
+.export CELL_CHAR    = SCREEN_BASE + $006F
+.export CELL_COLOR   = COLOR_BASE  + $006F
 
-LEFT_CHAR    = SCREEN_BASE + $00BF
-LEFT_COLOR   = COLOR_BASE  + $00BF
+.export LEFT_CHAR    = SCREEN_BASE + $00BF
+.export LEFT_COLOR   = COLOR_BASE  + $00BF
 
-RIGHT_CHAR   = LEFT_CHAR   + 40
-RIGHT_COLOR  = LEFT_COLOR  + 40
+.export RIGHT_CHAR   = LEFT_CHAR   + 40
+.export RIGHT_COLOR  = LEFT_COLOR  + 40
 
 HEALTH_CHARS = RIGHT_CHAR  + 80
 
@@ -111,7 +109,6 @@ setupvic:
   ; $D018 = %xxxx000x -> charmem   is at $0000 
   lda #%00100000
   sta $d018
-  
   
   ; Draw the default screen  
 drawscreen:

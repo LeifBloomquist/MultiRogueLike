@@ -19,6 +19,25 @@ Rogue Test Client for Ultimate 64
 #define PACKET_SERVER_UPDATE  129
 #define PACKET_SERVER_UPDATE_LENGTH 528
 
+#define CG_BLK 144
+#define CG_WHT 5
+#define CG_RED 28
+#define CG_CYN 159
+#define CG_PUR 156
+#define CG_GRN 30
+#define CG_BLU 31
+#define CG_YEL 158
+#define CG_BRN 149
+#define CG_ORG 129
+#define CG_PNK 150
+#define CG_GR1 151
+#define CG_GR2 152
+#define CG_LGN 153
+#define CG_LBL 154
+#define CG_GR3 155
+#define CG_RVS 18   // revs - on
+#define CG_NRM 146  // revs - off
+
 // Define special memory areas
 #define SCREEN_RAM   ((unsigned char*)0x4800)
 #define COMMS_COLOR  0x03E7
@@ -44,12 +63,32 @@ void fastcall sound_play(byte fx);
 
 // Global Variables
 byte socketnr = 0;
-byte send_buffer[17] = { 1, 1, 65, 66, 67, 6,7,8,9,10,11, 12, 13, 14,15,16,17 };
+byte send_buffer[17] = { PACKET_ANNOUNCE, 1, 65, 66, 67, 6,7,8,9,10,11, 12, 13, 14,15,16,17 };
 byte soundcounter = 0;
 
 void clear_screen()
 {
 	printf("%c", 147);
+}
+
+void color(byte color)
+{
+	printf("%c", color);
+}
+
+int get_uii_status()
+{
+	int status = -1;
+	char* ptr = NULL;
+	char temp[100];
+	strcpy(temp, uii_status);
+
+	ptr = strchr(temp, ',');
+	*ptr = '\0';
+
+	status = atoi(temp);
+	//printf("\n%cDEBUG: [%s] [%s] [%d]\n", CG_PUR, uii_status, temp, status);
+	return status;
 }
 
 void send_announce()
@@ -89,26 +128,17 @@ void handle_server_update(byte *uii_data)
 	memcpy(SCREEN_RAM + 601, uii_data + 295, 21);
 	memcpy(SCREEN_RAM + 641, uii_data + 316, 21);
 	memcpy(SCREEN_RAM + 681, uii_data + 337, 21);
-	color_lookup();
 
 	// Messages
 	memcpy(SCREEN_RAM + 800, uii_data + 358, 160);
 
-	// Current Cell
-	memcpy(SCREEN_RAM + CELL_CHAR, uii_data + 518, 1);
-	
-	/* stx CELL_CHAR
-		lda colortable, x
-		sta CELL_COLOR*/
+	memcpy(SCREEN_RAM + CELL_CHAR, uii_data + 518, 1);     // Current Cell
+	memcpy(SCREEN_RAM + LEFT_CHAR, uii_data + 519, 1);     // Held - Left
+	memcpy(SCREEN_RAM + RIGHT_CHAR, uii_data + 520, 1);    // Held - Right
+	memcpy(SCREEN_RAM + HEALTH_CHARS, uii_data + 521, 3);  // Health
 
-	// Held - Left
-	memcpy(SCREEN_RAM + LEFT_CHAR, uii_data + 519, 1);
-
-	// Held - Right
-	memcpy(SCREEN_RAM + RIGHT_CHAR, uii_data + 520, 1);
-	
-	// Health
-	memcpy(SCREEN_RAM + HEALTH_CHARS, uii_data + 521, 3);
+	// Colorize the screen
+	color_lookup();
 
 	// Sound effects
 	temp_soundcounter = uii_data[524];
@@ -139,55 +169,109 @@ void handle_packet(byte *uii_data)
 
 void network_init()
 {
-	int count = 0;
+	int status = 0;
+
 	//char *host = "192.168.7.51";
 	//char *host = "rogue.jammingsignal.com";
 	char *host = "192.168.7.14";
 
-	printf("Rogue U64 Test\n");
+	clear_screen();
+	color(CG_YEL);
+	printf("Rogue Ultimate 64 Test Client\n\n");
+
+	color(CG_GR2);
+	printf("Build:%c %s %s\n\n", CG_BLU, __DATE__, __TIME__);
 
 	if (uii_isdataavailable())
 	{
-		printf("\naborting a previous command...");
+		color(CG_RED);
+		printf("Aborting a previous command...\n");
 		uii_abort();
 	}
 
+	color(CG_GR2);
+	printf("Identifying...");
 	uii_identify();
-	printf("\n\nIdentify: %s\nStatus: %s", uii_data, uii_status);
+
+	status = get_uii_status();
+	if (status == 0)
+	{
+		color(CG_LGN);
+		printf("%s\n", uii_data);
+	}
+	else
+	{
+		color(CG_RED);
+		printf("\nStatus: %s (%s)\n", uii_data, uii_status);
+	}
 
 	// -----------------------------------------------------------
 	// Network interface target
 	// -----------------------------------------------------------
 
+	color(CG_GR2);
+	printf("\nInitializing Network...");
+
 	uii_getinterfacecount();
-
 	uii_getipaddress();
-	printf("\n\nIP Address: %d.%d.%d.%d", uii_data[0], uii_data[1], uii_data[2], uii_data[3]);
-	printf("\n   Netmask: %d.%d.%d.%d", uii_data[4], uii_data[5], uii_data[6], uii_data[7]);
-	printf("\n   Gateway: %d.%d.%d.%d", uii_data[8], uii_data[9], uii_data[10], uii_data[11]);
 
-	printf("\n\nConnecting to: %s", host);
+	status = get_uii_status();
+	if (status == 0)
+	{
+		color(CG_LGN);
+		printf("%s\n", uii_status);
+		color(CG_LBL);
+	}
+	else
+	{
+		color(CG_RED);
+		printf("\nStatus: %s (%s)\n", uii_data, uii_status);
+	}
+
+	printf("\nIP Address: %d.%d.%d.%d\n", uii_data[0], uii_data[1], uii_data[2], uii_data[3]);
+	printf("   Netmask: %d.%d.%d.%d\n", uii_data[4], uii_data[5], uii_data[6], uii_data[7]);
+	printf("   Gateway: %d.%d.%d.%d\n", uii_data[8], uii_data[9], uii_data[10], uii_data[11]);
+
+	color(CG_GR2);
+	printf("\nConnecting to server:%c %s\n", CG_BLU, host);
 	socketnr = uii_tcpconnect(host, 3008);
-	printf("\n    Status: %s  (Socket #%d)", uii_status, socketnr);
 
-	// TODO, check status
+	status = get_uii_status();
+	if (status == 0)
+	{
+		color(CG_LGN);
+		printf("\nConnected!  Press any key to log in.");
+		cgetc();
+		return;
+	}
+	else
+	{
+		color(CG_RED);
+		printf("\nStatus: %s\n\n", uii_status);
+		printf("*** Failed to Connect to Server ***\n");
+		while (1);
+	}
 }
 
 void player_login()
 {
-	printf("Rogue Version 0.005 for Ultimate 64\n\n");
-	printf("Concept+Game Code: Leif Bloomquist\n\n");
-	printf("Networking Code:   Scott Hutter\n");
-	printf("Contributors:      Robin Harbron\n");
+	clear_screen();
+	color(CG_RED);
+	printf("Rogue Version 0.005 for Ultimate 64\n\n");	
+	printf("%cConcept+Game Code: %cLeif Bloomquist\n\n", CG_LBL, CG_WHT);
+	printf("%cNetworking Code:   %cScott Hutter\n", CG_LBL, CG_WHT);
+	printf("%cContributors:      %cRobin Harbron\n", CG_LBL, CG_WHT);
 	printf("                   qzerow\n\n");
-
-	printf("Controls:          Joystick in Port 2\n");
+	printf("%cControls:          %cJoystick in Port 2\n", CG_LBL, CG_YEL);
 	printf("                   Press F1 for Keys\n\n");
-	printf("Test build for Ultimate 64!\n");
+	printf("%cTest build for Ultimate 64!\n", CG_RED);
 
-	printf("\n\nWriting announce...\n");
+	// TODO, get name
+
+	printf("\nWriting announce...\n");
 	uii_tcpsocketwrite(socketnr, send_buffer);
-	printf("\n    Status: %s", uii_status);
+	printf("\nStatus: %s", uii_status);
+	cgetc();
 }
 
 void game_loop()
@@ -196,7 +280,8 @@ void game_loop()
 
 	screen_init();
 	sound_init();
-	POKE(0x028A, 0xFF); //  All keys repeat
+
+	POKE(0x028A, 0xFF); //  All keys repeat/  Also $028B	651		Speed of key - repeat?	
 
 	// Main Game loop
 	while (1)
@@ -224,10 +309,10 @@ void game_loop()
 
 void main(void)
 {
-	POKEW(0xD020, 0); // Black screen
-	clear_screen();
-	network_init();
+	POKEW(0xD020, 0);   // Black screen
+	POKE(0x0291, 128);  // Disable Shift-C=
 
+	network_init();
 	player_login();
 	game_loop();
 }
