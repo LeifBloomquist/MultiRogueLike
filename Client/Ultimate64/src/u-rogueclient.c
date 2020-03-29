@@ -137,84 +137,87 @@ void handle_packet(byte *uii_data)
 	}
 }
 
-void main(void) 
+void network_init()
 {
 	int count = 0;
 	//char *host = "192.168.7.51";
 	//char *host = "rogue.jammingsignal.com";
 	char *host = "192.168.7.14";
-	int received = 0;
-	
-	clear_screen();
-	screen_init();
-	sound_init();
 
 	printf("Rogue U64 Test\n");
 
-	if(uii_isdataavailable())
+	if (uii_isdataavailable())
 	{
 		printf("\naborting a previous command...");
 		uii_abort();
 	}
-	
+
 	uii_identify();
 	printf("\n\nIdentify: %s\nStatus: %s", uii_data, uii_status);
 
 	// -----------------------------------------------------------
 	// Network interface target
 	// -----------------------------------------------------------
-	
+
 	uii_getinterfacecount();
-	
+
 	uii_getipaddress();
 	printf("\n\nIP Address: %d.%d.%d.%d", uii_data[0], uii_data[1], uii_data[2], uii_data[3]);
 	printf("\n   Netmask: %d.%d.%d.%d", uii_data[4], uii_data[5], uii_data[6], uii_data[7]);
 	printf("\n   Gateway: %d.%d.%d.%d", uii_data[8], uii_data[9], uii_data[10], uii_data[11]);
-	
+
 	printf("\n\nConnecting to: %s", host);
 	socketnr = uii_tcpconnect(host, 3008);
 	printf("\n    Status: %s  (Socket #%d)", uii_status, socketnr);
 
+	// TODO, check status
+}
+
+void player_login()
+{
 	printf("\n\nWriting announce...\n");
 	uii_tcpsocketwrite(socketnr, send_buffer);
 	printf("\n    Status: %s", uii_status);
+}
 
-	printf("\n\nReading Data...\n");
+void game_loop()
+{
+	int received = 0;
 
+	screen_init();
+	sound_init();
 	POKE(0x028A, 0xFF); //  All keys repeat
 
 	// Main Game loop
 	while (1)
 	{
 		// Server Updates
-		received = uii_tcpsocketread(socketnr, PACKET_SERVER_UPDATE_LENGTH);		
+		received = uii_tcpsocketread(socketnr, PACKET_SERVER_UPDATE_LENGTH);
 
 		if (received == PACKET_SERVER_UPDATE_LENGTH)
 		{
-			handle_packet(uii_data);	
+			handle_packet(uii_data);
 		}
 
 		// Player Commands (keyboard)
 		if (kbhit())
 		{
 			send_action(cgetc());
-		}		
+		}
 	}
-	
+
 	printf("\n\nClosing connection");
 	uii_tcpclose(socketnr);
 	printf("\n    Status: %s", uii_status);
 }
 
 
+void main(void)
+{
+	POKEW(0xD020, 0); // Back screen
+	clear_screen();
+	network_init();
 
-/*
-		while (uii_success())
-		{
-
-			//memcpy(address, uii_data + 2, received);
-
-
-		}
-		printf("Status: %s\n", uii_status);
-		*/
+	player_login();
+	game_loop();
+}
