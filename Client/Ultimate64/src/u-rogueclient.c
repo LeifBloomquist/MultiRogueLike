@@ -17,6 +17,7 @@ Rogue Test Client for Ultimate 64
 // Packet Types - Server to C64
 #define PACKET_ANNOUNCE_REPLY 128
 #define PACKET_SERVER_UPDATE  129
+#define PACKET_SERVER_UPDATE_LENGTH 528
 
 // Define special memory areas
 #define SCREEN_RAM   ((unsigned char*)0x4800)
@@ -41,6 +42,7 @@ void fastcall color_lookup();
 typedef unsigned char byte;
 
 // Global Variables
+byte socketnr = 0;
 byte send_buffer[17] = { 1, 1, 65, 66, 67, 6,7,8,9,10,11, 12, 13, 14,15,16,17 };
 
 void clear_screen()
@@ -53,9 +55,11 @@ void send_announce()
 	// TODO
 }
 
-void send_action(byte *buffer)
+void send_action(char key)
 {
-	// TODO
+	send_buffer[0] = key;
+	send_buffer[1] = 0;
+	uii_tcpsocketwrite(socketnr, send_buffer);
 }
 
 void handle_server_update(byte *uii_data)
@@ -139,7 +143,6 @@ void main(void)
 	//char *host = "192.168.7.51";
 	//char *host = "rogue.jammingsignal.com";
 	char *host = "192.168.7.14";
-	unsigned char socketnr = 0;
 	int received = 0;
 	
 	clear_screen();
@@ -182,17 +185,20 @@ void main(void)
 	// Main Game loop
 	while (1)
 	{
-		received = uii_tcpsocketread(socketnr, 528);                //printf("%c", uii_data[2]);	// data byte
-		
-		if (received == 528)
+		// Server Updates
+		received = uii_tcpsocketread(socketnr, PACKET_SERVER_UPDATE_LENGTH);		
+
+		if (received == PACKET_SERVER_UPDATE_LENGTH)
 		{
 			handle_packet(uii_data);	
 		}
-		
-		
+
+		// Player Commands (keyboard)
+		if (kbhit())
+		{
+			send_action(cgetc());
+		}		
 	}
-
-
 	
 	printf("\n\nClosing connection");
 	uii_tcpclose(socketnr);

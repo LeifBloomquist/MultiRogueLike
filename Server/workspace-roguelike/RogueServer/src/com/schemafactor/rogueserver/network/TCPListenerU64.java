@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.entities.clients.ClientU64;
 import com.schemafactor.rogueserver.universe.Dungeon;
@@ -245,10 +246,11 @@ public class TCPListenerU64 extends Thread
                     JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated waiting for input." );
                     close();
                     return ExitReason.DISCONNECTED;
-                }                    
-                            
-                JavaTools.printlnTime("DEBUG: Received: " + (char)ic + " | " + ic + " from " + who.getDescription());                  
-                who.handleKeystroke(ic);
+                }
+                
+                byte petscii_char = (byte)ic;
+                byte ascii_char = PETSCII.toASCII(petscii_char);     
+                who.handleKeystroke(ascii_char);
                 
                 // Exit for removed entities
                 if (who.getRemoved())

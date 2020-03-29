@@ -44,6 +44,8 @@ public class Main
             if (args[0].equals("-local"))
             {
                 prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/mini/";
+                JavaTools.printlnTime("Local Mode specified - Timeouts disabled.");
+                Client.setDemoMode();
             }
             
             if (args[0].equals("-demo"))

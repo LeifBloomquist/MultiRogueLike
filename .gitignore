@@ -194,3 +194,9 @@ ModelManifest.xml
 *.o
 *.o
 *.o
+Client/C64/src/colorlookup.o
+Client/C64/src/colorlookup.o
+Client/C64/src/colorlookup.o
+Client/C64/src/defaultscreen.o
+Client/C64/src/screen.o
+Client/Ultimate64/src/lib/ultimate_lib_net.o
