@@ -175,6 +175,16 @@ void network_init()
 
 void player_login()
 {
+	printf("Rogue Version 0.005 for Ultimate 64\n\n");
+	printf("Concept+Game Code: Leif Bloomquist\n\n");
+	printf("Networking Code:   Scott Hutter\n");
+	printf("Contributors:      Robin Harbron\n");
+	printf("                   qzerow\n\n");
+
+	printf("Controls:          Joystick in Port 2\n");
+	printf("                   Press F1 for Keys\n\n");
+	printf("Test build for Ultimate 64!\n");
+
 	printf("\n\nWriting announce...\n");
 	uii_tcpsocketwrite(socketnr, send_buffer);
 	printf("\n    Status: %s", uii_status);
@@ -214,7 +224,7 @@ void game_loop()
 
 void main(void)
 {
-	POKEW(0xD020, 0); // Back screen
+	POKEW(0xD020, 0); // Black screen
 	clear_screen();
 	network_init();
 
