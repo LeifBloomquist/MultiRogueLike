@@ -33,17 +33,19 @@ Rogue Test Client for Ultimate 64
 //LEFT_COLOR = COLOR_BASE + $00BF
 //RIGHT_COLOR = LEFT_COLOR + 40
 
-// Prototypes to call assembly routines
-void fastcall screen_init();
-void fastcall sound_init();
-void fastcall color_lookup();
-
 // Data Types
 typedef unsigned char byte;
+
+// Prototypes to call assembly routines
+void fastcall screen_init();
+void fastcall color_lookup();
+void fastcall sound_init();
+void fastcall sound_play(byte fx);
 
 // Global Variables
 byte socketnr = 0;
 byte send_buffer[17] = { 1, 1, 65, 66, 67, 6,7,8,9,10,11, 12, 13, 14,15,16,17 };
+byte soundcounter = 0;
 
 void clear_screen()
 {
@@ -64,8 +66,6 @@ void send_action(char key)
 
 void handle_server_update(byte *uii_data)
 {
-	static byte soundcounter = 0;
-
 	byte temp_soundcounter = 0;
 	byte soundeffect = 0;
 
@@ -113,12 +113,12 @@ void handle_server_update(byte *uii_data)
 	// Sound effects
 	temp_soundcounter = uii_data[524];
 
-	if (temp_soundcounter == soundcounter)
+	if (temp_soundcounter != soundcounter)  // Sound changed
 	{
 		soundcounter = temp_soundcounter;
 		soundeffect = uii_data[525];
 
-		// TODO, play sound
+		sound_play(soundeffect);
 	}
 
 	// TODO, number of players

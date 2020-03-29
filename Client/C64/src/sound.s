@@ -2,6 +2,7 @@
 ; Rogue Sound Code
 
 .export _sound_init
+.export _sound_play
 
 SOUND_NONE         = 0
 SOUND_PLAYER_STEP  = 1
@@ -27,6 +28,13 @@ sound_init:
   lda #$0f
   sta $d418
   rts
+
+;------------------------------------------------------------------------------
+; Sound Effects Dispatcher - C entry point
+; Defined with fastcall, so param should be in A?  
+; Ref https://github.com/cc65/wiki/wiki/Parameter-passing-and-calling-conventions
+
+_sound_play:
 
 ;------------------------------------------------------------------------------
 ; Sound Effects Dispatcher - sound to play in A
