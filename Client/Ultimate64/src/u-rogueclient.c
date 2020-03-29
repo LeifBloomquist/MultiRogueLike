@@ -181,6 +181,7 @@ void main(void)
 
 	printf("\n\nReading Data...\n");
 
+	POKE(0x028A, 0xFF); //  All keys repeat
 
 	// Main Game loop
 	while (1)
