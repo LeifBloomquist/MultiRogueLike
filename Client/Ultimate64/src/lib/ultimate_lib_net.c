@@ -242,6 +242,8 @@ unsigned char uii_tcpconnect(char* host, unsigned short port)
 	uii_settarget(TARGET_NETWORK);
 	uii_sendcommand(fullcmd, 4+strlen(host)+1);
 
+	free(fullcmd);
+
 	uii_readdata();
 	uii_readstatus();
 	uii_accept();
@@ -410,6 +412,8 @@ void uii_tcpsocketwrite_convert_parameter(unsigned char socketid, char *data, in
 	
 	uii_settarget(TARGET_NETWORK);
 	uii_sendcommand(fullcmd, 3+strlen(data));
+
+	free(fullcmd);
 
 	uii_readdata();
 	uii_readstatus();
