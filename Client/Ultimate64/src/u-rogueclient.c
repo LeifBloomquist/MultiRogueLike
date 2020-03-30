@@ -43,6 +43,8 @@ Rogue Test Client for Ultimate 64
 
 // Define special memory areas
 #define SCREEN_RAM   ((unsigned char*)0x4800)
+#define BORDER       0xD020
+#define JOYSTICK2    0xDC00
 
 // Screen offsets
 #define COMMS_COLOR  0x03E7
@@ -69,8 +71,11 @@ byte socketnr = 0;
 byte soundcounter = 0;
 char name[20];
 
-// Data buffers
+// Data Buffers
 byte send_buffer[2] = { 0, 0 };
+
+// Lookup Tables
+char joystick_directions[32] = { 0, 0, 0, 0, 0 , 'C', 'E', 'D', 0, 'Z', 'Q', 'A', 0, 'X', 'W', '*', 0, 0, 0, 0, 0, 'c', 'e', 'd', 0, 'z', 'q', 'a', 0, 'x', 'w', 0 };
 
 void clear_screen()
 {
@@ -134,6 +139,12 @@ int text_input(char *text, byte max)
 			break;
 		}		
 	}
+}
+
+byte read_joystick()
+{
+	byte j = PEEK(JOYSTICK2);
+	return (j & 0x1F);
 }
 
 int get_uii_status()
@@ -231,6 +242,7 @@ void handle_packet(byte *uii_data)
 	{
 		case PACKET_SERVER_UPDATE:
 			handle_server_update(uii_data+2);
+			POKE(BORDER, COLOR_BLACK);
 			break;
 
 		default:     // No other types handled yet (possibly corrupted packet)
@@ -364,6 +376,7 @@ void player_login()
 void game_loop()
 {
 	int received = 0;
+	byte j = 0;
 
 	screen_init();
 	sound_init();
@@ -392,6 +405,7 @@ void game_loop()
 		}
 
 		// TODO, Joystick
+			send_action(joystick_directions[j]);		
 	}
 
 	printf("\n\nClosing connection");
@@ -402,8 +416,8 @@ void game_loop()
 
 void main(void)
 {
-	POKEW(0xD020, 0);   // Black screen
-	POKE(0x0291, 128);  // Disable Shift-C=
+	POKEW(BORDER, COLOR_BLACK);   // Black screen  (border and screen)
+	POKE(0x0291, 128);            // Disable Shift-C=
 
 	network_init();
 	player_login();
