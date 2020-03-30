@@ -46,7 +46,7 @@
     <None Include="..\..\..\C64\src\sound.s">
       <Filter>Source Files\assembly</Filter>
     </None>
-    <None Include="..\..\..\C64\src\login.s">
+    <None Include="..\..\..\C64\src\input.s">
       <Filter>Source Files\assembly</Filter>
     </None>
   </ItemGroup>

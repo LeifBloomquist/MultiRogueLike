@@ -34,7 +34,7 @@ public class ClientU64 extends ClientC64
        try
        {            
            output.write(data);
-           output.flush();          
+           output.flush();
        }
        catch (Exception e)
        {

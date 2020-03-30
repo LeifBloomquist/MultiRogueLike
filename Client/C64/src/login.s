@@ -3,6 +3,7 @@
 ; -------------------------------------------------------------------------
 
   .import cfg_mac_default
+  .export _login
 
 STATIONLENGTH=1
 
@@ -27,7 +28,8 @@ station:
 
 NAMELENGTH=15
 
-login:  
+_login:
+login:
   kernal_print LOGINPROMPT
   
   ; Get name
@@ -44,7 +46,7 @@ login:
 
 TITLEMESSAGE:
   .byte 147, CG_LCS, CG_DCS, CG_RED
-  .byte "rOGUE vERSION 0.004A", 13, 13
+  .byte "rOGUE vERSION 0.005", 13, 13
   .byte CG_LBL, "cONCEPT+gAME cODE: ", CG_WHT, "lEIF bLOOMQUIST", 13, 13
   .byte CG_LBL, "nETWORKING cODE:   ", CG_WHT, "jONNO dOWNES", 13
   .byte CG_LBL, "                   ", CG_WHT, "pER oLOFSSON", 13, 13
@@ -67,7 +69,7 @@ STATIONPROMPT:
   .byte 0
   
 LOGINPROMPT:  
-  .byte " ", 13, 13, CG_RED, "lOGIN: ", CG_PNK
+  .byte " ", 13, 13, CG_LGN, "lOGIN: ", CG_WHT
   .byte 0
 
 ; EOF!

@@ -15,6 +15,7 @@ import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.entities.clients.ClientU64;
 import com.schemafactor.rogueserver.universe.Dungeon;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 // TODO, this class shares a ton of code with TCPListenerU64, refactor!
 
@@ -154,38 +155,7 @@ public class TCPListenerU64 extends Thread
                 JavaTools.printlnTime("EXCEPTION receiving data from U64: " + JavaTools.getStackTrace(e));
                 return null;
             }
-
-            /*
-            byte[] totalbuf = new byte[1000];
-            byte offset = 0;
-            
-            byte[] buf = new byte[1000];            
-            int totalReceived = 0;     
-            
-            while (true)
-            {
-                try
-                {
-                    int received = input.read(buf, 0, num);                    
-                    if (received == -1) return null;   // End of stream i.e. closed?
-                    System.arraycopy(buf, 0, totalbuf, offset, received);
-                    
-                    totalReceived += received;
-                    offset += received;
-                    
-                    if (totalReceived >= num)
-                    {
-                        return totalbuf;
-                    }
-                } 
-                catch (IOException e)
-                {
-                    JavaTools.printlnTime("EXCEPTION receiving data from U64: " + JavaTools.getStackTrace(e));
-                    return null;
-                }                
-            }*/
-        }
-        
+        }        
         
         public void run() 
         {
@@ -201,7 +171,22 @@ public class TCPListenerU64 extends Thread
                     
                     if (announce == null) return;  // Disconnected or other error
                     
-                    ClientU64 u64 = new ClientU64(announce, output);
+                    // Workaround for U64 - null bytes terminate the packet.
+                    byte[] announce_fixed = new byte[announce.length];
+                    
+                    for (int i=0; i<announce.length; i++)
+                    {
+                        if (announce[i] == -1)
+                        {
+                            announce_fixed[i] = 0;
+                        }
+                        else
+                        {
+                            announce_fixed[i] = announce[i];
+                        }
+                    }
+                    
+                    ClientU64 u64 = new ClientU64(announce_fixed, output);
                     dungeon.addEntity(u64);
                     
                     // 2. Game Loop - Blocks until user disconnects or dies
@@ -258,7 +243,6 @@ public class TCPListenerU64 extends Thread
                    return ExitReason.DIED;
                 }
             }
-        }
-        
+        }        
     }   
 }

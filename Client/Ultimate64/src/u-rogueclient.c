@@ -5,6 +5,7 @@ Rogue Test Client for Ultimate 64
 #include <stdio.h>
 #include <string.h>
 #include <conio.h>
+#include <ctype.h>
 #include <c64.h>
 #include <peekpoke.h>
 #include "lib/ultimate_lib_net.h"
@@ -48,10 +49,6 @@ Rogue Test Client for Ultimate 64
 #define RIGHT_CHAR   LEFT_CHAR  + 40
 #define HEALTH_CHARS RIGHT_CHAR + 80
 
-//CELL_COLOR = COLOR_BASE + $006F
-//LEFT_COLOR = COLOR_BASE + $00BF
-//RIGHT_COLOR = LEFT_COLOR + 40
-
 // Data Types
 typedef unsigned char byte;
 
@@ -63,8 +60,10 @@ void fastcall sound_play(byte fx);
 
 // Global Variables
 byte socketnr = 0;
-byte send_buffer[17] = { PACKET_ANNOUNCE, 1, 65, 66, 67, 6,7,8,9,10,11, 12, 13, 14,15,16,17 };
 byte soundcounter = 0;
+
+// Data buffers
+byte send_buffer[2] = { 0, 0 };
 
 void clear_screen()
 {
@@ -75,6 +74,49 @@ void color(byte color)
 {
 	printf("%c", color);
 }
+
+int text_input(char *text, byte max)
+{
+	char c;
+	byte i = 0;
+
+	while (1) 
+	{
+		c = cgetc();
+
+		if (isprint(c) || isdigit(c))  // is a printable char or number 
+		{
+			text[i] = c;
+			cputc(c);
+			++i;
+		}
+
+		if (c == 126)  // user pressed backspace 
+		{
+			if (i != 0)
+			{
+				--i;
+				if (i == (strlen(text) - 1))
+				{
+					text[i] = '\0';
+				}
+				else
+				{
+					text[i] = ' ';
+				}
+			}
+		}
+
+		if (c == '\n')  // user pressed return
+		{
+			text[i] = '\0';
+			return i;
+		}
+
+		if (i == max) continue;  // maxed out	
+	}
+}
+
 
 int get_uii_status()
 {
@@ -91,9 +133,20 @@ int get_uii_status()
 	return status;
 }
 
-void send_announce()
+void send_announce(char *name)
 {
-	// TODO
+	int i = 0;
+
+	byte announce_buffer[17] = { PACKET_ANNOUNCE, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+	strncpy(announce_buffer+2, name, 15);
+
+	// Workaround for U64 - null bytes terminate the packet.  Replace with $FF and strip out again on the server
+	for (i = 0; i < 17; i++)
+	{
+		if (announce_buffer[i] == 0) announce_buffer[i] = 255;
+	}
+
+	uii_tcpsocketwrite(socketnr, announce_buffer);
 }
 
 void send_action(char key)
@@ -163,6 +216,7 @@ void handle_packet(byte *uii_data)
 			break;
 
 		default:     // No other types handled yet (possibly corrupted packet)
+			asm("inc $d020"); // DEBUG !!!!
 			return;
 	}
 }
@@ -255,23 +309,39 @@ void network_init()
 
 void player_login()
 {
+	int status = 0;
+	char name[20];
+
 	clear_screen();
 	color(CG_RED);
 	printf("Rogue Version 0.005 for Ultimate 64\n\n");	
 	printf("%cConcept+Game Code: %cLeif Bloomquist\n\n", CG_LBL, CG_WHT);
-	printf("%cNetworking Code:   %cScott Hutter\n", CG_LBL, CG_WHT);
+	printf("%cNetworking Code:   %cScott Hutter\n\n", CG_LBL, CG_WHT);
 	printf("%cContributors:      %cRobin Harbron\n", CG_LBL, CG_WHT);
+	printf("                   groepaz\n");
 	printf("                   qzerow\n\n");
 	printf("%cControls:          %cJoystick in Port 2\n", CG_LBL, CG_YEL);
 	printf("                   Press F1 for Keys\n\n");
-	printf("%cTest build for Ultimate 64!\n", CG_RED);
+	
+	color(CG_LGN);
+	printf("Login: ");
 
-	// TODO, get name
+	color(CG_WHT);
+	text_input(name, 15);
+	send_announce(name);
 
-	printf("\nWriting announce...\n");
-	uii_tcpsocketwrite(socketnr, send_buffer);
-	printf("\nStatus: %s", uii_status);
-	cgetc();
+	status = get_uii_status();
+	if (status == 0)
+	{		
+		return;
+	}
+	else
+	{
+		color(CG_RED);
+		printf("\nStatus: %s\n\n", uii_status);
+		printf("*** Failed to log in ***\n");
+		cgetc();
+	}
 }
 
 void game_loop()

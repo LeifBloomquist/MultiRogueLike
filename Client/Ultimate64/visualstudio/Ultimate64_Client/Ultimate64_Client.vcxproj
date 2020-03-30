@@ -126,7 +126,7 @@
   <ItemGroup>
     <None Include="..\..\..\C64\src\colorlookup.s" />
     <None Include="..\..\..\C64\src\defaultscreen.s" />
-    <None Include="..\..\..\C64\src\login.s" />
+    <None Include="..\..\..\C64\src\input.s" />
     <None Include="..\..\..\C64\src\screen.s" />
     <None Include="..\..\..\C64\src\sound.s" />
     <None Include="..\..\build.bat" />
