@@ -38,6 +38,9 @@ Rogue Test Client for Ultimate 64
 #define CG_GR3 155
 #define CG_RVS 18   // revs - on
 #define CG_NRM 146  // revs - off
+#define CG_DEL 20   // Delete
+#define CG_CLR 147   // Delete
+
 
 // Define special memory areas
 #define SCREEN_RAM   ((unsigned char*)0x4800)
@@ -67,7 +70,12 @@ byte send_buffer[2] = { 0, 0 };
 
 void clear_screen()
 {
-	printf("%c", 147);
+	printf("%c", CG_CLR);
+}
+
+void delete()
+{
+	printf("%c", CG_DEL);
 }
 
 void color(byte color)
@@ -80,6 +88,8 @@ int text_input(char *text, byte max)
 	char c;
 	byte i = 0;
 
+	cursor(1);
+
 	while (1) 
 	{
 		c = cgetc();
@@ -91,32 +101,30 @@ int text_input(char *text, byte max)
 			++i;
 		}
 
-		if (c == 126)  // user pressed backspace 
+		if (c == CG_DEL)  // user pressed backspace 
 		{
-			if (i != 0)
+			if (i > 0)
 			{
 				--i;
-				if (i == (strlen(text) - 1))
-				{
-					text[i] = '\0';
-				}
-				else
-				{
-					text[i] = ' ';
-				}
+
+				text[i] = '\0';
+				delete();
 			}
 		}
 
 		if (c == '\n')  // user pressed return
 		{
-			text[i] = '\0';
-			return i;
+			if (i != 0)
+			{
+				text[i] = '\0';
+				cursor(0);
+				return i;
+			}
 		}
 
 		if (i == max) continue;  // maxed out	
 	}
 }
-
 
 int get_uii_status()
 {
