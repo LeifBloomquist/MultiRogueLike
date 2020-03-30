@@ -404,8 +404,12 @@ void game_loop()
 			send_action(cgetc());
 		}
 
-		// TODO, Joystick
+		// Player Commands (Joystick)
+		j = read_joystick();
+		if ( j != 0x1F)
+		{ 
 			send_action(joystick_directions[j]);		
+		}
 	}
 
 	printf("\n\nClosing connection");
