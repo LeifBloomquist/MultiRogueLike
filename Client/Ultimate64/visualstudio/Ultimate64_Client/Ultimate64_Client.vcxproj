@@ -126,10 +126,10 @@
   <ItemGroup>
     <None Include="..\..\..\C64\src\colorlookup.s" />
     <None Include="..\..\..\C64\src\defaultscreen.s" />
-    <None Include="..\..\..\C64\src\input.s" />
     <None Include="..\..\..\C64\src\screen.s" />
     <None Include="..\..\..\C64\src\sound.s" />
     <None Include="..\..\build.bat" />
+    <None Include="..\..\src\cfg\c64-nobasic.cfg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

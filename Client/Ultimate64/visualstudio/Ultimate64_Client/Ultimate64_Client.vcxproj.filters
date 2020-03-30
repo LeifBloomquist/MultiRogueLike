@@ -16,6 +16,9 @@
     <Filter Include="Source Files\assembly">
       <UniqueIdentifier>{c97cd1b0-a661-4257-b034-dffbf1e1cce5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{00319803-e70b-4ddb-85ff-02cc6d20285b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\lib\ultimate_lib_net.c">
@@ -46,8 +49,8 @@
     <None Include="..\..\..\C64\src\sound.s">
       <Filter>Source Files\assembly</Filter>
     </None>
-    <None Include="..\..\..\C64\src\input.s">
-      <Filter>Source Files\assembly</Filter>
+    <None Include="..\..\src\cfg\c64-nobasic.cfg">
+      <Filter>Configuration</Filter>
     </None>
   </ItemGroup>
 </Project>

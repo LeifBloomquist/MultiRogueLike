@@ -73,7 +73,7 @@ void clear_screen()
 	printf("%c", CG_CLR);
 }
 
-void delete()
+void delete_char()
 {
 	printf("%c", CG_DEL);
 }
@@ -94,35 +94,41 @@ int text_input(char *text, byte max)
 	{
 		c = cgetc();
 
-		if (isprint(c) || isdigit(c))  // is a printable char or number 
+		switch (c)
 		{
-			text[i] = c;
-			cputc(c);
-			++i;
-		}
+		case ' ':
+			break;
 
-		if (c == CG_DEL)  // user pressed backspace 
-		{
+		case CG_DEL:  // user pressed backspace 			
 			if (i > 0)
 			{
 				--i;
 
 				text[i] = '\0';
-				delete();
+				delete_char();
 			}
-		}
+			break;
 
-		if (c == '\n')  // user pressed return
-		{
+		case '\n':  // user pressed return
 			if (i != 0)
 			{
 				text[i] = '\0';
 				cursor(0);
 				return i;
 			}
-		}
+			break;
 
-		if (i == max) continue;  // maxed out	
+		default:
+			if (i == max) break;  // maxed out	
+
+			if (isprint(c) || isdigit(c))  // is a printable char or number, accept it
+			{
+				text[i] = c;
+				cputc(c);
+				++i;
+			}
+			break;
+		}		
 	}
 }
 
@@ -371,12 +377,15 @@ void game_loop()
 		{
 			handle_packet(uii_data);
 		}
+		// TODO, error checking
 
-		// Player Commands (keyboard)
+		// Player Commands (Keyboard)
 		if (kbhit())
 		{
 			send_action(cgetc());
 		}
+
+		// TODO, Joystick
 	}
 
 	printf("\n\nClosing connection");
