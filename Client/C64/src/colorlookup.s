@@ -208,7 +208,7 @@ color_table:
     .byte COLOR_WHITE    ; 170	 	
     .byte COLOR_WHITE    ; 171	 	
     .byte COLOR_WHITE    ; 172	 	
-    .byte COLOR_WHITE    ; 173	 	
+    .byte COLOR_WHITE    ; 173	; Dash - 	
     .byte COLOR_WHITE    ; 174	 	
     .byte COLOR_WHITE    ; 175	 	
     .byte COLOR_WHITE    ; 176	 	

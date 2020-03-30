@@ -41,16 +41,19 @@ Rogue Test Client for Ultimate 64
 #define CG_DEL 20   // Delete
 #define CG_CLR 147   // Delete
 
-
 // Define special memory areas
 #define SCREEN_RAM   ((unsigned char*)0x4800)
-#define COMMS_COLOR  0x03E7
 
 // Screen offsets
+#define COMMS_COLOR  0x03E7
 #define CELL_CHAR    0x006F
 #define LEFT_CHAR    0x00BF
 #define RIGHT_CHAR   LEFT_CHAR  + 40
 #define HEALTH_CHARS RIGHT_CHAR + 80
+#define NAME_LOC     0x18
+
+// Miscellaneous constants
+#define NAME_LENGTH  15
 
 // Data Types
 typedef unsigned char byte;
@@ -64,6 +67,7 @@ void fastcall sound_play(byte fx);
 // Global Variables
 byte socketnr = 0;
 byte soundcounter = 0;
+char name[20];
 
 // Data buffers
 byte send_buffer[2] = { 0, 0 };
@@ -152,7 +156,7 @@ void send_announce(char *name)
 	int i = 0;
 
 	byte announce_buffer[17] = { PACKET_ANNOUNCE, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-	strncpy(announce_buffer+2, name, 15);
+	strncpy(announce_buffer+2, name, NAME_LENGTH);
 
 	// Workaround for U64 - null bytes terminate the packet.  Replace with $FF and strip out again on the server
 	for (i = 0; i < 17; i++)
@@ -324,7 +328,6 @@ void network_init()
 void player_login()
 {
 	int status = 0;
-	char name[20];
 
 	clear_screen();
 	color(CG_RED);
@@ -341,7 +344,7 @@ void player_login()
 	printf("Login: ");
 
 	color(CG_WHT);
-	text_input(name, 15);
+	text_input(name, NAME_LENGTH);
 	send_announce(name);
 
 	status = get_uii_status();
@@ -366,6 +369,9 @@ void game_loop()
 	sound_init();
 
 	POKE(0x028A, 0xFF); //  All keys repeat/  Also $028B	651		Speed of key - repeat?	
+
+	strlower(name);
+	strncpy(SCREEN_RAM+NAME_LOC, name, NAME_LENGTH);
 
 	// Main Game loop
 	while (1)
