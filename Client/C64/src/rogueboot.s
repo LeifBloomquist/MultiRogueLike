@@ -59,7 +59,7 @@ init:
 main: 
   ; Save bootloader version if needed
   lda #12     ; decimal 1.2             
-  sta $cFFF
+  sta $CFFF
 
   jmp $6000
 

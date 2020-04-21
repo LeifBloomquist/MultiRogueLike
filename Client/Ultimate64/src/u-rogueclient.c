@@ -39,7 +39,7 @@ Rogue Test Client for Ultimate 64
 #define CG_RVS 18   // revs - on
 #define CG_NRM 146  // revs - off
 #define CG_DEL 20   // Delete
-#define CG_CLR 147   // Delete
+#define CG_CLR 147  // Delete
 
 // Define special memory areas
 #define SCREEN_RAM   ((unsigned char*)0x4800)
@@ -406,7 +406,7 @@ void game_loop()
 
 		// Player Commands (Joystick)
 		j = read_joystick();
-		if ( j != 0x1F)
+		if (j != 0x1F)
 		{ 
 			send_action(joystick_directions[j]);		
 		}
