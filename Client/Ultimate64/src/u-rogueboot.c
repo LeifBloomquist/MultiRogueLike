@@ -12,7 +12,7 @@ Rogue Boot Client for Ultimate 64
 
 #define BORDER 0xD020
 #define SHIFT  0x028D
-#define START  0x6000
+#define LOAD   0x4000
 
 #define CG_BLK 144
 #define CG_WHT 5
@@ -68,14 +68,14 @@ void main(void)
 	unsigned char socketnr = 0;
 	unsigned int datacount = 0;
 	unsigned int received = 0;
-	unsigned int address = START;
+	unsigned int address = LOAD;
 
 	clear_screen();
 	POKEW(BORDER, 0);
 	POKE(0x0291, 128);    // Disable Shift-C=
 
 	color(CG_YEL);
-	printf("Ultimate 64 Rogue Bootloader\n");
+	printf("Ultimate 64 Rogue Bootloader %c2.0\n\n", CG_BLU);
 
 	if (uii_isdataavailable())
 	{
@@ -85,7 +85,7 @@ void main(void)
 	}
 
 	color(CG_GR2);
-	printf("\nIdentifying...");
+	printf("Identifying...");
 	uii_identify();
 
 	status = get_uii_status();
@@ -163,5 +163,5 @@ void main(void)
 		;
 	}
 
-	asm("jmp %w", START);
+	asm("jmp $6000");
 }
