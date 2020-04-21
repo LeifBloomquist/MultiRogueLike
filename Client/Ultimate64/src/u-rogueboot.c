@@ -146,7 +146,7 @@ void main(void)
 	while (uii_success())
 	{
 		received = uii_tcpsocketread(socketnr, 528);
-		memcpy(address, uii_data + 2, received);
+		memcpy(address, uii_data + 2, received);     // Warning: Converting integer to pointer without a cast  (but works)
 		address += received;
 		datacount += received;
 
@@ -157,7 +157,7 @@ void main(void)
 	printf("\n\nReceived: %d bytes\n", datacount);
 	uii_tcpclose(socketnr);
 
-	// Debug - pause if shift is pressed
+	// Debug - pause if shift is pressed before starting
 	while (PEEK(SHIFT))
 	{
 		;
