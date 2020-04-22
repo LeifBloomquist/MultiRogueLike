@@ -128,7 +128,8 @@
     <None Include="..\..\..\C64\src\defaultscreen.s" />
     <None Include="..\..\..\C64\src\screen.s" />
     <None Include="..\..\..\C64\src\sound.s" />
-    <None Include="..\..\build.bat" />
+    <None Include="..\..\build_full.bat" />
+    <None Include="..\..\build_test.bat" />
     <None Include="..\..\src\cfg\c64-nobasic.cfg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

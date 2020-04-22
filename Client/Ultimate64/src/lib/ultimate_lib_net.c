@@ -27,7 +27,7 @@ int uii_data_len;
 
 unsigned char uii_target = TARGET_NETWORK;
 
-unsigned char read_cmd[] = { 0x00,NET_CMD_TCP_SOCKET_READ, 0x00, 0x00, 0x00 };
+unsigned char read_cmd[] = { 0x00,NET_CMD_TCP_SOCKET_READ, 0x00, 0xF4, 0x01 };  // Length = 500 bytes
 
 void uii_logtext(char *text)
 {
@@ -103,12 +103,12 @@ void uii_sendcommand(unsigned char *bytes, int count)
 		// check ERROR bit.  If set, clear it via ctrl reg, and try again
 		if ((*statusreg & 4) == 4)
 		{
-			uii_logtext("\nerror was set. trying again");
+			//uii_logtext("\nerror was set. trying again");
 			*controlreg |= 0x08;
 		}
 		else
 		{
-			uii_logstatusreg();
+			//uii_logstatusreg();
 			
 			// check for cmd busy
 			while ( ((*statusreg & 32) == 0) && ((*statusreg & 16) == 16) )
@@ -127,8 +127,6 @@ void uii_sendcommand(unsigned char *bytes, int count)
 void uii_accept(void)
 {
 	// Acknowledge the data
-	uii_logstatusreg();
-	uii_logtext("\nsending ack");
 	*controlreg |= 0x02;
 }
 
@@ -293,13 +291,37 @@ int uii_tcpsocketread(unsigned char socketid, unsigned short length)
 	return uii_data[0] | (uii_data[1]<<8);
 }
 
-int uii_tcpsocketread_opt(unsigned char socketid, unsigned short length)
+void uii_tcpsocketread_opt_init(unsigned char socketid)
+{
+	read_cmd[2] = socketid;
+	uii_settarget(TARGET_NETWORK);
+}
+
+unsigned int uii_tcpsocketread_opt()
+{
+	unsigned int count = 0;
+	uii_sendcommand(read_cmd, 0x05);
+
+	// If there is data to read
+	while (*statusreg & 128) 
+	{
+		uii_data[count++] = *respdatareg;	
+	}
+
+	// Acknowledge the data
+	*controlreg |= 0x02;
+
+	return count - 2;
+}
+
+/*
+int uii_tcpsocketread_opt(unsigned char socketid)
 {
 	unsigned int count = 0;
 
 	read_cmd[2] = socketid;
-	read_cmd[3] = length & 0xff;
-	read_cmd[4] = (length >> 8) & 0xff;
+	read_cmd[3] = 0xF4;   // 500 bytes max
+	read_cmd[4] = 0x01;   
 
 	uii_sendcommand(read_cmd, 0x05);
 
@@ -307,7 +329,7 @@ int uii_tcpsocketread_opt(unsigned char socketid, unsigned short length)
 	uii_data[0] = 0;
 
 	// If there is data to read	
-	while (*statusreg & 128)  //while (uii_isdataavailable())       ((*statusreg & 128) == 128)
+	while ((*statusreg & 128) == 128)  //while (uii_isdataavailable())       
 	{
 		uii_data[count++] = *respdatareg;
 	}
@@ -318,6 +340,7 @@ int uii_tcpsocketread_opt(unsigned char socketid, unsigned short length)
 
 	return count;
 }
+*/
 
 int uii_tcplistenstart(unsigned short port)
 {

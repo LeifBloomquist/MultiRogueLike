@@ -129,4 +129,8 @@ int uii_tcp_nextline_ascii(unsigned char socketid, char*);
 void uii_tcp_emptybuffer(void);
 void uii_reset_uiidata(void);
 
+// Optimized for speed (LB)
+unsigned int uii_tcpsocketread_opt();
+void uii_tcpsocketread_opt_init(unsigned char socketid);
+
 #endif

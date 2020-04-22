@@ -35,6 +35,7 @@ public class Constants
     
     public static final byte PACKET_ANN_REPLY = (byte) 128;
     public static final byte PACKET_UPDATE    = (byte) 129;
+    public static final byte PACKET_MESSAGES  = (byte) 130;
     
     // Handedness
     public static final byte HAND_NONE         = 0;

@@ -16,9 +16,11 @@ Rogue Test Client for Ultimate 64
 #define PACKET_CLIENT_UPDATE 2
 
 // Packet Types - Server to C64
-#define PACKET_ANNOUNCE_REPLY 128
-#define PACKET_SERVER_UPDATE  129
-#define PACKET_SERVER_UPDATE_LENGTH 528
+#define PACKET_ANNOUNCE_REPLY  128
+#define PACKET_SERVER_UPDATE   129
+#define PACKET_SERVER_MESSAGES 130
+#define PACKET_SERVER_UPDATE_LENGTH 368
+#define PACKET_SERVER_MESSAGES_LENGTH 161
 
 #define CG_BLK 144
 #define CG_WHT 5
@@ -45,6 +47,7 @@ Rogue Test Client for Ultimate 64
 #define SCREEN_RAM   ((unsigned char*)0x4800)
 #define BORDER       0xD020
 #define JOYSTICK2    0xDC00
+#define RASTER_LINE  0xD012
 
 // Screen offsets
 #define COMMS_COLOR  0x03E7
@@ -187,12 +190,10 @@ void send_action(char key)
 
 void handle_server_update(byte *uii_data)
 {
-	byte temp_soundcounter = 0;
-	byte soundeffect = 0;
-
-	COLOR_RAM[COMMS_COLOR]++;
+	COLOR_RAM[COMMS_COLOR]++;  // Increment the comms indicator
 
 	// Screen (17 Rows)
+	POKE(BORDER, COLOR_RED);
 	memcpy(SCREEN_RAM +  41, uii_data +   1, 21);
 	memcpy(SCREEN_RAM +  81, uii_data +  22, 21);
 	memcpy(SCREEN_RAM + 121, uii_data +  43, 21);
@@ -211,42 +212,51 @@ void handle_server_update(byte *uii_data)
 	memcpy(SCREEN_RAM + 641, uii_data + 316, 21);
 	memcpy(SCREEN_RAM + 681, uii_data + 337, 21);
 
-	// Messages
-	memcpy(SCREEN_RAM + 800, uii_data + 358, 160);
+	POKE(BORDER, COLOR_BLUE);
 
-	memcpy(SCREEN_RAM + CELL_CHAR, uii_data + 518, 1);     // Current Cell
-	memcpy(SCREEN_RAM + LEFT_CHAR, uii_data + 519, 1);     // Held - Left
-	memcpy(SCREEN_RAM + RIGHT_CHAR, uii_data + 520, 1);    // Held - Right
-	memcpy(SCREEN_RAM + HEALTH_CHARS, uii_data + 521, 3);  // Health
+	memcpy(SCREEN_RAM + CELL_CHAR, uii_data + 358, 1);     // Current Cell
+	memcpy(SCREEN_RAM + LEFT_CHAR, uii_data + 359, 1);     // Held - Left
+	memcpy(SCREEN_RAM + RIGHT_CHAR, uii_data + 360, 1);    // Held - Right
+	memcpy(SCREEN_RAM + HEALTH_CHARS, uii_data + 361, 3);  // Health
+
+	POKE(BORDER, COLOR_WHITE);
 
 	// Colorize the screen
 	color_lookup();
 
+	POKE(BORDER, COLOR_PURPLE);
+
 	// Sound effects
-	temp_soundcounter = uii_data[524];
-
-	if (temp_soundcounter != soundcounter)  // Sound changed
+	if (uii_data[364] != soundcounter)  // Sound changed
 	{
-		soundcounter = temp_soundcounter;
-		soundeffect = uii_data[525];
-
-		sound_play(soundeffect);
+		soundcounter = uii_data[364];
+		sound_play(uii_data[365]);
 	}
 
 	// TODO, number of players
+}
+
+void handle_server_messages(byte *uii_data)
+{
+	// Messages
+	memcpy(SCREEN_RAM + 800, uii_data + 1, 160);
 }
 
 void handle_packet(byte *uii_data)
 {
 	switch (uii_data[2])   // 0 and 1 are length
 	{
-		case PACKET_SERVER_UPDATE:
-			handle_server_update(uii_data+2);
-			POKE(BORDER, COLOR_BLACK);
+		case PACKET_SERVER_UPDATE:			
+			handle_server_update(uii_data + 2);			
+			break;
+
+		case PACKET_SERVER_MESSAGES:
+			POKE(BORDER, COLOR_YELLOW);
+			handle_server_messages(uii_data + 2);			
 			break;
 
 		default:     // No other types handled yet (possibly corrupted packet)
-			asm("inc $d020"); // DEBUG !!!!
+			asm("inc $d021"); // DEBUG !!!!
 			return;
 	}
 }
@@ -381,22 +391,36 @@ void game_loop()
 	screen_init();
 	sound_init();
 
-	POKE(0x028A, 0xFF); //  All keys repeat/  Also $028B	651		Speed of key - repeat?	
+	POKE(0x028A, 0xFF); //  All keys repeat
 
 	strlower(name);
 	strncpy(SCREEN_RAM+NAME_LOC, name, NAME_LENGTH);
 
+	uii_tcpsocketread_opt_init(socketnr);
+
 	// Main Game loop
 	while (1)
 	{
-		// Server Updates
-		received = uii_tcpsocketread(socketnr, PACKET_SERVER_UPDATE_LENGTH);
+		// In lieu of a raster interrupt
+		asm("lp:  lda #20");
+		asm("lp2: cmp $d012; reached the line");
+		asm("	  bne lp2");
+		asm("lp3: cmp $d012; past the line");
+		asm("	  beq lp3");
 
-		if (received == PACKET_SERVER_UPDATE_LENGTH)
-		{
+		// Server Updates
+		received = uii_tcpsocketread_opt(); 
+
+		// printf("Received %d\n", received);
+
+		if (received > 0)
+		{ 
 			handle_packet(uii_data);
 		}
+
 		// TODO, error checking
+
+		POKE(BORDER, COLOR_BLACK);
 
 		// Player Commands (Keyboard)
 		if (kbhit())

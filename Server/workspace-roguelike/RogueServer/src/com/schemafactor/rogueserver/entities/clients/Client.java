@@ -444,12 +444,18 @@ public abstract class Client extends Entity
    {
        demoMode = true;
    }
-
+   
    // Used by C64 and WebSocket clients
    protected byte[] getUpdateByteArray()
+   {
+       return getUpdateByteArray(false, 528);   
+   }
+
+   // Used by U64 clients
+   protected byte[] getUpdateByteArray(boolean skipmessages, int size)
    { 
        // Send data packet to the client              
-       byte[] buffer = new byte[528];       
+       byte[] buffer = new byte[size];       
        buffer[0] = Constants.PACKET_UPDATE;
        
        int offset = 1;
@@ -524,12 +530,16 @@ public abstract class Client extends Entity
        
        offset += Constants.SCREEN_SIZE;
        
-       // On screen messages
-       for (int i=3; i >= 0; i--)
-       {
-           byte[] message = getMessage(i).toUpperCase().getBytes();
-           System.arraycopy( message, 0, buffer, offset, Math.min(message.length, Constants.MESSAGE_LENGTH) );
-           offset += Constants.MESSAGE_LENGTH;
+       if (!skipmessages)
+       {       
+           // TODO, refactor this into a separate function
+           // On screen messages
+           for (int i=3; i >= 0; i--)
+           {
+               byte[] message = getMessage(i).toUpperCase().getBytes();
+               System.arraycopy( message, 0, buffer, offset, Math.min(message.length, Constants.MESSAGE_LENGTH) );
+               offset += Constants.MESSAGE_LENGTH;
+           }
        }
        
        // Item underneath current position

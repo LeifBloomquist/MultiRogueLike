@@ -34,9 +34,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\build.bat">
-      <Filter>Build Scripts</Filter>
-    </None>
     <None Include="..\..\..\C64\src\colorlookup.s">
       <Filter>Source Files\assembly</Filter>
     </None>
@@ -51,6 +48,12 @@
     </None>
     <None Include="..\..\src\cfg\c64-nobasic.cfg">
       <Filter>Configuration</Filter>
+    </None>
+    <None Include="..\..\build_full.bat">
+      <Filter>Build Scripts</Filter>
+    </None>
+    <None Include="..\..\build_test.bat">
+      <Filter>Build Scripts</Filter>
     </None>
   </ItemGroup>
 </Project>
