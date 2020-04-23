@@ -293,6 +293,7 @@ int uii_tcpsocketread(unsigned char socketid, unsigned short length)
 
 void uii_tcpsocketread_opt_init(unsigned char socketid)
 {
+	read_cmd[0] = TARGET_NETWORK;  // bytes[0] = uii_target;
 	read_cmd[2] = socketid;
 	uii_settarget(TARGET_NETWORK);
 }
@@ -300,7 +301,44 @@ void uii_tcpsocketread_opt_init(unsigned char socketid)
 unsigned int uii_tcpsocketread_opt()
 {
 	unsigned int count = 0;
-	uii_sendcommand(read_cmd, 0x05);
+	
+	// Replacing uii_sendcommand(read_cmd, 0x05);   -------------
+
+	while (1)
+	{
+		// Wait for idle state
+		while (!(((*statusreg & 32) == 0) && ((*statusreg & 16) == 0))) 
+		{
+			;
+		}
+
+		// Write byte by byte to data register (unrolled)
+		*cmddatareg = read_cmd[0];		 //  while (x < 5)
+		*cmddatareg = read_cmd[1];		 //  {
+		*cmddatareg = read_cmd[2];		 //  	*cmddatareg = read_cmd[x++];
+		*cmddatareg = read_cmd[3];		 //  }
+		*cmddatareg = read_cmd[4];		 // 
+
+		// Send PUSH_CMD
+		*controlreg |= 0x01;
+
+		// check ERROR bit.  If set, clear it via ctrl reg, and try again
+		if (*statusreg & 4) //((*statusreg & 4) == 4)
+		{
+			*controlreg |= 0x08;
+		}
+		else
+		{
+			// check for cmd busy
+			while (((*statusreg & 32) == 0) && (*statusreg & 16)) //while (((*statusreg & 32) == 0) && ((*statusreg & 16) == 16))
+			{
+				;
+			}
+			break;
+		}
+	}
+
+	// End send-command -----------------------
 
 	// If there is data to read
 	while (*statusreg & 128) 
@@ -313,34 +351,6 @@ unsigned int uii_tcpsocketread_opt()
 
 	return count - 2;
 }
-
-/*
-int uii_tcpsocketread_opt(unsigned char socketid)
-{
-	unsigned int count = 0;
-
-	read_cmd[2] = socketid;
-	read_cmd[3] = 0xF4;   // 500 bytes max
-	read_cmd[4] = 0x01;   
-
-	uii_sendcommand(read_cmd, 0x05);
-
-	// Read 	uii_readdata();
-	uii_data[0] = 0;
-
-	// If there is data to read	
-	while ((*statusreg & 128) == 128)  //while (uii_isdataavailable())       
-	{
-		uii_data[count++] = *respdatareg;
-	}
-	uii_data[count] = 0;
-
-	// Accept
-	*controlreg |= 0x02;  //uii_accept();
-
-	return count;
-}
-*/
 
 int uii_tcplistenstart(unsigned short port)
 {

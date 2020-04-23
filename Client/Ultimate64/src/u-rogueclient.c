@@ -193,7 +193,6 @@ void handle_server_update(byte *uii_data_in)
 	COLOR_RAM[COMMS_COLOR]++;  // Increment the comms indicator
 
 	// Screen (17 Rows)
-	POKE(BORDER, COLOR_CYAN);
 
 	/* Too slow!
     memcpy(SCREEN_RAM +  41, uii_data_in +   1, 21);
@@ -273,8 +272,6 @@ copy:
 	asm("cpx #21");
     asm("bne %g", copy);
 
-	POKE(BORDER, COLOR_BLACK);
-
 	POKE(SCREEN_RAM + CELL_CHAR,  uii_data_in[358]);    // Current Cell
 	POKE(SCREEN_RAM + LEFT_CHAR,  uii_data_in[359]);    // Held - Left
 	POKE(SCREEN_RAM + RIGHT_CHAR, uii_data_in[360]);    // Held - Right
@@ -283,12 +280,8 @@ copy:
 	POKE(SCREEN_RAM + HEALTH_CHARS + 1, uii_data_in[362]);  // Health
 	POKE(SCREEN_RAM + HEALTH_CHARS + 2, uii_data_in[363]);  // Health
 
-	POKE(BORDER, COLOR_WHITE);
-
 	// Colorize the screen
 	color_lookup();
-
-	POKE(BORDER, COLOR_PURPLE);
 
 	// Sound effects
 	if (uii_data_in[364] != soundcounter)  // Sound changed
@@ -306,17 +299,16 @@ void handle_server_messages(byte *uii_data)
 	memcpy((byte*)(SCREEN_RAM + 800), uii_data + 1, 160);
 }
 
-void handle_packet(byte *uii_data)
+void handle_packet(byte *uii_data_recvd)
 {
 	switch (uii_data[2])   // 0 and 1 are length
 	{
 		case PACKET_SERVER_UPDATE:			
-			handle_server_update(uii_data + 2);			
+			handle_server_update(uii_data_recvd + 2);
 			break;
 
 		case PACKET_SERVER_MESSAGES:
-			POKE(BORDER, COLOR_YELLOW);
-			handle_server_messages(uii_data + 2);			
+			handle_server_messages(uii_data_recvd + 2);
 			break;
 
 		default:     // No other types handled yet (possibly corrupted packet)
@@ -477,8 +469,7 @@ void game_loop()
 	{
 		raster_wait();
 
-		// Server Updates
-		POKE(BORDER, COLOR_RED);
+		// Server Updates		
 		received = uii_tcpsocketread_opt(); 
 
 		// printf("Received %d\n", received);
@@ -489,8 +480,6 @@ void game_loop()
 		}
 
 		// TODO, error checking
-
-		POKE(BORDER, COLOR_BLACK);
 
 		// Player Commands (Keyboard)
 		if (kbhit())
