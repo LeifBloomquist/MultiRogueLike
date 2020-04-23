@@ -19,8 +19,8 @@ static unsigned char *statusreg = (unsigned char *)STATUS_REG;
 static unsigned char *respdatareg = (unsigned char *)RESP_DATA_REG;
 static unsigned char *statusdatareg = (unsigned char *)STATUS_DATA_REG;
 
+unsigned char uii_data[DATA_QUEUE_SZ * 2];
 unsigned char uii_status[STATUS_QUEUE_SZ];
-unsigned char uii_data[DATA_QUEUE_SZ*2];
 unsigned char temp_string_onechar[2];
 int uii_data_index;
 int uii_data_len;

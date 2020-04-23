@@ -15,13 +15,13 @@
 
 COLOR_BLACK	     = 0	
 COLOR_WHITE	     = 1	
-COLOR_RED	     = 2	
+COLOR_RED	       = 2	
 COLOR_CYAN	     = 3	
-COLOR_VIOLET	 = 4	
+COLOR_VIOLET	   = 4	
 COLOR_GREEN	     = 5	
-COLOR_BLUE	     = 6	
-COLOR_YELLOW	 = 7	
-COLOR_ORANGE	 = 8	
+COLOR_BLUE       = 6	
+COLOR_YELLOW     = 7	
+COLOR_ORANGE     = 8	
 COLOR_BROWN	     = 9
 COLOR_LIGHTRED	 = 10	
 COLOR_GREY1	     = 11	
@@ -133,14 +133,14 @@ color_table:
     .byte COLOR_WHITE    ; 95	 	
     .byte COLOR_RED      ; 96	 	Spider
     .byte COLOR_WHITE    ; 97	 	Skeleton
-    .byte COLOR_BROWN    ; 98	    Bat	
+    .byte COLOR_BROWN    ; 98	  Bat	
     .byte COLOR_LIGHTRED ; 99	 	Demon
-    .byte COLOR_CYAN     ; 100	 	Spectre
-    .byte COLOR_WHITE    ; 101	 	Ghost
-    .byte COLOR_GREEN    ; 102	 	Frog Thing
-    .byte COLOR_GREEN    ; 103      Slime	 	
-    .byte COLOR_LIGHTGREEN ; 104    Zombie	 	
-    .byte COLOR_ORANGE   ; 105	 	Golem
+    .byte COLOR_CYAN     ; 100	Spectre
+    .byte COLOR_WHITE    ; 101	Ghost
+    .byte COLOR_GREEN    ; 102	Frog Thing
+    .byte COLOR_GREEN    ; 103  Slime	 	
+    .byte COLOR_LIGHTGREEN ; 104 Zombie	 	
+    .byte COLOR_ORANGE   ; 105	Golem
     .byte COLOR_WHITE    ; 106	 	
     .byte COLOR_WHITE    ; 107	 	
     .byte COLOR_WHITE    ; 108	 	

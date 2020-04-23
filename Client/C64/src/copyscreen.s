@@ -1,7 +1,7 @@
 ; -------------------------------------------------------------------------
 ; Copy screen data from UDP buffer to screen
 
-copyscreen:  
+copyscreen:
   ldx #$00
   
 copy:  

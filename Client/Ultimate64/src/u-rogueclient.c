@@ -16,10 +16,10 @@ Rogue Test Client for Ultimate 64
 #define PACKET_CLIENT_UPDATE 2
 
 // Packet Types - Server to C64
-#define PACKET_ANNOUNCE_REPLY  128
-#define PACKET_SERVER_UPDATE   129
-#define PACKET_SERVER_MESSAGES 130
-#define PACKET_SERVER_UPDATE_LENGTH 368
+#define PACKET_ANNOUNCE_REPLY         128
+#define PACKET_SERVER_UPDATE          129
+#define PACKET_SERVER_MESSAGES        130
+#define PACKET_SERVER_UPDATE_LENGTH   368
 #define PACKET_SERVER_MESSAGES_LENGTH 161
 
 #define CG_BLK 144
@@ -44,7 +44,7 @@ Rogue Test Client for Ultimate 64
 #define CG_CLR 147  // Delete
 
 // Define special memory areas
-#define SCREEN_RAM   ((unsigned char*)0x4800)
+#define SCREEN_RAM   0x4800 // ((unsigned char*)0x4800) to avoid warnings for Converting integer to pointer without a cast
 #define BORDER       0xD020
 #define JOYSTICK2    0xDC00
 #define RASTER_LINE  0xD012
@@ -188,36 +188,100 @@ void send_action(char key)
 	uii_tcpsocketwrite(socketnr, send_buffer);
 }
 
-void handle_server_update(byte *uii_data)
+void handle_server_update(byte *uii_data_in)
 {
 	COLOR_RAM[COMMS_COLOR]++;  // Increment the comms indicator
 
 	// Screen (17 Rows)
-	POKE(BORDER, COLOR_RED);
-	memcpy(SCREEN_RAM +  41, uii_data +   1, 21);
-	memcpy(SCREEN_RAM +  81, uii_data +  22, 21);
-	memcpy(SCREEN_RAM + 121, uii_data +  43, 21);
-	memcpy(SCREEN_RAM + 161, uii_data +  64, 21);
-	memcpy(SCREEN_RAM + 201, uii_data +  85, 21);
-	memcpy(SCREEN_RAM + 241, uii_data + 106, 21);
-	memcpy(SCREEN_RAM + 281, uii_data + 127, 21);
-	memcpy(SCREEN_RAM + 321, uii_data + 148, 21);
-	memcpy(SCREEN_RAM + 361, uii_data + 169, 21);
-	memcpy(SCREEN_RAM + 401, uii_data + 190, 21);
-	memcpy(SCREEN_RAM + 441, uii_data + 211, 21);
-	memcpy(SCREEN_RAM + 481, uii_data + 232, 21);
-	memcpy(SCREEN_RAM + 521, uii_data + 253, 21);
-	memcpy(SCREEN_RAM + 561, uii_data + 274, 21);
-	memcpy(SCREEN_RAM + 601, uii_data + 295, 21);
-	memcpy(SCREEN_RAM + 641, uii_data + 316, 21);
-	memcpy(SCREEN_RAM + 681, uii_data + 337, 21);
+	POKE(BORDER, COLOR_CYAN);
 
-	POKE(BORDER, COLOR_BLUE);
+	/* Too slow!
+    memcpy(SCREEN_RAM +  41, uii_data_in +   1, 21);
+	memcpy(SCREEN_RAM +  81, uii_data_in +  22, 21);	
+	memcpy(SCREEN_RAM + 121, uii_data_in +  43, 21);
+	memcpy(SCREEN_RAM + 161, uii_data_in +  64, 21);
+	memcpy(SCREEN_RAM + 201, uii_data_in +  85, 21);
+	memcpy(SCREEN_RAM + 241, uii_data_in + 106, 21);
+	memcpy(SCREEN_RAM + 281, uii_data_in + 127, 21);
+	memcpy(SCREEN_RAM + 321, uii_data_in + 148, 21);
+	memcpy(SCREEN_RAM + 361, uii_data_in + 169, 21);
+	memcpy(SCREEN_RAM + 401, uii_data_in + 190, 21);
+	memcpy(SCREEN_RAM + 441, uii_data_in + 211, 21);
+	memcpy(SCREEN_RAM + 481, uii_data_in + 232, 21);
+	memcpy(SCREEN_RAM + 521, uii_data_in + 253, 21);
+	memcpy(SCREEN_RAM + 561, uii_data_in + 274, 21);
+	memcpy(SCREEN_RAM + 601, uii_data_in + 295, 21);
+	memcpy(SCREEN_RAM + 641, uii_data_in + 316, 21);
+	memcpy(SCREEN_RAM + 681, uii_data_in + 337, 21);
+	*/
 
-	memcpy(SCREEN_RAM + CELL_CHAR, uii_data + 358, 1);     // Current Cell
-	memcpy(SCREEN_RAM + LEFT_CHAR, uii_data + 359, 1);     // Held - Left
-	memcpy(SCREEN_RAM + RIGHT_CHAR, uii_data + 360, 1);    // Held - Right
-	memcpy(SCREEN_RAM + HEALTH_CHARS, uii_data + 361, 3);  // Health
+	asm("ldx #$00");
+
+copy:
+	asm("lda %v + 2 + %w, x", uii_data, 1);   // Note these refer to the global variable, hence + 2 to skip over length
+	asm("sta %w + %w, x", SCREEN_RAM, 41);
+
+	asm("lda %v + 2 + %w, x", uii_data, 22);
+	asm("sta %w + %w, x", SCREEN_RAM, 81);
+
+	asm("lda %v + 2 + %w, x", uii_data, 43);
+	asm("sta %w + %w, x", SCREEN_RAM, 121);
+
+	asm("lda %v + 2 + %w, x", uii_data, 64);
+	asm("sta %w + %w, x", SCREEN_RAM, 161);
+
+	asm("lda %v + 2 + %w, x", uii_data, 85);
+	asm("sta %w + %w, x", SCREEN_RAM, 201);
+
+	asm("lda %v + 2 + %w, x", uii_data, 106);
+	asm("sta %w + %w, x", SCREEN_RAM, 241);
+
+	asm("lda %v + 2 + %w, x", uii_data, 127);
+	asm("sta %w + %w, x", SCREEN_RAM, 281);
+
+	asm("lda %v + 2 + %w, x", uii_data, 148);
+	asm("sta %w + %w, x", SCREEN_RAM, 321);
+
+	asm("lda %v + 2 + %w, x", uii_data, 169);
+	asm("sta %w + %w, x", SCREEN_RAM, 361);
+
+	asm("lda %v + 2 + %w, x", uii_data, 190);
+	asm("sta %w + %w, x", SCREEN_RAM, 401);
+
+	asm("lda %v + 2 + %w, x", uii_data, 211);
+	asm("sta %w + %w, x", SCREEN_RAM, 441);
+
+	asm("lda %v + 2 + %w, x", uii_data, 232);
+	asm("sta %w + %w, x", SCREEN_RAM, 481);
+
+	asm("lda %v + 2 + %w, x", uii_data, 253);
+	asm("sta %w + %w, x", SCREEN_RAM, 521);
+
+	asm("lda %v + 2 + %w, x", uii_data, 274);
+	asm("sta %w + %w, x", SCREEN_RAM, 561);
+
+	asm("lda %v + 2 + %w, x", uii_data, 295);
+	asm("sta %w + %w, x", SCREEN_RAM, 601);
+
+	asm("lda %v + 2 + %w, x", uii_data, 316);
+	asm("sta %w + %w, x", SCREEN_RAM, 641);
+
+	asm("lda %v + 2 + %w, x", uii_data, 337);
+	asm("sta %w + %w, x", SCREEN_RAM, 681);
+
+	asm("inx");
+	asm("cpx #21");
+    asm("bne %g", copy);
+
+	POKE(BORDER, COLOR_BLACK);
+
+	POKE(SCREEN_RAM + CELL_CHAR,  uii_data_in[358]);    // Current Cell
+	POKE(SCREEN_RAM + LEFT_CHAR,  uii_data_in[359]);    // Held - Left
+	POKE(SCREEN_RAM + RIGHT_CHAR, uii_data_in[360]);    // Held - Right
+
+	POKE(SCREEN_RAM + HEALTH_CHARS + 0, uii_data_in[361]);  // Health
+	POKE(SCREEN_RAM + HEALTH_CHARS + 1, uii_data_in[362]);  // Health
+	POKE(SCREEN_RAM + HEALTH_CHARS + 2, uii_data_in[363]);  // Health
 
 	POKE(BORDER, COLOR_WHITE);
 
@@ -227,10 +291,10 @@ void handle_server_update(byte *uii_data)
 	POKE(BORDER, COLOR_PURPLE);
 
 	// Sound effects
-	if (uii_data[364] != soundcounter)  // Sound changed
+	if (uii_data_in[364] != soundcounter)  // Sound changed
 	{
-		soundcounter = uii_data[364];
-		sound_play(uii_data[365]);
+		soundcounter = uii_data_in[364];
+		sound_play(uii_data_in[365]);
 	}
 
 	// TODO, number of players
@@ -239,7 +303,7 @@ void handle_server_update(byte *uii_data)
 void handle_server_messages(byte *uii_data)
 {
 	// Messages
-	memcpy(SCREEN_RAM + 800, uii_data + 1, 160);
+	memcpy((byte*)(SCREEN_RAM + 800), uii_data + 1, 160);
 }
 
 void handle_packet(byte *uii_data)
@@ -383,6 +447,16 @@ void player_login()
 	}
 }
 
+void raster_wait()
+{
+	// In lieu of a raster interrupt
+	asm("lp:  lda #20");
+	asm("lp2: cmp $d012; reached the line");
+	asm("	  bne lp2");
+	asm("lp3: cmp $d012; past the line");
+	asm("	  beq lp3");
+}
+
 void game_loop()
 {
 	int received = 0;
@@ -394,21 +468,17 @@ void game_loop()
 	POKE(0x028A, 0xFF); //  All keys repeat
 
 	strlower(name);
-	strncpy(SCREEN_RAM+NAME_LOC, name, NAME_LENGTH);
+	strncpy((byte*)(SCREEN_RAM+NAME_LOC), name, NAME_LENGTH);
 
 	uii_tcpsocketread_opt_init(socketnr);
 
 	// Main Game loop
 	while (1)
 	{
-		// In lieu of a raster interrupt
-		asm("lp:  lda #20");
-		asm("lp2: cmp $d012; reached the line");
-		asm("	  bne lp2");
-		asm("lp3: cmp $d012; past the line");
-		asm("	  beq lp3");
+		raster_wait();
 
 		// Server Updates
+		POKE(BORDER, COLOR_RED);
 		received = uii_tcpsocketread_opt(); 
 
 		// printf("Received %d\n", received);
