@@ -13,9 +13,11 @@ public class ClientU64 extends ClientC64
     
    /** Creates a new instance of C64 Client from TCP Connection (i.e. Ultimate 64) */
    public ClientU64(byte[] data, DataOutputStream output)
-   {       
+   {          
        super(data, null);
        this.output = output;
+       
+       sendUpdateMessage(getMessagesByteArray());  // Since output is null in the super() call above...
    }
    
    // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second
