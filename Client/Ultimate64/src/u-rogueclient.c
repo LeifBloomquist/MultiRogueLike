@@ -301,7 +301,7 @@ void handle_server_messages(byte *uii_data)
 
 void handle_packet(byte *uii_data_recvd)
 {
-	switch (uii_data[2])   // 0 and 1 are length
+	switch (uii_data_recvd[2])   // 0 and 1 are length
 	{
 		case PACKET_SERVER_UPDATE:			
 			handle_server_update(uii_data_recvd + 2);
