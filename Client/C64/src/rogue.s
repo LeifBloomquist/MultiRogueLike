@@ -52,7 +52,7 @@ init:
     
   jsr irq_init   ; Needed for network, kills music
 
-  jsr sound_setup
+  jsr sound_init
  
   ; Wait for the first server packet
   kernal_print SERVERMESSAGE
@@ -91,6 +91,9 @@ loop:
   .include "sound.s"
   .include "login.s"  
   .include "util.s"
+  .include "input.s"
+  .include "colordefs.s"
+  .include "copyscreen.s"
   
 ; -------------------------------------------------------------------------
 ; Binary data is loaded from server via TFTP - no includes needed

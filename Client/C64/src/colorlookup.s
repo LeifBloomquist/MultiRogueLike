@@ -3,32 +3,14 @@
 
 .export _color_lookup
 
-.import COLOR_BASE
-.import SCREEN_BASE
-.import CELL_CHAR  
-.import CELL_COLOR 
-.import LEFT_CHAR  
-.import LEFT_COLOR 
-.import RIGHT_CHAR 
-.import RIGHT_COLOR
-;.import GAME_COLS
-
-COLOR_BLACK	     = 0	
-COLOR_WHITE	     = 1	
-COLOR_RED	       = 2	
-COLOR_CYAN	     = 3	
-COLOR_VIOLET	   = 4	
-COLOR_GREEN	     = 5	
-COLOR_BLUE       = 6	
-COLOR_YELLOW     = 7	
-COLOR_ORANGE     = 8	
-COLOR_BROWN	     = 9
-COLOR_LIGHTRED	 = 10	
-COLOR_GREY1	     = 11	
-COLOR_GREY2	     = 12	
-COLOR_LIGHTGREEN = 13	
-COLOR_LIGHTBLUE	 = 14	
-COLOR_GREY3      = 15	
+;.import COLOR_BASE
+;.import SCREEN_BASE
+;.import CELL_CHAR  
+;.import CELL_COLOR 
+;.import LEFT_CHAR  
+;.import LEFT_COLOR 
+;.import RIGHT_CHAR 
+;.import RIGHT_COLOR
 
 ; Rather than have the server send an entire extra screen's worth of color data, we use this lookup table to 
 ; map character codes to color codes.
