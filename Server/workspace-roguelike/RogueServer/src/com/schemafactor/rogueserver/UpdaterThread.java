@@ -36,7 +36,8 @@ public class UpdaterThread implements Runnable
     {
         Thread.currentThread().setName("Rogue Server Updater Thread");
         
-        long startTime = System.nanoTime(); 
+        long startTime = System.nanoTime();
+        List<Entity> entities = dungeon.getEntities();
         
         // 1. Update the universe/dungeon.
         try
@@ -48,12 +49,21 @@ public class UpdaterThread implements Runnable
             JavaTools.printlnTime( "EXCEPTION Updating Dungeon: " + JavaTools.getStackTrace(e) );
         } 
         
-        // 2. Update each entity, if required                  
+        // 2. Have each each entity take action and then update, if required                  
         try
         {
-            synchronized (dungeon.getEntities())
+            synchronized (entities)
             {
-	        	for (Entity e : dungeon.getEntities())
+            	// 2a. All Entities - take action (no updates)
+            	
+            	for (Entity e : entities)
+	            {             
+	                e.action(); 
+	            }
+            	
+            	// 2b. If the actions resulted in updates, send them
+            	
+	        	for (Entity e : entities)
 	            {             
 	                e.update(); 
 	            }

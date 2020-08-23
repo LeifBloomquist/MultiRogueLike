@@ -9,6 +9,12 @@ public class DummyEntity extends Entity
     {
        super("Dummy", startposition, entityTypes.NONE, (byte)0, 0f);
     }
+    
+    @Override
+	public void action() 
+	{	
+		;	
+	}   
 
 	@Override
 	public void update() 

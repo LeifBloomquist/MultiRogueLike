@@ -569,6 +569,7 @@ public abstract class Entity implements java.io.Serializable
        return item.useItem(this);
    }
    
+   abstract public void action();                // Called on every game loop prior to updates
    abstract public void update();                // Called on every game loop
    abstract protected void updateNow();          // Called from update().  Other entities can force an update through needsUpdate()
    abstract public void addMessage(String msg);  // Add a message to this Entity's message queue

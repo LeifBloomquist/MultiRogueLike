@@ -377,6 +377,12 @@ public abstract class Client extends Entity
        // Update other entities in the area
        finishMove(moved);
    }
+   
+   @Override
+   public void action()
+   { 
+	   ;    // Client updates are provided through user input asynchronously
+   }
   
    @Override
    public void update()

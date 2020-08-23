@@ -20,7 +20,7 @@ public abstract class Monster extends Entity
     // Time in between moves.  May change based on state.  
     protected float actionTime = 1000f;   // Milliseconds   
     
-    /** Creates a new instance of Server Controlled */
+    /** Creates a new instance of Monster */
     public Monster(String name, Position startposition, entityTypes type, byte charCode, float actionTime, float maxDamage)
     {
        super(name, startposition, type, charCode, maxDamage);  
@@ -29,8 +29,8 @@ public abstract class Monster extends Entity
     }
     
     @Override
-    public void update() 
-    {
+    public void action()
+    { 
         Duration elapsed = Duration.between(lastAction, Instant.now());
         
         if (elapsed.toMillis() <= actionTime)   // Move at this rate
@@ -51,6 +51,12 @@ public abstract class Monster extends Entity
             removeMeFlag = true;
         }
     }
+
+	@Override
+	public void update() 
+	{
+		;
+	}
     
     @Override
     public void updateNow()
