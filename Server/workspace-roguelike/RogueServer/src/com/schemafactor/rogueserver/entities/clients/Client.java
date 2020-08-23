@@ -78,7 +78,6 @@ public abstract class Client extends Entity
                case 'y':    // Restart Game 
                case 'Y':
                        respawn();
-                       updateNow();
                        break; 
 
                case 'n':    // End Game 
@@ -146,7 +145,7 @@ public abstract class Client extends Entity
                
            case 'h':
                showingHelp = !showingHelp;
-               updateNow();
+               needsUpdate();
                break;
                
            case 'j':
@@ -372,7 +371,7 @@ public abstract class Client extends Entity
              break;  
        }    
        
-       // Regardless of the outcome of the action, update the client
+       // Regardless of the outcome of the action, update the client immediately
        updateNow();
        
        // Update other entities in the area
@@ -384,7 +383,13 @@ public abstract class Client extends Entity
    { 
 	   Duration elapsed = Duration.between(lastUpdateSent, Instant.now());
        
-       if (elapsed.getSeconds() >= Constants.UPDATE_TIME)  // Send an update every 1 second
+       if (elapsed.toMillis() >= Constants.UPDATE_TIME)  // Force an update every 1.000 second
+       {
+    	   needsUpdate();
+       }
+       
+       // Update if required.
+       if (updateMeFlag)
        {
     	   updateNow();
        }

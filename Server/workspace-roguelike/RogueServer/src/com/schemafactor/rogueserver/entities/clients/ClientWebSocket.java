@@ -45,6 +45,7 @@ public class ClientWebSocket extends Client
        }
        
        lastUpdateSent = Instant.now();       
+       updateMeFlag = false;
        return;
    }
 

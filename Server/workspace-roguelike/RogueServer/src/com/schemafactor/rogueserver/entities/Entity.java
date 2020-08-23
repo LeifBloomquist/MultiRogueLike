@@ -23,6 +23,9 @@ public abstract class Entity implements java.io.Serializable
    
    protected byte charCode = 0;   // Character code shown on client screen
    
+   /** Flag that this entity is to be updated on this update cycle.  true=update */
+   protected boolean updateMeFlag = false;   
+   
    /** Flag that this entity is to be removed at the end of this update cycle.  true=remove */
    protected boolean removeMeFlag = false;
    
@@ -53,6 +56,7 @@ public abstract class Entity implements java.io.Serializable
    {
        position = new Position(home);
        this.removeMeFlag = false;
+       this.needsUpdate();
        health = 100;
        Dungeon.getInstance().addEntity(this);  // Re-add to main list
        this.addMessage("Restarted...");
@@ -565,10 +569,10 @@ public abstract class Entity implements java.io.Serializable
        return item.useItem(this);
    }
    
-   abstract public void update();       // Called on every game loop
-   abstract public void updateNow();    // Called from update(), or from other Entities to force an update
+   abstract public void update();                // Called on every game loop
+   abstract protected void updateNow();          // Called from update().  Other entities can force an update through needsUpdate()
    abstract public void addMessage(String msg);  // Add a message to this Entity's message queue
-   abstract public void playSound(byte id);  // Play a sound with this Entity
+   abstract public void playSound(byte id);      // Play a sound with this Entity
 
    /** Return position */
    public Position getPosition()
@@ -639,6 +643,11 @@ public abstract class Entity implements java.io.Serializable
    {   
         return removeMeFlag;
    }
+   
+   public void needsUpdate() 
+   {           
+        updateMeFlag = true;
+   }
 
 	public byte getCharCode() 
 	{
@@ -654,8 +663,7 @@ public abstract class Entity implements java.io.Serializable
     {
 	    lastAction = Instant.now();   
 	    
-        // If we moved, update other entities in area.
-        // TODO, future:  Set this as a flag, and update all at once at end of turn
+        // If we moved, tell other entities in area to update        
         if (moved)
         {                     
             List<Entity> onscreen = Dungeon.getInstance().getEntitiesOnScreenCentered(this.position);
@@ -665,7 +673,7 @@ public abstract class Entity implements java.io.Serializable
             
             for (Entity e : onscreen)
             {
-                e.updateNow();
+                e.needsUpdate();
             }            
         }        
     }

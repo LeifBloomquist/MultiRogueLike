@@ -138,7 +138,10 @@ public class ClientTelnet extends Client
      
        // Send the packet.
        sendUpdatePacket(screen);
+       
+       // Clear timers and flags
        lastUpdateSent = Instant.now();
+       updateMeFlag = false;
        
        return;
    }  

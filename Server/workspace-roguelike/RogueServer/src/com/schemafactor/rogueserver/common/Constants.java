@@ -17,7 +17,7 @@ public class Constants
     public static final int  WEBSOCKET_PORT   = 3007;   // WebSockets (TCP)
     public static final int  LISTEN_PORT_U64  = 3008;   // TCP
     public static final long NETWORK_TIMEOUT  = 300;    // Seconds
-    public static final long UPDATE_TIME      = 1;      // Seconds   
+    public static final long UPDATE_TIME      = 1000;   // Milliseconds   
     
     // Screen constants
     public static final int SCREEN_WIDTH      = 21;

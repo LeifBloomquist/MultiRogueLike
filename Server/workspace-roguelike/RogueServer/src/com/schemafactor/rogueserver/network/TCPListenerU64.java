@@ -15,7 +15,6 @@ import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.entities.clients.ClientU64;
 import com.schemafactor.rogueserver.universe.Dungeon;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 // TODO, this class shares a ton of code with TCPListenerU64, refactor!
 
@@ -55,7 +54,7 @@ public class TCPListenerU64 extends Thread
             } 
             catch (IOException e) 
             {
-                JavaTools.printlnTime(e.getMessage());
+                JavaTools.printlnTime("EXCEPTION: " + e.getMessage());
             } 
             finally 
             {

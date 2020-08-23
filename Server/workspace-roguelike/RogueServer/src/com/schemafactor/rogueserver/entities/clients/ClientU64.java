@@ -20,7 +20,7 @@ public class ClientU64 extends ClientC64
        sendUpdateMessage(getMessagesByteArray());  // Since output is null in the super() call above...
    }
    
-   // Send an update.  Can be called directly i.e. in response to a player action or change, or once per second
+   // Send an update.  TODO: Need to Rate Limit on U64
    @Override
    public void updateNow()
    {
@@ -28,7 +28,10 @@ public class ClientU64 extends ClientC64
        
        // Send the packet.
        sendUpdateMessage(buffer);
+       
+       // Clear timers and flags.
        lastUpdateSent = Instant.now();
+       updateMeFlag = false;
        
        return;
    }  

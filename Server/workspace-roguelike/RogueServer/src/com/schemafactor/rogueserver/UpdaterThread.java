@@ -46,10 +46,9 @@ public class UpdaterThread implements Runnable
         catch (Exception e)
         {               
             JavaTools.printlnTime( "EXCEPTION Updating Dungeon: " + JavaTools.getStackTrace(e) );
-        }   
+        } 
         
-        
-        // 2. Update each entity                  
+        // 2. Update each entity, if required                  
         try
         {
             synchronized (dungeon.getEntities())

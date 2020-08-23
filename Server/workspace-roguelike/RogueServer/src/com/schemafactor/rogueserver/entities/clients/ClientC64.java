@@ -80,7 +80,10 @@ public class ClientC64 extends Client
        
        // Send the packet.
        sendUpdatePacket(buffer);
+       
+       // Clear timers and flags.
        lastUpdateSent = Instant.now();
+       updateMeFlag = false;
        
        return;
    }  
