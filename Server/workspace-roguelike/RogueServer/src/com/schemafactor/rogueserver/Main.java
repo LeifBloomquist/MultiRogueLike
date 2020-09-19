@@ -51,7 +51,7 @@ public class Main
             if (args[0].equals("-demo"))
             {
                 JavaTools.printlnTime("Demo Mode specified - Timeouts disabled.");
-                 Client.setDemoMode();
+                Client.setDemoMode();
             }
         }
                 

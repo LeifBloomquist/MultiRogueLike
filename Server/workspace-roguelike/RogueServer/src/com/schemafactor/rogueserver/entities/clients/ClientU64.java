@@ -26,6 +26,8 @@ public class ClientU64 extends ClientC64
    {
        byte[] buffer = getUpdateByteArray(true, 368);  // Screen Only
        
+       
+       
        // Send the packet.
        sendUpdateMessage(buffer);
        
@@ -44,7 +46,6 @@ public class ClientU64 extends ClientC64
        {            
            output.write(data);
            output.flush();
-           //JavaTools.printlnTime("Wrote " + data.length + " bytes" );
        }
        catch (Exception e)
        {

@@ -312,7 +312,7 @@ void handle_packet(byte *uii_data_recvd)
 			break;
 
 		default:     // No other types handled yet (possibly corrupted packet)
-			asm("inc $d021"); // DEBUG !!!!
+			asm("inc $d020"); // DEBUG !!!!
 			return;
 	}
 }
