@@ -511,6 +511,8 @@ public class Dungeon implements java.io.Serializable
     {	
     	for (int z=0; z < getZsize(); z++)
     	{
+     		emptyCells[z] = new ArrayList<Position>();
+    				
     		for (int x=0; x < getXsize(); x++)
     		{
     			for (int y=0; y < getYsize(); y++)

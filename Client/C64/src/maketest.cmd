@@ -1,4 +1,4 @@
-@rem This batch file created a local test executable with load address prepended, etc.   Assumes you are loading the font file manually beforehand!
+@rem This batch file creates a local test executable with load address prepended, etc.   Assumes you are loading the font file manually beforehand!
 @rem The resulting program can be started with SYS 24576
 
 @cls

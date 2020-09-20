@@ -40,6 +40,8 @@ public abstract class Entity implements java.io.Serializable
    /** Creates a new instance of Entity */
    public Entity(String description, Position startposition, entityTypes type, byte charCode, float baseDamage)
    {
+	   if (startposition == null) return; // Dummy entities
+	   
        this.description = new String(description);       
        this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, Constants.EMPTY_CELL_SEARCH_DEPTH);
        this.home = startposition;

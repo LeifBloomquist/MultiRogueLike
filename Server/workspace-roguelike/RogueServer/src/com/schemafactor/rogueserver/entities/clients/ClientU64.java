@@ -1,6 +1,7 @@
 package com.schemafactor.rogueserver.entities.clients;
 
 import java.io.DataOutputStream;
+import java.time.Duration;
 import java.time.Instant;
 
 import com.schemafactor.rogueserver.common.Constants;
@@ -11,48 +12,41 @@ public class ClientU64 extends ClientC64
     private static final long serialVersionUID = 1L;
     DataOutputStream output = null;
     
+    public static final long U64_THROTTLE_TIME    = 200;   // Milliseconds   
+    
    /** Creates a new instance of C64 Client from TCP Connection (i.e. Ultimate 64) */
    public ClientU64(byte[] data, DataOutputStream output)
    {          
        super(data, null);
        this.output = output;
        
-       sendUpdateMessage(getMessagesByteArray());  // Since output is null in the super() call above...
+       sendUpdatePacket(getMessagesByteArray());  // Since output is null in the super() call above...
    }
    
-   // Send an update.  TODO: Need to Rate Limit on U64
+   // Send an update.
    @Override
    public void updateNow()
-   {
+   {   
+       // Need to Rate Limit on U64
+       Duration elapsed = Duration.between(lastUpdateSent, Instant.now());
+       
+       if (elapsed.toMillis() < U64_THROTTLE_TIME)  // 
+       {
+    	   JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
+    	   return;
+       }
+       
        byte[] buffer = getUpdateByteArray(true, 368);  // Screen Only
        
-       
-       
        // Send the packet.
-       sendUpdateMessage(buffer);
+       sendUpdatePacket(buffer);
        
        // Clear timers and flags.
        lastUpdateSent = Instant.now();
        updateMeFlag = false;
        
        return;
-   }  
-   
-   private void sendUpdateMessage(byte[] data)
-   {
-       if (output == null) return;
-       
-       try
-       {            
-           output.write(data);
-           output.flush();
-       }
-       catch (Exception e)
-       {
-           JavaTools.printlnTime("EXCEPTION writing to TCP [Ultimate 64] stream: " + e.getMessage());
-           removeMe();
-       }
-   }  
+   }   
    
    @Override
    public void addMessage(String msg)
@@ -62,11 +56,11 @@ public class ClientU64 extends ClientC64
        byte[] buffer = getMessagesByteArray();
        
        // Send the packet.
-       sendUpdateMessage(buffer);
+       sendUpdatePacket(buffer);
    }
    
    // On screen messages
-   protected byte[] getMessagesByteArray()
+   private byte[] getMessagesByteArray()
    { 
        // Send data packet to the client              
        byte[] buffer = new byte[161];
@@ -82,5 +76,21 @@ public class ClientU64 extends ClientC64
        }
        
        return buffer;
+   }
+   
+   private void sendUpdatePacket(byte[] data)
+   {
+       if (output == null) return;
+       
+       try
+       {            
+           output.write(data);
+           output.flush();
+       }
+       catch (Exception e)
+       {
+           JavaTools.printlnTime("EXCEPTION writing packet to TCP [Ultimate 64] stream: " + e.getMessage());
+           removeMe();
+       }
    }
 }
