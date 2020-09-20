@@ -3,14 +3,16 @@
 
 .export _color_lookup
 
-;.import COLOR_BASE
-;.import SCREEN_BASE
-;.import CELL_CHAR  
-;.import CELL_COLOR 
-;.import LEFT_CHAR  
-;.import LEFT_COLOR 
-;.import RIGHT_CHAR 
-;.import RIGHT_COLOR
+.import COLOR_BASE
+.import SCREEN_BASE
+.import CELL_CHAR  
+.import CELL_COLOR 
+.import LEFT_CHAR  
+.import LEFT_COLOR 
+.import RIGHT_CHAR 
+.import RIGHT_COLOR
+
+ .include "colordefs.s"
 
 ; Rather than have the server send an entire extra screen's worth of color data, we use this lookup table to 
 ; map character codes to color codes.
