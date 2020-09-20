@@ -50,7 +50,7 @@ public class Gem extends Item implements Rechargeable
        List<Entity> in_range = dungeon.getEntitiesRange(entity.getPosition(), (int)charges);  // Includes the one using the item
        List<Entity> clients_in_range = dungeon.getEntitiesType(null, Entity.entityTypes.CLIENT, in_range);  // But not monsters, although that would be cool
        
-       Position target_pos = dungeon.getRandomPosition();
+       Position target_pos = dungeon.getRandomEmptyPosition();
        
        for (Entity e : clients_in_range)
        {

@@ -101,7 +101,7 @@ public abstract class Entity implements java.io.Serializable
    // Teleport to closest empty cell to a random position.
    public boolean attemptTeleport()
    {
-       Position target_pos = Dungeon.getInstance().getRandomPosition();
+       Position target_pos = Dungeon.getInstance().getRandomEmptyPosition();
        return attemptTeleport(target_pos);
    }
    
@@ -109,7 +109,7 @@ public abstract class Entity implements java.io.Serializable
    public boolean attemptTeleport(Position target_pos) 
    {       
        Cell current_cell = Dungeon.getInstance().getCell(this.position); 
-       Position dest_pos = Dungeon.getInstance().getClosestEmptyCell(target_pos, Constants.EMPTY_CELL_SEARCH_DEPTH);
+       Position dest_pos = Dungeon.getInstance().getRandomEmptyPosition();
        Cell dest_cell = Dungeon.getInstance().getCell( dest_pos );       
        
        if (dest_cell.canEnter(this))

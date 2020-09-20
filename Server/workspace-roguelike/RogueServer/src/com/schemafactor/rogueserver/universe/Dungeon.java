@@ -37,20 +37,30 @@ public class Dungeon implements java.io.Serializable
     private int Ysize = -1;      // Cells
     private int Zsize = -1;      // Levels
     
-    List<Entity> allEntities = null;
+    // All the entities in the dungeon
+    private List<Entity> allEntities = null;
+    
+    // An array of lists of positions
+    private ArrayList<Position>[] emptyCells = null;
+    
+    // A dummy entity needed for some behind-the-scenes calls
+    DummyEntity dummy = new DummyEntity(null);
+    
     
     /**
      * 
      * @param size
      * @param allEntities
      */
-    public void Create(int size, int depth)
+    @SuppressWarnings("unchecked") // for emptyCells
+	public void Create(int size, int depth)
     {
         // Create the entities
         allEntities = Collections.synchronizedList(new ArrayList<Entity>());
         
-        // Create array        
-        dungeonMapCells = new Cell[size][size][depth];   
+        // Create arrays      
+        dungeonMapCells = new Cell[size][size][depth];
+        emptyCells = new ArrayList[depth];
         
         // Instantiate
         for (int x=0; x < size; x++)
@@ -497,17 +507,55 @@ public class Dungeon implements java.io.Serializable
         getCell(place).placeItem(i);       
     }
     
+    public void determineEmptyCells() 
+    {	
+    	for (int z=0; z < getZsize(); z++)
+    	{
+    		for (int x=0; x < getXsize(); x++)
+    		{
+    			for (int y=0; y < getYsize(); y++)
+                 {
+            	     if (dungeonMapCells[x][y][z].isEmpty(false))
+    	    		 {
+            	    	 emptyCells[z].add(new Position(x, y, z));    	    	  
+    	    		 }
+                 }
+            }
+        }		
+	}    
+    
+    public Position getRandomEmptyPosition()
+    {
+        int z=JavaTools.generator.nextInt(getZsize());
+        return getRandomEmptyPosition(z);
+    }
+    
+    public Position getRandomEmptyPosition(int z)
+    {
+    	while (true)
+    	{
+    		Position p = emptyCells[z].get(JavaTools.generator.nextInt(emptyCells[z].size()));
+    		
+    	    if (getCell(p).canEnter(dummy))
+    	    {
+    			return p;
+    		}
+    	}
+    }
+    
     public Position getRandomPosition()
     {
-        return getRandomPosition(JavaTools.generator.nextInt(getZsize()));
+    	return getRandomPosition(JavaTools.generator.nextInt(getZsize()));
     }    
     
-    public Position getRandomPosition(int level)
+    public Position getRandomPosition(int z)
     {
         Position p = new Position( 
                 JavaTools.generator.nextInt(getXsize()),  
                 JavaTools.generator.nextInt(getYsize()),
-                level);
+                z);
         return p;
     }
+
+	
 }

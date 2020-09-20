@@ -25,13 +25,26 @@ public class Main
     public static void main(String[] args) 
     {
         JavaTools.printlnTime("-----------------------------------------------");
-        JavaTools.printlnTime("Rogue Server (Mini) Version " + Constants.VERSION );
+        JavaTools.printlnTime("Rogue Server Version " + Constants.VERSION );
         
         JavaTools.onlyOneInstance("rogueserver");
         
         // Create the universe.
         JavaTools.printlnTime("Creating game dungeon...");
         Dungeon dungeon = Dungeon.getInstance();
+        
+        // Read in dungeon specifics
+        if (args.length > 0)
+        {
+        	// 
+
+        }
+        else
+        {        
+        	JavaTools.printlnTime("Must specify an ini file!");
+			System.exit(1);
+        }
+        
         dungeon.Create(Constants.DUNGEON_SIZE, Constants.DUNGEON_DEPTH);
         
         // Load saved
@@ -39,16 +52,16 @@ public class Main
         
         String prefix = "";
         
-        if (args.length > 0)
+        if (args.length > 1)
         {
-            if (args[0].equals("-local"))
+            if (args[1].equals("-local"))
             {
                 prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/mini/";
                 JavaTools.printlnTime("Local Mode specified - Timeouts disabled.");
                 Client.setDemoMode();
             }
             
-            if (args[0].equals("-demo"))
+            if (args[1].equals("-demo"))
             {
                 JavaTools.printlnTime("Demo Mode specified - Timeouts disabled.");
                 Client.setDemoMode();
@@ -66,8 +79,11 @@ public class Main
         {
         	JavaTools.printlnTime("FileNotFoundException!");
 			e.printStackTrace();
-			System.exit(0);
+			System.exit(2);
 		}
+        
+        // Predetermine the empty cells to save time later - do this before adding entities
+        dungeon.determineEmptyCells();
         
         // Add some entities.
         JavaTools.printlnTime("Creating and placing default entities...");

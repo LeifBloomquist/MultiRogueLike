@@ -59,30 +59,30 @@ public class Spawner
         
         for (int i=1; i<=20; i++)
         {
-            allMonsters.add( new Spider("Spider", dungeon.getRandomPosition(1)) );            
-            allMonsters.add( new Slime("Slime", dungeon.getRandomPosition(1)) );             
+            allMonsters.add( new Spider("Spider", dungeon.getRandomEmptyPosition(1)) );            
+            allMonsters.add( new Slime("Slime", dungeon.getRandomEmptyPosition(1)) );             
         } 
         
         // Level 2   -------------------------------------------------------------------------------------------------------------
 
         for (int i=1; i<=30; i++)
         {            
-            allMonsters.add( new Bat("Bat", dungeon.getRandomPosition(2)) );             
+            allMonsters.add( new Bat("Bat", dungeon.getRandomEmptyPosition(2)) );             
         } 
         
         for (int i=1; i<=10; i++)
         {
-            allMonsters.add( new Skeleton("Skeleton", dungeon.getRandomPosition(2)) ); 
+            allMonsters.add( new Skeleton("Skeleton", dungeon.getRandomEmptyPosition(2)) ); 
         } 
         
         // Level 3   -------------------------------------------------------------------------------------------------------------
         
         for (int i=1; i<=10; i++)
         {
-            allMonsters.add( new Ghost("Ghost", dungeon.getRandomPosition(3)) );
-            allMonsters.add( new Skeleton("Skeleton",dungeon.getRandomPosition(3)) );
-            allMonsters.add( new Spider("Spider", dungeon.getRandomPosition(3)) );            
-            allMonsters.add( new Slime("Slime", dungeon.getRandomPosition(3)) );     
+            allMonsters.add( new Ghost("Ghost", dungeon.getRandomEmptyPosition(3)) );
+            allMonsters.add( new Skeleton("Skeleton",dungeon.getRandomEmptyPosition(3)) );
+            allMonsters.add( new Spider("Spider", dungeon.getRandomEmptyPosition(3)) );            
+            allMonsters.add( new Slime("Slime", dungeon.getRandomEmptyPosition(3)) );     
         }
         
         // Add to dungeon --------------------------------------------------------------------------------------------------------
@@ -147,19 +147,19 @@ public class Spawner
        
         for (int i=1; i<=5; i++)
         {        
-            dungeon.placeItem( new Sword("Short Sword", 5, 2), dungeon.getRandomPosition(1) );
-            dungeon.placeItem( new Shield("Small Shield", 4), dungeon.getRandomPosition(1) );
+            dungeon.placeItem( new Sword("Short Sword", 5, 2), dungeon.getRandomEmptyPosition(1) );
+            dungeon.placeItem( new Shield("Small Shield", 4), dungeon.getRandomEmptyPosition(1) );
         }
         
         // Level 2  -------------------------------------------------------------------------------------------------------------        
         
-        dungeon.placeItem( new Sword("Sword of Doom", 20, 10), dungeon.getRandomPosition(2) );
-        dungeon.placeItem( new Shield("Large Shield", 10), dungeon.getRandomPosition(2) );
+        dungeon.placeItem( new Sword("Sword of Doom", 20, 10), dungeon.getRandomEmptyPosition(2) );
+        dungeon.placeItem( new Shield("Large Shield", 10), dungeon.getRandomEmptyPosition(2) );
         
         for (int i=1; i<=10; i++)
         {        
-            dungeon.placeItem( new Chest("Old Chest", new Sword("Long Sword", 10, 4)), dungeon.getRandomPosition(2));
-            dungeon.placeItem( new Chest("Old Chest", new Shield("Shield", 6)), dungeon.getRandomPosition(2));
+            dungeon.placeItem( new Chest("Old Chest", new Sword("Long Sword", 10, 4)), dungeon.getRandomEmptyPosition(2));
+            dungeon.placeItem( new Chest("Old Chest", new Shield("Shield", 6)), dungeon.getRandomEmptyPosition(2));
         }
         
         // Key to the Upstairs Room
@@ -171,7 +171,7 @@ public class Spawner
 
         // The powerful Teleportation Gem - one only, in a chest
         
-        Position p = dungeon.getRandomPosition(3);
+        Position p = dungeon.getRandomEmptyPosition(3);
         Gem gem = new Gem(10);
         dungeon.placeItem( new Chest("Chest", gem), p);
         allRechargeItems.add(gem);        
@@ -181,7 +181,7 @@ public class Spawner
         // Chests all through dungeon containing gold
         for (int i=1; i<=30; i++)
         {
-            p = dungeon.getRandomPosition();
+            p = dungeon.getRandomEmptyPosition();
             if (p.z == 0) p.z++;  // Not on starting level
             
             int gold = JavaTools.generator.nextInt(100);            
@@ -196,7 +196,7 @@ public class Spawner
             
             allRechargeItems.add(potion);
             
-            p = dungeon.getRandomPosition();
+            p = dungeon.getRandomEmptyPosition();
             if (p.z == 0) p.z++;  // Not on starting level
             dungeon.placeItem( new Chest("Ornate Chest", potion ), p);
         }
@@ -204,7 +204,7 @@ public class Spawner
         // Empty chests to keep life interesting
         for (int i=1; i<=20; i++)
         {
-            p = dungeon.getRandomPosition();
+            p = dungeon.getRandomEmptyPosition();
             if (p.z == 0) p.z++;  // Not on starting level
             dungeon.placeItem( new Chest("Chest", null), p);
         }
