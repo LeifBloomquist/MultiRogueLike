@@ -1,0 +1,36 @@
+;==============================================================
+; UltrafontPC Known Bugs                
+;==============================================================
+
+Last updated: 2017-03-18
+Release version: 1.0
+
+;==============================================================
+; About & Reporting Bugs            
+;==============================================================
+
+All bugs listed below are marked as known. Please do not submit
+any reports that are the same as these.
+
+New bugs can be reported at:
+http://www.arkanixlabs.com/forum/viewforum.php?id=76
+
+;==============================================================
+; Known Bugs         
+;==============================================================
+
+* REDO / UNDO list sometimes resets itself and you can no
+  longer undo/redo.  Please save before extensive undo/redo
+  actions.
+
+;==============================================================
+; Previously Known Bugs           
+;==============================================================
+
+* FIXED - Image dump of charset occasionally crashes
+  application.
+
+* FIXED - REDO eventually crashes application when clicked
+  multiple times. Please save before using REDO or use
+  sparingly!
+ 
