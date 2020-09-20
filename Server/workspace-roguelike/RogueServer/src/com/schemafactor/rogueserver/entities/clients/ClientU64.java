@@ -9,10 +9,10 @@ import com.schemafactor.rogueserver.common.JavaTools;
 
 public class ClientU64 extends ClientC64
 {   
-    private static final long serialVersionUID = 1L;
-    DataOutputStream output = null;
+   private static final long serialVersionUID = 1L;
+   DataOutputStream output = null;
     
-    public static final long U64_THROTTLE_TIME    = 200;   // Milliseconds   
+   public static final long U64_THROTTLE_TIME    = 60;   // Milliseconds   
     
    /** Creates a new instance of C64 Client from TCP Connection (i.e. Ultimate 64) */
    public ClientU64(byte[] data, DataOutputStream output)
@@ -26,23 +26,13 @@ public class ClientU64 extends ClientC64
    // Send an update.
    @Override
    public void updateNow()
-   {   
-       // Need to Rate Limit on U64
-       Duration elapsed = Duration.between(lastUpdateSent, Instant.now());
-       
-       if (elapsed.toMillis() < U64_THROTTLE_TIME)  // 
-       {
-    	   JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
-    	   return;
-       }
-       
+   {         
        byte[] buffer = getUpdateByteArray(true, 368);  // Screen Only
        
        // Send the packet.
        sendUpdatePacket(buffer);
        
-       // Clear timers and flags.
-       lastUpdateSent = Instant.now();
+       // Clear timers and flags.      
        updateMeFlag = false;
        
        return;
@@ -82,10 +72,20 @@ public class ClientU64 extends ClientC64
    {
        if (output == null) return;
        
+       // Need to Rate Limit on U64
+       Duration elapsed = Duration.between(lastUpdateSent, Instant.now());
+       
+       if (elapsed.toMillis() < U64_THROTTLE_TIME)  // 
+       {
+    	   JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
+    	   return;
+       }       
+       
        try
        {            
            output.write(data);
            output.flush();
+           lastUpdateSent = Instant.now();
        }
        catch (Exception e)
        {
