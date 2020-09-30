@@ -63,8 +63,7 @@ void main(void)
 	int count = 0;
 	int status = 0;
 
-	//char *host = "rogue.jammingsignal.com";
-	char *host = "192.168.7.14";
+	char *host = "rogue.jammingsignal.com";	
 	unsigned char socketnr = 0;
 	unsigned int datacount = 0;
 	unsigned int received = 0;
@@ -128,7 +127,7 @@ void main(void)
 	printf("   Gateway: %d.%d.%d.%d\n", uii_data[8], uii_data[9], uii_data[10], uii_data[11]);
 
 	color(CG_GR2);
-	printf("\nConnecting to server:%c %s\n", CG_BLU, host);
+	printf("\nConnecting to server:%c\n%s\n", CG_BLU, host);
 	socketnr = uii_tcpconnect(host, 3064);
 
 	status = get_uii_status();
@@ -163,5 +162,11 @@ void main(void)
 		;
 	}
 
+	
+	// Save bootloader version if needed
+	asm("lda #20"); // decimal 2.0
+	asm("sta $CFFF");
+
+	// Start downloaded code
 	asm("jmp $6000");
 }

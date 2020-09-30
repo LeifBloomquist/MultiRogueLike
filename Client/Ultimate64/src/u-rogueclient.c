@@ -320,17 +320,14 @@ void handle_packet(byte *uii_data_recvd)
 void network_init()
 {
 	int status = 0;
-
-	//char *host = "192.168.7.51";
-	//char *host = "rogue.jammingsignal.com";
-	char *host = "192.168.7.14";
+	char *host = "rogue.jammingsignal.com";
 
 	clear_screen();
 	color(CG_YEL);
 	printf("Rogue Ultimate 64 Test Client\n\n");
 
 	color(CG_GR2);
-	printf("Build:%c %s %s\n\n", CG_BLU, __DATE__, __TIME__);
+	printf("Built:%c %s %s\n\n", CG_BLU, __DATE__, __TIME__);
 
 	if (uii_isdataavailable())
 	{
@@ -383,7 +380,7 @@ void network_init()
 	printf("   Gateway: %d.%d.%d.%d\n", uii_data[8], uii_data[9], uii_data[10], uii_data[11]);
 
 	color(CG_GR2);
-	printf("\nConnecting to server:%c %s\n", CG_BLU, host);
+	printf("\nConnecting to server:%c\n%s\n", CG_BLU, host);
 	socketnr = uii_tcpconnect(host, 3008);
 
 	status = get_uii_status();
