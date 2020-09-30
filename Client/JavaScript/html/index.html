@@ -1,23 +1,114 @@
 <!DOCTYPE HTML>
 <html>
 
-<title>Retro Rogue Multiplayer Test Page</title>
+<STYLE>
+A {text-decoration: none;} 
 
-<body bgcolor="#000000" text="#ffffff" link="#0000ff" vlink="#0000ff" alink="#ff0000">
+a:link {
+  color: blue;
+}
 
-<h1 align="center" style="color:white">Welcome to the Retro Rogue Multiplayer Test Page
+a:visited {
+  color: blue;
+}
+
+a:hover {
+  color: yellow;
+}
+
+a:active {
+  color: red;
+}
+
+ br {
+        line-height: 150%;
+     }
+
+
+H1 {color:white;font-family:Arial;}
+H2 {color:white;font-family:Arial;}
+
+</STYLE>
+
+<title>Dungeon of the Rogue Daemon</title>
+
+<body bgcolor="#000000" text="#ffffff">
+
+<h1 align="center">Dungeon of the Rogue Daemon</h1>
+
+<center><img src="spider.png" alt="Spider"></center>
+
 <br>
-<br>
+<center>
+  <input type="submit" value="Start Game in Browser" onclick="startGame()" style="font-size : 30px; width: 25%; height: 80px;" /> 
+</center>
 
-<input type="submit" value="Start Game" onclick="window.location.replace('websocket.html')" style="font-size : 20px; width: 15%; height: 50px;" /> 
-<br>
-<br>
-<a href="http://forum.jammingsignal.com/board/8/multiplayer-roguelike-commodore-64">Forums</a> |
-<a href="http://bit.ly/2oC9L9M">C64 Client Download</a> |
-<a href="">Discord Chat (Coming Soon)</a>
+<div style="text-align: center;">
+ <div style="display: inline-block; text-align: left;font-family:Arial;">
 
+  <h2>
 
-</h1>
+  <a href="https://bit.ly/2oC9L9M">Download Commodore 64 Client</a> &nbsp;
+  <a href="https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Docs/C64ClientSetup.md"><i>(Setup Instructions)</i></a>
+
+  <br>
+
+  <a href="https://bit.ly/33ePtce">Download Ultimate 64 Client</a> &nbsp;
+  <a href="https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Docs/U64ClientSetup.md"><i>(Setup Instructions)</i></a>
+
+  <br>
+
+  <a href="telnet://rogue.jammingsignal.com:3006/">Connect via Telnet</a> &nbsp; <font color="grey"><i>telnet rogue.jammingsignal.com 3006</i></font>
+
+  <br><br>
+
+  <a href="https://discord.gg/uRkYQ5J">Discord Voice Chat</a>
+  <br>
+  <a href="https://discord.gg/dCCdaxd">Discord Text Chat</a>
+  
+  <br> <br>
+
+  <a href="http://forum.jammingsignal.com/board/8/multiplayer-roguelike-commodore-64">Developer Forums</a>
+
+  <br>
+  </h2>
+  <hr>
+  <h3>
+  <a href="https://www.youtube.com/watch?v=ASGn5J9PHbs">Roguelike Celebration 2019 Talk</a> <i>
+  <a href="https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Docs/Presentations/Leif%20Roguelike%20Celebration%202019.pptx?raw=true">(Presentation Slides)</a>
+  </i>  
+  <br>
+  <a href="https://www.youtube.com/watch?v=Y0K-e83wYnQ">Roguelike Celebration 2018 Talk</a> <i>
+  <a href="https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Docs/Presentations/Leif%20Roguelike%20Celebration%202018.pptx?raw=true">(Presentation Slides)</a>
+  </i>  
+  <br>
+  <a href="https://www.youtube.com/watch?v=R-arWP8TTrY">World of Commodore 2017 Talk</a> <i>
+  <a href="https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Docs/Presentations/Rogue%20Game%20WoC2017.pptx?raw=true">(Presentation Slides)</a>
+  </i>  
+  </h3>
+
+ </div>
+</div>
+
+<center><img src="spider.png" alt="Spider"></center>
 
 </body>     
 </html>
+
+
+<script>
+
+function checkTouchDevice() {
+   return 'ontouchstart' in document.documentElement;
+}
+
+function startGame() {
+  if (checkTouchDevice()) {
+    // Mobile device
+    window.location.replace('mobile.html');
+    } else {
+    // Desktop
+    window.location.replace('desktop.html');
+  }
+}
+</script>
