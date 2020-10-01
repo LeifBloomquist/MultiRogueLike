@@ -43,8 +43,7 @@ public class Potion extends Item implements Rechargeable
     {
         if (amount < max_amount)
         {
-            amount += recharge_rate;
-            // JavaTools.printlnTime("DEBUG: Potion recharging to " + amount );
+            amount += recharge_rate;           
         }
     }
 }

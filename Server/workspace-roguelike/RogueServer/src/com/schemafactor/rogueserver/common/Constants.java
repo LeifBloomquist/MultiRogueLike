@@ -124,6 +124,7 @@ public class Constants
     public static final byte CHAR_ITEM_KEY         = (byte) 204;  
     public static final byte CHAR_ITEM_SIGN        = (byte) 205;
     public static final byte CHAR_ITEM_CHEST_OPEN  = (byte) 209;
+    public static final byte CHAR_ITEM_RING        = (byte) 210;
     
     // C64 colors
     public static final byte COLOR_BLACK      = 0;

@@ -124,7 +124,7 @@ color_table:
     .byte COLOR_GREEN    ; 102	Frog Thing
     .byte COLOR_GREEN    ; 103  Slime	 	
     .byte COLOR_LIGHTGREEN ; 104 Zombie	 	
-    .byte COLOR_ORANGE   ; 105	Golem
+    .byte COLOR_ORANGE   ; 105	Daemon
     .byte COLOR_WHITE    ; 106	 	
     .byte COLOR_WHITE    ; 107	 	
     .byte COLOR_WHITE    ; 108	 	

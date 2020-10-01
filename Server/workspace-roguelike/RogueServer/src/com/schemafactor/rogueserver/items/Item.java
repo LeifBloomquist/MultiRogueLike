@@ -64,4 +64,9 @@ public abstract class Item implements java.io.Serializable
     {
         return this.isContainer;
     }
+    
+    public void dropped()
+    {
+        return;
+    }
 }

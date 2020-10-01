@@ -29,6 +29,8 @@ public abstract class Entity implements java.io.Serializable
    /** Flag that this entity is to be removed at the end of this update cycle.  true=remove */
    protected boolean removeMeFlag = false;
    
+   public boolean isInvisible = false;
+   
    protected Instant lastAction = Instant.now();         // Used by server-controlled entities
    
    protected Item item_left  = null;  // Currently carried item in left hand
@@ -422,6 +424,7 @@ public abstract class Entity implements java.io.Serializable
            if (success)
            {
                this.addMessage("Dropped the " + item_left.getDescription() + ".");
+               item_left.dropped();
                item_left = null;   // No longer carrying the item              
                return true;
            }
@@ -439,6 +442,7 @@ public abstract class Entity implements java.io.Serializable
            if (success)
            {
                this.addMessage("Dropped the " + item_right.getDescription()+ ".");
+               item_right.dropped();
                item_right = null;   // No longer carrying the item               
                return true;
            }
