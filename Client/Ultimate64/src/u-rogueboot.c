@@ -157,7 +157,7 @@ void main(void)
 				POKE(address+datacount, uii_data[z]);
 				datacount++;
 				if(datacount % 1024 == 0)
-					printf("%dk downloaded\n", datacount / 1024);
+					printf("%dk downloaded\n%c", datacount / 1024, 145);
 			}
 				
             if (received < 1) break; // EOF
