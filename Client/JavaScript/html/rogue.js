@@ -5,7 +5,7 @@
 
    var playerstext = document.getElementById("players");
 
-   var screen = document.getElementById("screen");                       
+   var screen = document.getElementById("screen");
    var context = screen.getContext("2d");
 
    var person = "name";
@@ -37,7 +37,7 @@
          person = person.substring(0, 16);
 
          // Let us open a web socket
-         //ws = new WebSocket("ws://localhost:3007/Rogue");         
+         //ws = new WebSocket("ws://localhost:3007/Rogue");
          ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
          ws.binaryType = 'arraybuffer';
 
@@ -91,74 +91,82 @@
             alert("Server connection has been closed.");
             window.location.replace('index.html'); 
          };
-		
+
          window.onbeforeunload = function(event) 
          {
             ws.close();
          };
       }
-      
+
       else
       {
          // The browser doesn't support WebSocket
          alert("WebSocket NOT supported by your Browser!");
       }
    }
-   
+
    function sendAnnounce(name)
-   {      
+   {
       if (ws != null)
       {
          ws.send("1" + name);
-      }  
+      }
    }
-   
+
    var command_counter = 0;
 
    function sendCommand(key)
    {
       var command = new Uint8Array(3);
-      command[0] = 2;   // Client Update  
+      command[0] = 2;   // Client Update
       command[1] = command_counter++;   // Counter
       command[2] = key;
 
       if (ws != null)
       {
          ws.send(command);
-      }  
+      }
    }
 
    // Handle most keys
-   document.onkeypress = function(event) 
-   { 
+   document.onkeypress = function(event)
+   {
       var key = event.which;
-      sendCommand(key); 
-   };   
-  
+
+      if (key == 104)  // h
+      {
+         Help();
+      }
+      else
+      {
+          sendCommand(key);
+      }
+   };
+
    // Handle arrow keys
-   document.onkeydown = function(event) 
-   { 
+   document.onkeydown = function(event)
+   {
       var key = event.which;
-        
-      switch (key) 
-      { 
-        case 37: 
-           moveWest(); 
-           break; 
+
+      switch (key)
+      {
+        case 37:
+           moveWest();
+           break;
 
         case 38:
            moveNorth();
-           break; 
+           break;
 
         case 39:
            moveEast();
-           break; 
+           break;
 
         case 40:
            moveSouth();
            break;
-     } 
-  };     
+     }
+  };
 
   function Use(hand)
   {
@@ -180,9 +188,9 @@
 
   function Examine(hand)
   {
-      switch (hand) 
+      switch (hand)
       {
-        case 0:         
+        case 0:
           sendCommand(105);  // i
           break;
       }
@@ -190,7 +198,7 @@
 
   function Help()
   {
-     var helptext = "Rogue Multiplayer Help (Keys)\n\n";
+     var helptext = "Dungeon of the Rogue Daemon - Help (Keys)\n\n";
 
      helptext += "QWE\n";
      helptext += "ASD = Move  (or use Arrow Keys)\n";
@@ -198,12 +206,12 @@
      helptext += "SHIFT+Move = Attack\n\n";
      helptext += "J = Pick up item (Left  Hand)\n";
      helptext += "K = Pick up item (Right Hand)\n\n";
-     helptext += "SHIFT+J,K = Drop Item (Left, Right)\n\n";
-     helptext += "U = Use item at current location\r\n";
-     helptext += ", = Use item (Left)\n";
-     helptext += ". = Use item (Right)\n\n";
+     helptext += "N = Drop Item (Left Hand)\n";
+     helptext += "M = Drop Item (Right Hand)\n\n";
      helptext += "I = Inspect item at current location\n\n";
-     helptext += "H = Shows C64 Help Screen\n";
+     helptext += "U = Use item at current location\r\n";
+     helptext += ", = Use item (Left Hand)\n";
+     helptext += ". = Use item (Right Hand)\n\n";
 
      alert(helptext);
   }
