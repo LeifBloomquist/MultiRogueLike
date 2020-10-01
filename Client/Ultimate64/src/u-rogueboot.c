@@ -62,12 +62,13 @@ void main(void)
 {
 	int count = 0;
 	int status = 0;
+	int z = 0;
 
 	char *host = "rogue.jammingsignal.com";	
 	unsigned char socketnr = 0;
-	unsigned int datacount = 0;
-	unsigned int received = 0;
-	unsigned int address = LOAD;
+	unsigned datacount = 0;
+	unsigned received = 0;
+	unsigned address = LOAD;
 
 	clear_screen();
 	POKEW(BORDER, 0);
@@ -140,16 +141,27 @@ void main(void)
 	}
 
 	color(CG_GR3);
-	printf("\nDownloading game data");
+	printf("\nDownloading 20k game data, please wait..");
 
-	while (uii_success())
+	if (uii_success())
 	{
-		received = uii_tcpsocketread(socketnr, 528);
-		memcpy(address, uii_data + 2, received);     // Warning: Converting integer to pointer without a cast  (but works)
-		address += received;
-		datacount += received;
+		uii_reset_uiidata();
 
-		printf(".");
+		while(1) 
+		{
+            received = uii_tcpsocketread(socketnr, DATA_QUEUE_SZ-4);
+
+			for(z=2;z<received+2;z++)
+			{
+				//printf("%d - %d : %d\n", received, address, uii_data[z]);
+				POKE(address+datacount, uii_data[z]);
+				datacount++;
+				if(datacount % 1024 == 0)
+					printf("%dk downloaded\n", datacount / 1024);
+			}
+				
+            if (received < 1) break; // EOF
+        };
 	}
 
 	color(CG_LGN);
@@ -162,7 +174,6 @@ void main(void)
 		;
 	}
 
-	
 	// Save bootloader version if needed
 	asm("lda #20"); // decimal 2.0
 	asm("sta $CFFF");
