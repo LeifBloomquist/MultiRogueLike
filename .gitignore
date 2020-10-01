@@ -209,3 +209,4 @@ Client/C64/src/colorlookup.o
 Client/C64/src/defaultscreen.o
 Client/Ultimate64/src/lib/ultimate_lib_net.o
 *.o
+Client/Ultimate64/visualstudio/.vs/Ultimate64-Rogue/v16/Browse.VC.opendb

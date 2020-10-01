@@ -29,16 +29,19 @@ public abstract class Entity implements java.io.Serializable
    /** Flag that this entity is to be removed at the end of this update cycle.  true=remove */
    protected boolean removeMeFlag = false;
    
+   public boolean isInvisible = false;
+   
    protected Instant lastAction = Instant.now();         // Used by server-controlled entities
    
    protected Item item_left  = null;  // Currently carried item in left hand
    protected Item item_right = null;  // Currently carried item in right hand
    
    protected float health = 100f;
+   protected float maxHealth = health;
    float baseDamage = 0f;   // How much damage this entity can do on attack without weapons
      
    /** Creates a new instance of Entity */
-   public Entity(String description, Position startposition, entityTypes type, byte charCode, float baseDamage)
+   public Entity(String description, Position startposition, entityTypes type, byte charCode, float baseDamage, float maxHealth)
    {
 	   if (startposition == null) return; // Dummy entities
 	   
@@ -49,6 +52,7 @@ public abstract class Entity implements java.io.Serializable
        this.myType = type;
        this.charCode = charCode;
        this.baseDamage = baseDamage;
+       this.maxHealth = maxHealth;
        
        // Mark cell this entity starts in
        Dungeon.getInstance().getCell(this.position).setEntity(this);
@@ -59,7 +63,7 @@ public abstract class Entity implements java.io.Serializable
        position = new Position(home);
        this.removeMeFlag = false;
        this.needsUpdate();
-       health = 100;
+       health = maxHealth;
        Dungeon.getInstance().addEntity(this);  // Re-add to main list
        this.addMessage("Restarted...");
    }
@@ -420,6 +424,7 @@ public abstract class Entity implements java.io.Serializable
            if (success)
            {
                this.addMessage("Dropped the " + item_left.getDescription() + ".");
+               item_left.dropped();
                item_left = null;   // No longer carrying the item              
                return true;
            }
@@ -437,6 +442,7 @@ public abstract class Entity implements java.io.Serializable
            if (success)
            {
                this.addMessage("Dropped the " + item_right.getDescription()+ ".");
+               item_right.dropped();
                item_right = null;   // No longer carrying the item               
                return true;
            }
@@ -685,9 +691,9 @@ public abstract class Entity implements java.io.Serializable
     {
         health += h;
         
-        if (health > 100)
+        if (health > maxHealth)
         {
-           health=100;
+           health=maxHealth;
         }
     }
 

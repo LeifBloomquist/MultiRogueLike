@@ -44,9 +44,9 @@ public abstract class Client extends Entity
    
    public Client(String description, Position startposition, entityTypes type, byte charCode)
    {
-       super(description, startposition, type, charCode, 1f);
+       super(description, startposition, type, charCode, 1f, 100f);
        
-       this.addMessage("Welcome to the Rogue Test Server");
+       this.addMessage("The Dungeon of the Rogue Daemon");
        this.addMessage("Server version: " + Double.toString(Constants.VERSION) );       
    }
    

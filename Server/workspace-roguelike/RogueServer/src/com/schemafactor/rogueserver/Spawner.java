@@ -13,6 +13,7 @@ import com.schemafactor.rogueserver.common.interfaces.Rechargeable;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.monsters.Bat;
+import com.schemafactor.rogueserver.entities.monsters.Daemon;
 import com.schemafactor.rogueserver.entities.monsters.Ghost;
 import com.schemafactor.rogueserver.entities.monsters.Monster;
 import com.schemafactor.rogueserver.entities.monsters.Skeleton;
@@ -54,6 +55,7 @@ public class Spawner
         
         dungeon.addEntity( slimey ); 
         dungeon.addEntity( mike );
+        dungeon.addEntity( new Daemon("Daemon", new Position(10,10,0)));
         
         // Level 1 -------------------------------------------------------------------------------------------------------------
         

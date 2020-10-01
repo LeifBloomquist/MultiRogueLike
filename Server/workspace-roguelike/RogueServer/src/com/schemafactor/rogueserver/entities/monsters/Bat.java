@@ -13,7 +13,7 @@ public class Bat extends Monster
     /** Creates a new instance of the Bat */
     public Bat(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_BAT, 400f, 3f);    
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_BAT, 400f, 5f, 50);    
     }
 
     @Override

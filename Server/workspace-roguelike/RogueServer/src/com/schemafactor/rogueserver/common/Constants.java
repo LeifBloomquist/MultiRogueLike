@@ -102,7 +102,7 @@ public class Constants
     public static final byte CHAR_MONSTER_FROG     = (byte) 102;
     public static final byte CHAR_MONSTER_SLIME    = (byte) 103;
     public static final byte CHAR_MONSTER_ZOMBIE   = (byte) 104;
-    public static final byte CHAR_MONSTER_GOLEM    = (byte) 105;
+    public static final byte CHAR_MONSTER_DAEMON   = (byte) 105;
     
     // Player Character Codes
     public static final byte CHAR_PLAYER_NONE      = (byte) 128;
@@ -124,6 +124,7 @@ public class Constants
     public static final byte CHAR_ITEM_KEY         = (byte) 204;  
     public static final byte CHAR_ITEM_SIGN        = (byte) 205;
     public static final byte CHAR_ITEM_CHEST_OPEN  = (byte) 209;
+    public static final byte CHAR_ITEM_RING        = (byte) 210;
     
     // C64 colors
     public static final byte COLOR_BLACK      = 0;
