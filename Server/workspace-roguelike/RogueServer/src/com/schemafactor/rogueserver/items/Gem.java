@@ -18,7 +18,7 @@ public class Gem extends Item implements Rechargeable
     private float charges = 0;
     private float max_charges = 0;
     
-    private static final float recharge_rate = 10f / (86400f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 10 over a day
+    private static final float recharge_rate = 1000f / (86400f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 1000 over a day
 
     /** Creates a new instance of Gem */
     public Gem(int charges)
