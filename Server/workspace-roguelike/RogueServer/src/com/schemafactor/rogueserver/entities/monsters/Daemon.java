@@ -17,7 +17,7 @@ public class Daemon extends Monster
     /** Creates a new instance of the Daemon */
     public Daemon(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_DAEMON, 100f, 20f, 1000f);      
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_DAEMON, 1000f, 20f, 1000f);      
     }
     
     @Override

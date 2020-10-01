@@ -46,7 +46,7 @@ public abstract class Client extends Entity
    {
        super(description, startposition, type, charCode, 1f, 100f);
        
-       this.addMessage("Welcometo the Dungeon of the Rogue Daemon");
+       this.addMessage("The Dungeon of the Rogue Daemon");
        this.addMessage("Server version: " + Double.toString(Constants.VERSION) );       
    }
    
