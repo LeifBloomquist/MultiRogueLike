@@ -21,9 +21,9 @@ public abstract class Monster extends Entity
     protected float actionTime = 1000f;   // Milliseconds   
     
     /** Creates a new instance of Monster */
-    public Monster(String name, Position startposition, entityTypes type, byte charCode, float actionTime, float maxDamage)
+    public Monster(String name, Position startposition, entityTypes type, byte charCode, float actionTime, float maxDamage, float maxHealth)
     {
-       super(name, startposition, type, charCode, maxDamage);  
+       super(name, startposition, type, charCode, maxDamage, maxHealth);  
        this.actionTime = actionTime;
        home = new Position(this.position);  // Copy
     }

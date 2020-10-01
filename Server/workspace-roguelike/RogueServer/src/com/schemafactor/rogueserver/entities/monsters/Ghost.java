@@ -17,7 +17,7 @@ public class Ghost extends Monster
     /** Creates a new instance of the Ghost */
     public Ghost(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_GHOST, 600f, 20f);
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_GHOST, 600f, 20f, 200f);
     }
     
     @Override
