@@ -1,6 +1,6 @@
 # Ultimate 64 Client Setup Instructions 
 
-*This version is specific to the [Ultimate 64 from Gideon's Logic](https://ultimate64.com/)    It has not been tested on a 1541 Ultimate I/II, but may work.*
+*This version is specific to the [Ultimate 64 from Gideon's Logic](https://ultimate64.com/).  It has not been tested on a 1541 Ultimate I/II, but may work.*
 
 1. Download the client PRG from [here](https://bit.ly/2oC9L9M)
 
