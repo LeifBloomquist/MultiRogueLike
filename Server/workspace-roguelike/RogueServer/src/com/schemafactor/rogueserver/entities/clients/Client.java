@@ -42,6 +42,9 @@ public abstract class Client extends Entity
    // Demo mode?
    static boolean demoMode = false;   
    
+   // Flag used at start to choose avatar
+   boolean choosingAvatar = true; 
+   
    public Client(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f, 100f);
@@ -102,6 +105,37 @@ public abstract class Client extends Entity
        }
        
        lastUpdateReceived = Instant.now();
+       
+       // Choosing Avatar
+       
+       if (choosingAvatar)
+       {
+    	   switch (inputchar)
+           {
+		       case '1':
+		           zz
+		           break;
+		       
+		       case '2':
+		           zz
+		           break;
+		           
+		       case '3':
+		           zz
+		           break;
+		           
+		       case '4':
+		           zz
+		           break;
+		        
+		       default:
+		    	   return;  // Ignore all other input
+           }
+    	   
+    	   choosingAvatar=false;
+    	   return;    	   
+       }
+       
        
        // Normal keystrokes       
        
@@ -470,8 +504,38 @@ public abstract class Client extends Entity
        buffer[0] = Constants.PACKET_UPDATE;
        
        int offset = 1;
-              
-       if (showingHelp)
+       
+       if (choosingAvatar)
+       {
+    	   String screen = "";
+           
+           screen += "                     ";
+           screen += "  Choose Avatar:     ";
+           screen += "                     ";
+           screen += "  1 " + Constants.CHAR_PLAYER_NONE + "                 ";
+           screen += "  2 " + Constants.CHAR_PLAYER_MAGE + "                 ";
+           screen += "  3 " + Constants.CHAR_PLAYER_FIGHTER + "                 ";
+           screen += "  4 " + Constants.CHAR_PLAYER_FIGHTER2 + "                 ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+           screen += "                     ";
+                      
+           if (screen.length() != Constants.SCREEN_SIZE)
+           {
+               JavaTools.printlnTime("EXCEPTION: Mismatch in Avatar string size!!");
+               throw new RuntimeException("Mismatch in Help Avatar size!!");
+           }
+           
+           System.arraycopy( screen.toUpperCase().getBytes(), 0, buffer, offset, Constants.SCREEN_SIZE );
+   	   } 
+       else if (showingHelp)
        {
            String screen = "";
           

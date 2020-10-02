@@ -149,8 +149,8 @@ color_table:
     .byte COLOR_WHITE    ; 127	 	
     .byte COLOR_WHITE    ; 128	 	Generic Player
     .byte COLOR_WHITE    ; 129	 	Mage
-    .byte COLOR_WHITE    ; 130	 	
-    .byte COLOR_WHITE    ; 131	 	
+    .byte COLOR_WHITE    ; 130	 	Fighter
+    .byte COLOR_WHITE    ; 131	 	Fighter 2
     .byte COLOR_WHITE    ; 132	 	
     .byte COLOR_WHITE    ; 133	 	
     .byte COLOR_WHITE    ; 134	 	

@@ -3,7 +3,7 @@ package com.schemafactor.rogueserver.common;
 public class Constants 
 {
     // Server version
-    public static final double VERSION        = 0.014;
+    public static final double VERSION        = 0.015;
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
@@ -107,6 +107,8 @@ public class Constants
     // Player Character Codes
     public static final byte CHAR_PLAYER_NONE      = (byte) 128;
     public static final byte CHAR_PLAYER_MAGE      = (byte) 129;
+    public static final byte CHAR_PLAYER_FIGHTER   = (byte) 130;
+    public static final byte CHAR_PLAYER_FIGHTER2  = (byte) 131;
     
     // Item Character Codes
     public static final byte CHAR_ITEM_SWORD       = (byte) 192;
