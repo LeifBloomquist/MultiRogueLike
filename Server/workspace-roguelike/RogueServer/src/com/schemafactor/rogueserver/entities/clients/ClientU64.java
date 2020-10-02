@@ -12,7 +12,7 @@ public class ClientU64 extends ClientC64
    private static final long serialVersionUID = 1L;
    DataOutputStream output = null;
     
-   public static final long U64_THROTTLE_TIME    = 60;   // Milliseconds   
+   private static final long U64_THROTTLE_TIME    = 60;   // Milliseconds     
     
    /** Creates a new instance of C64 Client from TCP Connection (i.e. Ultimate 64) */
    public ClientU64(byte[] data, DataOutputStream output)
@@ -20,7 +20,7 @@ public class ClientU64 extends ClientC64
        super(data, null);
        this.output = output;
        
-       sendUpdatePacket(getMessagesByteArray());  // Since output is null in the super() call above...
+       sendUpdatePacket(getMessagesByteArray(), true);  // Since output is null in the super() call above...
    }
    
    // Send an update.
@@ -30,7 +30,7 @@ public class ClientU64 extends ClientC64
        byte[] buffer = getUpdateByteArray(true, 368);  // Screen Only
        
        // Send the packet.
-       sendUpdatePacket(buffer);
+       sendUpdatePacket(buffer, false);
        
        // Clear timers and flags.      
        updateMeFlag = false;
@@ -45,8 +45,8 @@ public class ClientU64 extends ClientC64
        
        byte[] buffer = getMessagesByteArray();
        
-       // Send the packet.
-       sendUpdatePacket(buffer);
+       // Send the packet.  On U64 send messages packet separately.
+       sendUpdatePacket(buffer, true);
    }
    
    // On screen messages
@@ -68,7 +68,7 @@ public class ClientU64 extends ClientC64
        return buffer;
    }
    
-   private void sendUpdatePacket(byte[] data)
+   private void sendUpdatePacket(byte[] data, boolean nolimit)
    {
        if (output == null) return;
        
@@ -85,7 +85,7 @@ public class ClientU64 extends ClientC64
        {            
            output.write(data);
            output.flush();
-           lastUpdateSent = Instant.now();
+           if (!nolimit) lastUpdateSent = Instant.now();
        }
        catch (Exception e)
        {
