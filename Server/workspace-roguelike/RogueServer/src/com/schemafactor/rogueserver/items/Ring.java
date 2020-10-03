@@ -15,17 +15,17 @@ public class Ring extends Item implements Rechargeable
     
     private Entity wearer = null;
     
-    private float charges = 0;
-    private float max_charges = 0;
+    private float charge = 0;
+    private float max_charge = 0;
     
-    private static final float recharge_rate = 1000f / (86400f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 1000 over a day
+    private static final float recharge_rate = 100000f / (86400f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 100000f over a day
 
-    /** Creates a new instance of Gem */
-    public Ring(int charges)
+    /** Creates a new instance of Ring */
+    public Ring(int charge)
     {
        super("Ring", Constants.CHAR_ITEM_RING, true, 0, 0);
-       this.charges = charges;
-       this.max_charges = charges;      
+       this.charge = charge;
+       this.max_charge = charge;      
     }
     
     @Override
@@ -47,18 +47,18 @@ public class Ring extends Item implements Rechargeable
     {
     	if (wearer != null)
     	{
-    		charges -= recharge_rate;
+    		charge -= recharge_rate;
     		
-    		if (charges <= 0)
+    		if (charge <= 0)
     		{
     			visible();
     		}    		
     	}
     	else
     	{
-    		if (charges < max_charges)
+    		if (charge < max_charge)
             {
-    			 charges += recharge_rate;
+    			 charge += recharge_rate;
             }           
         }
     }

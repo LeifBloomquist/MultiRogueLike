@@ -5,6 +5,7 @@ import java.util.List;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.entities.monsters.Monster.States;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Skeleton extends Monster
@@ -20,10 +21,16 @@ public class Skeleton extends Monster
     @Override
     public void takeAction()
     {   
-        boolean moved = false;
+        boolean moved = false;        
         
         if (target != null)
         {
+        	 // Can't smell
+            if (target.isInvisible)
+            {
+            	State = States.IDLE;
+            }
+            
             if (target.getRemoved())   // Target disconnected, or was removed/killed
             {
                 target = null;

@@ -26,7 +26,14 @@ public class Daemon extends Monster
         boolean moved = false;
         
         if (target != null)
-        {
+        {        	
+        	// Can't smell
+            if (target.isInvisible)
+            {
+            	State = States.IDLE;
+            }
+            
+            
             if (target.getRemoved())   // Target disconnected, or was removed/killed
             {
                 target = null;

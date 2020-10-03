@@ -660,7 +660,14 @@ public abstract class Entity implements java.io.Serializable
 
 	public byte getCharCode() 
 	{
-		return charCode;
+		if (isInvisible)
+		{
+			return Constants.CHAR_EMPTY;
+		}
+		else
+		{
+			return charCode;
+		}
 	}
 
 	public entityTypes getType() 

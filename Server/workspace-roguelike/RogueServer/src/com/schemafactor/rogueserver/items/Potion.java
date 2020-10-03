@@ -12,7 +12,7 @@ public class Potion extends Item implements Rechargeable
     private float amount = 0;
     private float max_amount = 0;
     
-    private static final float recharge_rate = 100f / (3600f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 100 over an hour
+    private static final float recharge_rate = 300f / (3600f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 300 over an hour
     
     /** Creates a new instance of Potion */
     public Potion(int amount)

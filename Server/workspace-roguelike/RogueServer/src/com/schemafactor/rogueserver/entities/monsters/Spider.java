@@ -29,6 +29,12 @@ public class Spider extends Monster
         }
         else
         {
+        	// Spiders can't smell
+            if (target.isInvisible)
+            {
+            	State = States.WANDERING;
+            }
+            
             if (target.getRemoved())   // Target disconnected, or was removed/killed
             {
                 target = null;

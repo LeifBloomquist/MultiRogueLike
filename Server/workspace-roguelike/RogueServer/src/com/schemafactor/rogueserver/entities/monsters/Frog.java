@@ -6,6 +6,7 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
+import com.schemafactor.rogueserver.entities.monsters.Monster.States;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Frog extends Monster
@@ -20,7 +21,7 @@ public class Frog extends Monster
 
     @Override
     public void takeAction()
-    {        
+    {    
         boolean moved = false;
         
         //Variable Timing
@@ -32,6 +33,12 @@ public class Frog extends Monster
         }
         else
         {
+        	// Can't smell
+            if (target.isInvisible)
+            {
+            	State = States.IDLE;
+            }
+            
             if (target.getRemoved())   // Target disconnected, or was removed/killed
             {
                 target = null;

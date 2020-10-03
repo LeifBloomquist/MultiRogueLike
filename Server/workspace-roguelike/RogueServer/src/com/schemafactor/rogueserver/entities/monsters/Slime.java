@@ -1,21 +1,18 @@
 package com.schemafactor.rogueserver.entities.monsters;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.Entity.entityTypes;
-import com.schemafactor.rogueserver.entities.monsters.Monster;
-import com.schemafactor.rogueserver.entities.monsters.Monster.States;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Slime extends Monster
-{  
-    /** Creates a new instance of the Slime */
+{ 
+	private static final long serialVersionUID = 1L;
+
+	/** Creates a new instance of the Slime */
     public Slime(String name, Position startposition)
     {
        super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_SLIME, 1000f, 20f, 80f);    
@@ -74,6 +71,16 @@ public class Slime extends Monster
             
             case ATTACKING:
             {
+            	// Can't smell
+                if (target != null)
+                {
+                	if (target.isInvisible)                
+	                {
+	                	State = States.WANDERING;
+	                	break;
+	                }
+                }
+                
                 // Just take one attack, then wander again
                 byte attack_direction = getDirectionTo(target);
                 moved = attemptAttack(attack_direction);

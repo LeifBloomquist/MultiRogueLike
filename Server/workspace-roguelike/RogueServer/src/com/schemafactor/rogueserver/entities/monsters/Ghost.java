@@ -60,12 +60,19 @@ public class Ghost extends Monster
                 {
                     break;
                 }
-                else  // Attack!
+                else  // Attack!  Unless invisible
                 {
-                    target = nearby_humans.get(0);
-                    byte attack_direction = getDirectionTo(target);
-                    moved = attemptAttack(attack_direction);
-                    break;
+                	target = nearby_humans.get(0);
+                	   
+                	if (target != null)
+                	{
+                		if (!target.isInvisible)	                	
+	                	{	                 
+		                    byte attack_direction = getDirectionTo(target);
+		                    moved = attemptAttack(attack_direction);
+		                    break;
+	                	}
+                	}
                 }
             }                  
         

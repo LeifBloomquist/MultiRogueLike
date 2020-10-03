@@ -21,6 +21,8 @@ public class Bat extends Monster
     {
         boolean moved = false;
         
+        // Bats can smell!  So invisibility doesn't help you
+        
         switch (State)
         {
             case IDLE:

@@ -430,6 +430,10 @@ public class Dungeon implements java.io.Serializable
         {
             if (who == e) continue;
             if (e.getRemoved()) continue;
+            if (e.isInvisible ) 
+        	{
+            	continue;
+        	}
             
             if (who.distanceTo(e) <= range)
             {
@@ -447,7 +451,7 @@ public class Dungeon implements java.io.Serializable
         return getEntitiesRange(dummy, range);       
     }
         
-    // Get list of entities visible on screen from this top left coordinate
+    // Get list of entities on screen from this top left coordinate  9even if invisible)
     private List<Entity> getEntitiesOnScreen(Position topleft)
     {
         List<Entity> allOnScreen = new ArrayList<Entity>();
@@ -557,7 +561,5 @@ public class Dungeon implements java.io.Serializable
                 JavaTools.generator.nextInt(getYsize()),
                 z);
         return p;
-    }
-
-	
+    }	
 }
