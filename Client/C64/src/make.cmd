@@ -11,12 +11,10 @@
 
 @dir ..\target\*.bin
 
-@exit /b
-
 pause
-@rem Combine with font, etc- Still in work!
+@rem Pad+combine all Rogue data for download.  Note that empty.raw is 2 bytes less than it should be, to "hide" the load address from roguedata-u64.bin and align start with $6000
 
-@copy ..\target\*.bin ..\..\Server\data\
-@pushd ..\..\Server\data\
-@call combine.cmd
-@popd
+..\..\..\Tools\trunc ..\common\rogue-font.raw 2048
+..\..\..\Tools\trunc ..\common\empty.raw      6142
+
+copy /b /v /y "..\..\common\rogue-font.raw"+"..\..\common\empty.raw"+rogue6000.bin ..\target\tftpboot\roguedata
