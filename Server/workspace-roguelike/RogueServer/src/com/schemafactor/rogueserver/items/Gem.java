@@ -47,10 +47,14 @@ public class Gem extends Item implements Rechargeable
         
     private void doTeleport(Entity entity)
     {
-       List<Entity> in_range = dungeon.getEntitiesRange(entity.getPosition(), (int)charges);  // Includes the one using the item
-       List<Entity> clients_in_range = dungeon.getEntitiesType(null, Entity.entityTypes.CLIENT, in_range);  // But not monsters, although that would be cool
-       
        Position target_pos = dungeon.getRandomEmptyPosition();
+       
+       // Teleport self, always
+       entity.attemptTeleport(target_pos);    	
+       
+       // Teleport others, if enough charge       
+       List<Entity> in_range = dungeon.getEntitiesRange(entity, (int)charges);  // Does not include self
+       List<Entity> clients_in_range = dungeon.getEntitiesType(null, Entity.entityTypes.CLIENT, in_range);  // But not monsters, although that would be cool      
        
        for (Entity e : clients_in_range)
        {

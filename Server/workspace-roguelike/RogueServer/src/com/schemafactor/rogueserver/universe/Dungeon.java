@@ -44,8 +44,7 @@ public class Dungeon implements java.io.Serializable
     private ArrayList<Position>[] emptyCells = null;
     
     // A dummy entity needed for some behind-the-scenes calls
-    DummyEntity dummy = new DummyEntity(null);
-    
+    DummyEntity dummy = new DummyEntity();
     
     /**
      * 
@@ -443,15 +442,8 @@ public class Dungeon implements java.io.Serializable
         
         return allInRange;
     }
-    
-    /** Get a list of all entities within a certain radius of a position - use for future spells or range attacks?*/
-    public List<Entity> getEntitiesRange(Position pos, double range)
-    {
-        DummyEntity dummy = new DummyEntity(pos);
-        return getEntitiesRange(dummy, range);       
-    }
         
-    // Get list of entities on screen from this top left coordinate  9even if invisible)
+    // Get list of entities on screen from this top left coordinate  (even if invisible)
     private List<Entity> getEntitiesOnScreen(Position topleft)
     {
         List<Entity> allOnScreen = new ArrayList<Entity>();

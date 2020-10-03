@@ -1,13 +1,13 @@
 package com.schemafactor.rogueserver.entities;
 
-import com.schemafactor.rogueserver.common.Position;
-
 public class DummyEntity extends Entity
 {  
-    /** Creates a new instance */
-    public DummyEntity(Position startposition)
+	private static final long serialVersionUID = 1L;
+
+	/** Creates a new instance */
+    public DummyEntity()
     {
-        super("Dummy", startposition, entityTypes.NONE, (byte)0, 0f, 0f);
+        super("Dummy", null, entityTypes.NONE, (byte)0, 0f, 0f);
     }
     
     @Override

@@ -14,7 +14,10 @@ import com.schemafactor.rogueserver.entities.Entity;
 
 public class MagicKey extends Key
 {    
-    Container home = null;
+
+	private static final long serialVersionUID = 1L;
+	
+	Container home = null;
     Timer timer = new Timer();
     
     /** Creates a new instance of Key */

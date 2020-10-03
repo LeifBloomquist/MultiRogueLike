@@ -114,14 +114,13 @@ public abstract class Entity implements java.io.Serializable
    // Teleport to closest empty cell to the specified position.
    public boolean attemptTeleport(Position target_pos) 
    {       
-       Cell current_cell = Dungeon.getInstance().getCell(this.position); 
-       Position dest_pos = Dungeon.getInstance().getRandomEmptyPosition();
-       Cell dest_cell = Dungeon.getInstance().getCell( dest_pos );       
+       Cell current_cell = Dungeon.getInstance().getCell(this.position);
+       Cell dest_cell = Dungeon.getInstance().getCell( target_pos );       
        
        if (dest_cell.canEnter(this))
        {
            // Update cell references
-           this.position = dest_pos;
+           this.position = target_pos;
            dest_cell.setEntity(this);
            current_cell.setEntity(null);
            
@@ -132,7 +131,7 @@ public abstract class Entity implements java.io.Serializable
        }
        else
        {
-           JavaTools.printlnTime("DEBUG: " + description + " was blocked teleporting to X=" + dest_pos.x + " Y=" + dest_pos.y + " Z=" + dest_pos.z);
+           JavaTools.printlnTime("DEBUG: " + description + " was blocked teleporting to X=" + target_pos.x + " Y=" + target_pos.y + " Z=" + target_pos.z);
            this.addMessage("Teleport failed!");
            this.playSound(Constants.SOUND_BLOCKED);
            return false;
