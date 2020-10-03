@@ -39,7 +39,7 @@ init:
   
 
   ; jsr music_init
-  jsr station  
+  ; jsr station  
   jsr login
 
   lda #$02
