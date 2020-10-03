@@ -92,7 +92,6 @@ loop:
   .include "login.s"  
   .include "util.s"
   .include "input.s"
-  .include "colordefs.s"
   .include "copyscreen.s"
   
 ; -------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 ; -------------------------------------------------------------------------
 ; Rogue Screen Routines
 
- .include "colordefs.s"
-.import default_screen
+; .include "colordefs.s"
+;.import default_screen
 .export _screen_init
 
 ; -------------------------------------------------------------------------

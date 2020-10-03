@@ -3,14 +3,14 @@
 
 .export _color_lookup
 
-.import COLOR_BASE
-.import SCREEN_BASE
-.import CELL_CHAR  
-.import CELL_COLOR 
-.import LEFT_CHAR  
-.import LEFT_COLOR 
-.import RIGHT_CHAR 
-.import RIGHT_COLOR
+;.import COLOR_BASE
+;.import SCREEN_BASE
+;.import CELL_CHAR  
+;.import CELL_COLOR 
+;.import LEFT_CHAR  
+;.import LEFT_COLOR 
+;.import RIGHT_CHAR 
+;.import RIGHT_COLOR
 
  .include "colordefs.s"
 
