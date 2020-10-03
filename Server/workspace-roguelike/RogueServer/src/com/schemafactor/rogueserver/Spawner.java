@@ -14,16 +14,19 @@ import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.monsters.Bat;
 import com.schemafactor.rogueserver.entities.monsters.Daemon;
+import com.schemafactor.rogueserver.entities.monsters.Frog;
 import com.schemafactor.rogueserver.entities.monsters.Ghost;
 import com.schemafactor.rogueserver.entities.monsters.Monster;
 import com.schemafactor.rogueserver.entities.monsters.Skeleton;
 import com.schemafactor.rogueserver.entities.monsters.Slime;
 import com.schemafactor.rogueserver.entities.monsters.Spider;
+import com.schemafactor.rogueserver.entities.monsters.Zombie;
 import com.schemafactor.rogueserver.items.Chest;
 import com.schemafactor.rogueserver.items.Gem;
 import com.schemafactor.rogueserver.items.MagicKey;
 import com.schemafactor.rogueserver.items.Note;
 import com.schemafactor.rogueserver.items.Potion;
+import com.schemafactor.rogueserver.items.Ring;
 import com.schemafactor.rogueserver.items.Shield;
 import com.schemafactor.rogueserver.items.Sign;
 import com.schemafactor.rogueserver.items.Sword;
@@ -45,6 +48,8 @@ public class Spawner
     {   
         JavaTools.generator.setSeed(12345678);
         
+        // TODO move all this to an ini file
+        
         Slime slimey = new Slime("Slime", new Position(56,8,0));
         Spider mike = new Spider("Spider", new Position(38,38,0));
         
@@ -53,10 +58,9 @@ public class Spawner
         
         // Level 0 (Entry) -----------------------------------------------------------------------------------------------------
         
-        dungeon.addEntity( slimey ); 
-        dungeon.addEntity( mike );
-        dungeon.addEntity( new Daemon("Daemon", new Position(10,10,0)));
-        
+        allMonsters.add( slimey ); 
+        allMonsters.add( mike );
+                
         // Level 1 -------------------------------------------------------------------------------------------------------------
         
         for (int i=1; i<=20; i++)
@@ -72,20 +76,29 @@ public class Spawner
             allMonsters.add( new Bat("Bat", dungeon.getRandomEmptyPosition(2)) );             
         } 
         
-        for (int i=1; i<=10; i++)
+        for (int i=1; i<=8; i++)
         {
-            allMonsters.add( new Skeleton("Skeleton", dungeon.getRandomEmptyPosition(2)) ); 
+            allMonsters.add( new Skeleton("Skeleton", dungeon.getRandomEmptyPosition(2)) );
+            allMonsters.add( new Frog("Frog", dungeon.getRandomEmptyPosition(2)) );
         } 
+        
         
         // Level 3   -------------------------------------------------------------------------------------------------------------
         
         for (int i=1; i<=10; i++)
         {
             allMonsters.add( new Ghost("Ghost", dungeon.getRandomEmptyPosition(3)) );
-            allMonsters.add( new Skeleton("Skeleton",dungeon.getRandomEmptyPosition(3)) );
+            allMonsters.add( new Zombie("Zombie",dungeon.getRandomEmptyPosition(3)) );
             allMonsters.add( new Spider("Spider", dungeon.getRandomEmptyPosition(3)) );            
-            allMonsters.add( new Slime("Slime", dungeon.getRandomEmptyPosition(3)) );     
+            allMonsters.add( new Slime("Slime", dungeon.getRandomEmptyPosition(3)) );
         }
+        
+        for (int i=1; i<=3; i++)
+        {
+            allMonsters.add( new Skeleton("Skeleton", dungeon.getRandomEmptyPosition(2)) );
+        }
+        
+        allMonsters.add( new Daemon("Daemon", dungeon.getRandomEmptyPosition(3)) );
         
         // Add to dungeon --------------------------------------------------------------------------------------------------------
         
@@ -176,7 +189,14 @@ public class Spawner
         Position p = dungeon.getRandomEmptyPosition(3);
         Gem gem = new Gem(10);
         dungeon.placeItem( new Chest("Chest", gem), p);
-        allRechargeItems.add(gem);        
+        allRechargeItems.add(gem);
+        
+        // Invisibility Ring
+        
+        p = dungeon.getRandomEmptyPosition(3);
+        Ring ring = new Ring(100);
+        dungeon.placeItem(ring, p);
+        allRechargeItems.add(ring);
         
         // All Levels -------------------------------------------------------------------------------------------------------------        
         
@@ -191,7 +211,7 @@ public class Spawner
         }
         
         // Chests all through dungeon containing potions
-        for (int i=1; i<=10; i++)
+        for (int i=1; i<=20; i++)
         {
             int health = JavaTools.generator.nextInt(100);    
             Potion potion = new Potion(health);

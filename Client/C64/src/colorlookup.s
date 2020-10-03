@@ -216,7 +216,7 @@ color_table:
     .byte COLOR_ORANGE   ; 194	 Bow	
     .byte COLOR_ORANGE   ; 195	 Arrow	
     .byte COLOR_VIOLET   ; 196	 Potion	
-    .byte COLOR_CYAN     ; 197	 Gem	
+    .byte COLOR_BLUE     ; 197	 Gem	
     .byte COLOR_WHITE    ; 198	 Note	
     .byte COLOR_BROWN    ; 199	 Chest  (Closed)
     .byte COLOR_WHITE    ; 200	 Crook	
@@ -229,7 +229,7 @@ color_table:
     .byte COLOR_WHITE    ; 207	 	
     .byte COLOR_WHITE    ; 208	 	
     .byte COLOR_BROWN    ; 209   Chest (Open but empty)	 	
-    .byte COLOR_WHITE    ; 210	 	
+    .byte COLOR_GREY1    ; 210	 Ring	
     .byte COLOR_WHITE    ; 211	 	
     .byte COLOR_WHITE    ; 212	 	
     .byte COLOR_WHITE    ; 213	 	
