@@ -1,6 +1,8 @@
 package com.schemafactor.rogueserver.entities.clients;
 
+import java.io.ByteArrayOutputStream;
 import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -113,23 +115,23 @@ public abstract class Client extends Entity
     	   switch (inputchar)
            {
 		       case '1':
-		           zz
+		    	   charCode = Constants.CHAR_PLAYER_NONE;
 		           break;
 		       
 		       case '2':
-		           zz
+		    	   charCode = Constants.CHAR_PLAYER_MAGE;
 		           break;
 		           
 		       case '3':
-		           zz
+		    	   charCode = Constants.CHAR_PLAYER_FIGHTER;
 		           break;
 		           
 		       case '4':
-		           zz
+		    	   charCode = Constants.CHAR_PLAYER_FIGHTER2;
 		           break;
 		        
 		       default:
-		    	   return;  // Ignore all other input
+		    	   return;  // Ignore all other input until an avatar is chosen
            }
     	   
     	   choosingAvatar=false;
@@ -507,33 +509,27 @@ public abstract class Client extends Entity
        
        if (choosingAvatar)
        {
-    	   String screen = "";
+    	   byte[] screen = new byte[] {
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ','C','H','O','O','S','E',' ','A','V','A','T','A','R',':',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ','1',' ',Constants.CHAR_PLAYER_NONE,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ','2',' ',Constants.CHAR_PLAYER_MAGE,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ','3',' ',Constants.CHAR_PLAYER_FIGHTER,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ','4',' ',Constants.CHAR_PLAYER_FIGHTER2,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+    	   };
            
-           screen += "                     ";
-           screen += "  Choose Avatar:     ";
-           screen += "                     ";
-           screen += "  1 " + Constants.CHAR_PLAYER_NONE + "                 ";
-           screen += "  2 " + Constants.CHAR_PLAYER_MAGE + "                 ";
-           screen += "  3 " + Constants.CHAR_PLAYER_FIGHTER + "                 ";
-           screen += "  4 " + Constants.CHAR_PLAYER_FIGHTER2 + "                 ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-                      
-           if (screen.length() != Constants.SCREEN_SIZE)
-           {
-               JavaTools.printlnTime("EXCEPTION: Mismatch in Avatar string size!!");
-               throw new RuntimeException("Mismatch in Help Avatar size!!");
-           }
-           
-           System.arraycopy( screen.toUpperCase().getBytes(), 0, buffer, offset, Constants.SCREEN_SIZE );
+           System.arraycopy( screen, 0, buffer, offset, Constants.SCREEN_SIZE);
    	   } 
        else if (showingHelp)
        {
