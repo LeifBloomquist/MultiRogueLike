@@ -1,6 +1,6 @@
-AS=..\..\cc65\ca65
-LD=..\..\cc65\ld65
-AR=..\..\cc65\ar65
+AS=..\..\..\..\..\Tools\cc65\bin\ca65
+LD=..\..\..\..\..\Tools\cc65\bin\ld65
+AR=..\..\..\..\..\Tools\cc65\bin\ar65
 AFLAGS=
 
 

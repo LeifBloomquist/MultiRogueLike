@@ -1,158 +1,158 @@
 Modules list:
 -------------
 rogue.o:
-    CODE              Offs = 000000   Size = 0001A8
-    RODATA            Offs = 000000   Size = 0000DE
-    BSS               Offs = 000000   Size = 000007
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
-    CLIENTCODE        Offs = 000000   Size = 000DBC
+    CODE              Offs=000000  Size=0001A8  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=0000DE  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000007  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    CLIENTCODE        Offs=000000  Size=000DBC  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(copymem.o):
-    CODE              Offs = 0001A8   Size = 000027
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000007   Size = 000001
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
-    IP65ZP            Offs = 000000   Size = 000004
+    CODE              Offs=0001A8  Size=000027  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000007  Size=000001  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    IP65ZP            Offs=000000  Size=000004  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(config.o):
-    CODE              Offs = 0001CF   Size = 00001D
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000008   Size = 00001F
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
-    IP65_DEFAULTS     Offs = 000000   Size = 00001F
+    CODE              Offs=0001CF  Size=00001D  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000008  Size=00001F  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    IP65_DEFAULTS     Offs=000000  Size=00001F  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(timer.o):
-    CODE              Offs = 0001EC   Size = 000018
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000027   Size = 000002
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=0001EC  Size=000018  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000027  Size=000002  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(eth.o):
-    CODE              Offs = 000204   Size = 000020
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000029   Size = 000BE0
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000204  Size=000020  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000029  Size=000BE0  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(arp.o):
-    CODE              Offs = 000224   Size = 000202
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000C09   Size = 000066
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
-    IP65ZP            Offs = 000004   Size = 000002
+    CODE              Offs=000224  Size=000202  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000C09  Size=000066  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    IP65ZP            Offs=000004  Size=000002  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(ip65.o):
-    CODE              Offs = 000426   Size = 00005D
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000C6F   Size = 000004
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000426  Size=00005D  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000C6F  Size=000004  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(dhcp.o):
-    CODE              Offs = 000483   Size = 00028A
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000C73   Size = 000005
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000483  Size=00028A  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000C73  Size=000005  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(output_buffer.o):
-    CODE              Offs = 00070D   Size = 000000
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000C78   Size = 000208
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=00070D  Size=000000  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000C78  Size=000208  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(ip.o):
-    CODE              Offs = 00070D   Size = 0001FF
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000E80   Size = 00000C
-    DATA              Offs = 000000   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
-    IP65ZP            Offs = 000006   Size = 000002
+    CODE              Offs=00070D  Size=0001FF  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000E80  Size=00000C  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    IP65ZP            Offs=000006  Size=000002  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(icmp.o):
-    CODE              Offs = 00090C   Size = 000230
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000E8C   Size = 000009
-    DATA              Offs = 000000   Size = 000003
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
-    TCP_VARS          Offs = 000000   Size = 000008
+    CODE              Offs=00090C  Size=000230  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000E8C  Size=000009  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000003  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    TCP_VARS          Offs=000000  Size=000008  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(udp.o):
-    CODE              Offs = 000B3C   Size = 000177
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000E95   Size = 00001F
-    DATA              Offs = 000003   Size = 000003
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000B3C  Size=000177  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000E95  Size=00001F  Align=00001  Fill=0000
+    DATA              Offs=000003  Size=000003  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/drivers/c64rrnet.lib(c64print.o):
-    CODE              Offs = 000CB3   Size = 000058
-    RODATA            Offs = 0000DE   Size = 000000
-    BSS               Offs = 000EB4   Size = 000001
-    DATA              Offs = 000006   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000CB3  Size=000058  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000EB4  Size=000001  Align=00001  Fill=0000
+    DATA              Offs=000006  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/drivers/c64rrnet.lib(rr-net.o):
-    CODE              Offs = 000D0B   Size = 000009
-    RODATA            Offs = 0000DE   Size = 000009
-    BSS               Offs = 000EB5   Size = 000000
-    DATA              Offs = 000006   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000D0B  Size=000009  Align=00001  Fill=0000
+    RODATA            Offs=0000DE  Size=000009  Align=00001  Fill=0000
+    BSS               Offs=000EB5  Size=000000  Align=00001  Fill=0000
+    DATA              Offs=000006  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/drivers/c64rrnet.lib(c64timer.o):
-    CODE              Offs = 000D14   Size = 00003F
-    RODATA            Offs = 0000E7   Size = 000000
-    BSS               Offs = 000EB5   Size = 000000
-    DATA              Offs = 000006   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000D14  Size=00003F  Align=00001  Fill=0000
+    RODATA            Offs=0000E7  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000EB5  Size=000000  Align=00001  Fill=0000
+    DATA              Offs=000006  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/drivers/c64rrnet.lib(c64inputs.o):
-    CODE              Offs = 000D53   Size = 0000DA
-    RODATA            Offs = 0000E7   Size = 000000
-    BSS               Offs = 000EB5   Size = 00002D
-    DATA              Offs = 000006   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000D53  Size=0000DA  Align=00001  Fill=0000
+    RODATA            Offs=0000E7  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000EB5  Size=00002D  Align=00001  Fill=0000
+    DATA              Offs=000006  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/drivers/c64rrnet.lib(petscii_charconv.o):
-    CODE              Offs = 000E2D   Size = 00000A
-    RODATA            Offs = 0000E7   Size = 000200
-    BSS               Offs = 000EE2   Size = 000000
-    DATA              Offs = 000006   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
+    CODE              Offs=000E2D  Size=00000A  Align=00001  Fill=0000
+    RODATA            Offs=0000E7  Size=000200  Align=00001  Fill=0000
+    BSS               Offs=000EE2  Size=000000  Align=00001  Fill=0000
+    DATA              Offs=000006  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ip65/drivers/c64rrnet.lib(cs8900a.o):
-    CODE              Offs = 000E37   Size = 000151
-    RODATA            Offs = 0002E7   Size = 000000
-    BSS               Offs = 000EE2   Size = 000000
-    DATA              Offs = 000006   Size = 000000
-    ZEROPAGE          Offs = 000000   Size = 000000
-    NULL              Offs = 000000   Size = 000000
-    IP65ZP            Offs = 000008   Size = 000002
+    CODE              Offs=000E37  Size=000151  Align=00001  Fill=0000
+    RODATA            Offs=0002E7  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000EE2  Size=000000  Align=00001  Fill=0000
+    DATA              Offs=000006  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    IP65ZP            Offs=000008  Size=000002  Align=00001  Fill=0000
 
 
 Segment list:
 -------------
-Name                  Start   End     Size
---------------------------------------------
-NULL                  000000  000000  000000
-ZEROPAGE              000002  000002  000000
-IP65ZP                00005F  000068  00000A
-BSS                   0007FF  0016E0  000EE2
-CLIENTCODE            006000  006DBB  000DBC
-CODE                  006DBC  007D43  000F88
-DATA                  007D44  007D49  000006
-RODATA                007D4A  008030  0002E7
-IP65_DEFAULTS         008031  00804F  00001F
-TCP_VARS              008050  008057  000008
+Name                   Start     End    Size  Align
+----------------------------------------------------
+NULL                  000000  000000  000000  00001
+ZEROPAGE              000002  000002  000000  00001
+IP65ZP                00005F  000068  00000A  00001
+BSS                   0007FF  0016E0  000EE2  00001
+CLIENTCODE            006000  006DBB  000DBC  00001
+CODE                  006DBC  007D43  000F88  00001
+DATA                  007D44  007D49  000006  00001
+RODATA                007D4A  008030  0002E7  00001
+IP65_DEFAULTS         008031  00804F  00001F  00001
+TCP_VARS              008050  008057  000008  00001
 
 
-Exports list:
--------------
+Exports list by name:
+---------------------
 CELL_CHAR                 00486F  EA    CELL_COLOR                00D86F  EA    
 CHAR_BASE                 004000  EA    COLOR_BASE                00D800  EA    
 LEFT_CHAR                 0048BF  EA    LEFT_COLOR                00D8BF  EA    
@@ -246,6 +246,101 @@ udp_send_len              00169E RLA    udp_send_src_port         00169A RLA
 udp_src_port              000000  EZ    
 
 
+Exports list by value:
+----------------------
+udp_src_port              000000  EZ    eth_dest                  000000 REZ    
+icmp_type                 000000  EZ    eth_proto_ip              000000 REZ    
+ip_ver_ihl                000000  EZ    icmp_code                 000001  EZ    
+ip_tos                    000001  EZ    ip_proto_icmp             000001 REZ    
+ip_len                    000002 REZ    icmp_cksum                000002  EZ    
+udp_dest_port             000002  EZ    icmp_data                 000004  EZ    
+ip_id                     000004 REZ    udp_len                   000004  EZ    
+udp_cksum                 000006  EZ    ip_proto_tcp              000006  EZ    
+eth_src                   000006 REZ    eth_proto_arp             000006 REZ    
+ip_frag                   000006  EZ    __DATA_SIZE__             000006  EA    
+ac_size                   000008  EZ    ip_ttl                    000008  EZ    
+udp_data                  000008 REZ    ip_proto                  000009 REZ    
+ip_header_cksum           00000A REZ    ip_src                    00000C REZ    
+eth_type                  00000C  EZ    eth_data                  00000E REZ    
+ip_dest                   000010 REZ    ip_proto_udp              000011 REZ    
+ip_data                   000014 REZ    __IP65_DEFAULTS_SIZE__    00001F  EA    
+cfg_size                  000020  EA    copy_src                  00005F RLZ    
+copy_dest                 000061 RLZ    ip_cksum_ptr              000065 RLZ    
+screen_current_col        0000D3  EZ    screen_current_row        0000D6  EZ    
+__RODATA_SIZE__           0002E7  EA    cfg_mac                   000807 RLA    
+cfg_ip                    00080D RLA    cfg_netmask               000811 RLA    
+cfg_gateway               000815 RLA    cfg_dns                   000819 RLA    
+dhcp_server               00081D RLA    cfg_tftp_server           000821 RLA    
+cfg_default_drive         000825  LA    eth_inp_len               000828 RLA    
+eth_inp                   00082A RLA    ip_inp                    000838 REA    
+udp_inp                   00084C REA    icmp_inp                  00084C  EA    
+eth_outp_len              000E18 RLA    eth_outp                  000E1A RLA    
+ip_outp                   000E28 REA    icmp_outp                 000E3C  EA    
+udp_outp                  000E3C  EA    __CODE_SIZE__             000F88  EA    
+arp_mac                   001409 RLA    arp_ip                    00140F RLA    
+arp_cache                 001413  LA    ip65_ctr                  00146E  LA    
+ip65_ctr_arp              00146F  LA    ip65_ctr_ip               001470  LA    
+ip65_error                001471 RLA    dhcp_state                001472  LA    
+output_buffer             001477 RLA    ip_broadcast              001683 RLA    
+icmp_callback             00168B  LA    udp_callback              001694 RLA    
+udp_send_dest             001696 RLA    udp_send_src_port         00169A RLA    
+udp_send_dest_port        00169C RLA    udp_send_len              00169E RLA    
+CHAR_BASE                 004000  EA    SCREEN_BASE               004800  EA    
+CELL_CHAR                 00486F  EA    LEFT_CHAR                 0048BF  EA    
+RIGHT_CHAR                0048E7  EA    _screen_init              006097  LA    
+default_screen            00611C  LA    _color_lookup             006604  LA    
+_sound_init               00698B  LA    _sound_play               00699C  LA    
+_login                    006A59  LA    _filtered_input           006C13  LA    
+__CODE_RUN__              006DBC  LA    print_ip_config           006DBC  LA    
+__CODE_LOAD__             006DBC  LA    print                     006E58  LA    
+print_ascii_as_native     006E6E  LA    print_dotted_quad         006E87  LA    
+print_integer             006EC4  LA    print_hex                 006F3B  LA    
+print_errorcode           006F54  LA    copymem                   006F64 RLA    
+cfg_get_configuration_ptr 006F8B RLA    cfg_init                  006F91 RLA    
+timer_timeout             006FA8 RLA    eth_set_broadcast_dest    006FC0 RLA    
+eth_set_my_mac_src        006FCB RLA    eth_set_proto             006FD7 RLA    
+arp_init                  006FE0 RLA    arp_calculate_gateway_mask 006FEA RLA    
+arp_lookup                00700F RLA    arp_process               0070EE RLA    
+arp_add                   00716C  LA    ip65_random_word          0071E2  LA    
+ip65_init                 007204 RLA    ip65_process              00721D RLA    
+dhcp_init                 00723F RLA    ip_init                   0074C9 RLA    
+ip_process                0074DE RLA    ip_create_packet          007590 RLA    
+ip_send                   0075BD RLA    ip_calc_cksum             007624 RLA    
+icmp_init                 0076C8 RLA    icmp_process              0076CE RLA    
+icmp_add_listener         007774  LA    icmp_remove_listener      0077A0  LA    
+icmp_send_echo            0077D5  LA    icmp_ping                 007845  LA    
+udp_init                  0078F8 RLA    udp_process               0078FE RLA    
+udp_add_listener          00792B RLA    udp_remove_listener       007972 RLA    
+udp_send                  0079BE RLA    print_cr                  007A6F RLA    
+cls                       007A74  LA    beep                      007A79  LA    
+print_a_inverse           007AB8  LA    cs_init                   007AC7 RLA    
+timer_init                007AD0 RLA    timer_seconds             007AFF  LA    
+timer_read                007B03 RLA    get_key                   007B0F  LA    
+get_key_ip65              007B15  LA    check_for_abort_key       007B1E RLA    
+get_filtered_input        007B33  LA    filter_text               007BB3  LA    
+filter_url                007BBB  LA    filter_dns                007BC2  LA    
+filter_ip                 007BDD  LA    filter_number             007BDE  LA    
+native_to_ascii           007BE9  LA    ascii_to_native           007BEE RLA    
+eth_init                  007BF3 RLA    eth_rx                    007C4C RLA    
+eth_tx                    007CAD RLA    __DATA_RUN__              007D44  LA    
+__DATA_LOAD__             007D44  LA    __RODATA_RUN__            007D4A  LA    
+__RODATA_LOAD__           007D4A  LA    mac_address_msg           007D69  LA    
+ip_address_msg            007D78  LA    netmask_msg               007D87  LA    
+gateway_msg               007D96  LA    dns_server_msg            007DA5  LA    
+tftp_server_msg           007DC3  LA    dhcp_msg                  007DD2  LA    
+init_msg                  007DD7  LA    failed_msg                007DE6  LA    
+ok_msg                    007DED  LA    press_a_key_to_continue   007E0F  LA    
+eth_driver_name           007E28 RLA    eth_driver_io_base        007E2F RLA    
+__IP65_DEFAULTS_RUN__     008031  LA    cfg_mac_default           008031 RLA    
+__IP65_DEFAULTS_LOAD__    008031  LA    icmp_echo_ip              008050  LA    
+COLOR_BASE                00D800  EA    CELL_COLOR                00D86F  EA    
+LEFT_COLOR                00D8BF  EA    RIGHT_COLOR               00D8E7  EA    
+cs_packet_page            00DE02 REA    cs_packet_data            00DE04 REA    
+cs_rxtx_data              00DE08 REA    cs_tx_cmd                 00DE0C REA    
+cs_tx_len                 00DE0E REA    get_key_if_available      00F142  EA    
+print_a                   00FFD2 REA    
+
+
 Imports list:
 -------------
 CELL_CHAR (rogue.o):
@@ -300,7 +395,7 @@ cfg_gateway (config.o):
     arp.o                     arp.s(28)
     dhcp.o                    dhcp.s(26)
 cfg_get_configuration_ptr (config.o):
-    rogue.o                   ip65/inc/commonprint.i(102)
+    rogue.o                   ip65/inc/net.i(14)
 cfg_init (config.o):
     ip65.o                    ip65.s(19)
 cfg_ip (config.o):
