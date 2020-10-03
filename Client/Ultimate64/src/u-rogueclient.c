@@ -312,7 +312,7 @@ void handle_packet(byte *uii_data_recvd)
 			break;
 
 		default:     // No other types handled yet (possibly corrupted packet)
-			asm("inc $d020"); // DEBUG !!!!
+			//asm("inc $d020"); // DEBUG !!!!
 			return;
 	}
 }
@@ -321,6 +321,7 @@ void network_init()
 {
 	int status = 0;
 	char *host = "rogue.jammingsignal.com";
+	//char* host = "192.168.7.14";
 
 	clear_screen();
 	color(CG_YEL);
