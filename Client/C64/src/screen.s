@@ -90,7 +90,7 @@ gray:
   cpx #40
   bne gray
   
-  ; Assume for now, don't have to bank out BASIC
+  ; Assume for now, do not have to bank out BASIC
 
 setupvic:  
   ; Set up VIC to Bank 1  ($4000-$7FFF)
@@ -125,6 +125,6 @@ drawscreen:
   lda #$FF
   sta COMMS_CHAR
   
-  rts             
+  rts
 
-; EOF 
+; EOF

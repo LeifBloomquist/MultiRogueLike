@@ -47,9 +47,6 @@ INPUT_GET:
   cmp #$0d               ;Return
   beq INPUT_DONE
 
-  
-  jmp INPUTOK ; debug, skip check !!!!
-
   ;Check the allowed list of characters.
   ldx #$00
 CHECKALLOWED:
@@ -65,8 +62,6 @@ CHECKALLOWED:
 
 
 INPUTOK:
-
-  inc $D020
 
   ;End reached?
   lda INPUT_Y

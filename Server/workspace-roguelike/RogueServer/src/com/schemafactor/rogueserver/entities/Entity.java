@@ -111,7 +111,7 @@ public abstract class Entity implements java.io.Serializable
        return attemptTeleport(target_pos);
    }
    
-   // Teleport to closest empty cell to the specified position.
+   // Teleport to the specified position.
    public boolean attemptTeleport(Position target_pos) 
    {       
        Cell current_cell = Dungeon.getInstance().getCell(this.position);

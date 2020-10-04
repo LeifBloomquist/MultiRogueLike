@@ -50,15 +50,18 @@ public class Gem extends Item implements Rechargeable
        Position target_pos = dungeon.getRandomEmptyPosition();
        
        // Teleport self, always
-       entity.attemptTeleport(target_pos);    	
+       boolean success = entity.attemptTeleport(target_pos);
        
-       // Teleport others, if enough charge       
+       if (!success) return;
+       
+       // If successful, teleport other nearby, if enough charge       
        List<Entity> in_range = dungeon.getEntitiesRange(entity, (int)charges);  // Does not include self
        List<Entity> clients_in_range = dungeon.getEntitiesType(null, Entity.entityTypes.CLIENT, in_range);  // But not monsters, although that would be cool      
        
        for (Entity e : clients_in_range)
        {
-           e.attemptTeleport(target_pos);
+    	   Position nearby_pos = dungeon.getClosestEmptyCell(target_pos, Constants.EMPTY_CELL_SEARCH_DEPTH);
+           e.attemptTeleport(nearby_pos);
        } 
     }
 
