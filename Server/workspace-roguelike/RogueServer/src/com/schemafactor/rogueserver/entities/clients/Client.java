@@ -454,6 +454,7 @@ public abstract class Client extends Entity
 	    {	        
 	        if (!removeMeFlag)
 	        {
+	        	addMessage("You Have Timed Out");
 	            JavaTools.printlnTime( "Player Timed Out: " + description );
 	            gameOver(null);
 	            removeMe();	            

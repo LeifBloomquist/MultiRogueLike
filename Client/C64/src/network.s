@@ -118,7 +118,7 @@ sendannounce:
   lda #PACKET_ANNOUNCE
   sta SENDBUFFER+0      
   
-  ; Player Type (character) TODO
+  ; Player Type (character) not used
   lda #$01
   sta SENDBUFFER+1
   

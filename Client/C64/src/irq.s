@@ -59,7 +59,7 @@ irq_x:
   ; Exit the current interrupt.  
   jmp $EA31
   
-  ; Old method, that doesn't scan the keyboard
+  ; Old method, that does not scan the keyboard
   ;pla
   ;tay                           
   ;pla                           
@@ -103,6 +103,7 @@ irq_screen:
   beq :+
 
   jsr copyscreen
+  jsr docolorlookup
   lda #$00
   sta screenreceived
   

@@ -7,7 +7,7 @@ rogue.o:
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
-    CLIENTCODE        Offs=000000  Size=000DB3  Align=00001  Fill=0000
+    CLIENTCODE        Offs=000000  Size=000DB6  Align=00001  Fill=0000
 ip65/ip65/ip65.lib(copymem.o):
     CODE              Offs=0001A8  Size=000027  Align=00001  Fill=0000
     RODATA            Offs=0000DE  Size=000000  Align=00001  Fill=0000
@@ -143,12 +143,12 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000002  000002  000000  00001
 IP65ZP                00005F  000068  00000A  00001
 BSS                   0007FF  0016E0  000EE2  00001
-CLIENTCODE            006000  006DB2  000DB3  00001
-CODE                  006DB3  007D3A  000F88  00001
-DATA                  007D3B  007D40  000006  00001
-RODATA                007D41  008027  0002E7  00001
-IP65_DEFAULTS         008028  008046  00001F  00001
-TCP_VARS              008047  00804E  000008  00001
+CLIENTCODE            006000  006DB5  000DB6  00001
+CODE                  006DB6  007D3D  000F88  00001
+DATA                  007D3E  007D43  000006  00001
+RODATA                007D44  00802A  0002E7  00001
+IP65_DEFAULTS         00802B  008049  00001F  00001
+TCP_VARS              00804A  008051  000008  00001
 
 
 Exports list by name:
@@ -157,90 +157,90 @@ CELL_CHAR                 00486F  EA    CELL_COLOR                00D86F  EA
 CHAR_BASE                 004000  EA    COLOR_BASE                00D800  EA    
 LEFT_CHAR                 0048BF  EA    LEFT_COLOR                00D8BF  EA    
 RIGHT_CHAR                0048E7  EA    RIGHT_COLOR               00D8E7  EA    
-SCREEN_BASE               004800  EA    __CODE_LOAD__             006DB3  LA    
-__CODE_RUN__              006DB3  LA    __CODE_SIZE__             000F88  EA    
-__DATA_LOAD__             007D3B  LA    __DATA_RUN__              007D3B  LA    
-__DATA_SIZE__             000006  EA    __IP65_DEFAULTS_LOAD__    008028  LA    
-__IP65_DEFAULTS_RUN__     008028  LA    __IP65_DEFAULTS_SIZE__    00001F  EA    
-__RODATA_LOAD__           007D41  LA    __RODATA_RUN__            007D41  LA    
+SCREEN_BASE               004800  EA    __CODE_LOAD__             006DB6  LA    
+__CODE_RUN__              006DB6  LA    __CODE_SIZE__             000F88  EA    
+__DATA_LOAD__             007D3E  LA    __DATA_RUN__              007D3E  LA    
+__DATA_SIZE__             000006  EA    __IP65_DEFAULTS_LOAD__    00802B  LA    
+__IP65_DEFAULTS_RUN__     00802B  LA    __IP65_DEFAULTS_SIZE__    00001F  EA    
+__RODATA_LOAD__           007D44  LA    __RODATA_RUN__            007D44  LA    
 __RODATA_SIZE__           0002E7  EA    _color_lookup             006601  LA    
-_filtered_input           006C10  LA    _login                    006A56  LA    
-_screen_init              006094  LA    _sound_init               006988  LA    
-_sound_play               006999  LA    ac_size                   000008  EZ    
-arp_add                   007163  LA    arp_cache                 001413  LA    
-arp_calculate_gateway_mask 006FE1 RLA    arp_init                  006FD7 RLA    
-arp_ip                    00140F RLA    arp_lookup                007006 RLA    
-arp_mac                   001409 RLA    arp_process               0070E5 RLA    
-ascii_to_native           007BE5 RLA    beep                      007A70  LA    
+_filtered_input           006C13  LA    _login                    006A59  LA    
+_screen_init              006094  LA    _sound_init               00698B  LA    
+_sound_play               00699C  LA    ac_size                   000008  EZ    
+arp_add                   007166  LA    arp_cache                 001413  LA    
+arp_calculate_gateway_mask 006FE4 RLA    arp_init                  006FDA RLA    
+arp_ip                    00140F RLA    arp_lookup                007009 RLA    
+arp_mac                   001409 RLA    arp_process               0070E8 RLA    
+ascii_to_native           007BE8 RLA    beep                      007A73  LA    
 cfg_default_drive         000825  LA    cfg_dns                   000819 RLA    
-cfg_gateway               000815 RLA    cfg_get_configuration_ptr 006F82 RLA    
-cfg_init                  006F88 RLA    cfg_ip                    00080D RLA    
-cfg_mac                   000807 RLA    cfg_mac_default           008028 RLA    
+cfg_gateway               000815 RLA    cfg_get_configuration_ptr 006F85 RLA    
+cfg_init                  006F8B RLA    cfg_ip                    00080D RLA    
+cfg_mac                   000807 RLA    cfg_mac_default           00802B RLA    
 cfg_netmask               000811 RLA    cfg_size                  000020  EA    
-cfg_tftp_server           000821 RLA    check_for_abort_key       007B15 RLA    
-cls                       007A6B  LA    copy_dest                 000061 RLZ    
-copy_src                  00005F RLZ    copymem                   006F5B RLA    
-cs_init                   007ABE RLA    cs_packet_data            00DE04 REA    
+cfg_tftp_server           000821 RLA    check_for_abort_key       007B18 RLA    
+cls                       007A6E  LA    copy_dest                 000061 RLZ    
+copy_src                  00005F RLZ    copymem                   006F5E RLA    
+cs_init                   007AC1 RLA    cs_packet_data            00DE04 REA    
 cs_packet_page            00DE02 REA    cs_rxtx_data              00DE08 REA    
 cs_tx_cmd                 00DE0C REA    cs_tx_len                 00DE0E REA    
-default_screen            006119  LA    dhcp_init                 007236 RLA    
-dhcp_msg                  007DC9  LA    dhcp_server               00081D RLA    
-dhcp_state                001472  LA    dns_server_msg            007D9C  LA    
+default_screen            006119  LA    dhcp_init                 007239 RLA    
+dhcp_msg                  007DCC  LA    dhcp_server               00081D RLA    
+dhcp_state                001472  LA    dns_server_msg            007D9F  LA    
 eth_data                  00000E REZ    eth_dest                  000000 REZ    
-eth_driver_io_base        007E26 RLA    eth_driver_name           007E1F RLA    
-eth_init                  007BEA RLA    eth_inp                   00082A RLA    
+eth_driver_io_base        007E29 RLA    eth_driver_name           007E22 RLA    
+eth_init                  007BED RLA    eth_inp                   00082A RLA    
 eth_inp_len               000828 RLA    eth_outp                  000E1A RLA    
 eth_outp_len              000E18 RLA    eth_proto_arp             000006 REZ    
-eth_proto_ip              000000 REZ    eth_rx                    007C43 RLA    
-eth_set_broadcast_dest    006FB7 RLA    eth_set_my_mac_src        006FC2 RLA    
-eth_set_proto             006FCE RLA    eth_src                   000006 REZ    
-eth_tx                    007CA4 RLA    eth_type                  00000C  EZ    
-failed_msg                007DDD  LA    filter_dns                007BB9  LA    
-filter_ip                 007BD4  LA    filter_number             007BD5  LA    
-filter_text               007BAA  LA    filter_url                007BB2  LA    
-gateway_msg               007D8D  LA    get_filtered_input        007B2A  LA    
-get_key                   007B06  LA    get_key_if_available      00F142  EA    
-get_key_ip65              007B0C  LA    icmp_add_listener         00776B  LA    
+eth_proto_ip              000000 REZ    eth_rx                    007C46 RLA    
+eth_set_broadcast_dest    006FBA RLA    eth_set_my_mac_src        006FC5 RLA    
+eth_set_proto             006FD1 RLA    eth_src                   000006 REZ    
+eth_tx                    007CA7 RLA    eth_type                  00000C  EZ    
+failed_msg                007DE0  LA    filter_dns                007BBC  LA    
+filter_ip                 007BD7  LA    filter_number             007BD8  LA    
+filter_text               007BAD  LA    filter_url                007BB5  LA    
+gateway_msg               007D90  LA    get_filtered_input        007B2D  LA    
+get_key                   007B09  LA    get_key_if_available      00F142  EA    
+get_key_ip65              007B0F  LA    icmp_add_listener         00776E  LA    
 icmp_callback             00168B  LA    icmp_cksum                000002  EZ    
 icmp_code                 000001  EZ    icmp_data                 000004  EZ    
-icmp_echo_ip              008047  LA    icmp_init                 0076BF RLA    
+icmp_echo_ip              00804A  LA    icmp_init                 0076C2 RLA    
 icmp_inp                  00084C  EA    icmp_outp                 000E3C  EA    
-icmp_ping                 00783C  LA    icmp_process              0076C5 RLA    
-icmp_remove_listener      007797  LA    icmp_send_echo            0077CC  LA    
-icmp_type                 000000  EZ    init_msg                  007DCE  LA    
+icmp_ping                 00783F  LA    icmp_process              0076C8 RLA    
+icmp_remove_listener      00779A  LA    icmp_send_echo            0077CF  LA    
+icmp_type                 000000  EZ    init_msg                  007DD1  LA    
 ip65_ctr                  00146E  LA    ip65_ctr_arp              00146F  LA    
 ip65_ctr_ip               001470  LA    ip65_error                001471 RLA    
-ip65_init                 0071FB RLA    ip65_process              007214 RLA    
-ip65_random_word          0071D9  LA    ip_address_msg            007D6F  LA    
-ip_broadcast              001683 RLA    ip_calc_cksum             00761B RLA    
-ip_cksum_ptr              000065 RLZ    ip_create_packet          007587 RLA    
+ip65_init                 0071FE RLA    ip65_process              007217 RLA    
+ip65_random_word          0071DC  LA    ip_address_msg            007D72  LA    
+ip_broadcast              001683 RLA    ip_calc_cksum             00761E RLA    
+ip_cksum_ptr              000065 RLZ    ip_create_packet          00758A RLA    
 ip_data                   000014 REZ    ip_dest                   000010 REZ    
 ip_frag                   000006  EZ    ip_header_cksum           00000A REZ    
-ip_id                     000004 REZ    ip_init                   0074C0 RLA    
+ip_id                     000004 REZ    ip_init                   0074C3 RLA    
 ip_inp                    000838 REA    ip_len                    000002 REZ    
-ip_outp                   000E28 REA    ip_process                0074D5 RLA    
+ip_outp                   000E28 REA    ip_process                0074D8 RLA    
 ip_proto                  000009 REZ    ip_proto_icmp             000001 REZ    
 ip_proto_tcp              000006  EZ    ip_proto_udp              000011 REZ    
-ip_send                   0075B4 RLA    ip_src                    00000C REZ    
+ip_send                   0075B7 RLA    ip_src                    00000C REZ    
 ip_tos                    000001  EZ    ip_ttl                    000008  EZ    
-ip_ver_ihl                000000  EZ    mac_address_msg           007D60  LA    
-native_to_ascii           007BE0  LA    netmask_msg               007D7E  LA    
-ok_msg                    007DE4  LA    output_buffer             001477 RLA    
-press_a_key_to_continue   007E06  LA    print                     006E4F  LA    
-print_a                   00FFD2 REA    print_a_inverse           007AAF  LA    
-print_ascii_as_native     006E65  LA    print_cr                  007A66 RLA    
-print_dotted_quad         006E7E  LA    print_errorcode           006F4B  LA    
-print_hex                 006F32  LA    print_integer             006EBB  LA    
-print_ip_config           006DB3  LA    screen_current_col        0000D3  EZ    
-screen_current_row        0000D6  EZ    tftp_server_msg           007DBA  LA    
-timer_init                007AC7 RLA    timer_read                007AFA RLA    
-timer_seconds             007AF6  LA    timer_timeout             006F9F RLA    
-udp_add_listener          007922 RLA    udp_callback              001694 RLA    
+ip_ver_ihl                000000  EZ    mac_address_msg           007D63  LA    
+native_to_ascii           007BE3  LA    netmask_msg               007D81  LA    
+ok_msg                    007DE7  LA    output_buffer             001477 RLA    
+press_a_key_to_continue   007E09  LA    print                     006E52  LA    
+print_a                   00FFD2 REA    print_a_inverse           007AB2  LA    
+print_ascii_as_native     006E68  LA    print_cr                  007A69 RLA    
+print_dotted_quad         006E81  LA    print_errorcode           006F4E  LA    
+print_hex                 006F35  LA    print_integer             006EBE  LA    
+print_ip_config           006DB6  LA    screen_current_col        0000D3  EZ    
+screen_current_row        0000D6  EZ    tftp_server_msg           007DBD  LA    
+timer_init                007ACA RLA    timer_read                007AFD RLA    
+timer_seconds             007AF9  LA    timer_timeout             006FA2 RLA    
+udp_add_listener          007925 RLA    udp_callback              001694 RLA    
 udp_cksum                 000006  EZ    udp_data                  000008 REZ    
-udp_dest_port             000002  EZ    udp_init                  0078EF RLA    
+udp_dest_port             000002  EZ    udp_init                  0078F2 RLA    
 udp_inp                   00084C REA    udp_len                   000004  EZ    
-udp_outp                  000E3C  EA    udp_process               0078F5 RLA    
-udp_remove_listener       007969 RLA    udp_send                  0079B5 RLA    
+udp_outp                  000E3C  EA    udp_process               0078F8 RLA    
+udp_remove_listener       00796C RLA    udp_send                  0079B8 RLA    
 udp_send_dest             001696 RLA    udp_send_dest_port        00169C RLA    
 udp_send_len              00169E RLA    udp_send_src_port         00169A RLA    
 udp_src_port              000000  EZ    
@@ -289,50 +289,50 @@ CHAR_BASE                 004000  EA    SCREEN_BASE               004800  EA
 CELL_CHAR                 00486F  EA    LEFT_CHAR                 0048BF  EA    
 RIGHT_CHAR                0048E7  EA    _screen_init              006094  LA    
 default_screen            006119  LA    _color_lookup             006601  LA    
-_sound_init               006988  LA    _sound_play               006999  LA    
-_login                    006A56  LA    _filtered_input           006C10  LA    
-__CODE_RUN__              006DB3  LA    print_ip_config           006DB3  LA    
-__CODE_LOAD__             006DB3  LA    print                     006E4F  LA    
-print_ascii_as_native     006E65  LA    print_dotted_quad         006E7E  LA    
-print_integer             006EBB  LA    print_hex                 006F32  LA    
-print_errorcode           006F4B  LA    copymem                   006F5B RLA    
-cfg_get_configuration_ptr 006F82 RLA    cfg_init                  006F88 RLA    
-timer_timeout             006F9F RLA    eth_set_broadcast_dest    006FB7 RLA    
-eth_set_my_mac_src        006FC2 RLA    eth_set_proto             006FCE RLA    
-arp_init                  006FD7 RLA    arp_calculate_gateway_mask 006FE1 RLA    
-arp_lookup                007006 RLA    arp_process               0070E5 RLA    
-arp_add                   007163  LA    ip65_random_word          0071D9  LA    
-ip65_init                 0071FB RLA    ip65_process              007214 RLA    
-dhcp_init                 007236 RLA    ip_init                   0074C0 RLA    
-ip_process                0074D5 RLA    ip_create_packet          007587 RLA    
-ip_send                   0075B4 RLA    ip_calc_cksum             00761B RLA    
-icmp_init                 0076BF RLA    icmp_process              0076C5 RLA    
-icmp_add_listener         00776B  LA    icmp_remove_listener      007797  LA    
-icmp_send_echo            0077CC  LA    icmp_ping                 00783C  LA    
-udp_init                  0078EF RLA    udp_process               0078F5 RLA    
-udp_add_listener          007922 RLA    udp_remove_listener       007969 RLA    
-udp_send                  0079B5 RLA    print_cr                  007A66 RLA    
-cls                       007A6B  LA    beep                      007A70  LA    
-print_a_inverse           007AAF  LA    cs_init                   007ABE RLA    
-timer_init                007AC7 RLA    timer_seconds             007AF6  LA    
-timer_read                007AFA RLA    get_key                   007B06  LA    
-get_key_ip65              007B0C  LA    check_for_abort_key       007B15 RLA    
-get_filtered_input        007B2A  LA    filter_text               007BAA  LA    
-filter_url                007BB2  LA    filter_dns                007BB9  LA    
-filter_ip                 007BD4  LA    filter_number             007BD5  LA    
-native_to_ascii           007BE0  LA    ascii_to_native           007BE5 RLA    
-eth_init                  007BEA RLA    eth_rx                    007C43 RLA    
-eth_tx                    007CA4 RLA    __DATA_RUN__              007D3B  LA    
-__DATA_LOAD__             007D3B  LA    __RODATA_RUN__            007D41  LA    
-__RODATA_LOAD__           007D41  LA    mac_address_msg           007D60  LA    
-ip_address_msg            007D6F  LA    netmask_msg               007D7E  LA    
-gateway_msg               007D8D  LA    dns_server_msg            007D9C  LA    
-tftp_server_msg           007DBA  LA    dhcp_msg                  007DC9  LA    
-init_msg                  007DCE  LA    failed_msg                007DDD  LA    
-ok_msg                    007DE4  LA    press_a_key_to_continue   007E06  LA    
-eth_driver_name           007E1F RLA    eth_driver_io_base        007E26 RLA    
-__IP65_DEFAULTS_RUN__     008028  LA    cfg_mac_default           008028 RLA    
-__IP65_DEFAULTS_LOAD__    008028  LA    icmp_echo_ip              008047  LA    
+_sound_init               00698B  LA    _sound_play               00699C  LA    
+_login                    006A59  LA    _filtered_input           006C13  LA    
+__CODE_RUN__              006DB6  LA    print_ip_config           006DB6  LA    
+__CODE_LOAD__             006DB6  LA    print                     006E52  LA    
+print_ascii_as_native     006E68  LA    print_dotted_quad         006E81  LA    
+print_integer             006EBE  LA    print_hex                 006F35  LA    
+print_errorcode           006F4E  LA    copymem                   006F5E RLA    
+cfg_get_configuration_ptr 006F85 RLA    cfg_init                  006F8B RLA    
+timer_timeout             006FA2 RLA    eth_set_broadcast_dest    006FBA RLA    
+eth_set_my_mac_src        006FC5 RLA    eth_set_proto             006FD1 RLA    
+arp_init                  006FDA RLA    arp_calculate_gateway_mask 006FE4 RLA    
+arp_lookup                007009 RLA    arp_process               0070E8 RLA    
+arp_add                   007166  LA    ip65_random_word          0071DC  LA    
+ip65_init                 0071FE RLA    ip65_process              007217 RLA    
+dhcp_init                 007239 RLA    ip_init                   0074C3 RLA    
+ip_process                0074D8 RLA    ip_create_packet          00758A RLA    
+ip_send                   0075B7 RLA    ip_calc_cksum             00761E RLA    
+icmp_init                 0076C2 RLA    icmp_process              0076C8 RLA    
+icmp_add_listener         00776E  LA    icmp_remove_listener      00779A  LA    
+icmp_send_echo            0077CF  LA    icmp_ping                 00783F  LA    
+udp_init                  0078F2 RLA    udp_process               0078F8 RLA    
+udp_add_listener          007925 RLA    udp_remove_listener       00796C RLA    
+udp_send                  0079B8 RLA    print_cr                  007A69 RLA    
+cls                       007A6E  LA    beep                      007A73  LA    
+print_a_inverse           007AB2  LA    cs_init                   007AC1 RLA    
+timer_init                007ACA RLA    timer_seconds             007AF9  LA    
+timer_read                007AFD RLA    get_key                   007B09  LA    
+get_key_ip65              007B0F  LA    check_for_abort_key       007B18 RLA    
+get_filtered_input        007B2D  LA    filter_text               007BAD  LA    
+filter_url                007BB5  LA    filter_dns                007BBC  LA    
+filter_ip                 007BD7  LA    filter_number             007BD8  LA    
+native_to_ascii           007BE3  LA    ascii_to_native           007BE8 RLA    
+eth_init                  007BED RLA    eth_rx                    007C46 RLA    
+eth_tx                    007CA7 RLA    __DATA_RUN__              007D3E  LA    
+__DATA_LOAD__             007D3E  LA    __RODATA_RUN__            007D44  LA    
+__RODATA_LOAD__           007D44  LA    mac_address_msg           007D63  LA    
+ip_address_msg            007D72  LA    netmask_msg               007D81  LA    
+gateway_msg               007D90  LA    dns_server_msg            007D9F  LA    
+tftp_server_msg           007DBD  LA    dhcp_msg                  007DCC  LA    
+init_msg                  007DD1  LA    failed_msg                007DE0  LA    
+ok_msg                    007DE7  LA    press_a_key_to_continue   007E09  LA    
+eth_driver_name           007E22 RLA    eth_driver_io_base        007E29 RLA    
+__IP65_DEFAULTS_RUN__     00802B  LA    cfg_mac_default           00802B RLA    
+__IP65_DEFAULTS_LOAD__    00802B  LA    icmp_echo_ip              00804A  LA    
 COLOR_BASE                00D800  EA    CELL_COLOR                00D86F  EA    
 LEFT_COLOR                00D8BF  EA    RIGHT_COLOR               00D8E7  EA    
 cs_packet_page            00DE02 REA    cs_packet_data            00DE04 REA    
