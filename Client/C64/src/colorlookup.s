@@ -3,16 +3,41 @@
 
 .export _color_lookup
 
-;.import COLOR_BASE
-;.import SCREEN_BASE
-;.import CELL_CHAR  
-;.import CELL_COLOR 
-;.import LEFT_CHAR  
-;.import LEFT_COLOR 
-;.import RIGHT_CHAR 
-;.import RIGHT_COLOR
+; -------------------------------------------------------------------------
+; Screen colors
 
- .include "colordefs.s"
+COLOR_BLACK	     = 0	
+.export COLOR_WHITE	     = 1	
+COLOR_RED	     = 2	
+COLOR_CYAN	     = 3	
+COLOR_VIOLET	 = 4	
+COLOR_GREEN	     = 5	
+COLOR_BLUE       = 6	
+COLOR_YELLOW     = 7	
+COLOR_ORANGE     = 8	
+COLOR_BROWN	     = 9
+COLOR_LIGHTRED	 = 10	
+COLOR_GREY1	     = 11	
+COLOR_GREY2	     = 12	
+COLOR_LIGHTGREEN = 13	
+COLOR_LIGHTBLUE	 = 14	
+COLOR_GREY3      = 15
+
+; -------------------------------------------------------------------------
+; Screen Constants
+
+.export CHAR_BASE    = $4000
+.export SCREEN_BASE  = $4800
+.export COLOR_BASE   = $D800
+
+.export CELL_CHAR    = SCREEN_BASE + $006F
+.export CELL_COLOR   = COLOR_BASE  + $006F
+
+.export LEFT_CHAR    = SCREEN_BASE + $00BF
+.export LEFT_COLOR   = COLOR_BASE  + $00BF
+
+.export RIGHT_CHAR   = LEFT_CHAR   + 40
+.export RIGHT_COLOR  = LEFT_COLOR  + 40
 
 ; Rather than have the server send an entire extra screens worth of color data, we use this lookup table to 
 ; map character codes to color codes.

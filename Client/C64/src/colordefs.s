@@ -1,21 +1,3 @@
-; Screen colors
-
-COLOR_BLACK	     = 0	
-COLOR_WHITE	     = 1	
-COLOR_RED	     = 2	
-COLOR_CYAN	     = 3	
-COLOR_VIOLET	 = 4	
-COLOR_GREEN	     = 5	
-COLOR_BLUE       = 6	
-COLOR_YELLOW     = 7	
-COLOR_ORANGE     = 8	
-COLOR_BROWN	     = 9
-COLOR_LIGHTRED	 = 10	
-COLOR_GREY1	     = 11	
-COLOR_GREY2	     = 12	
-COLOR_LIGHTGREEN = 13	
-COLOR_LIGHTBLUE	 = 14	
-COLOR_GREY3      = 15
 
 ;c64 c/g 
 CG_BLK = 144

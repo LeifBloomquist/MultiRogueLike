@@ -1,25 +1,10 @@
 ; -------------------------------------------------------------------------
 ; Rogue Screen Routines
 
-; .include "colordefs.s"
-;.import default_screen
 .export _screen_init
 
-; -------------------------------------------------------------------------
-; Screen Constants
-
-.export CHAR_BASE    = $4000
-.export SCREEN_BASE  = $4800
-.export COLOR_BASE   = $D800
-
-.export CELL_CHAR    = SCREEN_BASE + $006F
-.export CELL_COLOR   = COLOR_BASE  + $006F
-
-.export LEFT_CHAR    = SCREEN_BASE + $00BF
-.export LEFT_COLOR   = COLOR_BASE  + $00BF
-
-.export RIGHT_CHAR   = LEFT_CHAR   + 40
-.export RIGHT_COLOR  = LEFT_COLOR  + 40
+.include "colorlookup.s"
+.include "defaultscreen.s"
 
 HEALTH_CHARS = RIGHT_CHAR  + 80
 
