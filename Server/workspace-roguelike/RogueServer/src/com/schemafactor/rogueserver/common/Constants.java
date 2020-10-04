@@ -3,7 +3,7 @@ package com.schemafactor.rogueserver.common;
 public class Constants 
 {
     // Server version
-    public static final double VERSION        = 0.016;
+    public static final double VERSION        = 0.017;
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
@@ -36,6 +36,8 @@ public class Constants
     public static final byte PACKET_ANN_REPLY = (byte) 128;
     public static final byte PACKET_UPDATE    = (byte) 129;
     public static final byte PACKET_MESSAGES  = (byte) 130;
+    
+    public static final int PACKET_UPDATE_SIZE = 534;
     
     // Handedness
     public static final byte HAND_NONE         = 0;

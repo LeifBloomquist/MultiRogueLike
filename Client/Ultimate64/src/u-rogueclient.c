@@ -55,6 +55,7 @@ Rogue Test Client for Ultimate 64
 #define LEFT_CHAR    0x00BF
 #define RIGHT_CHAR   LEFT_CHAR  + 40
 #define HEALTH_CHARS RIGHT_CHAR + 80
+#define XP_CHARS     HEALTH_CHARS + 80
 #define NAME_LOC     0x18
 
 // Miscellaneous constants
@@ -277,8 +278,8 @@ copy:
 	POKE(SCREEN_RAM + RIGHT_CHAR, uii_data_in[360]);    // Held - Right
 
 	POKE(SCREEN_RAM + HEALTH_CHARS + 0, uii_data_in[361]);  // Health
-	POKE(SCREEN_RAM + HEALTH_CHARS + 1, uii_data_in[362]);  // Health
-	POKE(SCREEN_RAM + HEALTH_CHARS + 2, uii_data_in[363]);  // Health
+	POKE(SCREEN_RAM + HEALTH_CHARS + 1, uii_data_in[362]);
+	POKE(SCREEN_RAM + HEALTH_CHARS + 2, uii_data_in[363]);
 
 	// Colorize the screen
 	color_lookup();
@@ -291,6 +292,15 @@ copy:
 	}
 
 	// TODO, number of players
+	// 366
+
+	// XP
+	POKE(SCREEN_RAM + XP_CHARS + 0, uii_data_in[367]);  // XP
+	POKE(SCREEN_RAM + XP_CHARS + 1, uii_data_in[368]); 
+	POKE(SCREEN_RAM + XP_CHARS + 2, uii_data_in[369]); 
+	POKE(SCREEN_RAM + XP_CHARS + 3, uii_data_in[370]); 
+	POKE(SCREEN_RAM + XP_CHARS + 4, uii_data_in[371]); 
+	POKE(SCREEN_RAM + XP_CHARS + 5, uii_data_in[372]);
 }
 
 void handle_server_messages(byte *uii_data)
@@ -320,8 +330,8 @@ void handle_packet(byte *uii_data_recvd)
 void network_init()
 {
 	int status = 0;
-	char *host = "rogue.jammingsignal.com";
-	//char* host = "192.168.7.14";
+	//char *host = "rogue.jammingsignal.com";
+	char* host = "192.168.7.14";
 
 	clear_screen();
 	color(CG_YEL);

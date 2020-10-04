@@ -38,7 +38,11 @@ public abstract class Entity implements java.io.Serializable
    
    protected float health = 100f;
    protected float maxHealth = health;
-   float baseDamage = 0f;   // How much damage this entity can do on attack without weapons
+   protected float baseDamage = 0f;   // How much damage this entity can do on attack without weapons
+   
+   protected long XP=0;  // Experience Points 
+
+   private boolean gameOverActionsComplete = false;  // Flag that end of game actions complete (to prevent repeats)
      
    /** Creates a new instance of Entity */
    public Entity(String description, Position startposition, entityTypes type, byte charCode, float baseDamage, float maxHealth)
@@ -61,11 +65,14 @@ public abstract class Entity implements java.io.Serializable
    public void respawn()
    {
        position = new Position(home);
-       this.removeMeFlag = false;
-       this.needsUpdate();
+       removeMeFlag = false;
+       needsUpdate();
        health = maxHealth;
-       Dungeon.getInstance().addEntity(this);  // Re-add to main list
-       this.addMessage("Restarted...");
+       XP = 0;
+       gameOverActionsComplete = false;
+       JavaTools.printlnTime(description + " restarted");
+       addMessage("Restarted...");
+       Dungeon.getInstance().addEntity(this);  // Re-add to main list       
    }
    
    /**
@@ -256,12 +263,15 @@ public abstract class Entity implements java.io.Serializable
 
    public void gameOver(Entity attacker)
    {
+	   if (gameOverActionsComplete) return;
+		   
        if (attacker != null)
        {
            String obituary = description + " was killed by " + attacker.description + "!";
            this.addMessage(obituary);
            attacker.addMessage(obituary);
            JavaTools.printlnTime(obituary);
+           attacker.addXP(this.maxHealth);
        }
        
        // TODO:  This is a bit hacky.  Remove monsters instantly, but keep clients in game to keep sending updates.       
@@ -269,6 +279,9 @@ public abstract class Entity implements java.io.Serializable
        {
            // Remove from map only.   This clears the cell for the drops below.
            Dungeon.getInstance().getCell(position).setEntity(null);
+           
+           // Report XP to the logs.  Someday, a leaderboard
+           JavaTools.printlnTime(description + " has died!  XP SCORE=" + XP);
        }
        else
        {
@@ -298,6 +311,13 @@ public abstract class Entity implements java.io.Serializable
        {
            JavaTools.printlnTime("DEBUG: " + description + " Can't drop right item!! ");
        }
+       
+       gameOverActionsComplete = true;
+   }
+
+   private void addXP(float points) 
+   {
+	   XP += (int)points;
    }
 
    private Position getTargetPosition(Cell current_cell, byte direction)

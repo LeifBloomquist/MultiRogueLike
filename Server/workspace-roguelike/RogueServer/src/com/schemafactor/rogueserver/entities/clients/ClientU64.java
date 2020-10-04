@@ -27,7 +27,7 @@ public class ClientU64 extends ClientC64
    @Override
    public void updateNow()
    {         
-       byte[] buffer = getUpdateByteArray(true, 368);  // Screen Only
+       byte[] buffer = getUpdateByteArray(true, Constants.PACKET_UPDATE_SIZE - (Constants.MESSAGE_LENGTH * 4));  // Screen Only
        
        // Send the packet.
        sendUpdatePacket(buffer, false);

@@ -1,8 +1,6 @@
 package com.schemafactor.rogueserver.entities.clients;
 
-import java.io.ByteArrayOutputStream;
 import java.net.InetAddress;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -496,7 +494,7 @@ public abstract class Client extends Entity
    // Used by C64 and WebSocket clients
    protected byte[] getUpdateByteArray()
    {
-       return getUpdateByteArray(false, 528);   
+       return getUpdateByteArray(false, Constants.PACKET_UPDATE_SIZE);   
    }
 
    // Used by U64 clients
@@ -639,7 +637,7 @@ public abstract class Client extends Entity
        
        // Health Value
        int ih = (int)health;  // Round
-       String sh = String.format("%1$3d", ih);  // To String with padding
+       String sh = String.format("%1$-3d", ih);  // To String with padding
        byte[] bh = sh.getBytes();
        System.arraycopy( bh, 0, buffer, offset, 3 );
        offset += 3;
@@ -650,6 +648,12 @@ public abstract class Client extends Entity
        
        // Number of players
        buffer[offset++] = (byte) Dungeon.getInstance().getNumPlayers();
+       
+       // XP
+       String sxp = String.format("%1$-6d", XP);  // To String with padding
+       byte[] bxp = sxp.getBytes();
+       System.arraycopy( bxp, 0, buffer, offset, 6 );
+       offset += 6;
        
        // End of packet marker
        buffer[offset++] = (byte)255;
