@@ -4,7 +4,7 @@
 path = C:\cc65\bin;%PATH%
 
 del target\u-rogue6000.prg
-..\..\Tools\cc65\bin\cl65 -Oi -t c64 -C src\cfg\c64-nobasic.cfg src\lib\ultimate_lib_net.c src\u-rogueclient.c ..\C64\src\defaultscreen.s ..\C64\src\colorlookup.s ..\C64\src\screen.s ..\C64\src\sound.s -o target\u-rogue6000.prg
+..\..\Tools\cc65\bin\cl65 -Oi -t c64 -C src\cfg\c64-nobasic.cfg src\lib\ultimate_lib_net.c src\u-rogueclient.c ..\C64\src\colordefs.s ..\C64\src\screen.s ..\C64\src\sound.s -o target\u-rogue6000.prg
 
 choice /c yn /n /m "Run on Ultimate64 Yes, No?"
 if %ERRORLEVEL% == 2 exit /b
