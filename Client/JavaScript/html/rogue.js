@@ -37,8 +37,8 @@
          person = person.substring(0, 16);
 
          // Let us open a web socket
-         //ws = new WebSocket("ws://localhost:3007/Rogue");
-         ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
+         ws = new WebSocket("ws://localhost:3007/Rogue");
+         //ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
          ws.binaryType = 'arraybuffer';
 
          // Web Socket is connected
@@ -57,21 +57,23 @@
             drawString("LEFT: ",24,5);
             drawString("RIGHT:",24,6);
             drawString("HEALTH:",24,8);
-
-             for (var p = 0; p < 40; p++)
-             {
+			drawString("XP:",24,10);
+			
+			// Messages
+            for (var p = 0; p < 40; p++)
+            {
                 drawChar(byteArray[358+p], p, 20);
                 drawChar(byteArray[398+p], p, 21);
                 drawChar(byteArray[438+p], p, 22);
                 drawChar(byteArray[478+p], p, 23);
-             }
+            }
 
             drawChar(byteArray[518], 31, 3); // Seen
             drawChar(byteArray[519], 31, 5); // Left
             drawChar(byteArray[520], 31, 6); // Right
             drawChar(byteArray[521], 31, 8); // Health
-            drawChar(byteArray[522], 32, 8); // Health
-            drawChar(byteArray[523], 33, 8); // Health
+            drawChar(byteArray[522], 32, 8); 
+            drawChar(byteArray[523], 33, 8); 
 
             // Sound effects
             if (audio_counter != byteArray[524])
@@ -81,8 +83,15 @@
             audio_counter = byteArray[524];
 
             playerstext.innerHTML = "Number of players in dungeon: " + byteArray[526];
+			
+			drawChar(byteArray[527], 31, 10); // XP
+            drawChar(byteArray[528], 32, 10); 
+            drawChar(byteArray[529], 33, 10); 
+			drawChar(byteArray[530], 34, 10); 
+            drawChar(byteArray[531], 35, 10); 
+            drawChar(byteArray[532], 36, 10); 
 
-            // TODO, XP, Gold, etc.
+            // TODO, Gold, etc.
          };
 
          ws.onclose = function()
