@@ -103,8 +103,24 @@ copym:
   sta soundcounter
   lda udp_inp_data+525
   jsr sound_play
-
-  ; TODO, XP, gold?
+  
 nosound:
+  ; TODO, players in dungeon [526]
+   
+  ; XP
+  lda udp_inp_data+527
+  sta XP_CHARS
+  lda udp_inp_data+528
+  sta XP_CHARS+1
+  lda udp_inp_data+529
+  sta XP_CHARS+2
+  lda udp_inp_data+530
+  sta XP_CHARS+3
+  lda udp_inp_data+531
+  sta XP_CHARS+4
+  lda udp_inp_data+532
+  sta XP_CHARS+5   
+
+  ; TODO, Gold, etc.
   
   rts

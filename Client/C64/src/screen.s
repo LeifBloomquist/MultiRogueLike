@@ -6,7 +6,8 @@
 .include "colorlookup.s"
 .include "defaultscreen.s"
 
-HEALTH_CHARS = RIGHT_CHAR  + 80
+HEALTH_CHARS = RIGHT_CHAR   + 80
+XP_CHARS     = HEALTH_CHARS + 80
 
 COMMS_CHAR  = SCREEN_BASE  + $03E7
 COMMS_COLOR = COLOR_BASE   + $03E7
