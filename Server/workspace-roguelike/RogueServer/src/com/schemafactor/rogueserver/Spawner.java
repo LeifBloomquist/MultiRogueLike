@@ -95,7 +95,7 @@ public class Spawner
         
         for (int i=1; i<=3; i++)
         {
-            allMonsters.add( new Skeleton("Skeleton", dungeon.getRandomEmptyPosition(2)) );
+            allMonsters.add( new Skeleton("Skeleton", dungeon.getRandomEmptyPosition(3)) );
         }
         
         allMonsters.add( new Daemon("Daemon", dungeon.getRandomEmptyPosition(3)) );
