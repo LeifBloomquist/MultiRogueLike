@@ -60,62 +60,64 @@
 
 <hr>
 
-<div id="main">
-    <div class="menu-container" style="vertical-align:top;">
-        <div class="button-container" style="background:#300000; width:330px;">
-           <p>Move/Attack</p>
-           <button class="mbutton" onclick="sendKey('q')">NW</button>
-           <button class="mbutton" onclick="sendKey('w')">N</button>
-           <button class="mbutton" onclick="sendKey('e')">NE</button>
-           <button class="mbutton" onclick="sendKey('a')">W</button>
-           <button class="mbutton" id ="move" onclick="toggleMove()" style="background:#4CAF50;">Move</button>
-           <button class="mbutton" onclick="sendKey('d')">E</button>
-           <button class="mbutton" onclick="sendKey('z')">SW</button>
-           <button class="mbutton" onclick="sendKey('x')">S</button>
-           <button class="mbutton" onclick="sendKey('c')">SE</button>
+ <div id="all" style="display:none;">
+    <div id="main">
+        <div class="menu-container" style="vertical-align:top;">
+            <div class="button-container" style="background:#300000; width:330px;">
+               <p>Move/Attack</p>
+               <button class="mbutton" onclick="sendKey('q')">NW</button>
+               <button class="mbutton" onclick="sendKey('w')">N</button>
+               <button class="mbutton" onclick="sendKey('e')">NE</button>
+               <button class="mbutton" onclick="sendKey('a')">W</button>
+               <button class="mbutton" id ="move" onclick="toggleMove()" style="background:#4CAF50;">Move</button>
+               <button class="mbutton" onclick="sendKey('d')">E</button>
+               <button class="mbutton" onclick="sendKey('z')">SW</button>
+               <button class="mbutton" onclick="sendKey('x')">S</button>
+               <button class="mbutton" onclick="sendKey('c')">SE</button>
+            </div>
+            <div class="button-container" style="background:#003000; width:140px;">
+              <p>Left Hand</p>
+              <button class="abutton"onclick="sendKey('j')">Pick Up</button>   
+              <button class="abutton"onclick="sendKey('n')">Drop</button>
+              <button class="abutton"onclick="Use(1)">Use</button>    
+            </div>    
+            <div class="button-container" style="background:#003030; width:140px;">
+              <p>Right Hand</p>
+              <button class="abutton" onclick="sendKey('k')">Pick Up</button>   
+              <button class="abutton" onclick="sendKey('m')">Drop</button>
+              <button class="abutton" onclick="Use(2)">Use</button>     
+            </div>
         </div>
-        <div class="button-container" style="background:#003000; width:140px;">
-          <p>Left Hand</p>
-          <button class="abutton"onclick="sendKey('j')">Pick Up</button>   
-          <button class="abutton"onclick="sendKey('n')">Drop</button>
-          <button class="abutton"onclick="Use(1)">Use</button>    
-        </div>    
-        <div class="button-container" style="background:#003030; width:140px;">
-          <p>Right Hand</p>
-          <button class="abutton" onclick="sendKey('k')">Pick Up</button>   
-          <button class="abutton" onclick="sendKey('m')">Drop</button>
-          <button class="abutton" onclick="Use(2)">Use</button>     
+
+        <div class="button-container" style="vertical-align:top; background:#000030; width:450px;">
+           <p style="float:left;">&nbsp;&nbsp;Item Currently Seen:&nbsp;</p>
+           <button class="abutton"onclick="Examine(0)">Inspect</button>
+           <button class="abutton" onclick="Use(0)">Use</button>
         </div>
     </div>
 
-    <div class="button-container" style="vertical-align:top; background:#000030; width:450px;">
-       <p style="float:left;">&nbsp;&nbsp;Item Currently Seen:&nbsp;</p>
-       <button class="abutton"onclick="Examine(0)">Inspect</button>
-       <button class="abutton" onclick="Use(0)">Use</button>
-    </div>
-</div>
-
-<div id="avatar">
-    <div class="menu-container" style="vertical-align:top;">
-        <div class="button-container" style="background:#303000; width:600px;">
-           <p>Choose Avatar</p>
-           <button class="abutton" onclick="sendKey('1')">1</button>
-           <button class="abutton" onclick="sendKey('2')">2</button>
-           <button class="abutton" onclick="sendKey('3')">3</button>
-           <button class="abutton" onclick="sendKey('4')">4</button>
+    <div id="avatar">
+        <div class="menu-container" style="vertical-align:top;">
+            <div class="button-container" style="background:#303000; width:600px;">
+               <p>Choose Avatar</p>
+               <button class="abutton" onclick="sendKey('1')">1</button>
+               <button class="abutton" onclick="sendKey('2')">2</button>
+               <button class="abutton" onclick="sendKey('3')">3</button>
+               <button class="abutton" onclick="sendKey('4')">4</button>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="gameover">
-    <div class="menu-container" style="vertical-align:top;">
-        <div class="button-container" style="background:#303030; width:600px;">
-           <p>Play Again?</p>
-           <button class="abutton" onclick="sendKey('y')">Y</button>
-           <button class="abutton" onclick="sendKey('n')">N</button>
+    <div id="gameover">
+        <div class="menu-container" style="vertical-align:top;">
+            <div class="button-container" style="background:#303030; width:600px;">
+               <p>Play Again?</p>
+               <button class="abutton" onclick="sendKey('y')">Y</button>
+               <button class="abutton" onclick="sendKey('n')">N</button>
+            </div>
         </div>
     </div>
-</div>
+</div> 
  
 </center>
 </body>     
@@ -123,24 +125,29 @@
 
 <script>
 
-
 function showSingleDiv(divID) {
 
+   all      = document.getElementById("all");
    main     = document.getElementById("main");
    avatar   = document.getElementById("avatar");
    gameover = document.getElementById("gameover");   
    show     = document.getElementById(divID);
    
+   main.style.display="none";
+   avatar.style.display="none";
+   gameover.style.display="none";
+   
+   if (show == null) return;
+   
    if (show.style.display == "none") {  // Div to show has changed
-      main.style.display="none";
-      avatar.style.display="none";
-      gameover.style.display="none";
       show.style.display = "inline-block";
    }
 }
 
 function controlButtons(byteArray)
 {
+    showSingleDiv("all");
+
     if (byteArray[66] == 49) {   // Choosing Avatar    
         showSingleDiv("avatar");    
     } else if (byteArray[246] == 89) {  // Dead
@@ -149,6 +156,7 @@ function controlButtons(byteArray)
         showSingleDiv("main");
     }
 }
+
 </script>
 
 <script type="text/javascript" src="rogue.js"></script>   
