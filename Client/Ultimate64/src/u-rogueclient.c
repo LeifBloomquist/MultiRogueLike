@@ -330,8 +330,7 @@ void handle_packet(byte *uii_data_recvd)
 void network_init()
 {
 	int status = 0;
-	//char *host = "rogue.jammingsignal.com";
-	char* host = "192.168.7.14";
+	char *host = "rogue.jammingsignal.com";
 
 	clear_screen();
 	color(CG_YEL);

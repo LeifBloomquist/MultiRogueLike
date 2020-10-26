@@ -37,8 +37,7 @@
          person = person.substring(0, 16);
 
          // Let us open a web socket
-         ws = new WebSocket("ws://localhost:3007/Rogue");
-         //ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
+         ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
          ws.binaryType = 'arraybuffer';
 
          // Web Socket is connected
