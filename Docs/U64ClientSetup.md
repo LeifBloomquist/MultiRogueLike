@@ -2,7 +2,7 @@
 
 *This version is specific to the [Ultimate 64 from Gideon's Logic](https://ultimate64.com/).  It has not been tested on a 1541 Ultimate I/II, but may work.*
 
-1. Download the client PRG from [here](https://bit.ly/2oC9L9M)
+1. Download the client PRG from [here](https://bit.ly/33ePtce)
 
 2. **The U64 must be configured to have no virtual cartridges attached.**  
 
