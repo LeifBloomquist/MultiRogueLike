@@ -1,43 +1,101 @@
 <!DOCTYPE HTML>
 <html>
 
-<title>Roguelike Multiplayer Mobile</title>
+<title>(Mobile) Dungeon of the Rogue Daemon</title>
 
 <head>
   <link rel="stylesheet" href="rogue.css">
+  
+  <style>
+	.mbutton 
+	{
+	  background-color: gray;  /* Green #4CAF50; */
+	  border: none;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  width: 100px;
+	  height: 50px;	  
+	}
+	
+	.abutton 
+	{
+	  background-color: gray;  /* Green #4CAF50; */
+	  border: none;
+	  color: white;
+	  padding: 5px 10px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 14px;
+	  margin: 4px 2px;
+	  width: 100px;
+	  height: 50px;
+	}
+	
+	.menu-container {		
+		vertical-align:top;
+		width: 640px;
+	}	
+	
+	.button-container {		
+		vertical-align:top;
+		display: inline-block;
+		border: 1px solid grey;
+	}
+  </style>
 </head>
 
 <body>
 
-<p id="players" align="center">
-  Number of players in dungeon: --
-</p>
+<center>
 
-<p align="center">
-  <canvas id="screen" width="640" height="400"></canvas>
-</p>
+<p id="players">Number of players in dungeon: --</p>
 
-<p align="center">
-  <button onclick="moveNorth()">North1</button>
-  <br>
-  <button onclick="moveWest()">West</button>
-  <button onclick="moveEast()">East</button>
-  <br>
-  <button onclick="moveSouth()">South</button>
-</p>
-<p align="center">
-  <button onclick="Use(1)">Use (Left)</button>   
-  <button onclick="Use(0)">Use (Seen)</button>
-  <button onclick="Use(2)">Use (Right)</button>
-  <br>
-  <button onclick="Examine(0)">Examine</button>
-</p>
+<canvas id="screen" width="640" height="400"></canvas>
 
-<p align="center"> 
-  <button onclick="Help()" style="font-size : 20px; width: 15%; height: 50px;">Help</button>
-</p>
+<hr>
+
+<div class="menu-container" style="vertical-align:top;">
+    <div class="button-container" style="background:#300000; width:320px;">
+	   <p>Move/Attack</p>
+	   <button class="mbutton" onclick="moveNorth()">NW</button>
+	   <button class="mbutton" onclick="moveNorth()">N</button>
+	   <button class="mbutton" onclick="moveNorth()">NE</button>
+	   <button class="mbutton" onclick="moveNorth()">W</button>
+	   <button class="mbutton" onclick="moveNorth()">Move</button>
+	   <button class="mbutton" onclick="moveNorth()">E</button>
+	   <button class="mbutton" onclick="moveNorth()">SW</button>
+	   <button class="mbutton" onclick="moveNorth()">S</button>
+	   <button class="mbutton" onclick="moveNorth()">SE</button>
+    </div>
+	<div class="button-container" style="background:#003000; width:140px;">
+	  <p>Left Hand</p>
+	  <button class="abutton"onclick="Use(1)">Pick Up</button>   
+      <button class="abutton"onclick="Use(0)">Drop</button>
+      <button class="abutton"onclick="Use(2)">Use</button>	
+	</div>    
+	<div class="button-container" style="background:#003030; width:140px;">
+	  <p>Right Hand</p>
+	  <button class="abutton" onclick="Use(1)">Pick Up</button>   
+      <button class="abutton" onclick="">Drop</button>
+      <button class="abutton" onclick="Use(2)">Use</button>	 
+	</div>
+</div>
+
+<div class="button-container" style="vertical-align:top; background:#000030;">
+   <p style="float:left;">&nbsp;&nbsp;Item Current Seen:&nbsp;</p>
+   <button class="abutton"onclick="Examine(0)">Inspect</button>
+   <button class="abutton" onclick="Use(0)">Use</button>
+</div>
+  
 
 <script type="text/javascript" src="rogue.js"></script>   
 
+</center>
 </body>     
 </html>

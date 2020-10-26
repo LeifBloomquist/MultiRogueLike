@@ -1,5 +1,8 @@
 body {
-    background-color: black;
+   background-color: black;
+   min-width:640px;
+   width: auto !important;  /* Firefox will set width as auto */
+   width:640px;
 }
 
 p {
