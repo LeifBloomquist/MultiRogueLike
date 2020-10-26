@@ -22,6 +22,13 @@
    var audio_miss    = new Audio('sfx/miss.mp3');
 
    var ws = null;
+   
+   var mobile = false;
+   
+   function setMobile() 
+   {
+	   mobile = true;
+   }
 
    function WebSocketStart()
    {
@@ -91,6 +98,12 @@
             drawChar(byteArray[532], 36, 10); 
 
             // TODO, Gold, etc.
+			
+			// A bit hacky - on mobile, decide which buttons to show
+			if (mobile) 
+			{
+				controlButtons(byteArray);
+			}				
          };
 
          ws.onclose = function()

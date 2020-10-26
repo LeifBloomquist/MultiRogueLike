@@ -25,9 +25,12 @@ public class ClientTelnet extends Client
        super(login, new Position(15,15,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
        
        announceReceived = true;
+       choosingAvatar = false;  // TODO - not possible for Telnet clients
        this.output = output;
        
        userIP = null;   // Not needed for TCP connections
+       
+       this.addMessage("Press H for Help");
    }
 
 /** Return the InetAddress, for comparisons */
