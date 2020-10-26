@@ -224,26 +224,6 @@
      alert(helptext);
   }
 
-  function moveNorth()
-  {
-     sendCommand(119);
-  }
-
-  function moveSouth()
-  {
-     sendCommand(115);
-  }
-
-  function moveWest()
-  {
-     sendCommand(97);
-  }
-
-  function moveEast()
-  {
-     sendCommand(100);
-  }
-
   function myScale()
   {
      context.setTransform(1, 0, 0, 1, 0, 0);
