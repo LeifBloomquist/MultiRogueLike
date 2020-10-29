@@ -7,15 +7,9 @@
 
    var thescreen = document.getElementById("thescreen");
    var context = thescreen.getContext("2d");
+   context.setTransform(1, 0, 0, 1, 0, 0);
 
    var person = "name";
-
-   context.imageSmoothingEnabled = false;
-   context.mozImageSmoothingEnabled = false;
-   context.webkitImageSmoothingEnabled = false;
-   context.msImageSmoothingEnabled = false;
-   context.imageSmoothingQuality = "low";
-   context.setTransform(1, 0, 0, 1, 0, 0);
 
    var audio_counter = -1;
    var audio_step    = new Audio('sfx/step.mp3');
@@ -30,6 +24,7 @@
    function setMobile() 
    {
 	   mobile = true;
+       repaint();
    }
 
    function WebSocketStart()
@@ -53,6 +48,7 @@
          ws.onopen = function()
          {
              sendAnnounce(person);
+             myScale();
          };
 
          ws.onmessage = function(evt) 
@@ -104,7 +100,7 @@
 			// A bit hacky - on mobile, decide which buttons to show
 			if (mobile) 
 			{
-				controlButtons(byteArray);
+				controlButtons(byteArray);                
 			}				
          };
 
@@ -243,26 +239,24 @@
   {
     if (mobile)
     {
-        var w = round(window.innerWidth*0.8);
+        var w = round(window.innerWidth*0.9);
         thescreen.width  = w;
-        thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64
-        
-        var scale = w/320;      // Only look at width to keep it square
+        thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64        
+        var scale = w/320;                   // Only look at width to keep it square
         scale = round(scale, 1);                
         context.scale(scale,scale);
         console.log('Mobile scale = ' + scale);
     }
     else
     {
-       // var w = roundnum(window.innerWidth, 320);
-        //thescreen.width  = w;
-        //thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64
-        //var scale = round(w/320,0);          // Only look at width to keep it square
-        
-        scale=2;
+        var w = roundnum(window.innerWidth, 320);
+        thescreen.width  = w;
+        thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64        
+        var scale = round(w/320,0);          // Only look at width to keep it square        
         context.scale(scale,scale);
         console.log('Desktop scale = ' + scale);
     }
+    
     repaint();
   }
   
@@ -279,6 +273,13 @@
   
   function repaint()
   {    
+    // Re-apply parameters (required after every resize)
+    context.imageSmoothingEnabled = false;
+    context.mozImageSmoothingEnabled = false;
+    context.webkitImageSmoothingEnabled = false;
+    context.msImageSmoothingEnabled = false;
+    context.imageSmoothingQuality = "low";
+  
     // Screen
     context.fillStyle = "black";
     context.fillRect(0, 0, 320, 200);
