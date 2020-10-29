@@ -24,7 +24,7 @@
    function setMobile() 
    {
 	   mobile = true;
-       repaint();
+       myScale();
    }
 
    function WebSocketStart()
@@ -242,17 +242,32 @@
         var w = round(window.innerWidth*0.9);
         thescreen.width  = w;
         thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64        
-        var scale = w/320;                   // Only look at width to keep it square
+        var scale = w/320;                   // Only look at width to keep it proportional
         scale = round(scale, 1);                
         context.scale(scale,scale);
-        console.log('Mobile scale = ' + scale);
     }
     else
     {
         var w = roundnum(window.innerWidth, 320);
-        thescreen.width  = w;
-        thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64        
-        var scale = round(w/320,0);          // Only look at width to keep it square        
+        var h = roundnum(window.innerHeight, 200);
+        
+        // Which is the bounding scale?
+        var scale = 1;
+        var scale_w = round(w/320,0);
+        var scale_h = round(h/200,0);
+        
+        if (scale_w < scale_h)
+        {
+            scale = scale_w;
+            thescreen.width  = w;
+            thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64
+        } 
+        else
+        {
+            scale = scale_h;
+            thescreen.width  = round(h*1.6, 0); // To maintain 1.6 aspect ratio like on the C64
+            thescreen.height = h;
+        }        
         context.scale(scale,scale);
         console.log('Desktop scale = ' + scale);
     }
