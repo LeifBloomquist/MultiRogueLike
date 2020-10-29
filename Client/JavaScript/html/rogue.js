@@ -5,8 +5,8 @@
 
    var playerstext = document.getElementById("players");
 
-   var screen = document.getElementById("screen");
-   var context = screen.getContext("2d");
+   var thescreen = document.getElementById("thescreen");
+   var context = thescreen.getContext("2d");
 
    var person = "name";
 
@@ -14,6 +14,8 @@
    context.mozImageSmoothingEnabled = false;
    context.webkitImageSmoothingEnabled = false;
    context.msImageSmoothingEnabled = false;
+   context.imageSmoothingQuality = "low";
+   context.setTransform(1, 0, 0, 1, 0, 0);
 
    var audio_counter = -1;
    var audio_step    = new Audio('sfx/step.mp3');
@@ -239,18 +241,44 @@
 
   function myScale()
   {
-     context.setTransform(1, 0, 0, 1, 0, 0);
-     var scale = 2;  // ddscale.value;
-     context.scale(scale,scale);
-     repaint();
+    if (mobile)
+    {
+        var w = round(window.innerWidth*0.8);
+        thescreen.width  = w;
+        thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64
+        
+        var scale = w/320;      // Only look at width to keep it square
+        scale = round(scale, 1);                
+        context.scale(scale,scale);
+        console.log('Mobile scale = ' + scale);
+    }
+    else
+    {
+       // var w = roundnum(window.innerWidth, 320);
+        //thescreen.width  = w;
+        //thescreen.height = round(w/1.6, 0);  // To maintain 1.6 aspect ratio like on the C64
+        //var scale = round(w/320,0);          // Only look at width to keep it square
+        
+        scale=2;
+        context.scale(scale,scale);
+        console.log('Desktop scale = ' + scale);
+    }
+    repaint();
   }
-
-  function repaint()
+  
+  function round(value, precision) 
   {
-    // Background (Not visible)
-    context.fillStyle = "yellow";
-    context.fillRect(0, 0, screen.width, screen.height);
-
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+  }
+  
+  function roundnum(num, bin) 
+  {
+    return Math.round(Math.floor(num / bin)) * bin;
+  }
+  
+  function repaint()
+  {    
     // Screen
     context.fillStyle = "black";
     context.fillRect(0, 0, 320, 200);
