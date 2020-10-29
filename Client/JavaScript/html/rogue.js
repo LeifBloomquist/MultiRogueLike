@@ -246,10 +246,13 @@
         scale = round(scale, 1);                
         context.scale(scale,scale);
     }
-    else
+    else // Desktop
     {
         var w = roundnum(window.innerWidth, 320);
         var h = roundnum(window.innerHeight, 200);
+        
+        if (w<320) w=320;
+        if (h<200) h=200;
         
         // Which is the bounding scale?
         var scale = 1;
@@ -267,9 +270,11 @@
             scale = scale_h;
             thescreen.width  = round(h*1.6, 0); // To maintain 1.6 aspect ratio like on the C64
             thescreen.height = h;
-        }        
+        }
+        
+
+        
         context.scale(scale,scale);
-        console.log('Desktop scale = ' + scale);
     }
     
     repaint();
