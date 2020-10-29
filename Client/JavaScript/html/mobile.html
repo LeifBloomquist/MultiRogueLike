@@ -3,49 +3,54 @@
 
 <title>(Mobile) Dungeon of the Rogue Daemon</title>
 
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
 <head>
   <link rel="stylesheet" href="rogue.css">
   
   <style>
-    .mbutton 
+    .movebutton 
     {
       background-color: gray;  /* Green #4CAF50; */
       border: none;
       color: white;
-      padding: 15px 32px;
+      border-radius: 4px;      
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      width: 30%;
-      height: 50px;      
+      font-size: 5vw;
+      margin: 1px 2px 2px 1px;
+      width: 16vw;
+      height: 16vw;
     }
     
-    .abutton 
+    .avatarbutton 
     {
       background-color: gray; 
       border: none;
-      color: white;
-      padding: 5px 10px;
+      border-radius: 4px;
+      color: white;      
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 14px;
-      margin: 4px 2px;
-      width: 100px;
-      height: 50px;
+      font-size: 5vw;
+      margin: 2px 2px 10px 2px;
+      width: 20vw;
+      height: 20vw;
     }
     
-    .menu-container {        
+    .menu-container 
+    {
         vertical-align:top;
-        width: 100%;
+        width: 95vw;
+        padding: 0px 0px 0px 0px;
     }    
     
-    .button-container {        
+    .button-container 
+    {
         vertical-align:top;
         display: inline-block;
-        border: 1px solid grey;
+        border: 1px solid grey;         
     }
   </style>
 </head>
@@ -62,58 +67,58 @@
 
  <div id="all" style="display:none;">
     <div id="main">
-        <div class="menu-container" style="vertical-align:top;">
-            <div class="button-container" style="background:#300000; width:330px;">
+        <div class="menu-container" style="vertical-align:top; ">
+            <div class="button-container" style="background:#300000; width:56vw;">
                <p>Move/Attack</p>
-               <button class="mbutton" onclick="sendKey('q')">NW</button>
-               <button class="mbutton" onclick="sendKey('w')">N</button>
-               <button class="mbutton" onclick="sendKey('e')">NE</button>
-               <button class="mbutton" onclick="sendKey('a')">W</button>
-               <button class="mbutton" id ="move" onclick="toggleMove()" style="background:#4CAF50;">Move</button>
-               <button class="mbutton" onclick="sendKey('d')">E</button>
-               <button class="mbutton" onclick="sendKey('z')">SW</button>
-               <button class="mbutton" onclick="sendKey('x')">S</button>
-               <button class="mbutton" onclick="sendKey('c')">SE</button>
+               <button class="movebutton" onclick="sendKey('q')">NW</button>
+               <button class="movebutton" onclick="sendKey('w')">N</button>
+               <button class="movebutton" onclick="sendKey('e')">NE</button>
+               <button class="movebutton" onclick="sendKey('a')">W</button>
+               <button class="movebutton" id ="move" onclick="toggleMove()" style="background:#4CAF50;">Move</button>
+               <button class="movebutton" onclick="sendKey('d')">E</button>
+               <button class="movebutton" onclick="sendKey('z')">SW</button>
+               <button class="movebutton" onclick="sendKey('x')">S</button>
+               <button class="movebutton" onclick="sendKey('c')">SE</button>
             </div>
-            <div class="button-container" style="background:#003000; width:140px;">
-              <p>Left Hand</p>
-              <button class="abutton"onclick="sendKey('j')">Pick Up</button>   
-              <button class="abutton"onclick="sendKey('n')">Drop</button>
-              <button class="abutton"onclick="Use(1)">Use</button>    
+            <div class="button-container" style="background:#003000; width:17vw;">
+              <p>Left</p>
+              <button class="movebutton" onclick="sendKey('j')">Pick Up</button>   
+              <button class="movebutton" onclick="sendKey('n')">Drop</button>
+              <button class="movebutton" onclick="Use(1)">Use</button>    
             </div>    
-            <div class="button-container" style="background:#003030; width:140px;">
-              <p>Right Hand</p>
-              <button class="abutton" onclick="sendKey('k')">Pick Up</button>   
-              <button class="abutton" onclick="sendKey('m')">Drop</button>
-              <button class="abutton" onclick="Use(2)">Use</button>     
+            <div class="button-container" style="background:#003030; width:17vw;">
+              <p>Right</p>
+              <button class="movebutton" onclick="sendKey('k')">Pick Up</button>   
+              <button class="movebutton" onclick="sendKey('m')">Drop</button>
+              <button class="movebutton" onclick="Use(2)">Use</button>     
             </div>
         </div>
 
-        <div class="button-container" style="vertical-align:top; background:#000030; width:450px;">
-           <p style="float:left;">&nbsp;&nbsp;Item Currently Seen:&nbsp;</p>
-           <button class="abutton"onclick="Examine(0)">Inspect</button>
-           <button class="abutton" onclick="Use(0)">Use</button>
+        <div class="button-container" style="vertical-align:top; background:#000030; width:92vw;">
+           <p style="float:left;">&nbsp Currently Seen:&nbsp;</p>
+           <button class="movebutton" style=" width:23vw;" onclick="Examine(0)">Inspect</button>
+           <button class="movebutton" style=" width:23vw;" onclick="Use(0)">Use</button>
         </div>
     </div>
 
     <div id="avatar">
         <div class="menu-container" style="vertical-align:top;">
-            <div class="button-container" style="background:#303000; width:600px;">
+            <div class="button-container" style="background:#303000; width:100%; height: 100%;">
                <p>Choose Avatar</p>
-               <button class="abutton" onclick="sendKey('1')">1</button>
-               <button class="abutton" onclick="sendKey('2')">2</button>
-               <button class="abutton" onclick="sendKey('3')">3</button>
-               <button class="abutton" onclick="sendKey('4')">4</button>
+               <button class="avatarbutton" onclick="sendKey('1')">1</button>
+               <button class="avatarbutton" onclick="sendKey('2')">2</button>
+               <button class="avatarbutton" onclick="sendKey('3')">3</button>
+               <button class="avatarbutton" onclick="sendKey('4')">4</button>               
             </div>
         </div>
     </div>
 
     <div id="gameover">
         <div class="menu-container" style="vertical-align:top;">
-            <div class="button-container" style="background:#303030; width:600px;">
+            <div class="button-container" style="background:#303030; width:100%;  height: 100%;">
                <p>Play Again?</p>
-               <button class="abutton" onclick="sendKey('y')">Y</button>
-               <button class="abutton" onclick="sendKey('n')">N</button>
+               <button class="avatarbutton" onclick="sendKey('y')">Y</button>
+               <button class="avatarbutton" onclick="sendKey('n')">N</button>
             </div>
         </div>
     </div>
@@ -148,12 +153,12 @@ function controlButtons(byteArray)
 {
     showSingleDiv("all");
 
-    if (byteArray[66] == 49) {   // Choosing Avatar    
+    if (byteArray[66] == 49) {          // Choosing Avatar    
         showSingleDiv("avatar");    
     } else if (byteArray[246] == 89) {  // Dead
         showSingleDiv("gameover");
     } else {
-        showSingleDiv("main");
+        showSingleDiv("main");          // Main Game Controls
     }
 }
 
@@ -190,5 +195,3 @@ function sendKey(key) {
 }
 
 </script>
-
-
