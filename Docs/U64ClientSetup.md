@@ -1,6 +1,6 @@
 # Ultimate 64 Client Setup Instructions 
 
-*This version is specific to the [Ultimate 64 from Gideon's Logic](https://ultimate64.com/).  It also works on the 1541 Ultimate-II+ cartridge* 
+*This version is specific to the [Ultimate 64 or 1541 Ultimate-II+ cartridge from Gideon's Logic](https://ultimate64.com/).* 
 
 1. Download the client PRG from [here](https://bit.ly/33ePtce)
 
