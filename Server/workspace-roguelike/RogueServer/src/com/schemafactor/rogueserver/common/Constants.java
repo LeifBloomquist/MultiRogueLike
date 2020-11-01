@@ -9,7 +9,7 @@ public class Constants
     public static final int TICK_TIME         = 50;     // milliseconds
     public static final int DUNGEON_SIZE      = 100;    // Per Side  (Mini Server to start!  TODO go back to 1000)
     public static final int DUNGEON_DEPTH     = 4;      // Levels
-    public static final long DOOR_RELOCK_TIME = 30000;  // 30 seconds
+    public static final long DOOR_RELOCK_TIME = 10000;  // 10 seconds
     public static final float CLIENT_ACTION_TIME_LIMIT = 50f;  // 50 milliseconds
         
     // Network Constants
