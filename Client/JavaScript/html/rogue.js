@@ -167,24 +167,48 @@
    {
       var key = event.which;
 
-      switch (key)
+      if (!event.shiftKey) // Move
       {
-        case 37:
-           moveWest();
-           break;
+          switch (key)
+          {
+            case 37:
+               sendCommand("a".charCodeAt(0));
+               break;
 
-        case 38:
-           moveNorth();
-           break;
+            case 38:
+               sendCommand("w".charCodeAt(0));
+               break;
 
-        case 39:
-           moveEast();
-           break;
+            case 39:
+               sendCommand("d".charCodeAt(0));
+               break;
 
-        case 40:
-           moveSouth();
-           break;
-     }
+            case 40:
+               sendCommand("x".charCodeAt(0));
+               break;
+         }
+      }
+      else  // Attack
+      {
+          switch (key)
+          {
+            case 37:
+               sendCommand("A".charCodeAt(0));
+               break;
+
+            case 38:
+               sendCommand("W".charCodeAt(0));
+               break;
+
+            case 39:
+               sendCommand("D".charCodeAt(0));
+               break;
+
+            case 40:
+               sendCommand("X".charCodeAt(0));
+               break;
+         }
+      }
   };
 
   function Use(hand)
