@@ -44,6 +44,47 @@ void color(byte color)
 	printf("%c", color);
 }
 
+void exit_uci_error(void) {
+	POKEW(BORDER, 2);
+	printf(
+		"%c"
+		"\005WARNING:\233 Turn on \005Command Interface\233\n"
+		"\243\243\243\243\243\243\243\243\243\243\243\243\243"
+		"\243\243\243\243\243\243\243\243\243\243\243\243\243"
+		"\243\243\243\243\243\243\243\243\n"
+		"\n"
+		"1. Enter Ultimate's menu, press F2,\n"
+		"   go to \005C64 and cartridge settings\233\n"
+		"\n"
+		"2. Go to \005Cartridge\233 and set\n"
+		"   it to \005None\233 using Cursor Keys\n"
+		"\n"
+		"3. Go to \005Command Interface\233 and set\n"
+		"   it to \005Enabled\233 using Cursor Keys\n"
+		"\n"
+		"4. Press \005RUN/STOP\233 twice and \005reboot\233\n"
+		"   your computer (turn it off and on)\n\n"
+		"\n"
+		"You have to do these steps \005once\233. Then\n"
+		"\005reload RogueBoot\233 and run it.\n"
+		"\243\243\243\243\243\243\243\243\243\243"
+		"\243\243\243\243\243\243\n"
+		, 147
+	);
+	exit(1);
+}
+
+#pragma optimize (push,off)
+void detect_uci(void) {
+	asm("lda $df1d");
+	asm("cmp #$c9");
+	asm("bne %g", nointerface);
+	asm("rts");
+nointerface:
+	asm("jmp %v", exit_uci_error);
+}
+#pragma optimize (pop)
+
 int get_uii_status()
 {
 	int status = -1;
@@ -71,11 +112,13 @@ void main(void)
 	unsigned address = LOAD;
 
 	clear_screen();
-	POKEW(BORDER, 0);
+	POKEW(BORDER, 0);     // Border and Screen
 	POKE(0x0291, 128);    // Disable Shift-C=
 
 	color(CG_YEL);
-	printf("Ultimate 64 Rogue Bootloader %c2.0\n\n", CG_BLU);
+	printf("Ultimate 64 Rogue Bootloader %c2.1\n\n", CG_BLU);
+
+	detect_uci();
 
 	if (uii_isdataavailable())
 	{
@@ -175,7 +218,7 @@ void main(void)
 	}
 
 	// Save bootloader version if needed
-	asm("lda #20"); // decimal 2.0
+	asm("lda #21"); // decimal 2.1
 	asm("sta $CFFF");
 
 	// Start downloaded code

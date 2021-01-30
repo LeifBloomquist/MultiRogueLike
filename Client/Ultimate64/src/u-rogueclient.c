@@ -432,7 +432,7 @@ void player_login()
 	printf("                   Press F1 for Keys\n\n");
 	
 	color(CG_LGN);
-	printf("Login: ");
+	printf("Name? ");
 
 	color(CG_WHT);
 	text_input(name, NAME_LENGTH);
