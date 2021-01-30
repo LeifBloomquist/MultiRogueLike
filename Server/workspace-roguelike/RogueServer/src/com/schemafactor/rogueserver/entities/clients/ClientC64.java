@@ -15,10 +15,10 @@ import com.schemafactor.rogueserver.universe.Dungeon;
 public class ClientC64 extends Client
 {         
    /** Creates a new instance of C64 Client from UDP Packet (i.e. C64 with CS8900) */
-   public ClientC64(byte[] data, InetAddress address)
+   public ClientC64(String description, byte[] data, InetAddress address)
    {
        // Random starting positions on Level 0 for multiple players  TODO
-       super("C64 Client", new Position(5,5,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
+       super(description, new Position(5,5,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
 
        userIP = address;       
        receiveUpdate(data);

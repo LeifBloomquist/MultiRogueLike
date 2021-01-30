@@ -14,13 +14,12 @@ import com.schemafactor.rogueserver.entities.Entity;
 
 public class MagicKey extends Key
 {    
-
 	private static final long serialVersionUID = 1L;
 	
 	Container home = null;
     Timer timer = new Timer();
     
-    /** Creates a new instance of Key */
+    /** Creates a new instance of MagicKey */
     public MagicKey(String description, Position whichDoor, Container home)
     {
        super(description, whichDoor); 
@@ -49,15 +48,21 @@ public class MagicKey extends Key
            
            if (home != null)
            {
-               entity.forceDrop(this);        // Remove from player's inventory
-               home.setContainedItem(this);   // Return home
-               
-               JavaTools.printlnTime("DEBUG: Magic Key " + description + " returned home");
+        	   synchronized(this)
+        	   {
+	               entity.forceDrop(this);        // Remove from player's inventory
+	               home.setContainedItem(this);   // Return home	               
+        	   }
+        	   JavaTools.printlnTime("DEBUG: Magic Key " + description + " returned home");
            }
+           else
+           {
+        	   JavaTools.printlnTime("DEBUG: Magic Key " + description + " home==null?");
+           }       
        }  
        else
        {
-           JavaTools.printlnTime("DEBUG: Magic Key " + description + " unlock door FAILED!");
+           //JavaTools.printlnTime("DEBUG: Magic Key " + description + " unlock door FAILED!");
        }
        
        return success;
@@ -66,6 +71,6 @@ public class MagicKey extends Key
     public void relock()
     {        
         door.setAttributes(Constants.CHAR_DOOR_CLOSED);
-        JavaTools.printlnTime("DEBUG: Magic Key " + description + " relocked door");
+        //JavaTools.printlnTime("DEBUG: Magic Key " + description + " relocked door");
     }
 }

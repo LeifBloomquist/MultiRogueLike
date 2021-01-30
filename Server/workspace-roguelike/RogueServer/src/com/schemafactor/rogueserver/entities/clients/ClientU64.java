@@ -17,7 +17,7 @@ public class ClientU64 extends ClientC64
    /** Creates a new instance of C64 Client from TCP Connection (i.e. Ultimate 64) */
    public ClientU64(byte[] data, DataOutputStream output)
    {          
-       super(data, null);
+       super("U64 Client", data, null);
        this.output = output;
        
        sendUpdatePacket(getMessagesByteArray(), true);  // Since output is null in the super() call above...

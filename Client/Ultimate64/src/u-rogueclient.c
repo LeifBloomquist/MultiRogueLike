@@ -328,9 +328,15 @@ void handle_packet(byte *uii_data_recvd)
 }
 
 void network_init()
-{
+{    
 	int status = 0;
+    
+#ifndef LOCAL_TEST
 	char *host = "rogue.jammingsignal.com";
+#else
+    char *host = "192.168.7.14";
+#warning  "Building for test server"
+#endif
 
 	clear_screen();
 	color(CG_YEL);

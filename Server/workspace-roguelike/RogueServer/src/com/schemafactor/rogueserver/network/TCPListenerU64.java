@@ -16,7 +16,7 @@ import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.entities.clients.ClientU64;
 import com.schemafactor.rogueserver.universe.Dungeon;
 
-// TODO, this class shares a ton of code with TCPListenerU64, refactor!
+// TODO, this class shares a ton of code with TCPListener, refactor!
 
 public class TCPListenerU64 extends Thread
 {
@@ -210,7 +210,7 @@ public class TCPListenerU64 extends Thread
             } 
             catch (IOException e) 
             {
-                JavaTools.printlnTime("EXCEPTION in TCP U64 Listener" + e.getMessage());
+                JavaTools.printlnTime("EXCEPTION in TCP U64 Listener: " + e.getMessage());
             }
             finally 
             {
@@ -224,6 +224,8 @@ public class TCPListenerU64 extends Thread
             while (true)
             {             
                 int ic = input.read();  // Blocks
+                
+                JavaTools.printlnTime( "DEBUG, U64 received " + ic + " from "  +who.getDescription() );
                 
                 if (ic < 0)
                 {
