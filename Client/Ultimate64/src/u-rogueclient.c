@@ -422,7 +422,7 @@ void player_login()
 
 	clear_screen();
 	color(CG_RED);
-	printf("Rogue Version 0.005 for Ultimate 64\n\n");	
+	printf("Rogue Version 0.006 for Ultimate 64\n\n");	
 	printf("%cConcept+Game Code: %cLeif Bloomquist\n\n", CG_LBL, CG_WHT);
 	printf("%cNetworking Code:   %cScott Hutter\n\n", CG_LBL, CG_WHT);
 	printf("%cContributors:      %cRobin Harbron\n", CG_LBL, CG_WHT);

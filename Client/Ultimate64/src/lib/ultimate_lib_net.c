@@ -128,6 +128,12 @@ void uii_accept(void)
 {
 	// Acknowledge the data
 	*controlreg |= 0x02;
+    
+    // Wait for ACK to the ACK...New for U64 Firmware 1.37
+    while ( !(*statusreg & 2) == 0 )  
+    {
+        ;
+	};
 }
 
 int uii_isdataavailable(void)
@@ -347,7 +353,7 @@ unsigned int uii_tcpsocketread_opt()
 	}
 
 	// Acknowledge the data
-	*controlreg |= 0x02;
+	uii_accept();
 
 	return count - 2;
 }
