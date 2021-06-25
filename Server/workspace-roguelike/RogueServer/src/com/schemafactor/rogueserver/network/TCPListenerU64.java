@@ -225,8 +225,6 @@ public class TCPListenerU64 extends Thread
             {             
                 int ic = input.read();  // Blocks
                 
-                JavaTools.printlnTime( "DEBUG, U64 received " + ic + " from "  +who.getDescription() );
-                
                 if (ic < 0)
                 {
                     JavaTools.printlnTime( "TCP connection from " + clientSocket.getRemoteSocketAddress().toString() + " terminated waiting for input." );

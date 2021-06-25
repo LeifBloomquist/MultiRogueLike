@@ -86,7 +86,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\..\..\Tools\cc65\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Leif\GitHub\ultimateii-dos-lib\src;..\..\..\..\Tools\cc65\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
