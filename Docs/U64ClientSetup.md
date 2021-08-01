@@ -6,14 +6,14 @@
 
 2. Write the client to the Ultimate 64.  It is standalone, it can be run from the main filesystem or inside a D64.
 
-3. **The U64/UII+ must be configured to have no virtual cartridges attached.**  
+3. **The U64/UII+ must be configured as follows:**
+    * The Ultimate Command Interface must be Enabled. 
+    * No virtual cartridges attached.
+    * Network settings as usual, DHCP is fine.
+    * (For Ultimate 64 only) Set Turbo Control to Manual, 8 MHz.   **PLEASE NOTE** With U64 firmware 3.10 this value cannot be over 8 MHz or the game will lock!
 
-4. **The Ultimate Command Interface must be Enabled.**  
+    **It's recommended to Save this configuration (via F5 menu) for future use.**
 
-5. Configure the U64 network settings as usual, DHCP is fine.
+4. Run the **u64-rogueboot.prg** file from the Ultimate 64 File menu.  It will download the rest of the game and start automatically.  Login when prompted.
 
-6. Setting the virtual CPU to 48 MHz will download the game faster and make the network inferface slightly more responsive.
-
-7. Run the **u64-rogueboot.prg** file from the Ultimate 64 File menu.  It will download the rest of the game and start automatically.  Login when prompted.
-
-8. Have fun and explore! The good stuff starts on the second level...
+5. Have fun and explore! The good stuff starts on the second level...
