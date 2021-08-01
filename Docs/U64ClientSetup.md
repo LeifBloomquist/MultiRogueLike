@@ -4,7 +4,7 @@
 
 1. Download the client **u64-rogueboot.prg** file from [here](https://bit.ly/33ePtce)  
 
-2. Write the client to the Ultimate 64.  It is standalone, it can be run from the main filesystem or inside a D64.
+2. Transfer the client to the Ultimate 64 (using USB/FTP/etc).  It is standalone, it can be run from the main filesystem or inside a D64.
 
 3. **The U64/UII+ must be configured as follows:**
     * The Ultimate Command Interface must be Enabled. 
@@ -14,6 +14,6 @@
 
     **It's recommended to Save this configuration (via F5 menu) for future use.**
 
-4. Run the **u64-rogueboot.prg** file from the Ultimate 64 File menu.  It will download the rest of the game and start automatically.  Login when prompted.
+4. Load the above configuration, then run the **u64-rogueboot.prg** file from the Ultimate 64 File menu.  It will download the rest of the game and start automatically.  Login when prompted.
 
 5. Have fun and explore! The good stuff starts on the second level...
