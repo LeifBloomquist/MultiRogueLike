@@ -1,5 +1,5 @@
 ;------------------------------------------------------------------------
-; Vortex II Bootloader Source Code
+; Rogue 64 Bootloader Source Code
 
 ; -------------------------------------------------------------------------
 ; Includes
@@ -59,7 +59,7 @@ init:
 
 main: 
   ; Save bootloader version if needed
-  lda #12     ; decimal 1.2             
+  lda #13     ; decimal 1.3
   sta $CFFF
 
   jmp $6000
@@ -157,12 +157,12 @@ saveax:
 ; Network Constants and Data  
   
 TFTP_SERVER_IP:
-  .byte 208,79,218,201    ; Vortex VPS  
+  .byte 45,114,227,35    ; Rogue VPS  
 
    
 NETWORKMESSAGE:
   .byte 147, CG_LCS, CG_DCS, CG_GR3
-  .byte "rOGUE nETWORK bOOTLOADER 1.2",13
+  .byte "rOGUE nETWORK bOOTLOADER 1.3",13
   .byte "fORWARD udp pORT 3000 TO YOUR c64",13,13
   .byte CG_LBL
   .byte 0

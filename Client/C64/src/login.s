@@ -46,7 +46,7 @@ login:
 
 TITLEMESSAGE:
   .byte 147, CG_LCS, CG_DCS, CG_RED
-  .byte "rOGUE vERSION 0.007", 13, 13
+  .byte "rOGUE vERSION 0.008", 13, 13
   .byte CG_LBL, "cONCEPT+gAME cODE: ", CG_WHT, "lEIF bLOOMQUIST", 13, 13
   .byte CG_LBL, "nETWORKING cODE:   ", CG_WHT, "jONNO dOWNES", 13
   .byte CG_LBL, "                   ", CG_WHT, "pER oLOFSSON", 13, 13
@@ -69,7 +69,7 @@ STATIONPROMPT:
   .byte 0
   
 LOGINPROMPT:  
-  .byte " ", 13, 13, CG_LGN, "lOGIN: ", CG_WHT
+  .byte " ", 13, 13, CG_LGN, "nAME? ", CG_WHT
   .byte 0
 
 ; EOF!

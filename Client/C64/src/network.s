@@ -200,7 +200,7 @@ gameupdate:
   
 SERVER_IP:
 ; .byte 192,168,5,2       ; Raspberry Pi
-  .byte 208,79,218,201    ; Vortex VPS  
+  .byte 45,114,227,35     ; Rogue VPS  
 ; .byte 192,168,7,14      ; Dev Laptop
   
 SERVER_PORT = 3006
