@@ -151,22 +151,13 @@ else
 endif
 
 # --------------------------------------------------------------------------
-# Lists of executables
+# Lists of subdirectories
 
-EXELIST_c64 =      \
-        ascii      \
-        enumdevdir \
-        fire       \
-        gunzip65   \
-        hello      \
-        mandelbrot \
-        mousedemo  \
-        multdemo   \
-        nachtm     \
-        ovrldemo   \
-        plasma     \
-        sieve      \
-        tgidemo
+# disasm depends on cpp
+DIRLIST = tutorial geos
+
+# --------------------------------------------------------------------------
+# Lists of executables
 
 EXELIST_apple2 =   \
         ascii      \
@@ -198,9 +189,142 @@ EXELIST_atarixl = $(EXELIST_atari)
 
 EXELIST_atari2600 = \
         atari2600hello
-        
+
+EXELIST_atari5200 = \
+        notavailable
+
+EXELIST_atmos =    \
+        ascii      \
+        hello      \
+        mandelbrot \
+        sieve
+
+EXELIST_bbc = \
+        notavailable
+
+EXELIST_c64 =      \
+        ascii      \
+        enumdevdir \
+        fire       \
+        gunzip65   \
+        hello      \
+        mandelbrot \
+        mousedemo  \
+        multdemo   \
+        nachtm     \
+        ovrldemo   \
+        plasma     \
+        sieve      \
+        tgidemo
+
+EXELIST_c128 =     \
+        ascii      \
+        enumdevdir \
+        fire       \
+        gunzip65   \
+        hello      \
+        mandelbrot \
+        mousedemo  \
+        nachtm     \
+        plasma     \
+        sieve      \
+        tgidemo
+
+EXELIST_c16 =      \
+        ascii      \
+        enumdevdir \
+        hello
+
+EXELIST_cbm510 =   \
+        ascii      \
+        fire       \
+        gunzip65   \
+        hello      \
+        mousedemo  \
+        nachtm     \
+        plasma     \
+        sieve
+
+EXELIST_cbm610 =   \
+        ascii      \
+        gunzip65   \
+        hello      \
+        nachtm     \
+        sieve
+
+EXELIST_creativision = \
+        ascii          \
+        hello
+
+EXELIST_cx16 =     \
+        ascii      \
+        enumdevdir \
+        gunzip65   \
+        hello      \
+        mandelbrot \
+        mousedemo  \
+        sieve      \
+        tgidemo
+
+EXELIST_gamate =   \
+        hello
+
+EXELIST_geos-cbm = \
+        ascii      \
+        diodemo
+
+EXELIST_geos-apple = \
+        ascii
+
+EXELIST_lunix = \
+        notavailable
+
+EXELIST_lynx = \
+        notavailable
+
+EXELIST_nes = \
+        hello
+
+EXELIST_osic1p = \
+        notavailable
+
+EXELIST_pce = \
+        hello
+
+EXELIST_pet =      \
+        ascii      \
+        enumdevdir \
+        hello      \
+        sieve
+
+EXELIST_plus4 =    \
+        ascii      \
+        enumdevdir \
+        gunzip65   \
+        hello      \
+        plasma     \
+        sieve
+
+EXELIST_sim6502 =  \
+        gunzip65
+
+EXELIST_sim65c02 = $(EXELIST_sim6502)
+
 EXELIST_supervision = \
         supervisionhello
+
+EXELIST_telestrat = \
+        ascii       \
+        gunzip65    \
+        hello
+
+EXELIST_vic20 =    \
+        ascii      \
+        enumdevdir \
+        hello      \
+        mandelbrot \
+        sieve      \
+        tgidemo
 
 # Unlisted targets will try to build everything.
 # That lets us learn what they cannot build, and what settings
@@ -209,10 +333,23 @@ ifndef EXELIST_$(SYS)
 EXELIST_$(SYS) := ${patsubst %.c,%,$(wildcard *.c)}
 endif
 
+define SUBDIR_recipe
+
+@$(MAKE) -C $(dir) --no-print-directory $@
+
+endef # SUBDIR_recipe
+
 # --------------------------------------------------------------------------
 # Rules to make the binaries and the disk
 
 samples: $(EXELIST_$(SYS))
+	$(foreach dir,$(DIRLIST),$(SUBDIR_recipe))
+
+# empty target used to skip systems that will not work with any program in this dir
+notavailable:
+ifeq ($(MAKELEVEL),0)
+	@echo "info: generic samples not available for" $(SYS)
+endif
 
 disk: $(DISK_$(SYS))
 
@@ -248,17 +385,23 @@ endif
 # Rule to make a CBM disk with all samples. Needs the c1541 program that comes
 # with the VICE emulator.
 
-define D64_WRITE_recipe
+define D64_WRITE_PRG_recipe
 
-$(C1541) -attach $@ -write "$(subst ?,$(SPACE),$(file))" $(notdir $(file)) >$(NULLDEV)
+$(C1541) -attach $@ -write "$(subst ?,$(SPACE),$(file))" $(notdir $(file)),p >$(NULLDEV)
 
-endef # D64_WRITE_recipe
+endef # D64_WRITE_PRG_recipe
+
+define D64_WRITE_SEQ_recipe
+
+$(C1541) -attach $@ -write "$(subst ?,$(SPACE),$(file))" $(notdir $(file)),s >$(NULLDEV)
+
+endef # D64_WRITE_SEQ_recipe
 
 samples.d64: samples
 	@$(C1541) -format samples,AA d64 $@ >$(NULLDEV)
-	$(foreach file,$(EXELIST_$(SYS)),$(D64_WRITE_recipe))
-	$(foreach file,$(OVERLAYLIST),$(D64_WRITE_recipe))
-	$(foreach file,$(EMD) $(MOU) $(TGI),$(D64_WRITE_recipe))
+	$(foreach file,$(EXELIST_$(SYS)),$(D64_WRITE_PRG_recipe))
+	$(foreach file,$(OVERLAYLIST),$(D64_WRITE_PRG_recipe))
+	$(foreach file,$(EMD) $(MOU) $(TGI),$(D64_WRITE_SEQ_recipe))
 
 # --------------------------------------------------------------------------
 # Rule to make an Apple II disk with all samples. Needs the AppleCommander
@@ -318,7 +461,7 @@ install:
 	$(INSTALL) -d $(DESTDIR)$(samplesdir)/geos
 	$(INSTALL) -d $(DESTDIR)$(samplesdir)/tutorial
 	$(INSTALL) -m0644 *.* $(DESTDIR)$(samplesdir)
-	$(INSTALL) -m0644 README $(DESTDIR)$(samplesdir)
+	$(INSTALL) -m0644 readme.txt $(DESTDIR)$(samplesdir)
 	$(INSTALL) -m0644 Makefile $(DESTDIR)$(samplesdir)
 	$(INSTALL) -m0644 geos/*.* $(DESTDIR)$(samplesdir)/geos
 	$(INSTALL) -m0644 tutorial/*.* $(DESTDIR)$(samplesdir)/tutorial
@@ -338,3 +481,4 @@ mostlyclean:
 clean: mostlyclean
 	@$(DEL) $(EXELIST_$(SYS)) $(DISK_$(SYS)) 2>$(NULLDEV)
 	@$(DEL) multdemo.? ovrldemo.? 2>$(NULLDEV)
+	$(foreach dir,$(DIRLIST),$(SUBDIR_recipe))

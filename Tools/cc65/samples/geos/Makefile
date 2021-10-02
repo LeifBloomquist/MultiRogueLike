@@ -3,6 +3,19 @@
 # var. to build for another target system.
 SYS ?= geos-cbm
 
+# If SYS was given on the commandline, redirect "c64" to "geos-cbm" and
+# "apple2enh" to "geos-apple"
+ifeq ($(origin SYS),command line)
+  ifeq ($(SYS),c64)
+    override SYS = geos-cbm
+    $(info GEOS: c64 -> geos-cbm)
+  endif
+  ifeq ($(SYS),apple2enh)
+    override SYS = geos-apple
+    $(info GEOS: apple2enh -> geos-apple)
+  endif
+endif
+
 # Just the usual way to find out if we're
 # using cmd.exe to execute make rules.
 ifneq ($(shell echo),)
@@ -26,18 +39,56 @@ ifdef CC65_HOME
   LD = $(CC65_HOME)/bin/ld65
   SP = $(CC65_HOME)/bin/sp65
 else
-  AS := $(if $(wildcard ../bin/ca65*),../bin/ca65,ca65)
-  CC := $(if $(wildcard ../bin/cc65*),../bin/cc65,cc65)
-  CL := $(if $(wildcard ../bin/cl65*),../bin/cl65,cl65)
-  LD := $(if $(wildcard ../bin/ld65*),../bin/ld65,ld65)
-  SP := $(if $(wildcard ../bin/sp65*),../bin/sp65,sp65)
+  AS := $(if $(wildcard ../../bin/ca65*),../../bin/ca65,ca65)
+  CC := $(if $(wildcard ../../bin/cc65*),../../bin/cc65,cc65)
+  CL := $(if $(wildcard ../../bin/cl65*),../../bin/cl65,cl65)
+  LD := $(if $(wildcard ../../bin/ld65*),../../bin/ld65,ld65)
+  SP := $(if $(wildcard ../../bin/sp65*),../../bin/sp65,sp65)
 endif 
 
-# omitted: dialog.c grphstr.c inittab.c menu.c
+DIRLIST = grc
 
+define SUBDIR_recipe
+
+@$(MAKE) SYS=$(SYS) -C $(dir) --no-print-directory $@
+
+endef # SUBDIR_recipe
+
+EXELIST_geos-cbm = \
+	bitmap-demo.cvt \
+	filesel.cvt \
+	geosver.cvt \
+	getid.cvt \
+	hello1.cvt \
+	hello2.cvt \
+	overlay-demo.cvt \
+	vector-demo.cvt \
+	yesno.cvt
+
+EXELIST_geos-apple = \
+	bitmap-demo.cvt \
+	filesel.cvt \
+	hello1.cvt \
+	hello2.cvt \
+	overlay-demo.cvt \
+	vector-demo.cvt \
+	yesno.cvt
+
+# omitted: dialog.c grphstr.c inittab.c menu.c
 # TODO: geosconio.cvt rmvprot.cvt
-all: bitmap-demo.cvt filesel.cvt geosver.cvt getid.cvt hello1.cvt hello2.cvt \
-	overlay-demo.cvt vector-demo.cvt yesno.cvt
+
+ifneq ($(EXELIST_$(SYS)),)
+samples: $(EXELIST_$(SYS))
+	$(foreach dir,$(DIRLIST),$(SUBDIR_recipe))
+else
+samples:
+  ifeq ($(MAKELEVEL),0)
+	@echo "info: geos samples not available for" $(SYS)
+  else
+# suppress the "nothing to be done for 'samples' message
+	@echo > $(NULLDEV)
+  endif
+endif
 
 bitmap.c: logo.pcx
 	$(SP) -r logo.pcx -c geos-bitmap -w bitmap.c,ident=bitmap
@@ -77,6 +128,8 @@ yesno.cvt: yesnores.grc yesno.c
 
 	
 clean:
-	$(RM) bitmap.c
-	$(RM) *.cvt
-	$(RM) *.map
+	@$(DEL) overlay-demores.h 2>$(NULLDEV)
+	@$(DEL) bitmap.c 2>$(NULLDEV)
+	@$(DEL) *.cvt 2>$(NULLDEV)
+	@$(DEL) *.map 2>$(NULLDEV)
+	$(foreach dir,$(DIRLIST),$(SUBDIR_recipe))

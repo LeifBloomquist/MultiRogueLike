@@ -12,8 +12,9 @@
 <A HREF="mailto:uz@cc65.org">Ullrich von Bassewitz</A>,<BR>
 <A HREF="mailto:gregdk@users.sf.net">Greg King</A></H2>
 <HR>
-<EM>cc65 is a C compiler for 6502 targets. It supports several 6502 based home
-computers like the Commodore and Atari machines, but it is easily retargetable.</EM>
+<EM>cc65 is a C compiler for 6502 targets. It supports several 6502-based home
+computers such as the Commodore and Atari machines, but it easily is
+retargetable.</EM>
 <HR>
 <P>
 <H2><A NAME="toc1">1.</A> <A HREF="cc65.html#s1">Overview</A></H2>
@@ -42,17 +43,17 @@ computers like the Commodore and Atari machines, but it is easily retargetable.<
 
 <UL>
 <LI><A NAME="toc7.1">7.1</A> <A HREF="cc65.html#ss7.1"><CODE>#pragma allow-eager-inline ([push,] on|off)</CODE></A>
-<LI><A NAME="toc7.2">7.2</A> <A HREF="cc65.html#ss7.2"><CODE>#pragma bss-name ([push,] &lt;name&gt;)</CODE></A>
+<LI><A NAME="toc7.2">7.2</A> <A HREF="cc65.html#ss7.2"><CODE>#pragma bss-name ([push, ]&lt;name>[ ,&lt;addrsize>])</CODE></A>
 <LI><A NAME="toc7.3">7.3</A> <A HREF="cc65.html#ss7.3"><CODE>#pragma charmap (&lt;index&gt;, &lt;code&gt;)</CODE></A>
 <LI><A NAME="toc7.4">7.4</A> <A HREF="cc65.html#ss7.4"><CODE>#pragma check-stack ([push,] on|off)</CODE></A>
-<LI><A NAME="toc7.5">7.5</A> <A HREF="cc65.html#ss7.5"><CODE>#pragma code-name ([push,] &lt;name&gt;)</CODE></A>
+<LI><A NAME="toc7.5">7.5</A> <A HREF="cc65.html#ss7.5"><CODE>#pragma code-name ([push, ]&lt;name>[ ,&lt;addrsize>])</CODE></A>
 <LI><A NAME="toc7.6">7.6</A> <A HREF="cc65.html#ss7.6"><CODE>#pragma codesize ([push,] &lt;int&gt;)</CODE></A>
-<LI><A NAME="toc7.7">7.7</A> <A HREF="cc65.html#ss7.7"><CODE>#pragma data-name ([push,] &lt;name&gt;)</CODE></A>
+<LI><A NAME="toc7.7">7.7</A> <A HREF="cc65.html#ss7.7"><CODE>#pragma data-name ([push, ]&lt;name>[ ,&lt;addrsize>])</CODE></A>
 <LI><A NAME="toc7.8">7.8</A> <A HREF="cc65.html#ss7.8"><CODE>#pragma inline-stdfuncs ([push,] on|off)</CODE></A>
 <LI><A NAME="toc7.9">7.9</A> <A HREF="cc65.html#ss7.9"><CODE>#pragma local-strings ([push,] on|off)</CODE></A>
 <LI><A NAME="toc7.10">7.10</A> <A HREF="cc65.html#ss7.10"><CODE>#pragma message (&lt;message&gt;)</CODE></A>
 <LI><A NAME="toc7.11">7.11</A> <A HREF="cc65.html#ss7.11"><CODE>#pragma optimize ([push,] on|off)</CODE></A>
-<LI><A NAME="toc7.12">7.12</A> <A HREF="cc65.html#ss7.12"><CODE>#pragma rodata-name ([push,] &lt;name&gt;)</CODE></A>
+<LI><A NAME="toc7.12">7.12</A> <A HREF="cc65.html#ss7.12"><CODE>#pragma rodata-name ([push, ]&lt;name>[ ,&lt;addrsize>])</CODE></A>
 <LI><A NAME="toc7.13">7.13</A> <A HREF="cc65.html#ss7.13"><CODE>#pragma regvaraddr ([push,] on|off)</CODE></A>
 <LI><A NAME="toc7.14">7.14</A> <A HREF="cc65.html#ss7.14"><CODE>#pragma register-vars ([push,] on|off)</CODE></A>
 <LI><A NAME="toc7.15">7.15</A> <A HREF="cc65.html#ss7.15"><CODE>#pragma signed-chars ([push,] on|off)</CODE></A>
@@ -487,10 +488,10 @@ the source file.</P>
 <DT><B><CODE>-Cl, --static-locals</CODE></B><DD>
 <P>Use static storage for local variables instead of storage on the stack.
 Since the stack is emulated in software, this gives shorter and usually
-faster code, but the code is no longer reentrant. The difference between
-<CODE>-Cl</CODE> and declaring local variables as static yourself is, that
-initializer code is executed each time, the function is entered. So when
-using</P>
+faster code, but the code is no longer reentrant as required for recursion.
+The difference between <CODE>-Cl</CODE> and declaring local variables as static
+yourself is, that initializer code is executed each time, the function is
+entered. So when using</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -582,14 +583,26 @@ is enabled.</P>
 <P>Treat all warnings as errors.</P>
 <DT><B><CODE>no-effect</CODE></B><DD>
 <P>Warn about statements that don't have an effect.</P>
+<DT><B><CODE>pointer-sign</CODE></B><DD>
+<P>Warn if a pointer assignment changes the signedness of the target
+of a pointer value, and the new signedness wasn't cast explicitly.</P>
+<DT><B><CODE>pointer-types</CODE></B><DD>
+<P>Warn if a pointer assignment changes the type of the target
+of a pointer value, and the new type wasn't cast explicitly.</P>
 <DT><B><CODE>remap-zero</CODE></B><DD>
 <P>Warn about a <CODE>
 <A HREF="#pragma-charmap">#pragma charmap()</A></CODE>
 that changes a character's code number from/to 0x00.</P>
+<DT><B><CODE>return-type</CODE></B><DD>
+<P>Warn about no return statement in function returning non-void.</P>
 <DT><B><CODE>struct-param</CODE></B><DD>
 <P>Warn when passing structs by value.</P>
 <DT><B><CODE>unknown-pragma</CODE></B><DD>
 <P>Warn about #pragmas that aren't recognized by cc65.</P>
+<DT><B><CODE>unreachable-code</CODE></B><DD>
+<P>Warn about unreachable code in cases of comparing constants, etc.</P>
+<DT><B><CODE>unused-func</CODE></B><DD>
+<P>Warn about unused functions.</P>
 <DT><B><CODE>unused-label</CODE></B><DD>
 <P>Warn about unused labels.</P>
 <DT><B><CODE>unused-param</CODE></B><DD>
@@ -788,12 +801,13 @@ places.
 
 
 </LI>
-<LI>  There are two pseudo variables named <CODE>__AX__</CODE> and <CODE>__EAX__</CODE>.
-Both refer to the primary register that is used by the compiler to
-evaluate expressions or return function results. <CODE>__AX__</CODE> is of
-type <CODE>unsigned int</CODE> and <CODE>__EAX__</CODE> of type <CODE>long unsigned int</CODE>
-respectively. The pseudo variables may be used as lvalue and rvalue as
-every other variable. They are most useful together with short
+<LI>  There are three pseudo variables named <CODE>__A__</CODE>, <CODE>__AX__</CODE> and
+<CODE>__EAX__</CODE>. They all refer to the primary register that is used
+by the compiler to evaluate expressions or return function results.
+<CODE>__A__</CODE> is of type <CODE>unsigned char</CODE>, <CODE>__AX__</CODE> is of type
+<CODE>unsigned int</CODE> and <CODE>__EAX__</CODE> of type <CODE>long unsigned int</CODE>
+respectively. The pseudo variables may be used as lvalue and rvalue
+as every other variable. They are most useful together with short
 sequences of assembler code. For example, the macro
 
 <BLOCKQUOTE><CODE>
@@ -1133,25 +1147,38 @@ eager inlining of known functions if inlining of standard functions is enabled.<
 <P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
 
 
-<H2><A NAME="pragma-bss-name"></A> <A NAME="ss7.2">7.2</A> <A HREF="#toc7.2"><CODE>#pragma bss-name ([push,] &lt;name&gt;)</CODE></A>
+<H2><A NAME="pragma-bss-name"></A> <A NAME="ss7.2">7.2</A> <A HREF="#toc7.2"><CODE>#pragma bss-name ([push, ]&lt;name>[ ,&lt;addrsize>])</CODE></A>
 </H2>
 
 
-<P>This pragma changes the name used for the BSS segment (the BSS segment
-is used to store variables with static storage duration and no explicit
-initializer). The argument is a string enclosed in double quotes.</P>
-<P>Note: The default linker configuration file does only map the standard
-segments. If you use other segments, you have to create a new linker
-configuration file.</P>
-<P>Beware: The startup code will zero only the default BSS segment. If you
-use another BSS segment, you have to do that yourself, otherwise
-variables with static storage duration and no explicit initializer will
-not have the value zero.</P>
-<P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
-<P>Example:
+<P>This pragma changes the name used for the BSS segment (the BSS segment is
+used to store variables with static storage duration and no explicit
+initializers). The <CODE>name</CODE> argument is a string enclosed in quotation
+marks.</P>
+<P><CODE>addrsize</CODE> is an optional string that gives a hint about where the
+<CODE>name</CODE> segment will be put in the CPU's address space.  It describes the
+width of address numbers that point into that segment.  Only words that
+are known to ca65 are allowed:
+<OL>
+<LI>"zp", "zeropage", "direct"</LI>
+<LI>"abs", "absolute", "near", "default"</LI>
+<LI>"far"</LI>
+<LI>"long", "dword"</LI>
+</OL>
+</P>
+<P>Note: The default linker configuration file maps only the standard segments.
+If you use other segments, you must create a new linker configuration file.</P>
+<P>Beware: The start-up code will zero only the default BSS segment. If you use
+another BSS segment, then you must do that yourself; otherwise, variables
+with static storage duration and no explicit initializer will not have the
+value zero.</P>
+<P>The <CODE>#pragma</CODE> understands the push and pop parameters, as explained above.</P>
+<P>Examples:
 <BLOCKQUOTE><CODE>
 <PRE>
-        #pragma bss-name ("MyBSS")
+  #pragma bss-name ("MyBSS")
+  #pragma bss-name (push, "MyBSS")
+  #pragma bss-name ("MyBSS", "zp")
   
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -1214,21 +1241,33 @@ they're enabled.</P>
 <P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
 
 
-<H2><A NAME="pragma-code-name"></A> <A NAME="ss7.5">7.5</A> <A HREF="#toc7.5"><CODE>#pragma code-name ([push,] &lt;name&gt;)</CODE></A>
+<H2><A NAME="pragma-code-name"></A> <A NAME="ss7.5">7.5</A> <A HREF="#toc7.5"><CODE>#pragma code-name ([push, ]&lt;name>[ ,&lt;addrsize>])</CODE></A>
 </H2>
 
 
-<P>This pragma changes the name used for the CODE segment (the CODE segment
-is used to store executable code). The argument is a string enclosed in
-double quotes.</P>
-<P>Note: The default linker configuration file does only map the standard
-segments. If you use other segments, you have to create a new linker
-configuration file.</P>
-<P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
-<P>Example:
+<P>This pragma changes the name used for the CODE segment (the CODE segment is
+used to store executable code). The <CODE>name</CODE> argument is a string enclosed
+in quotation marks.</P>
+<P><CODE>addrsize</CODE> is an optional string that gives a hint about where the
+<CODE>name</CODE> segment will be put in the CPU's address space.  It describes the
+width of address numbers that point into that segment.  Only words that
+are known to ca65 are allowed:
+<OL>
+<LI>"zp", "zeropage", "direct"</LI>
+<LI>"abs", "absolute", "near", "default"</LI>
+<LI>"far"</LI>
+<LI>"long", "dword"</LI>
+</OL>
+</P>
+<P>Note: The default linker configuration file maps only the standard segments.
+If you use other segments, you must create a new linker configuration file.</P>
+<P>The <CODE>#pragma</CODE> understands the push and pop parameters, as explained above.</P>
+<P>Examples:
 <BLOCKQUOTE><CODE>
 <PRE>
-        #pragma code-name ("MyCODE")
+  #pragma code-name ("MyCODE")
+  #pragma code-name (push, "MyCODE")
+  #pragma code-name (push, "MyCODE", "far")
   
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -1246,21 +1285,33 @@ generation and optimization phase. It gives the allowed size increase factor
 <P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
 
 
-<H2><A NAME="pragma-data-name"></A> <A NAME="ss7.7">7.7</A> <A HREF="#toc7.7"><CODE>#pragma data-name ([push,] &lt;name&gt;)</CODE></A>
+<H2><A NAME="pragma-data-name"></A> <A NAME="ss7.7">7.7</A> <A HREF="#toc7.7"><CODE>#pragma data-name ([push, ]&lt;name>[ ,&lt;addrsize>])</CODE></A>
 </H2>
 
 
-<P>This pragma changes the name used for the DATA segment (the DATA segment
-is used to store initialized data). The argument is a string enclosed in
-double quotes.</P>
-<P>Note: The default linker configuration file does only map the standard
-segments. If you use other segments, you have to create a new linker
-configuration file.</P>
-<P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
-<P>Example:
+<P>This pragma changes the name used for the DATA segment (the DATA segment is
+used to store initialized data). The <CODE>name</CODE> argument is a string enclosed
+in quotation marks.</P>
+<P><CODE>addrsize</CODE> is an optional string that gives a hint about where the
+<CODE>name</CODE> segment will be put in the CPU's address space.  It describes the
+width of address numbers that point into that segment.  Only words that
+are known to ca65 are allowed:
+<OL>
+<LI>"zp", "zeropage", "direct"</LI>
+<LI>"abs", "absolute", "near", "default"</LI>
+<LI>"far"</LI>
+<LI>"long", "dword"</LI>
+</OL>
+</P>
+<P>Note: The default linker configuration file maps only the standard segments.
+If you use other segments, you must create a new linker configuration file.</P>
+<P>The <CODE>#pragma</CODE> understands the push and pop parameters, as explained above.</P>
+<P>Examples:
 <BLOCKQUOTE><CODE>
 <PRE>
-        #pragma data-name ("MyDATA")
+  #pragma data-name ("MyDATA")
+  #pragma data-name (push, "MyDATA")
+  #pragma data-name ("MyDATA", "zeropage")
   
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -1333,21 +1384,32 @@ determine if the generated code is optimized or not.</P>
 <P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
 
 
-<H2><A NAME="pragma-rodata-name"></A> <A NAME="ss7.12">7.12</A> <A HREF="#toc7.12"><CODE>#pragma rodata-name ([push,] &lt;name&gt;)</CODE></A>
+<H2><A NAME="pragma-rodata-name"></A> <A NAME="ss7.12">7.12</A> <A HREF="#toc7.12"><CODE>#pragma rodata-name ([push, ]&lt;name>[ ,&lt;addrsize>])</CODE></A>
 </H2>
 
 
-<P>This pragma changes the name used for the RODATA segment (the RODATA
-segment is used to store readonly data). The argument is a string
-enclosed in double quotes.</P>
-<P>Note: The default linker configuration file does only map the standard
-segments. If you use other segments, you have to create a new linker
-configuration file.</P>
-<P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
-<P>Example:
+<P>This pragma changes the name used for the RODATA segment (the RODATA segment
+is used to store read-only data). The <CODE>name</CODE> argument is a string enclosed
+in quotation marks.</P>
+<P><CODE>addrsize</CODE> is an optional string that gives a hint about where the
+<CODE>name</CODE> segment will be put in the CPU's address space.  It describes the
+width of address numbers that point into that segment.  Only words that
+are known to ca65 are allowed:
+<OL>
+<LI>"zp", "zeropage", "direct"</LI>
+<LI>"abs", "absolute", "near", "default"</LI>
+<LI>"far"</LI>
+<LI>"long", "dword"</LI>
+</OL>
+</P>
+<P>Note: The default linker configuration file maps only the standard segments.
+If you use other segments, you must create a new linker configuration file.</P>
+<P>The <CODE>#pragma</CODE> understands the push and pop parameters, as explained above.</P>
+<P>Examples:
 <BLOCKQUOTE><CODE>
 <PRE>
-        #pragma rodata-name ("MyRODATA")
+  #pragma rodata-name ("MyRODATA")
+  #pragma rodata-name (push, "MyRODATA")
   
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -1452,7 +1514,14 @@ It must preserve the CPU's <CODE>A</CODE> and <CODE>X</CODE> registers if it wra
 <CODE>__fastcall__</CODE> functions that have parameters.  It must preserve
 the <CODE>Y</CODE> register if it wraps any variadic functions (they have "<CODE>...</CODE>"
 in their prototypes).</P>
-<P>The identifier is an 8-bit number that's set into <CODE>tmp4</CODE>.</P>
+<P>The identifier is an 8-bit number that's set into <CODE>tmp4</CODE>. If the identifier
+is "bank", then ca65's <CODE>
+<A HREF="ca65.html#.BANK">.bank</A></CODE> function will be used
+to determine the number from the bank attribute defined in the linker config,
+see 
+<A HREF="ld65.html#MEMORY">Other MEMORY area attributes</A>. Note that
+this currently implies that only the least significant 8 bits of the bank attribute
+can be used.</P>
 <P>The address of a wrapped function is passed in <CODE>ptr4</CODE>.  The wrapper can
 call that function by using "<CODE>jsr callptr4</CODE>".</P>
 <P>This feature is useful, for example, with banked memory, to switch banks
