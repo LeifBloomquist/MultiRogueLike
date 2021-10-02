@@ -377,135 +377,135 @@ ac_size (arp.o):
 arp_add (arp.o):
 arp_cache (arp.o):
 arp_calculate_gateway_mask (arp.o):
-    dhcp.o                    dhcp.s(29)
+    dhcp.o                    dhcp.s:29
 arp_init (arp.o):
-    ip65.o                    ip65.s(23)
+    ip65.o                    ip65.s:23
 arp_ip (arp.o):
-    ip.o                      ip.s(48)
+    ip.o                      ip.s:48
 arp_lookup (arp.o):
-    ip.o                      ip.s(46)
+    ip.o                      ip.s:46
 arp_mac (arp.o):
-    ip.o                      ip.s(47)
+    ip.o                      ip.s:47
 arp_process (arp.o):
-    ip65.o                    ip65.s(32)
+    ip65.o                    ip65.s:32
 ascii_to_native (petscii_charconv.o):
-    rogue.o                   ip65/inc/commonprint.i(32)
+    rogue.o                   ip65/inc/commonprint.i:32
 beep (c64print.o):
 cfg_default_drive (config.o):
 cfg_dns (config.o):
-    dhcp.o                    dhcp.s(27)
+    dhcp.o                    dhcp.s:27
 cfg_gateway (config.o):
-    arp.o                     arp.s(28)
-    dhcp.o                    dhcp.s(26)
+    arp.o                     arp.s:28
+    dhcp.o                    dhcp.s:26
 cfg_get_configuration_ptr (config.o):
-    rogue.o                   ip65/inc/net.i(14)
+    rogue.o                   ip65/inc/net.i:14
 cfg_init (config.o):
-    ip65.o                    ip65.s(19)
+    ip65.o                    ip65.s:19
 cfg_ip (config.o):
-    arp.o                     arp.s(26)
-    udp.o                     udp.s(54)
-    ip.o                      ip.s(30)
-    dhcp.o                    dhcp.s(24)
+    arp.o                     arp.s:26
+    udp.o                     udp.s:54
+    ip.o                      ip.s:30
+    dhcp.o                    dhcp.s:24
 cfg_mac (config.o):
-    cs8900a.o                 cs8900a.s(35)
-    arp.o                     arp.s(25)
-    eth.o                     eth.s(21)
-    ip.o                      ip.s(29)
-    dhcp.o                    dhcp.s(23)
+    cs8900a.o                 cs8900a.s:35
+    arp.o                     arp.s:25
+    eth.o                     eth.s:21
+    ip.o                      ip.s:29
+    dhcp.o                    dhcp.s:23
 cfg_mac_default (config.o):
-    rogue.o                   login.s(5)
+    rogue.o                   login.s:5
 cfg_netmask (config.o):
-    arp.o                     arp.s(27)
-    dhcp.o                    dhcp.s(25)
+    arp.o                     arp.s:27
+    dhcp.o                    dhcp.s:25
 cfg_size (config.o):
 cfg_tftp_server (config.o):
-    rogue.o                   ip65/inc/commonprint.i(38)
+    rogue.o                   ip65/inc/commonprint.i:38
 check_for_abort_key (c64inputs.o):
-    dhcp.o                    dhcp.s(49)
+    dhcp.o                    dhcp.s:49
 cls (c64print.o):
 copy_dest (copymem.o):
-    udp.o                     udp.s(52)
-    config.o                  config.s(21)
+    udp.o                     udp.s:52
+    config.o                  config.s:21
 copy_src (copymem.o):
-    c64inputs.o               c64inputs.s(11)
-    udp.o                     udp.s(51)
-    ip.o                      ip.s(60)
-    config.o                  config.s(20)
-    rogue.o                   ip65/inc/commonprint.i(37)
+    c64inputs.o               c64inputs.s:11
+    udp.o                     udp.s:51
+    ip.o                      ip.s:60
+    config.o                  config.s:20
+    rogue.o                   ip65/inc/commonprint.i:37
 copymem (copymem.o):
-    udp.o                     udp.s(50)
-    config.o                  config.s(19)
+    udp.o                     udp.s:50
+    config.o                  config.s:19
 cs_init (rr-net.o):
-    cs8900a.o                 cs8900a.s(28)
+    cs8900a.o                 cs8900a.s:28
 cs_packet_data (rr-net.o):
-    cs8900a.o                 cs8900a.s(30)
+    cs8900a.o                 cs8900a.s:30
 cs_packet_page (rr-net.o):
-    cs8900a.o                 cs8900a.s(29)
+    cs8900a.o                 cs8900a.s:29
 cs_rxtx_data (rr-net.o):
-    cs8900a.o                 cs8900a.s(31)
+    cs8900a.o                 cs8900a.s:31
 cs_tx_cmd (rr-net.o):
-    cs8900a.o                 cs8900a.s(32)
+    cs8900a.o                 cs8900a.s:32
 cs_tx_len (rr-net.o):
-    cs8900a.o                 cs8900a.s(33)
+    cs8900a.o                 cs8900a.s:33
 default_screen (rogue.o):
 dhcp_init (dhcp.o):
-    rogue.o                   ip65/inc/net.i(11)
+    rogue.o                   ip65/inc/net.i:11
 dhcp_msg (rogue.o):
 dhcp_server (config.o):
-    dhcp.o                    dhcp.s(19)
+    dhcp.o                    dhcp.s:19
 dhcp_state (dhcp.o):
 dns_server_msg (rogue.o):
 eth_data (eth.o):
-    ip.o                      ip.s(42)
+    ip.o                      ip.s:42
 eth_dest (eth.o):
-    ip.o                      ip.s(39)
+    ip.o                      ip.s:39
 eth_driver_io_base (rr-net.o):
-    rogue.o                   ip65/inc/commonprint.i(36)
+    rogue.o                   ip65/inc/commonprint.i:36
 eth_driver_name (rr-net.o):
-    rogue.o                   ip65/inc/commonprint.i(35)
+    rogue.o                   ip65/inc/commonprint.i:35
 eth_init (cs8900a.o):
-    ip65.o                    ip65.s(21)
+    ip65.o                    ip65.s:21
 eth_inp (eth.o):
-    cs8900a.o                 cs8900a.s(18)
-    arp.o                     arp.s(15)
-    icmp.o                    icmp.s(52)
-    ip.o                      ip.s(34)
-    ip65.o                    ip65.s(27)
+    cs8900a.o                 cs8900a.s:18
+    arp.o                     arp.s:15
+    icmp.o                    icmp.s:52
+    ip.o                      ip.s:34
+    ip65.o                    ip65.s:27
 eth_inp_len (eth.o):
-    cs8900a.o                 cs8900a.s(19)
-    icmp.o                    icmp.s(53)
-    ip.o                      ip.s(35)
+    cs8900a.o                 cs8900a.s:19
+    icmp.o                    icmp.s:53
+    ip.o                      ip.s:35
 eth_outp (eth.o):
-    cs8900a.o                 cs8900a.s(20)
-    arp.o                     arp.s(17)
-    icmp.o                    icmp.s(54)
-    ip.o                      ip.s(36)
-    ip65.o                    ip65.s(28)
+    cs8900a.o                 cs8900a.s:20
+    arp.o                     arp.s:17
+    icmp.o                    icmp.s:54
+    ip.o                      ip.s:36
+    ip65.o                    ip65.s:28
 eth_outp_len (eth.o):
-    cs8900a.o                 cs8900a.s(21)
-    arp.o                     arp.s(18)
-    icmp.o                    icmp.s(55)
-    ip.o                      ip.s(37)
+    cs8900a.o                 cs8900a.s:21
+    arp.o                     arp.s:18
+    icmp.o                    icmp.s:55
+    ip.o                      ip.s:37
 eth_proto_arp (eth.o):
-    arp.o                     arp.s(23)
-    ip65.o                    ip65.s(34)
+    arp.o                     arp.s:23
+    ip65.o                    ip65.s:34
 eth_proto_ip (eth.o):
-    ip.o                      ip.s(43)
+    ip.o                      ip.s:43
 eth_rx (cs8900a.o):
-    ip65.o                    ip65.s(29)
+    ip65.o                    ip65.s:29
 eth_set_broadcast_dest (eth.o):
-    arp.o                     arp.s(20)
+    arp.o                     arp.s:20
 eth_set_my_mac_src (eth.o):
-    arp.o                     arp.s(21)
+    arp.o                     arp.s:21
 eth_set_proto (eth.o):
-    arp.o                     arp.s(22)
-    ip.o                      ip.s(33)
+    arp.o                     arp.s:22
+    ip.o                      ip.s:33
 eth_src (eth.o):
-    ip.o                      ip.s(40)
+    ip.o                      ip.s:40
 eth_tx (cs8900a.o):
-    arp.o                     arp.s(19)
-    icmp.o                    icmp.s(51)
-    ip.o                      ip.s(32)
+    arp.o                     arp.s:19
+    icmp.o                    icmp.s:51
+    ip.o                      ip.s:32
 eth_type (eth.o):
 failed_msg (rogue.o):
 filter_dns (c64inputs.o):
@@ -525,12 +525,12 @@ icmp_code (icmp.o):
 icmp_data (icmp.o):
 icmp_echo_ip (icmp.o):
 icmp_init (icmp.o):
-    ip.o                      ip.s(50)
+    ip.o                      ip.s:50
 icmp_inp (icmp.o):
 icmp_outp (icmp.o):
 icmp_ping (icmp.o):
 icmp_process (icmp.o):
-    ip.o                      ip.s(51)
+    ip.o                      ip.s:51
 icmp_remove_listener (icmp.o):
 icmp_send_echo (icmp.o):
 icmp_type (icmp.o):
@@ -539,68 +539,68 @@ ip65_ctr (ip65.o):
 ip65_ctr_arp (ip65.o):
 ip65_ctr_ip (ip65.o):
 ip65_error (ip65.o):
-    cs8900a.o                 cs8900a.s(37)
-    udp.o                     udp.s(11)
-    icmp.o                    icmp.s(33)
-    dhcp.o                    dhcp.s(22)
-    rogue.o                   ip65/inc/commonprint.i(28)
+    cs8900a.o                 cs8900a.s:37
+    udp.o                     udp.s:11
+    icmp.o                    icmp.s:33
+    dhcp.o                    dhcp.s:22
+    rogue.o                   ip65/inc/commonprint.i:28
 ip65_init (ip65.o):
-    rogue.o                   ip65/inc/net.i(1)
+    rogue.o                   ip65/inc/net.i:1
 ip65_process (ip65.o):
-    c64inputs.o               c64inputs.s(13)
-    icmp.o                    icmp.s(32)
-    dhcp.o                    dhcp.s(31)
-    rogue.o                   ip65/inc/net.i(2)
+    c64inputs.o               c64inputs.s:13
+    icmp.o                    icmp.s:32
+    dhcp.o                    dhcp.s:31
+    rogue.o                   ip65/inc/net.i:2
 ip65_random_word (ip65.o):
 ip_address_msg (rogue.o):
 ip_broadcast (ip.o):
-    icmp.o                    icmp.s(38)
+    icmp.o                    icmp.s:38
 ip_calc_cksum (ip.o):
-    udp.o                     udp.s(35)
-    icmp.o                    icmp.s(35)
+    udp.o                     udp.s:35
+    icmp.o                    icmp.s:35
 ip_cksum_ptr (ip.o):
-    udp.o                     udp.s(40)
-    icmp.o                    icmp.s(44)
+    udp.o                     udp.s:40
+    icmp.o                    icmp.s:44
 ip_create_packet (ip.o):
-    udp.o                     udp.s(37)
-    icmp.o                    icmp.s(40)
+    udp.o                     udp.s:37
+    icmp.o                    icmp.s:40
 ip_data (ip.o):
-    udp.o                     udp.s(44)
-    icmp.o                    icmp.s(48)
+    udp.o                     udp.s:44
+    icmp.o                    icmp.s:48
 ip_dest (ip.o):
-    udp.o                     udp.s(43)
-    icmp.o                    icmp.s(47)
+    udp.o                     udp.s:43
+    icmp.o                    icmp.s:47
 ip_frag (ip.o):
 ip_header_cksum (ip.o):
-    icmp.o                    icmp.s(45)
+    icmp.o                    icmp.s:45
 ip_id (ip.o):
-    udp.o                     udp.s(47)
+    udp.o                     udp.s:47
 ip_init (ip.o):
-    ip65.o                    ip65.s(24)
+    ip65.o                    ip65.s:24
 ip_inp (ip.o):
-    udp.o                     udp.s(38)
-    icmp.o                    icmp.s(36)
+    udp.o                     udp.s:38
+    icmp.o                    icmp.s:36
 ip_len (ip.o):
-    udp.o                     udp.s(48)
-    icmp.o                    icmp.s(49)
+    udp.o                     udp.s:48
+    icmp.o                    icmp.s:49
 ip_outp (ip.o):
-    udp.o                     udp.s(39)
-    icmp.o                    icmp.s(37)
+    udp.o                     udp.s:39
+    icmp.o                    icmp.s:37
 ip_process (ip.o):
-    ip65.o                    ip65.s(31)
+    ip65.o                    ip65.s:31
 ip_proto (ip.o):
-    udp.o                     udp.s(45)
-    icmp.o                    icmp.s(41)
+    udp.o                     udp.s:45
+    icmp.o                    icmp.s:41
 ip_proto_icmp (ip.o):
-    icmp.o                    icmp.s(42)
+    icmp.o                    icmp.s:42
 ip_proto_tcp (ip.o):
 ip_proto_udp (ip.o):
-    udp.o                     udp.s(46)
+    udp.o                     udp.s:46
 ip_send (ip.o):
-    udp.o                     udp.s(36)
-    icmp.o                    icmp.s(39)
+    udp.o                     udp.s:36
+    icmp.o                    icmp.s:39
 ip_src (ip.o):
-    icmp.o                    icmp.s(46)
+    icmp.o                    icmp.s:46
 ip_tos (ip.o):
 ip_ttl (ip.o):
 ip_ver_ihl (ip.o):
@@ -609,15 +609,15 @@ native_to_ascii (petscii_charconv.o):
 netmask_msg (rogue.o):
 ok_msg (rogue.o):
 output_buffer (output_buffer.o):
-    dhcp.o                    dhcp.s(43)
+    dhcp.o                    dhcp.s:43
 press_a_key_to_continue (rogue.o):
 print (rogue.o):
 print_a (c64print.o):
-    rogue.o                   ip65/inc/commonprint.i(88)
+    rogue.o                   ip65/inc/commonprint.i:88
 print_a_inverse (c64print.o):
 print_ascii_as_native (rogue.o):
 print_cr (c64print.o):
-    rogue.o                   ip65/inc/commonprint.i(89)
+    rogue.o                   ip65/inc/commonprint.i:89
 print_dotted_quad (rogue.o):
 print_errorcode (rogue.o):
 print_hex (rogue.o):
@@ -627,54 +627,54 @@ screen_current_col (c64print.o):
 screen_current_row (c64print.o):
 tftp_server_msg (rogue.o):
 timer_init (c64timer.o):
-    ip65.o                    ip65.s(22)
+    ip65.o                    ip65.s:22
 timer_read (c64timer.o):
-    arp.o                     arp.s(30)
-    timer.o                   timer.s(13)
-    icmp.o                    icmp.s(56)
-    dhcp.o                    dhcp.s(50)
-    ip65.o                    ip65.s(25)
+    arp.o                     arp.s:30
+    timer.o                   timer.s:13
+    icmp.o                    icmp.s:56
+    dhcp.o                    dhcp.s:50
+    ip65.o                    ip65.s:25
 timer_seconds (c64timer.o):
 timer_timeout (timer.o):
-    arp.o                     arp.s(31)
-    icmp.o                    icmp.s(57)
+    arp.o                     arp.s:31
+    icmp.o                    icmp.s:57
 udp_add_listener (udp.o):
-    dhcp.o                    dhcp.s(33)
-    rogue.o                   network.s(25)
+    dhcp.o                    dhcp.s:33
+    rogue.o                   network.s:25
 udp_callback (udp.o):
-    dhcp.o                    dhcp.s(36)
-    rogue.o                   network.s(26)
+    dhcp.o                    dhcp.s:36
+    rogue.o                   network.s:26
 udp_cksum (udp.o):
 udp_data (udp.o):
-    dhcp.o                    dhcp.s(41)
-    rogue.o                   network.s(29)
+    dhcp.o                    dhcp.s:41
+    rogue.o                   network.s:29
 udp_dest_port (udp.o):
 udp_init (udp.o):
-    ip.o                      ip.s(53)
-    rogue.o                   network.s(18)
+    ip.o                      ip.s:53
+    rogue.o                   network.s:18
 udp_inp (udp.o):
-    dhcp.o                    dhcp.s(39)
-    rogue.o                   network.s(28)
+    dhcp.o                    dhcp.s:39
+    rogue.o                   network.s:28
 udp_len (udp.o):
 udp_outp (udp.o):
 udp_process (udp.o):
-    ip.o                      ip.s(54)
+    ip.o                      ip.s:54
 udp_remove_listener (udp.o):
-    dhcp.o                    dhcp.s(34)
+    dhcp.o                    dhcp.s:34
 udp_send (udp.o):
-    dhcp.o                    dhcp.s(37)
-    rogue.o                   network.s(19)
+    dhcp.o                    dhcp.s:37
+    rogue.o                   network.s:19
 udp_send_dest (udp.o):
-    dhcp.o                    dhcp.s(45)
-    rogue.o                   network.s(20)
+    dhcp.o                    dhcp.s:45
+    rogue.o                   network.s:20
 udp_send_dest_port (udp.o):
-    dhcp.o                    dhcp.s(47)
-    rogue.o                   network.s(21)
+    dhcp.o                    dhcp.s:47
+    rogue.o                   network.s:21
 udp_send_len (udp.o):
-    dhcp.o                    dhcp.s(48)
-    rogue.o                   network.s(23)
+    dhcp.o                    dhcp.s:48
+    rogue.o                   network.s:23
 udp_send_src_port (udp.o):
-    dhcp.o                    dhcp.s(46)
-    rogue.o                   network.s(22)
+    dhcp.o                    dhcp.s:46
+    rogue.o                   network.s:22
 udp_src_port (udp.o):
 

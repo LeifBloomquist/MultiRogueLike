@@ -6,4 +6,4 @@
 choice /c yn /n /m "Run on Ultimate64 Yes, No?"
 if %ERRORLEVEL% == 2 exit /b
 
-u64remote 192.168.7.64 run target\u64-rogueboot.prg
+..\..\..\Ultimate64\Executable\u64remote 192.168.7.64 run target\u64-rogueboot.prg
