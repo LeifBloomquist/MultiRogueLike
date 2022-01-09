@@ -10,9 +10,9 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.EscapeSequences;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.NonBlockingFixedSizeQueue;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 public abstract class Client extends Entity
 {        

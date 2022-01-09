@@ -1,4 +1,4 @@
-package com.schemafactor.rogueserver.universe;
+package com.schemafactor.rogueserver.dungeon;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

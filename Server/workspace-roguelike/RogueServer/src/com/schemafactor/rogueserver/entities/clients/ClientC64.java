@@ -10,7 +10,7 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.common.Position;
-import com.schemafactor.rogueserver.universe.Dungeon;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 
 public class ClientC64 extends Client
 {         

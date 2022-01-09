@@ -6,12 +6,12 @@ import java.util.concurrent.TimeUnit;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.network.WebSocketListener;
 import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.TCPListenerU64;
 import com.schemafactor.rogueserver.network.UDPListener;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Main 
 {

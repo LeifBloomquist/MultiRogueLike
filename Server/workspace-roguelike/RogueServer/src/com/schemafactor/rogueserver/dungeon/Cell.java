@@ -1,4 +1,4 @@
-package com.schemafactor.rogueserver.universe;
+package com.schemafactor.rogueserver.dungeon;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.interfaces.Container;

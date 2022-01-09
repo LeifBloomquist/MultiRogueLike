@@ -1,4 +1,4 @@
-package com.schemafactor.rogueserver.universe;
+package com.schemafactor.rogueserver.dungeon;
 
 import java.awt.Color;
 import java.io.File;

@@ -5,8 +5,8 @@ import java.util.List;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Bat extends Monster
 {  

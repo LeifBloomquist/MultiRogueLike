@@ -2,7 +2,7 @@ package com.schemafactor.rogueserver.common;
 
 import java.nio.charset.StandardCharsets;
 
-import com.schemafactor.rogueserver.universe.Dungeon;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 
 public class PETSCII
 {  

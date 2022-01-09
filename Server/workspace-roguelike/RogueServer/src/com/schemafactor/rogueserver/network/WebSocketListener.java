@@ -11,9 +11,9 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.clients.ClientWebSocket;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class WebSocketListener extends WebSocketServer
 {

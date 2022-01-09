@@ -10,6 +10,8 @@ import java.util.List;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.common.interfaces.Rechargeable;
+import com.schemafactor.rogueserver.dungeon.Cell;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
 import com.schemafactor.rogueserver.entities.monsters.Bat;
@@ -30,8 +32,6 @@ import com.schemafactor.rogueserver.items.Ring;
 import com.schemafactor.rogueserver.items.Shield;
 import com.schemafactor.rogueserver.items.Sign;
 import com.schemafactor.rogueserver.items.Sword;
-import com.schemafactor.rogueserver.universe.Cell;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class Spawner
 {

@@ -12,9 +12,9 @@ import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.PETSCII;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.entities.clients.ClientU64;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 // TODO, this class shares a ton of code with TCPListener, refactor!
 

@@ -8,10 +8,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.clients.ClientTelnet;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.EscapeSequences;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 public class TCPListener extends Thread
 {

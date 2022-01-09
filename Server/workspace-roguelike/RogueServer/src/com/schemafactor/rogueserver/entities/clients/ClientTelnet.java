@@ -11,7 +11,7 @@ import com.schemafactor.rogueserver.common.ExtendedAscii;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.PETSCII;
 import com.schemafactor.rogueserver.common.Position;
-import com.schemafactor.rogueserver.universe.Dungeon;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 
 public class ClientTelnet extends Client
 {   

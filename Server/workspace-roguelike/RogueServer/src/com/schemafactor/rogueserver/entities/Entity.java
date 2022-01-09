@@ -6,9 +6,9 @@ import java.util.List;
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.dungeon.Cell;
+import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.items.Item;
-import com.schemafactor.rogueserver.universe.Cell;
-import com.schemafactor.rogueserver.universe.Dungeon;
 
 public abstract class Entity implements java.io.Serializable
 {
