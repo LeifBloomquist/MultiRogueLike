@@ -268,7 +268,7 @@ public abstract class Client extends Entity
                return;
            
            default:
-               JavaTools.printlnTime("DEBUG: Invalid command " + inputchar + " from " + description);
+               //JavaTools.printlnTime("DEBUG: Invalid command " + inputchar + " from " + description);
                return;
        }
    }

@@ -77,7 +77,7 @@ public class ClientU64 extends ClientC64
        
        if (elapsed.toMillis() < U64_THROTTLE_TIME)  // 
        {
-    	   JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
+    	   //JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
     	   return;
        }       
        

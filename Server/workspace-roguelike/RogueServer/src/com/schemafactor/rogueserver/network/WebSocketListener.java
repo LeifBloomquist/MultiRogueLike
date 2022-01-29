@@ -61,8 +61,10 @@ public class WebSocketListener extends WebSocketServer
     @Override
     public void onError(WebSocket conn, Exception ex)
     {
-        JavaTools.printlnTime("WebSocket EXCEPTION from: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );
-        JavaTools.printlnTime("WebSocket EXCEPTION: " + ex.getMessage() );
+    	JavaTools.printlnTime("WebSocket EXCEPTION !");
+    	JavaTools.printlnTime("WebSocket EXCEPTION: " + ex.getMessage() );
+    	JavaTools.printlnTime("WebSocket EXCEPTION conn=" + conn.toString());
+        JavaTools.printlnTime("WebSocket EXCEPTION from: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );        
     }
 
     @Override
@@ -93,6 +95,14 @@ public class WebSocketListener extends WebSocketServer
     private void parseMessage(WebSocket conn, byte[] message)
     {
         ClientWebSocket which = findClient(conn);
+        
+        if (which == null)
+        { 
+        	JavaTools.printlnTime("WebSocket error - can't find client from connection");
+        	JavaTools.printlnTime("WebSocket unknown conn = " + conn.toString() );
+        	return;
+        }
+    	
         which.receiveUpdate(message);
     }
 }

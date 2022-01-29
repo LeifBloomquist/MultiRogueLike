@@ -724,16 +724,20 @@ public abstract class Entity implements java.io.Serializable
     }
 
     // Forcibly drop (remove) items from inventory
-    public void forceDrop(Item magicitem)
+    // Returns true on success (item was held), false if failure (item didn't match)
+    public boolean forceDrop(Item magicitem)
     {
         if (magicitem.equals(item_left))
         {
             item_left = null;
+            return true;
         }
         
         if (magicitem.equals(item_right))
         {
             item_right = null;
+            return true;
         }
+        return false;
     }   
 }

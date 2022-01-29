@@ -35,6 +35,8 @@ public class MagicKey extends Key
        {
            JavaTools.printlnTime("DEBUG: Magic Key " + description + " unlocked door");
           
+           // Start the countdown timer to relock the door
+           
            TimerTask closeDoorTask = new TimerTask() 
            {
                @Override
@@ -44,16 +46,43 @@ public class MagicKey extends Key
                }
            };
           
-           timer.schedule(closeDoorTask, Constants.DOOR_RELOCK_TIME); 
+           timer.schedule(closeDoorTask, Constants.DOOR_RELOCK_TIME);
+           
+           // Return the key home
            
            if (home != null)
            {
         	   synchronized(this)
         	   {
-	               entity.forceDrop(this);        // Remove from player's inventory
-	               home.setContainedItem(this);   // Return home	               
+                   // 1. Return home
+        		   success = home.setContainedItem(this);   
+        		   
+        		   if (!success)
+        		   {
+        			   JavaTools.printlnTime("DEBUG: Magic Key " + description + " FAILED to return home!");
+        		   }
+        		   
+                   //  2. Remove from player's inventory
+	               success = entity.forceDrop(this);        // Remove from player's inventory
+	               
+	               if (!success)
+        		   {
+        			   JavaTools.printlnTime("DEBUG: Magic Key " + description + " FAILED to drop from player inventory");
+        		   }
         	   }
-        	   JavaTools.printlnTime("DEBUG: Magic Key " + description + " returned home");
+        	   
+        	   // 3. Sanity check
+        	   
+        	   success = (home.getItem() == this);
+        			   
+        	   if (success)
+        	   {
+        		   JavaTools.printlnTime("DEBUG: Magic Key " + description + " successfully returned home");   
+        	   }
+        	   else
+        	   {
+        		   JavaTools.printlnTime("DEBUG: Magic Key " + description + " FAILED to return home");
+        	   }
            }
            else
            {

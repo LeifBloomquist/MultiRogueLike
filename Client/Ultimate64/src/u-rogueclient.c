@@ -333,14 +333,16 @@ void network_init()
     
 #ifndef LOCAL_TEST
 	char *host = "rogue.jammingsignal.com";
-#else
-    char *host = "192.168.7.14";
-#warning  "Building for test server"
-#endif
-
 	clear_screen();
 	color(CG_YEL);
-	printf("Rogue Ultimate 64 Test Client\n\n");
+	printf("Dungeon of the Rogue Daemon\nUltimate 64 Client\n\n");
+#else
+    char *host = "192.168.7.14";
+	clear_screen();
+	color(CG_YEL);
+	printf("Rogue Ultimate 64 LOCAL TEST CLIENT\n\n");
+#warning  "Building for test server"
+#endif
 
 	color(CG_GR2);
 	printf("Built:%c %s %s\n\n", CG_BLU, __DATE__, __TIME__);
@@ -422,7 +424,7 @@ void player_login()
 
 	clear_screen();
 	color(CG_RED);
-	printf("Rogue Version 0.006 for Ultimate 64\n\n");	
+	printf("Rogue Version 0.008 for Ultimate 64\n\n");	
 	printf("%cConcept+Game Code: %cLeif Bloomquist\n\n", CG_LBL, CG_WHT);
 	printf("%cNetworking Code:   %cScott Hutter\n\n", CG_LBL, CG_WHT);
 	printf("%cContributors:      %cRobin Harbron\n", CG_LBL, CG_WHT);

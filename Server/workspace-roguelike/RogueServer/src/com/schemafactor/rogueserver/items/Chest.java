@@ -89,9 +89,10 @@ public class Chest extends Item implements java.io.Serializable, Container
     }
     
     // Only used by "Magic" items
-    public void setContainedItem(Item magicitem)
+    public boolean setContainedItem(Item magicitem)
     {
         myItem = magicitem;
+        return true;
     }
     
     @Override

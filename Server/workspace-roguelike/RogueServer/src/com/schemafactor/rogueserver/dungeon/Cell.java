@@ -203,8 +203,9 @@ public class Cell implements java.io.Serializable, Container
     }
 
     @Override
-    public void setContainedItem(Item item)
+    public boolean setContainedItem(Item item)
     {
-        this.item = item;        
+        this.item = item;
+        return true;
     }
 }
