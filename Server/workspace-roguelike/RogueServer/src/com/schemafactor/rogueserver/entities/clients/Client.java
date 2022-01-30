@@ -365,7 +365,7 @@ public abstract class Client extends Entity
        switch (action)
        {
           case Constants.ACTION_HEARTBEAT:
-              JavaTools.printlnTime("DEBUG: heartbeat received from " + description);
+              //JavaTools.printlnTime("DEBUG: heartbeat received from " + description);
               break;
               
           case Constants.ACTION_USE:

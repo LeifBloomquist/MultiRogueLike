@@ -99,7 +99,6 @@ public abstract class Entity implements java.io.Serializable
            dest_cell.setEntity(this);
            current_cell.setEntity(null);
            
-           //JavaTools.printlnTime("DEBUG: " + description + " moved to location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
            this.playSound(Constants.SOUND_PLAYER_STEP);
            attemptInspect(false);  // Report what is in the new cell, if anything
            return true;
@@ -131,7 +130,6 @@ public abstract class Entity implements java.io.Serializable
            dest_cell.setEntity(this);
            current_cell.setEntity(null);
            
-           //JavaTools.printlnTime("DEBUG: " + description + " moved to location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
            this.playSound(Constants.SOUND_TELEPORT);
            this.addMessage("Teleported!");
            return true;
@@ -171,8 +169,7 @@ public abstract class Entity implements java.io.Serializable
        
        if (target != null) // A real target
        {
-           target.attackedBy(this);           
-           JavaTools.printlnTime("DEBUG: " + description + " attacked " + target.getDescription() );
+           target.attackedBy(this);
            return true;
        }
        else // Empty cell
