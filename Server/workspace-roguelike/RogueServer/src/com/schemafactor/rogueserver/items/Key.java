@@ -63,7 +63,7 @@ public class Key extends Item
             return lock(entity);
         }
 
-        JavaTools.printlnTime("DEBUG: Invalid character code when (un)locking door at " + myDoor.toString());
+        //JavaTools.printlnTime("DEBUG: Invalid character code when (un)locking door at " + myDoor.toString());
         return false;
     }
     
@@ -85,7 +85,7 @@ public class Key extends Item
             return true;
         }
 
-        JavaTools.printlnTime("DEBUG: Invalid character code when locking door at " + myDoor.toString());
+       // JavaTools.printlnTime("DEBUG: Invalid character code when locking door at " + myDoor.toString());
         return false;
     }
     
@@ -112,7 +112,7 @@ public class Key extends Item
             return true;        
         }
 
-        JavaTools.printlnTime("DEBUG: Invalid character code when unlocking door at " + myDoor.toString());
+        //JavaTools.printlnTime("DEBUG: Invalid character code when unlocking door at " + myDoor.toString());
         return false;
     }
 }

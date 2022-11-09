@@ -1,5 +1,6 @@
 package com.schemafactor.rogueserver.network;
 
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ import org.java_websocket.server.WebSocketServer;
 
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.dungeon.Dungeon;
-import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.clients.ClientWebSocket;
 
 public class WebSocketListener extends WebSocketServer
@@ -34,8 +34,8 @@ public class WebSocketListener extends WebSocketServer
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake ) 
     {
-        JavaTools.printlnTime("New WebSocket connection: " + handshake.getResourceDescriptor() + " from " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );        
-        ClientWebSocket cws = new ClientWebSocket(conn);       
+        JavaTools.printlnTime("New WebSocket connection: " + handshake.getResourceDescriptor() + " from " + getConnIP(conn) );        
+        ClientWebSocket cws = new ClientWebSocket(conn);
         wsClients.add(cws);
         Dungeon.getInstance().addEntity(cws);
     }
@@ -47,7 +47,7 @@ public class WebSocketListener extends WebSocketServer
         
         if (which != null)
         {
-            JavaTools.printlnTime("WebSocket connection closed: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );
+            JavaTools.printlnTime("WebSocket connection closed: " + getConnIP(conn) );
             wsClients.remove(which);    // Remove from list of WebSocket clients
             which.removeMe();           // Flag for deletion
             which.gameOver(null);       // Perform end of game routines like drop items
@@ -62,9 +62,17 @@ public class WebSocketListener extends WebSocketServer
     public void onError(WebSocket conn, Exception ex)
     {
     	JavaTools.printlnTime("WebSocket EXCEPTION !");
+    	
+    	if (conn == null)
+    	{
+    		JavaTools.printlnTime("WebSocket EXCEPTION conn was null " );
+    		return;
+    	}
+    	
+    	JavaTools.printlnTime("WebSocket EXCEPTION: " + ex.toString() );
     	JavaTools.printlnTime("WebSocket EXCEPTION: " + ex.getMessage() );
-    	JavaTools.printlnTime("WebSocket EXCEPTION conn=" + conn.toString());
-        JavaTools.printlnTime("WebSocket EXCEPTION from: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() );        
+    	JavaTools.printlnTime("WebSocket EXCEPTION conn=" + conn.toString());        
+    	JavaTools.printlnTime("WebSocket EXCEPTION from: " + getConnIP(conn) );
     }
 
     @Override
@@ -104,5 +112,30 @@ public class WebSocketListener extends WebSocketServer
         }
     	
         which.receiveUpdate(message);
+    }
+    
+    // Hack to prevent null/unresolved addresses from causing null pointer issues
+    private String getConnIP(WebSocket conn)
+    {
+    	if (conn == null)
+    	{
+    		return "CONN=null";
+    	}
+    	
+    	InetSocketAddress sock_addr = conn.getRemoteSocketAddress();
+    	
+    	if (sock_addr == null)
+    	{
+    		return "UNRESOLVED (SOCKET)";
+    	}
+    	
+    	InetAddress addr = sock_addr.getAddress();
+    	
+    	if (addr == null)
+    	{
+    		return "UNRESOLVED (ADDRESS)";
+    	}
+    	
+    	return addr.getHostAddress();  	
     }
 }

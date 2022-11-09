@@ -401,7 +401,7 @@ public abstract class Client extends Entity
           */
               
           default:
-             JavaTools.printlnTime("Unknown action code " + action + " from " + description);
+             // JavaTools.printlnTime("Unknown action code " + action + " from " + description);
              break;  
        }    
        
