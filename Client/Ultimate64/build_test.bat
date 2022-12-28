@@ -1,7 +1,7 @@
 @cls
 @echo off
 
-path = C:\cc65\bin;%PATH%
+path =..\..\Tools\cc65\bin\cl65;C:\Leif\GitHub\Ultimate64\Executable;%PATH%
 
 del target\u-rogue6000.prg
 ..\..\Tools\cc65\bin\cl65 -D LOCAL_TEST -Oi -t c64 -C src\cfg\c64-nobasic.cfg src\lib\ultimate_lib_net.c src\u-rogueclient.c ..\C64\src\colordefs.s ..\C64\src\screen.s ..\C64\src\sound.s -o target\u-rogue6000test.prg
