@@ -55,13 +55,13 @@ public class PathFinding
         	
         	JavaTools.printlnTime("Checking " + current);
         	
-        	if (current == destination)   // Destination reached
+        	if (current.equals(destination))   // Destination reached
         	{
         		reached_end = true;
         		break;
         	}
         	
-        	explore_neighbors(map, current, z);
+        	explore_neighbors(map, current, destination, z);
         	
         	nodes_left_in_layer--;
         	
@@ -83,7 +83,7 @@ public class PathFinding
         return null;
     }
     
-    private boolean explore_neighbors(final Dungeon map, Point current, int z) 
+    private boolean explore_neighbors(final Dungeon map, Point current, Point destination, int z) 
     {
     	// For each direction
     	for (int i=0; i < dx.length; i++)
@@ -94,11 +94,21 @@ public class PathFinding
     		// Skip out of bounds conditions
     		if (isOutOfMap(map, xx, yy)) continue;
     		
-    		// Skip visited or blocked cells
+    		// Skip visited or blocked cells *except* for the destination cell
     		if (visited[xx][yy]) continue;
-    		if (isBlocked(map, xx, yy, z)) continue;
+    		if (isBlocked(map, xx, yy, z)) 
+    		{
+    			if ((xx == destination.x) && (yy == destination.y))
+    			{
+    				;  // Destination found!
+    			}
+    			else
+    			{
+    				continue;
+    			}
+    		}
     		
-    		map.getCell(xx, yy, z).setAttributes(Constants.CHAR_PORTAL);
+    		//map.getCell(xx, yy, z).setAttributes(Constants.CHAR_PORTAL);
     		
     		empty.add(new Point(xx,yy));
     		visited[xx][yy] = true;   // Set as visited now so it's not checked again later 
