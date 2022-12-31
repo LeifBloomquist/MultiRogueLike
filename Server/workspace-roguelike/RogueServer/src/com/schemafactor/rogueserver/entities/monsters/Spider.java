@@ -84,6 +84,11 @@ public class Spider extends Monster
                 {
                     State = States.ATTACKING;
                 }
+                
+                if (target_distance > 20d)
+                {
+                    State = States.IDLE;
+                }
                 break;
             }
             
