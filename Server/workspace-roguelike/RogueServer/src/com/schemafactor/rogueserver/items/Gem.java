@@ -60,7 +60,7 @@ public class Gem extends Item implements Rechargeable
        
        for (Entity e : clients_in_range)
        {
-    	   Position nearby_pos = dungeon.getClosestEmptyCell(target_pos, Constants.EMPTY_CELL_SEARCH_DEPTH);
+    	   Position nearby_pos = dungeon.getClosestEmptyCell(target_pos);
            e.attemptTeleport(nearby_pos);
        } 
     }

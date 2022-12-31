@@ -1,12 +1,7 @@
 package com.schemafactor.rogueserver.items;
 
-import java.util.List;
-
 import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.common.JavaTools;
-import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.common.interfaces.Rechargeable;
-import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.Entity;
 
 public class Ring extends Item implements Rechargeable

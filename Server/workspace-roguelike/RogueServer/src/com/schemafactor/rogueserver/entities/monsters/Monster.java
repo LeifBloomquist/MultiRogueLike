@@ -3,6 +3,7 @@ package com.schemafactor.rogueserver.entities.monsters;
 import java.time.Duration;
 import java.time.Instant;
 
+import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.entities.Entity;
 
@@ -25,7 +26,15 @@ public abstract class Monster extends Entity
     {
        super(name, startposition, type, charCode, maxDamage, maxHealth);  
        this.actionTime = actionTime;
-       home = new Position(this.position);  // Copy
+       
+       if (this.position != null)
+       {
+    	   home = new Position(this.position);  // Local Copy
+       }
+       else
+       {
+    	   JavaTools.printlnTime("DEBUG: null position for " + name);
+       }
     }
     
     @Override

@@ -1,5 +1,10 @@
 package com.schemafactor.rogueserver.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.schemafactor.rogueserver.dungeon.Dungeon;
+
 public class Position implements java.io.Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -33,5 +38,5 @@ public class Position implements java.io.Serializable
         return ( (this.x == other.x) &&
                  (this.y == other.y) &&
                  (this.z == other.z) );            
-    }
+    }	
 }

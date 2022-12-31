@@ -3,12 +3,12 @@ package com.schemafactor.rogueserver.common;
 public class Constants 
 {
     // Server version
-    public static final double VERSION        = 0.3;
+    public static final double VERSION        = 0.4;
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
-    public static final int DUNGEON_SIZE      = 100;    // Per Side  (Mini Server to start!  TODO go back to 1000)
-    public static final int DUNGEON_DEPTH     = 4;      // Levels
+    public static final int DUNGEON_SIZE      = 100;    // Per Side  (Mini Server to start!  TODO put this in an ini file)
+    public static final int DUNGEON_DEPTH     = 4;      // Levels  TODO put this in an ini file
     public static final long DOOR_RELOCK_TIME = 5000;   // 5 seconds
     public static final float CLIENT_ACTION_TIME_LIMIT = 50f;  // 50 milliseconds
         
@@ -16,7 +16,8 @@ public class Constants
     public static final int  LISTEN_PORT      = 3006;   // UDP and TCP
     public static final int  WEBSOCKET_PORT   = 3007;   // WebSockets (TCP)
     public static final int  LISTEN_PORT_U64  = 3008;   // TCP
-    public static final long NETWORK_TIMEOUT  = 300;    // Seconds
+    public static final long NETWORK_WARNING  = 300;    // Seconds   (5 minutes)
+    public static final long NETWORK_TIMEOUT  = 360;    // Seconds   (6 minutes)   
     public static final long UPDATE_TIME      = 1000;   // Milliseconds   
     
     // Screen constants
@@ -68,7 +69,7 @@ public class Constants
     public static final byte DIRECTION_SW      = 6;
     public static final byte DIRECTION_WEST    = 7;
     public static final byte DIRECTION_NW      = 8;
-    public static final byte DIRECTION_2D      = 9;
+    public static final byte DIRECTION_2D      = 9;  // Used to put an upper limit on all previous directions, which are all 2D
     public static final byte DIRECTION_UP      = 9;
     public static final byte DIRECTION_DOWN    = 10;
     public static final byte DIRECTION_COUNT   = 11;  

@@ -1,21 +1,24 @@
 
-Before Alpha release:
-
 Soon:
 
--Network timeout indication on 64 client
+-Procedurally generated levels
+-A* style search for some monsters when chasing
+-Login System
 -Fix player name on 64 client
--More Monsters and types     
 -Occluded vision        
--Monsters stealing items?
 -Fix bug with Human players via TCP not being removed
+
+
+Ideas:
+
+-Monsters stealing items?
+-More Monsters and types
 -Ranged Weapons
--Teleportation Gems
--Invisibility Potions
 
 
 Done!
 
+-Network timeout indication on 64 client
 -Respawn monsters   
 -Limit client step speed (key repeats)
 -Better restart on C64
@@ -23,3 +26,5 @@ Done!
 -Skeletons return home
 -Joystick support
 -Potions recharge
+-Teleportation Gems
+-Invisibility Rings

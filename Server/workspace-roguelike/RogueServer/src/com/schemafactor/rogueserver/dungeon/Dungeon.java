@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
 import com.schemafactor.rogueserver.Spawner;
@@ -214,9 +215,46 @@ public class Dungeon implements java.io.Serializable
     	}
     }
 	
+	public Position getClosestEmptyCell(Position start)
+    {
+		if (start==null) return null;
+		
+        // Easiest case - Starting cell	    
+	    try
+	    {
+	        if (dungeonMapCells[start.x][start.y][start.z].isEmpty(false))
+            {
+                return start;
+            }
+	    }
+	    catch (ArrayIndexOutOfBoundsException aioobe)  // Out of map bounds
+	    {
+	        return null;
+	    }
+	    
+	    // Check squares fanning outwards	    
+	    for (int size=1; size < Constants.EMPTY_CELL_SEARCH_DEPTH; size++ )
+	    {
+            List<Position> square = getCellsSquare(start, size);        
+            Collections.shuffle(square);   // So it's not always upper-right first            
+            
+            for (Position pos : square)
+            {
+	        	if (dungeonMapCells[pos.x][pos.y][pos.z].isEmpty(false))
+	            {
+	                return pos;
+	            }
+            }
+            
+            // If still no matches, fan further outwards on next loop
+        }
+        
+        return null;  // No empty cells found
+    }
 	
-	// TODO, this is depth-first...modify to be breadth-first for truly closest cell
-	public Position getClosestEmptyCell(Position start, int depth)
+	// This is depth-first...use breadth-first above for truly closest cell
+	@Deprecated
+	private Position getClosestEmptyCellDFS(Position start, int depth)
     {        
         // Easiest case - Starting cell
 	    
@@ -239,12 +277,12 @@ public class Dungeon implements java.io.Serializable
         }
     
         // Recursively test all cells around
-        List<Position> neighbors = getNeighbors(start);        
+        List<Position> neighbors = getNeighborCells(start);        
         Collections.shuffle(neighbors);   // So it's not always upper-right first      
     
         for (Position pos : neighbors)
         {
-            Position result = getClosestEmptyCell(pos, depth);
+            Position result = getClosestEmptyCellDFS(pos, depth);
     
             if (result != null)
             {
@@ -255,8 +293,8 @@ public class Dungeon implements java.io.Serializable
         return null;  // No empty cells found
     }
 
-    // Get neighbors on same level, also tests boundaries
-    public List<Position> getNeighbors(Position center)
+    // Get neighbors on same level, also tests boundaries.  This is essentially the same as getCellsSquare() with size=1 (TODO consolidate)
+    public List<Position> getNeighborCells(Position center)
     {
         List<Position> neighbors = new ArrayList<Position>();
     
@@ -301,6 +339,43 @@ public class Dungeon implements java.io.Serializable
         }
     
         return neighbors;
+    }
+    
+    // Get cells "size" cells away from the center (for crude BFS)
+    private List<Position> getCellsSquare(Position center, int size)
+    {
+        List<Position> square = new ArrayList<Position>();
+        
+        int startx = Math.max(0,center.x-size);
+        int endx = Math.min(center.x+size, this.Xsize-1);
+        int starty = Math.max(0,center.y-size);
+        int endy = Math.min(center.y+size, this.Ysize-1);
+        
+        // Top
+        for (int x=startx; x < endx; x++)
+        {
+        	square.add( new Position(x, starty, center.z) );
+        }
+        
+        // Bottom
+        for (int x=startx; x < endx; x++)
+        {
+        	square.add( new Position(x, endy, center.z) );
+        }
+        
+        // Left (note +1 since first cell added as part of Top)
+        for (int y=starty+1; y < endy; y++)
+        {
+        	square.add( new Position(startx, y, center.z) );
+        }
+        
+        // Right (note <= to get last cell)
+        for (int y=starty; y <= endy; y++)
+        {
+        	square.add( new Position(endx, y, center.z) );
+        }
+        
+        return square;
     }
     
     private byte getCharCode(Position p)
@@ -499,8 +574,12 @@ public class Dungeon implements java.io.Serializable
     
     public void placeItem(Item i, Position start)
     {
-        Position place = getClosestEmptyCell(start, Constants.EMPTY_CELL_SEARCH_DEPTH);
-        getCell(place).placeItem(i);       
+        Position place = getClosestEmptyCell(start);
+        
+        if (place != null) 
+        {
+        	getCell(place).placeItem(i);
+        }        
     }
     
     public void determineEmptyCells() 
@@ -519,7 +598,7 @@ public class Dungeon implements java.io.Serializable
     	    		 }
                  }
             }
-        }		
+        }
 	}    
     
     public Position getRandomEmptyPosition()
@@ -530,7 +609,7 @@ public class Dungeon implements java.io.Serializable
     
     public Position getRandomEmptyPosition(int z)
     {
-    	while (true)
+    	for (int i=0; i< Constants.EMPTY_CELL_SEARCH_DEPTH; i++ )
     	{
     		Position p = emptyCells[z].get(JavaTools.generator.nextInt(emptyCells[z].size()));
     		
@@ -539,6 +618,8 @@ public class Dungeon implements java.io.Serializable
     			return p;
     		}
     	}
+    	
+    	return null;
     }
     
     public Position getRandomPosition()

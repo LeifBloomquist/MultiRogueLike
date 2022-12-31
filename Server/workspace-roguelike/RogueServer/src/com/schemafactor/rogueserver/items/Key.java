@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.dungeon.Cell;
 import com.schemafactor.rogueserver.dungeon.Dungeon;
@@ -12,7 +11,9 @@ import com.schemafactor.rogueserver.entities.Entity;
 
 public class Key extends Item
 {
-    private Position myDoor = null;
+	private static final long serialVersionUID = 1L;
+	
+	private Position myDoor = null;
     Cell door = null;
     
     Dungeon dungeon = Dungeon.getInstance();
@@ -38,7 +39,7 @@ public class Key extends Item
     
     private boolean isDoorNearby(Entity entity)
     {
-        List<Position> nearby = (ArrayList<Position>) Dungeon.getInstance().getNeighbors(entity.getPosition());
+        List<Position> nearby = (ArrayList<Position>) Dungeon.getInstance().getNeighborCells(entity.getPosition());
         
         for (Position pos : nearby)
         {

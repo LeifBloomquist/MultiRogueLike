@@ -447,6 +447,11 @@ public abstract class Client extends Entity
        if (demoMode) return;   // Disable Timeout in demo mode
        
 		Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
+		
+		if (elapsed.getSeconds() > Constants.NETWORK_WARNING)
+	    {	        
+	       addMessage("Warning: Timeout in 60 seconds");             
+       }   
 	    
 	    if (elapsed.getSeconds() > Constants.NETWORK_TIMEOUT)
 	    {	        

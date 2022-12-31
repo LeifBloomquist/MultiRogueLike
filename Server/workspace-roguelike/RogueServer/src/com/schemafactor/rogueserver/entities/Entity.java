@@ -50,7 +50,7 @@ public abstract class Entity implements java.io.Serializable
 	   if (startposition == null) return; // Dummy entities
 	   
        this.description = new String(description);       
-       this.position = Dungeon.getInstance().getClosestEmptyCell(startposition, Constants.EMPTY_CELL_SEARCH_DEPTH);
+       this.position = Dungeon.getInstance().getClosestEmptyCell(startposition);
        this.home = startposition;
        
        this.myType = type;
@@ -285,8 +285,8 @@ public abstract class Entity implements java.io.Serializable
            removeMe();
        }
        
-       // Drop currently carried items       
-       Cell left =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position, Constants.EMPTY_CELL_SEARCH_DEPTH) );       
+       // Drop currently carried items
+       Cell left =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position) );       
        if (left != null) 
        {
            left.placeItem(item_left);
@@ -297,7 +297,7 @@ public abstract class Entity implements java.io.Serializable
            JavaTools.printlnTime("DEBUG: " + description + " Can't drop left item!! ");
        }
        
-       Cell right =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position, Constants.EMPTY_CELL_SEARCH_DEPTH) );       
+       Cell right =  Dungeon.getInstance().getCell( Dungeon.getInstance().getClosestEmptyCell(this.position) );       
 
        if (right != null) 
        {
@@ -423,7 +423,7 @@ public abstract class Entity implements java.io.Serializable
        return false;
    }
        
-   // Drop an item at the current location.  True on success
+   // Drop an item at the *current* location.  True on success
    protected boolean attemptDrop(int hand)
    {
        Cell current_cell = Dungeon.getInstance().getCell(this.position);    
