@@ -656,6 +656,26 @@ public abstract class Entity implements java.io.Serializable
        // Should never reach here, but just in case
        return Constants.DIRECTION_NONE;
    }
+   
+   protected byte getPathDirectionTo(Entity target)
+   {
+       // Ignore targets that have been removed
+       if (target == null) return Constants.DIRECTION_NONE;
+       
+       return getPathDirectionTo(target.getPosition());
+   }
+   
+   protected byte getPathDirectionTo(Position target_pos)
+   {
+       // Ignore null positions
+       if (target_pos == null) return Constants.DIRECTION_NONE;
+       
+       // Ignore targets not on same level
+       if (this.getPosition().z != target_pos.z) return Constants.DIRECTION_NONE;
+    
+       zzzz
+       
+   }
 
    public void removeMe() 
    {   

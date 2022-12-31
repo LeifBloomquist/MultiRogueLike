@@ -2,18 +2,19 @@
 Soon:
 
 -Procedurally generated levels
--A* style search for some monsters when chasing
+-A*/BFS style search for some monsters when chasing
+-Fix Bug with Ultimate 64 Player name being lost after respawn
 -Login System
--Fix player name on 64 client
--Occluded vision        
+-Fix player name on 64 client 
 -Fix bug with Human players via TCP not being removed
 
 
 Ideas:
 
+-Occluded vision?
 -Monsters stealing items?
--More Monsters and types
--Ranged Weapons
+-More Monsters and types?
+-Ranged Weapons?
 
 
 Done!

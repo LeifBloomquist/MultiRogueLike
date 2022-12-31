@@ -51,7 +51,8 @@ public class Spawner
         // TODO move all this to an ini file
         
         Slime slimey = new Slime("Slime", new Position(56,8,0));
-        Spider mike = new Spider("Spider", new Position(38,38,0));
+        //Spider mike = new Spider("Spider", new Position(38,38,0));
+        Spider mike = new Spider("Spider", new Position(18,10,0));
         
         welcomingCommittee.add( slimey );
         welcomingCommittee.add( mike );
