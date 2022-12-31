@@ -29,6 +29,8 @@ public class PathFinding
         {
             return null;
         }
+        
+        JavaTools.printlnTime("Destination = " + destination);
 
         empty = new ArrayDeque<>();
         visited = new boolean[map.getXsize()][map.getYsize()];
@@ -36,7 +38,7 @@ public class PathFinding
         // Variables used to track the number of steps taken
         int move_count = 0;
         int nodes_left_in_layer = 1;
-        int nodes_in_next_layer = 0;
+        nodes_in_next_layer = 0;
         
         // Variable to track if we reach the end
         boolean reached_end = false;
@@ -50,6 +52,8 @@ public class PathFinding
         while (empty.size() > 0)
         {
         	Point current = empty.remove();
+        	
+        	JavaTools.printlnTime("Checking " + current);
         	
         	if (current == destination)   // Destination reached
         	{
@@ -88,11 +92,13 @@ public class PathFinding
     		int yy = current.y + dy[i];
     		
     		// Skip out of bounds conditions
-    		if (isOutOfMap(map, current.x, current.y)) continue;
+    		if (isOutOfMap(map, xx, yy)) continue;
     		
     		// Skip visited or blocked cells
     		if (visited[xx][yy]) continue;
-    		if (isBlocked(map, current.x, current.y, z)) continue;
+    		if (isBlocked(map, xx, yy, z)) continue;
+    		
+    		map.getCell(xx, yy, z).setAttributes(Constants.CHAR_PORTAL);
     		
     		empty.add(new Point(xx,yy));
     		visited[xx][yy] = true;   // Set as visited now so it's not checked again later 
