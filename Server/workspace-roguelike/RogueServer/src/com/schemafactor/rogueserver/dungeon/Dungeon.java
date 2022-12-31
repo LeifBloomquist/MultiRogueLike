@@ -100,7 +100,7 @@ public class Dungeon implements java.io.Serializable
            
            for (int x=0; x < line.length; x++)
            {  
-               Cell cell = dungeonMapCells[x][y][level];               
+               Cell cell = dungeonMapCells[x][y][level];
                int charcode = 0;
                
                switch (line[x])
@@ -215,6 +215,31 @@ public class Dungeon implements java.io.Serializable
     	}
     }
 	
+	public Cell getCell(int x, int y, int z)
+    {
+		return getCell(new Position(x,y,z));		
+    }
+	
+	@Deprecated
+	public Cell[][] getCellMapCentered(Position center, int level, int size)
+    {    	
+		Position topleft = new Position(center);
+        topleft.x -= (int)(size / 2);
+        topleft.y -= (int)(size / 2);
+        
+        Cell[][] cells = new Cell[size][size];        
+        
+        for (int y=0; y < size; y++)
+        {
+            for (int x=0; x < size; x++)
+            {  
+            	cells[x][y] = getCell(topleft.x + x, topleft.y + y, level);
+            }
+        }
+        
+        return cells;
+    }	
+	
 	public Position getClosestEmptyCell(Position start)
     {
 		if (start==null) return null;
@@ -233,7 +258,7 @@ public class Dungeon implements java.io.Serializable
 	    }
 	    
 	    // Check squares fanning outwards	    
-	    for (int size=1; size < Constants.EMPTY_CELL_SEARCH_DEPTH; size++ )
+	    for (int size=1; size < Constants.CELL_SEARCH_DEPTH; size++ )
 	    {
             List<Position> square = getCellsSquare(start, size);        
             Collections.shuffle(square);   // So it's not always upper-right first            
@@ -308,7 +333,7 @@ public class Dungeon implements java.io.Serializable
             neighbors.add( new Position(center.x, center.y-1, center.z) );
         }
     
-        if ((center.y > 0) && (center.x < Constants.DUNGEON_SIZE))
+        if ((center.y > 0) && (center.x < Xsize ))
         {
             neighbors.add( new Position(center.x+1, center.y-1, center.z) );
         }
@@ -318,22 +343,22 @@ public class Dungeon implements java.io.Serializable
             neighbors.add( new Position(center.x-1, center.y, center.z) );
         }
     
-        if ((center.x < Constants.DUNGEON_SIZE))
+        if ((center.x < Xsize))
         {
             neighbors.add( new Position(center.x+1, center.y, center.z) );
         }
     
-        if ((center.y < Constants.DUNGEON_SIZE) && (center.x > 0))
+        if ((center.y < Ysize) && (center.x > 0))
         {
             neighbors.add( new Position(center.x-1, center.y+1, center.z) );
         }
     
-        if ((center.y < Constants.DUNGEON_SIZE))
+        if ((center.y < Ysize))
         {
             neighbors.add( new Position(center.x, center.y+1, center.z) );
         }
     
-        if ((center.y < Constants.DUNGEON_SIZE) && (center.x < Constants.DUNGEON_SIZE))
+        if ((center.y < Ysize) && (center.x < Xsize))
         {
             neighbors.add( new Position(center.x+1, center.y+1, center.z) );
         }
@@ -609,7 +634,7 @@ public class Dungeon implements java.io.Serializable
     
     public Position getRandomEmptyPosition(int z)
     {
-    	for (int i=0; i< Constants.EMPTY_CELL_SEARCH_DEPTH; i++ )
+    	for (int i=0; i< Constants.CELL_SEARCH_DEPTH; i++ )
     	{
     		Position p = emptyCells[z].get(JavaTools.generator.nextInt(emptyCells[z].size()));
     		

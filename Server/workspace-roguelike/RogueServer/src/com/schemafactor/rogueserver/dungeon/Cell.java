@@ -13,7 +13,7 @@ public class Cell implements java.io.Serializable, Container
     Item item = null;
         
     private byte charCode = 0;                        // Character code shown on client screen
-    private byte charColor = Constants.COLOR_BLACK;   // Foreground color code shown to the client  (though client will likely use a lookup table)    
+    private byte charColor = Constants.COLOR_BLACK;   // Foreground color code shown to the client  (though client will likely use a lookup table)
     
     public byte getCharCode() 
     {
@@ -70,16 +70,16 @@ public class Cell implements java.io.Serializable, Container
     	        
     	    // Special cases(allowed)    	        
             case Constants.CHAR_SECRET_DOOR:
-                who.addMessage("You found a secret door!");
+                if (who!= null) who.addMessage("You found a secret door!");
                 return true;                
     	    
     	    // Special cases (not allowed)
             case Constants.CHAR_DOOR_CLOSED:
-                  who.addMessage("Door is locked!");
+            	  if (who!= null) who.addMessage("Door is locked!");
                   return false;
     	    
             case Constants.CHAR_LAVA:
-                  who.addMessage("You can't walk on lava!");
+            	if (who!= null) who.addMessage("You can't walk on lava!");
                   return false;
                   
             // Everything else - not allowed

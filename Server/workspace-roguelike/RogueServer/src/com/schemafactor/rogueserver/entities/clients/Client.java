@@ -1,6 +1,7 @@
 package com.schemafactor.rogueserver.entities.clients;
 
 import java.net.InetAddress;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;

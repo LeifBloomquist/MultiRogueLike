@@ -7,8 +7,6 @@ public class Constants
     
     // Game-specific constants
     public static final int TICK_TIME         = 50;     // milliseconds
-    public static final int DUNGEON_SIZE      = 100;    // Per Side  (Mini Server to start!  TODO put this in an ini file)
-    public static final int DUNGEON_DEPTH     = 4;      // Levels  TODO put this in an ini file
     public static final long DOOR_RELOCK_TIME = 5000;   // 5 seconds
     public static final float CLIENT_ACTION_TIME_LIMIT = 50f;  // 50 milliseconds
         
@@ -27,8 +25,8 @@ public class Constants
     public static final int MESSAGE_LENGTH    = 40;  
     
     // Data Limits 
-    public static final int MESSAGE_QUEUE_MAX       = 10;
-    public static final int EMPTY_CELL_SEARCH_DEPTH = 50;
+    public static final int MESSAGE_QUEUE_MAX = 10;
+    public static final int CELL_SEARCH_DEPTH = 50;
     
     // Packet types
     public static final byte CLIENT_ANNOUNCE  = 1;

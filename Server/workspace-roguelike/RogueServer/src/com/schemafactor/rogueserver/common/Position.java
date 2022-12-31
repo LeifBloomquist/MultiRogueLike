@@ -1,5 +1,6 @@
 package com.schemafactor.rogueserver.common;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +39,10 @@ public class Position implements java.io.Serializable
         return ( (this.x == other.x) &&
                  (this.y == other.y) &&
                  (this.z == other.z) );            
-    }	
+    }
+
+	public Point ToPoint() 
+	{
+		return new Point(x,y);
+	}	
 }

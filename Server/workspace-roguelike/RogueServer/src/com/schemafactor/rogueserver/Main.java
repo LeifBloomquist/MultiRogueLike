@@ -45,7 +45,7 @@ public class Main
 			System.exit(1);
         }
         
-        dungeon.Create(Constants.DUNGEON_SIZE, Constants.DUNGEON_DEPTH);
+        dungeon.Create(100, 4);   // TODO read these from ini file
         
         // Load saved
         JavaTools.printlnTime("Loading game levels...");   // TODO, persistence

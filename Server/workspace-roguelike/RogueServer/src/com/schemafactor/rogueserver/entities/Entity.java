@@ -2,9 +2,11 @@ package com.schemafactor.rogueserver.entities;
 
 import java.time.Instant;
 import java.util.List;
+import java.awt.Point;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.common.PathFinding;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.dungeon.Cell;
 import com.schemafactor.rogueserver.dungeon.Dungeon;
@@ -671,10 +673,28 @@ public abstract class Entity implements java.io.Serializable
        if (target_pos == null) return Constants.DIRECTION_NONE;
        
        // Ignore targets not on same level
-       if (this.getPosition().z != target_pos.z) return Constants.DIRECTION_NONE;
+       if (this.position.z != target_pos.z) return Constants.DIRECTION_NONE;
     
-       zzzz
+       Point start = new Point( this.position.ToPoint() );
+       Point destination = new Point( target_pos.ToPoint() );
        
+       PathFinding pf = new PathFinding();
+       
+       Point[] thePath = pf.findPath(Dungeon.getInstance(), start, destination, this.position.z, Constants.CELL_SEARCH_DEPTH);
+       
+       if (thePath == null) // No path found
+       {
+    	   return Constants.DIRECTION_NONE;
+       }
+       
+       if (thePath.length < 1) // Path was empty?
+       {
+    	   return Constants.DIRECTION_NONE;
+       }
+       
+       // Get the direction to the first point in the path.
+       Position target_path_first_step = new Position(thePath[0].x, thePath[0].y, target_pos.z);
+       return getDirectionTo(target_path_first_step);       
    }
 
    public void removeMe() 
