@@ -68,7 +68,7 @@ public class Cell implements java.io.Serializable, Container
             case Constants.CHAR_ITEM_CHEST:            
     	        return true;
     	        
-    	    // Special cases(allowed)    	        
+    	    // Special cases (allowed)    	        
             case Constants.CHAR_SECRET_DOOR:
                 if (who!= null) who.addMessage("You found a secret door!");
                 return true;                
