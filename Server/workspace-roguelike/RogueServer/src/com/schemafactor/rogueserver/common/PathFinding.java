@@ -2,6 +2,8 @@ package com.schemafactor.rogueserver.common;
 
 import java.awt.Point;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Queue;
 
 import com.schemafactor.rogueserver.dungeon.Dungeon;
@@ -17,6 +19,9 @@ public class PathFinding
     
     // Matrix of values to track whether the nodes (cells) have been visited 
     boolean[][] visited;
+    
+    // Matrix of links to previous cell coordinates, for reconstructing the path 
+    Point[][] prev;
     
     // Direction vectors.  TODO: Extend to allow diagonal movement
     int[] dx = {-1, +1,  0,  0};
@@ -34,6 +39,7 @@ public class PathFinding
 
         empty = new ArrayDeque<>();
         visited = new boolean[map.getXsize()][map.getYsize()];
+        prev = new Point[map.getXsize()][map.getYsize()];
         
         // Variables used to track the number of steps taken
         int move_count = 0;
@@ -70,20 +76,24 @@ public class PathFinding
         		nodes_left_in_layer = nodes_in_next_layer;
         		nodes_in_next_layer = 0;
         		move_count++;
+        		
+        		if (move_count > cellSearchDepth)  // No match found in search range
+        		{
+        			return null;
+        		}
         	}
         }
         	
         if (reached_end)
-        {
-        	JavaTools.printlnTime("Move Count = " + move_count);
-        	return null; // move_count;        	
+        {        	
+        	return reconstruct_path(start, destination);        	
         }
         
         JavaTools.printlnTime("No path found");
         return null;
     }
-    
-    private boolean explore_neighbors(final Dungeon map, Point current, Point destination, int z) 
+
+	private boolean explore_neighbors(final Dungeon map, Point current, Point destination, int z) 
     {
     	// For each direction
     	for (int i=0; i < dx.length; i++)
@@ -100,7 +110,7 @@ public class PathFinding
     		{
     			if ((xx == destination.x) && (yy == destination.y))
     			{
-    				;  // Destination found!
+    				;  // Destination found!  Don't skip it otherwise no end point will be found
     			}
     			else
     			{
@@ -110,12 +120,44 @@ public class PathFinding
     		
     		//map.getCell(xx, yy, z).setAttributes(Constants.CHAR_PORTAL);
     		
+    		// Save previous cell for recreating the path at the end
+    		prev[xx][yy] = new Point(current);
+    		
+    		/// Add the new cell for next iteration
     		empty.add(new Point(xx,yy));
-    		visited[xx][yy] = true;   // Set as visited now so it's not checked again later 
+    		
+    		// Set as visited now so it's not checked again later
+    		visited[xx][yy] = true;    
+    		
+    		// Count the node for next iteration
     		nodes_in_next_layer++;
     	}
     	return true;
     }
+	
+	
+	// Use the prev[][] array to reconstruct the path
+    private Point[] reconstruct_path(Point start, Point destination) 
+    {
+    	ArrayList<Point> path = new ArrayList<Point>();
+    	
+    	// Start at the end and work back
+    	Point step = new Point(destination);
+    	
+    	while (!step.equals(start))    // We don't want to include the starting point
+    	{
+    		int prev_x = prev[step.x][step.y].x;
+    		int prev_y = prev[step.x][step.y].y;
+    		
+    		step = new Point(prev_x, prev_y);
+    		path.add(step);
+    	}
+    	
+    	// Reverse it
+    	Collections.reverse(path);
+    	
+		return (Point[]) path.toArray();
+	}
 
     private static boolean isOutOfMap(final Dungeon map, final int x, final int y) 
     {
