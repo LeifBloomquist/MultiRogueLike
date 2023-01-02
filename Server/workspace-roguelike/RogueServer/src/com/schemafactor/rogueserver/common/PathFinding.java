@@ -11,6 +11,8 @@ import com.schemafactor.rogueserver.dungeon.Dungeon;
 
 public class PathFinding 
 {
+	final boolean DEBUG = false;
+	
 	Queue<Point> empty = null;
     
     // Variables used to track the number of steps taken
@@ -35,7 +37,7 @@ public class PathFinding
             return null;
         }
         
-        JavaTools.printlnTime("Destination = " + destination);
+        if (DEBUG) JavaTools.printlnTime("Destination = " + destination);
 
         empty = new ArrayDeque<>();
         visited = new boolean[map.getXsize()][map.getYsize()];
@@ -59,7 +61,7 @@ public class PathFinding
         {
         	Point current = empty.remove();
         	
-        	JavaTools.printlnTime("Checking " + current);
+        	if (DEBUG) JavaTools.printlnTime("Checking " + current);
         	
         	if (current.equals(destination))   // Destination reached
         	{
@@ -86,10 +88,10 @@ public class PathFinding
         	
         if (reached_end)
         {        	
-        	return reconstruct_path(start, destination);        	
+        	return reconstruct_path(start, destination, map);        	
         }
         
-        JavaTools.printlnTime("No path found");
+        if (DEBUG) JavaTools.printlnTime("No path found");
         return null;
     }
 
@@ -118,7 +120,7 @@ public class PathFinding
     			}
     		}
     		
-    		//map.getCell(xx, yy, z).setAttributes(Constants.CHAR_PORTAL);
+    		if (DEBUG) map.getCell(xx, yy, z).setAttributes(Constants.CHAR_PORTAL);
     		
     		// Save previous cell for recreating the path at the end
     		prev[xx][yy] = new Point(current);
@@ -137,7 +139,7 @@ public class PathFinding
 	
 	
 	// Use the prev[][] array to reconstruct the path
-    private Point[] reconstruct_path(Point start, Point destination) 
+    private Point[] reconstruct_path(Point start, Point destination, Dungeon map) 
     {
     	ArrayList<Point> path = new ArrayList<Point>();
     	
@@ -151,12 +153,14 @@ public class PathFinding
     		
     		step = new Point(prev_x, prev_y);
     		path.add(step);
+    		
+    		if (DEBUG) map.getCell(prev_x, prev_y, 0).setAttributes(Constants.CHAR_ITEM_CHEST);
     	}
     	
     	// Reverse it
     	Collections.reverse(path);
     	
-		return (Point[]) path.toArray();
+		return (Point[]) path.toArray(new Point[0]);
 	}
 
     private static boolean isOutOfMap(final Dungeon map, final int x, final int y) 
