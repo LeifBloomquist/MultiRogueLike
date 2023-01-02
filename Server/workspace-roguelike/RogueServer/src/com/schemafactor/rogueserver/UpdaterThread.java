@@ -1,5 +1,7 @@
 package com.schemafactor.rogueserver;
 
+import java.text.DecimalFormat;
+
 /*
  * UpdaterThread.java
  *
@@ -21,8 +23,12 @@ public class UpdaterThread implements Runnable
 {   
     private Dungeon dungeon = null;    
     
+    // Some run-time statistics for monitoring
     JavaTools.MovingAverage sma_ms = new JavaTools.MovingAverage(100);
     JavaTools.MovingAverage sma_cpu = new JavaTools.MovingAverage(100);
+    static public double avg_ms = 0d;
+    static public double avg_cpu = 0d;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
      
     /** Creates a new instance of UpdaterThread */
     public UpdaterThread()
@@ -39,7 +45,7 @@ public class UpdaterThread implements Runnable
         long startTime = System.nanoTime();
         List<Entity> entities = dungeon.getEntities();
         
-        // 1. Update the universe/dungeon.
+        // 1. Update the dungeon.
         try
         {
             dungeon.update();
@@ -105,7 +111,10 @@ public class UpdaterThread implements Runnable
         double estimatedMilliseconds = estimatedTime/1000000d;
         sma_ms.newNum(estimatedMilliseconds);
         sma_cpu.newNum(estimatedMilliseconds / Constants.TICK_TIME);
-        Main.avg_ms = sma_ms.getAvg();
-        Main.avg_cpu = sma_cpu.getAvg();
+        avg_ms = sma_ms.getAvg();
+        avg_cpu = sma_cpu.getAvg();
+        
+        // CPU usage stats
+        //JavaTools.printlnTime("Average update time [ms]: " + df.format(avg_ms) + " | Average CPU Usage [%]: " + df.format(avg_cpu*100) );        		
     }
 }

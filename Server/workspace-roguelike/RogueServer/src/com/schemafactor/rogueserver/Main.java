@@ -14,11 +14,7 @@ import com.schemafactor.rogueserver.network.TCPListenerU64;
 import com.schemafactor.rogueserver.network.UDPListener;
 
 public class Main 
-{
-    // Some run-time statistics for monitoring
-    static public double avg_ms = 0d;
-    static public double avg_cpu = 0d;
-    
+{    
     /**
      * @param args
      */
