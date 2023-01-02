@@ -157,6 +157,9 @@ public class PathFinding
     		if (DEBUG) map.getCell(prev_x, prev_y, 0).setAttributes(Constants.CHAR_ITEM_CHEST);
     	}
     	
+    	// Remove the last point as it's always the start point
+    	path.remove(path.size()-1);
+    	
     	// Reverse it
     	Collections.reverse(path);
     	
