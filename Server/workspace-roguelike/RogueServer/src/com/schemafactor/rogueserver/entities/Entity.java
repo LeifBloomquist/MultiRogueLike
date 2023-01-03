@@ -659,15 +659,15 @@ public abstract class Entity implements java.io.Serializable
        return Constants.DIRECTION_NONE;
    }
    
-   protected byte getPathDirectionTo(Entity target)
+   protected byte getPathDirectionTo(Entity target, int depth)
    {
        // Ignore targets that have been removed
        if (target == null) return Constants.DIRECTION_NONE;
        
-       return getPathDirectionTo(target.getPosition());
+       return getPathDirectionTo(target.getPosition(), depth);
    }
    
-   protected byte getPathDirectionTo(Position target_pos)
+   protected byte getPathDirectionTo(Position target_pos, int depth)
    {
        // Ignore null positions
        if (target_pos == null) return Constants.DIRECTION_NONE;
@@ -680,7 +680,7 @@ public abstract class Entity implements java.io.Serializable
        
        PathFinding pf = new PathFinding();
        
-       Point[] thePath = pf.findPath(Dungeon.getInstance(), start, destination, this.position.z, Constants.CELL_SEARCH_DEPTH);
+       Point[] thePath = pf.findPath(Dungeon.getInstance(), start, destination, this.position.z, depth);
        
        if (thePath == null) // No path found
        {

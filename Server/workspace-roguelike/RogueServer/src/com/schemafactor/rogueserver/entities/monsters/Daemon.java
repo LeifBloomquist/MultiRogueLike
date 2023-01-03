@@ -86,7 +86,7 @@ public class Daemon extends Monster
         
             case CHASING:
             {
-                byte chase_direction = getPathDirectionTo(target);
+                byte chase_direction = getPathDirectionTo(target, 50);
                 moved = attemptMove(chase_direction);
                 
                 double target_distance = distanceTo(target);

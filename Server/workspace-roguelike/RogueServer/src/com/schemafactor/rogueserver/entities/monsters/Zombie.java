@@ -65,7 +65,7 @@ public class Zombie extends Monster
         
             case CHASING:
             {
-                byte chase_direction = getPathDirectionTo(target);
+                byte chase_direction = getPathDirectionTo(target, 10);
                 
                 if (chase_direction == Constants.DIRECTION_NONE)  // Gone, or other level
                 {

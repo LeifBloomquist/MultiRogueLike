@@ -75,7 +75,7 @@ public class Spider extends Monster
         
             case CHASING:
             {
-            	byte chase_direction = getPathDirectionTo(target);
+            	byte chase_direction = getPathDirectionTo(target, 20);
                 moved = attemptMove(chase_direction);
                 
                 double target_distance = distanceTo(target);

@@ -11,7 +11,7 @@ import com.schemafactor.rogueserver.dungeon.Dungeon;
 
 public class PathFinding 
 {
-	final boolean DEBUG = false;
+	final boolean DEBUG = true;
 	
 	Queue<Point> empty = null;
     
@@ -29,6 +29,7 @@ public class PathFinding
     int[] dx = {-1, +1,  0,  0};
     int[] dy = { 0,  0, +1, -1};    
     
+    // Breadth-first path search.  TODO, A*?    
     public Point[] findPath(final Dungeon map, final Point start, final Point destination, int z, int cellSearchDepth) 
     {
     	// Quick sanity check of positions
