@@ -11,7 +11,7 @@ import com.schemafactor.rogueserver.dungeon.Dungeon;
 
 public class PathFinding 
 {
-	final boolean DEBUG = true;
+	final boolean DEBUG = false;
 	
 	Queue<Point> empty = null;
     
@@ -25,9 +25,9 @@ public class PathFinding
     // Matrix of links to previous cell coordinates, for reconstructing the path 
     Point[][] prev;
     
-    // Direction vectors.  TODO: Extend to allow diagonal movement
-    int[] dx = {-1, +1,  0,  0};
-    int[] dy = { 0,  0, +1, -1};    
+    // Direction vectors
+    int[] dx = {-1, +1,  0,  0, -1, +1, -1, +1};
+    int[] dy = { 0,  0, +1, -1, -1, +1, +1, -1};
     
     // Breadth-first path search.  TODO, A*?    
     public Point[] findPath(final Dungeon map, final Point start, final Point destination, int z, int cellSearchDepth) 
