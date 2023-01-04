@@ -29,6 +29,7 @@ public class UpdaterThread implements Runnable
     static public double avg_ms = 0d;
     static public double avg_cpu = 0d;
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    long reportcounter = 0;
      
     /** Creates a new instance of UpdaterThread */
     public UpdaterThread()
@@ -115,6 +116,12 @@ public class UpdaterThread implements Runnable
         avg_cpu = sma_cpu.getAvg();
         
         // CPU usage stats
-        //JavaTools.printlnTime("Average update time [ms]: " + df.format(avg_ms) + " | Average CPU Usage [%]: " + df.format(avg_cpu*100) );        		
+        reportcounter += Constants.TICK_TIME;
+        
+        if (reportcounter >= 10000)  // 10 seconds
+        {
+        	JavaTools.printlnTime("Average Update Time [ms]: " + df.format(avg_ms) + " | Average CPU Usage [%]: " + df.format(avg_cpu*100) );
+        	reportcounter=0;
+        }
     }
 }

@@ -1,0 +1,9 @@
+[Unit]
+Description=Rogue Daemon Game Server
+
+[Service]
+ExecStart=/home/leif/rogue/go.sh
+
+[Install]
+WantedBy=multi-user.target
+

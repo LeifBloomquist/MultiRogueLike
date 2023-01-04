@@ -1,9 +1,0 @@
-cd /home/leif/rogue/
-rm out.txt
-rm *.log
-rm /home/leif/rogue/rogueserver.lock
-
-until ./rogue; do
-    echo "Server 'rogue' crashed with exit code $?.  Respawning.." >&2
-    sleep 1
-done

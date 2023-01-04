@@ -2,7 +2,6 @@
 Soon:
 
 -Procedurally generated levels
--A*/BFS style search for some monsters when chasing
 -Fix Bug with Ultimate 64 Player name being lost after respawn
 -Login System
 -Fix player name on 64 client 
@@ -17,8 +16,10 @@ Ideas:
 -Ranged Weapons?
 
 
+
 Done!
 
+-A*/BFS style search for some monsters when chasing
 -Network timeout indication on 64 client
 -Respawn monsters   
 -Limit client step speed (key repeats)

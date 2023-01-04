@@ -1,0 +1,9 @@
+[Unit]
+Description=Rogue Daemon File Server for Ultimate 64 Client
+
+[Service]
+ExecStart=/home/leif/rogue/ultimate64/go.sh
+
+[Install]
+WantedBy=multi-user.target
+
