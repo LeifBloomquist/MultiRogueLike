@@ -33,6 +33,7 @@ import com.schemafactor.rogueserver.items.Chest;
 import com.schemafactor.rogueserver.items.Gem;
 import com.schemafactor.rogueserver.items.Gold;
 import com.schemafactor.rogueserver.items.Item;
+import com.schemafactor.rogueserver.items.Key;
 import com.schemafactor.rogueserver.items.MagicKey;
 import com.schemafactor.rogueserver.items.Note;
 import com.schemafactor.rogueserver.items.Potion;
@@ -160,6 +161,7 @@ public class Spawner
 				
 				spawnMonster(type, type, dungeon.getRandomEmptyPosition(pz));				
 			}
+			return;
 		}
 		
 		// Single Monsters
@@ -178,7 +180,8 @@ public class Spawner
 				if (pz == 0) pz++;  // Not on first level
 			}		 
 			
-			spawnMonster(type, name, new Position(px, py, pz));			
+			spawnMonster(type, name, new Position(px, py, pz));
+			return;
 		}
 		
 		// Multiple Items - Random Location
@@ -200,6 +203,7 @@ public class Spawner
 				
 				placeItem(type, description, dungeon.getRandomEmptyPosition(pz), params);				
 			}
+			return;
 		}
 		
 		// Single Items
@@ -219,6 +223,7 @@ public class Spawner
 			}		 
 			
 			placeItem(type, description, new Position(px, py, pz), params);
+			return;
 		}		
 	}
 
@@ -290,8 +295,8 @@ public class Spawner
 				return createChest(description, params);				
 				
 			case "Gem":
-				int charge = 
-				item = new Gem(ALL_LEVELS)
+				int charge = Integer.parseInt(params[4]);
+				item = new Gem(charge);
 				break;
 				
 			case "Gold":
@@ -299,9 +304,16 @@ public class Spawner
 				item = new Gold(value);
 				break;
 				
-			case "Sign":
-				text = params[4];
-				item = new Sign(description, text);
+			case "Key":
+				int doorx = Integer.parseInt(params[4]);
+				int doory = Integer.parseInt(params[5]);
+				int doorz = Integer.parseInt(params[6]);
+				item = new Key(description, new Position(doorx, doory, doorz));
+				break;
+				
+			case "MagicKey":
+				//zzzz
+				//item = new MagicKey(description, text);
 				break;
 				
 			case "Note":
@@ -310,8 +322,36 @@ public class Spawner
 				break;
 				
 			case "Potion":
+				charge = Integer.parseInt(params[4]);
+				item = new Potion(description,charge);
+				break;
+				
+			case "Ring":
+				charge = Integer.parseInt(params[3]);
+				item = new Ring(charge);
+				break;
+				
+			case "Shield":
+				float max_protection = (float)Integer.parseInt(params[4]);
+				item = new Shield(description, max_protection);
+				break;
+			
+			case "Sign":
 				text = params[4];
-				item = new Note(description, text);
+				
+				// Special case, some sign text is read from a file
+				if (text.startsWith("="))
+				{
+					text = readFromFile(text.replaceAll("=", ""));
+				}
+				
+				item = new Sign(description, text);
+				break;			
+			
+			case "Sword":
+				float max_damage = (float)Integer.parseInt(params[4]);
+				max_protection = (float)Integer.parseInt(params[5]);
+				item = new Sword(description, max_damage, max_protection);
 				break;
 				
 			default:
@@ -337,6 +377,24 @@ public class Spawner
 		
 		return new Chest(description, inside);	
 	}
+	
+	private static String readFromFile(String filename)
+	{	    
+	    String text = "Magic";
+	    
+	    try
+	    {
+	    	text = new String(Files.readAllBytes(Paths.get(filename)));
+	    }
+	    catch (IOException e)
+	    {
+	         JavaTools.printlnTime( "EXCEPTION reading text file: " + e.getMessage());
+	         text = "Words";
+	    }
+	    
+	    return text;		
+	}
+	
 
 	@Deprecated
     public static boolean spawnEntities (Dungeon dungeon, String pathToIni)
@@ -438,8 +496,8 @@ public class Spawner
         dungeon.placeItem(portalchest, new Position(94,67,0));
         
         // Emergency Potions
-        Potion p1 = new Potion(500);
-        Potion p2 = new Potion(500);
+        Potion p1 = new Potion("Glowing Potion", 500);
+        Potion p2 = new Potion("Glowing Potion", 500);
         
         allRechargeItems.add(p1);
         allRechargeItems.add(p2);
@@ -506,7 +564,7 @@ public class Spawner
         for (int i=1; i<=20; i++)
         {
             int health = JavaTools.generator.nextInt(100);    
-            Potion potion = new Potion(health);
+            Potion potion = new Potion("Potion", health);
             
             allRechargeItems.add(potion);
             
