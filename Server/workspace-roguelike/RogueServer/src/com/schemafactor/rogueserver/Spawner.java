@@ -31,6 +31,8 @@ import com.schemafactor.rogueserver.entities.monsters.Spider;
 import com.schemafactor.rogueserver.entities.monsters.Zombie;
 import com.schemafactor.rogueserver.items.Chest;
 import com.schemafactor.rogueserver.items.Gem;
+import com.schemafactor.rogueserver.items.Gold;
+import com.schemafactor.rogueserver.items.Item;
 import com.schemafactor.rogueserver.items.MagicKey;
 import com.schemafactor.rogueserver.items.Note;
 import com.schemafactor.rogueserver.items.Potion;
@@ -41,10 +43,7 @@ import com.schemafactor.rogueserver.items.Sword;
 
 public class Spawner
 {
-    // List of monsters that always respawn
-    private static List<Monster> welcomingCommittee = Collections.synchronizedList(new ArrayList<Monster>());
-    
-    // List of all other monsters, that may respawn randomly    
+    // List of all monsters, may respawn randomly    
     private static List<Monster> allMonsters = Collections.synchronizedList(new ArrayList<Monster>());
     
     // List of all rechargeable items    
@@ -53,10 +52,17 @@ public class Spawner
     // Dummy value to represent "All" levels
     private static final int ALL_LEVELS = -1;
     
-    public static boolean spawn(Dungeon dungeon, String path, String inifile)
+    // Placeholder to dungeon
+    private static Dungeon dungeon = null;
+    
+    public static boolean initialize(Dungeon thedungeon, String path, String inifile)
     {
+    	dungeon = thedungeon;
+    	
     	String fullpath = path + inifile;
-    			
+    	
+        JavaTools.printlnTime("Reading INI file " + fullpath + " ...");
+
     	Ini ini = new Ini();
     	try 
     	{
@@ -74,15 +80,19 @@ public class Spawner
 		}    	
         
         // The Dungeon itself
-        long size = (long)ini.getValue("Dungeon", "DungeonSize");        
+        long size =  (long)ini.getValue("Dungeon", "DungeonSize");        
         long depth = (long)ini.getValue("Dungeon", "DungeonDepth");
-        // int seed = (int)ini.getValue("Dungeon", "RandomSeed");                
+        long seed =  (long)ini.getValue("Dungeon", "RandomSeed");        
         dungeon.Create((int)size, (int) depth);
+        
+        JavaTools.generator.setSeed(seed);        
+        
+        JavaTools.printlnTime("Loading dungeon levels...");
         
         // Load Levels
         int levelnum=0;
         Collection<String> levels = ini.getKeys("Levels");
-        for(String level_id : levels)
+        for (String level_id : levels)
         {
         	String levelfile = path + (String)ini.getValue("Levels", level_id);
         	
@@ -98,7 +108,12 @@ public class Spawner
     		}        	
         }
         
-        // Place items to be initiated on All levels
+        // Predetermine the empty cells to save time later - do this before adding entities
+        dungeon.determineEmptyCells();
+        
+        JavaTools.printlnTime("Spawning monsters...");
+        
+        // Place items and monsters to be initiated on all levels
         Map<String, Object> all = ini.getSection("All");
         
         for (var entry : all.entrySet()) 
@@ -106,57 +121,231 @@ public class Spawner
         	spawn(entry.getKey(), (String)entry.getValue(), ALL_LEVELS);
         }
         
+        // Place items and monsters to be initiated on each individual level        
+        levelnum=0;
+        for (String level_id : levels)
+        {
+        	Map<String, Object> tospawn = ini.getSection(level_id);
+            
+            for (var entry : tospawn.entrySet()) 
+            {
+            	spawn(entry.getKey(), (String)entry.getValue(), levelnum);
+            }
+            levelnum++;
+        }
 
-        /* Examples
-    	Collection<String> sections = ini.getSections();    	
-    	Object value = ini.getValue("Level0", "Monster");
-        Map<String, Object> value2 = ini.getSection("Level1");
-        */
-        
         return true;
         
     }
     	 
-    private static void spawn(String type, String parameters, int level) 
+    private static void spawn(String what, String parameters, int level) 
     {
-    	// Multiple Monsters
-		if (type.startsWith("Monsters"))
+    	String[] params = parameters.split(",");
+    	
+    	// Multiple Monsters - Random Location
+		if (what.startsWith("Monsters"))
 		{
-			;
-		}
-		
-		// Multiple Items
-		if (type.startsWith("Items"))
-		{
-			;
+			int num = Integer.parseInt(params[0]);
+			String type = params[1];
+			
+			for (int i=0; i<num; i++)
+			{
+				int pz = level;
+				
+				if (pz == ALL_LEVELS)  // Special case for all levels - randomize 
+				{
+					pz = JavaTools.generator.nextInt(Dungeon.getInstance().getZsize());
+					if (pz == 0) pz++;  // Not on first level
+				}				 
+				
+				spawnMonster(type, type, dungeon.getRandomEmptyPosition(pz));				
+			}
 		}
 		
 		// Single Monsters
-		if (type.startsWith("Monster"))
+		if (what.startsWith("Monster"))
 		{
-			spawnMonster(parameters, level)
+			String type = params[0];
+			String name = params[1];
+			
+			int px = Integer.parseInt(params[2]);
+			int py = Integer.parseInt(params[3]);
+			int pz = level;
+			
+			if (pz == ALL_LEVELS)  // Special case for all levels - randomize 
+			{
+				pz = JavaTools.generator.nextInt(Dungeon.getInstance().getZsize());
+				if (pz == 0) pz++;  // Not on first level
+			}		 
+			
+			spawnMonster(type, name, new Position(px, py, pz));			
 		}
 		
-		// Multiple Items
-		if (type.startsWith("Item"))
+		// Multiple Items - Random Location
+		if (what.startsWith("Items"))
 		{
-			;
+			int num = Integer.parseInt(params[0]);
+			String type = params[1];
+			String description = params[2];
+			
+			for (int i=0; i<num; i++)
+			{
+				int pz = level;
+				
+				if (pz == ALL_LEVELS)  // Special case for all levels - randomize 
+				{
+					pz = JavaTools.generator.nextInt(Dungeon.getInstance().getZsize());
+					if (pz == 0) pz++;  // Not on first level
+				}				 
+				
+				placeItem(type, description, dungeon.getRandomEmptyPosition(pz), params);				
+			}
+		}
+		
+		// Single Items
+		if (what.startsWith("Item"))
+		{
+			String type = params[0];
+			String description = params[1];
+			
+			int px = Integer.parseInt(params[2]);
+			int py = Integer.parseInt(params[3]);
+			int pz = level;
+			
+			if (pz == ALL_LEVELS)  // Special case for all levels - randomize 
+			{
+				pz = JavaTools.generator.nextInt(Dungeon.getInstance().getZsize());
+				if (pz == 0) pz++;  // Not on first level
+			}		 
+			
+			placeItem(type, description, new Position(px, py, pz), params);
 		}		
+	}
+
+	private static void spawnMonster(String type, String description, Position pos) 
+	{
+		Monster monster = null;
+		
+		switch (type)
+		{
+			case "Bat":
+				monster = new Bat(description, pos);
+				break;
+			
+			case "Daemon":
+				monster = new Daemon(description, pos);
+				break;
+				
+			case "Frog":
+				monster = new Frog(description, pos);
+				break;
+			
+			case "Ghost":
+				monster = new Ghost(description, pos);
+				break;
+			
+			case "Skeleton":
+				monster = new Skeleton(description, pos);
+				break;
+			
+			case "Slime":
+				monster = new Slime(description, pos);
+				break;
+			
+			case "Spider":
+				monster = new Spider(description, pos);
+				break;
+			
+			case "Zombie":
+				monster = new Zombie(description, pos);
+				break;
+			
+			default:
+				JavaTools.printlnTime("Error: Unknown monster type " + type + "in INI file");
+				return;	
+		}
+		
+		dungeon.addEntity(monster);
+        allMonsters.add(monster);
+	}
+	
+	// Use this to always place the item
+	private static void placeItem(String type, String description, Position pos, String[] params)
+	{
+		Item item = createItem(type, description, pos, params);
+		if (item != null) dungeon.placeItem( item, pos );		
+	}
+	
+	private static Item createItem(String type, String description, Position pos, String[] params)
+	{
+		Item item = null;
+		String text = "";
+		
+		switch (type)
+		{
+			case "Empty":  // For containers
+				return null;
+				
+			case "Chest":  // Special case that acts as a Container and can contain other items
+				return createChest(description, params);				
+				
+			case "Gem":
+				int charge = 
+				item = new Gem(ALL_LEVELS)
+				break;
+				
+			case "Gold":
+				int value = Integer.parseInt(params[4]);
+				item = new Gold(value);
+				break;
+				
+			case "Sign":
+				text = params[4];
+				item = new Sign(description, text);
+				break;
+				
+			case "Note":
+				text = params[4];
+				item = new Note(description, text);
+				break;
+				
+			case "Potion":
+				text = params[4];
+				item = new Note(description, text);
+				break;
+				
+			default:
+				JavaTools.printlnTime("Error: Unknown item type " + type + "in INI file");
+				return null;
+		}
+		
+		return item;
+	}
+
+	// Special handling for chests which contain other items
+	private static Item createChest(String description, String[] params) 
+	{
+		// Reconstruct the original full string (messy)
+		String original = String.join(",",params);
+		String contains = original.split(":")[1];		
+		String[] contains_parms = contains.split(",");		
+		
+		// Get the type and details of contained item
+		String inside_type = contains_parms[0];
+		String inside_desc = contains_parms[1];
+		Item inside = createItem(inside_type, inside_desc, null, contains_parms);
+		
+		return new Chest(description, inside);	
 	}
 
 	@Deprecated
     public static boolean spawnEntities (Dungeon dungeon, String pathToIni)
     {    	
-        JavaTools.generator.setSeed(12345678);
-        
         // TODO move all this to an ini file
         
         Slime slimey = new Slime("Slime", new Position(56,8,0));
         Spider mike = new Spider("Spider", new Position(38,38,0));
-        
-        welcomingCommittee.add( slimey );
-        welcomingCommittee.add( mike );
-        
+
         // Level 0 (Entry) -----------------------------------------------------------------------------------------------------
         
         allMonsters.add( slimey ); 
@@ -338,11 +527,7 @@ public class Spawner
     public static void respawn(Dungeon dungeon)
     {        
         // Respawn Monsters        
-        List<Monster> monsters = new ArrayList<Monster>();
-        monsters.addAll(welcomingCommittee);
-        monsters.addAll(allMonsters);
-        
-        for (Monster m : monsters)
+        for (Monster m : allMonsters)
         {
            if (m.isDead())
            {

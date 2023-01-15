@@ -166,7 +166,7 @@ public class Cell implements java.io.Serializable, Container
         return item;  
     }
     
-    public Item takeItem()
+    public Item takeItem(Entity who)
     {   
         Item taken = this.item;
         
@@ -180,12 +180,13 @@ public class Cell implements java.io.Serializable, Container
         if (taken.isContainer())
         {
             Container con = (Container)taken;
-            return con.takeItem();
+            return con.takeItem(who);
         }
         
         // Some Items can't be picked up
         if (!taken.isMoveable())
         {
+        	if (who!= null) who.addMessage("You can't pick up the " + taken.getDescription());
             return null;
         }       
         

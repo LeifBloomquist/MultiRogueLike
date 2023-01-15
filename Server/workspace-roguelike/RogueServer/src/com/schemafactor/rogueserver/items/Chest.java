@@ -18,6 +18,7 @@ public class Chest extends Item implements java.io.Serializable, Container
     }
     
     /** Creates a new instance of Chest containing gold*/
+    @Deprecated
     public Chest(String description, int gold)
     {
        super(description, Constants.CHAR_ITEM_CHEST, false, 0, 0); 
@@ -117,10 +118,11 @@ public class Chest extends Item implements java.io.Serializable, Container
     }
 
     @Override
-    public Item takeItem()
+    public Item takeItem(Entity who)
     {
         if (!opened)   // Chests have to be open
         {
+        	if (who!= null) who.addMessage("The chest is closed");
             return null;
         }
         

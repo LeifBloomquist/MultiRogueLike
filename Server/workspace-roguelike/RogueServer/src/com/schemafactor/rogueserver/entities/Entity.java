@@ -399,7 +399,7 @@ public abstract class Entity implements java.io.Serializable
                return false;
            }
            
-           item_left = current_cell.takeItem();    
+           item_left = current_cell.takeItem(this);    
            if (item_left != null)
            {
               this.addMessage("Picked up the " + item_left.getDescription() + ".");
@@ -414,7 +414,7 @@ public abstract class Entity implements java.io.Serializable
                return false;
            }
            
-           item_right = current_cell.takeItem();    
+           item_right = current_cell.takeItem(this);    
            if (item_right != null)
            {
               this.addMessage("Picked up the " + item_right.getDescription() + ".");

@@ -47,7 +47,7 @@ public class Main
         		break;
         		
         	default:
-        		JavaTools.printlnTime("Must at least specify an ini file!  java -jar rogueserver.jar <ini> [-local | -demo]");
+        		JavaTools.printlnTime("Must at least specify an INI file!  Usage: java -jar rogueserver.jar <ini> [-local | -demo]");
     			System.exit(1);        		
         }
         
@@ -65,16 +65,8 @@ public class Main
             Client.setDemoMode();
         }
         
-        JavaTools.printlnTime("Loading dungeon levels...");         
-        Spawner.spawn(dungeon, prefix, inifile);        
-        
-        // Predetermine the empty cells to save time later - do this before adding entities
-        dungeon.determineEmptyCells();
-        
-        // Add some entities.
-        JavaTools.printlnTime("Creating and placing default entities...");
-        Spawner.spawnEntities(dungeon, inifile);
-        Spawner.placeItems(dungeon);
+        // Initialize the dungeon and spawn all monsters/items as per INI file                 
+        Spawner.initialize(dungeon, prefix, inifile);
         
         // Serialization test  // TODO, persistence
         // Persistence.Serialize(dungeon);        
