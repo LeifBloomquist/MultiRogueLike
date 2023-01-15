@@ -20,73 +20,63 @@ public class Main
      */
     public static void main(String[] args) 
     {
+    	String inifile = "";    	
+    	String mode = "";
+    	String prefix = "";
+    	
         JavaTools.printlnTime("-----------------------------------------------");
         JavaTools.printlnTime("Rogue Server Version " + Constants.VERSION );
         
         JavaTools.onlyOneInstance("rogueserver");
         
-        // Create the universe.
+        // Create the dungeon.
         JavaTools.printlnTime("Creating game dungeon...");
         Dungeon dungeon = Dungeon.getInstance();
         
         // Read in dungeon specifics
-        if (args.length > 0)
-        {
-        	// 
-
+        
+        switch (args.length)
+        {		
+        	case 1:
+        		inifile = args[0];
+        		break;
+        	
+        	case 2:
+        		inifile = args[0];
+        		mode = args[1];
+        		break;
+        		
+        	default:
+        		JavaTools.printlnTime("Must at least specify an ini file!  java -jar rogueserver.jar <ini> [-local | -demo]");
+    			System.exit(1);        		
         }
-        else
-        {        
-        	JavaTools.printlnTime("Must specify an ini file!");
-			System.exit(1);
+        
+        // Different modes for demos or local development
+        if (mode.equals("-local"))
+        {
+            prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/mini/";
+            JavaTools.printlnTime("Local Mode specified - Timeouts disabled.");
+            Client.setDemoMode();
         }
         
-        dungeon.Create(100, 4);   // TODO read these from ini file
-        
-        // Load saved
-        JavaTools.printlnTime("Loading game levels...");   // TODO, persistence
-        
-        String prefix = "";
-        
-        if (args.length > 1)
+        if (mode.equals("-demo"))
         {
-            if (args[1].equals("-local"))
-            {
-                prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/mini/";
-                JavaTools.printlnTime("Local Mode specified - Timeouts disabled.");
-                Client.setDemoMode();
-            }
-            
-            if (args[1].equals("-demo"))
-            {
-                JavaTools.printlnTime("Demo Mode specified - Timeouts disabled.");
-                Client.setDemoMode();
-            }
+            JavaTools.printlnTime("Demo Mode specified - Timeouts disabled.");
+            Client.setDemoMode();
         }
-                
-        try 
-        {
-            dungeon.LoadTXT(prefix+"LevelTest0.txt", 0);
-            dungeon.LoadTXT(prefix+"LevelTest1.txt", 1);
-            dungeon.LoadTXT(prefix+"LevelTest2.txt", 2);
-            dungeon.LoadTXT(prefix+"LevelTest3.txt", 3);
-		} 
-        catch (FileNotFoundException e) 
-        {
-        	JavaTools.printlnTime("FileNotFoundException!");
-			e.printStackTrace();
-			System.exit(2);
-		}
+        
+        JavaTools.printlnTime("Loading dungeon levels...");         
+        Spawner.spawn(dungeon, prefix, inifile);        
         
         // Predetermine the empty cells to save time later - do this before adding entities
         dungeon.determineEmptyCells();
         
         // Add some entities.
         JavaTools.printlnTime("Creating and placing default entities...");
-        Spawner.spawnEntities(dungeon);
+        Spawner.spawnEntities(dungeon, inifile);
         Spawner.placeItems(dungeon);
         
-        // Serialization test
+        // Serialization test  // TODO, persistence
         // Persistence.Serialize(dungeon);        
        
         // Start the thread that updates everything at a fixed interval

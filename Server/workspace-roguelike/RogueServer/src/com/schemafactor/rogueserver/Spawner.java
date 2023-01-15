@@ -1,11 +1,17 @@
 package com.schemafactor.rogueserver;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+
+import com.github.vincentrussell.ini.Ini;
 
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
@@ -41,11 +47,106 @@ public class Spawner
     // List of all other monsters, that may respawn randomly    
     private static List<Monster> allMonsters = Collections.synchronizedList(new ArrayList<Monster>());
     
-    // List of all potions    
+    // List of all rechargeable items    
     private static List<Rechargeable> allRechargeItems = Collections.synchronizedList(new ArrayList<Rechargeable>());
     
-    public static void spawnEntities(Dungeon dungeon)
-    {   
+    // Dummy value to represent "All" levels
+    private static final int ALL_LEVELS = -1;
+    
+    public static boolean spawn(Dungeon dungeon, String path, String inifile)
+    {
+    	String fullpath = path + inifile;
+    			
+    	Ini ini = new Ini();
+    	try 
+    	{
+			ini.load(new FileInputStream(fullpath));
+		} 
+    	catch (FileNotFoundException e) 
+    	{
+    		JavaTools.printlnTime("EXCEPTION, can't find " + fullpath);
+    		System.exit(2);
+		} 
+    	catch (IOException e) 
+    	{
+			JavaTools.printlnTime("EXCEPTION, can't load " + fullpath + " -- " + e.getMessage() );
+			System.exit(3);
+		}    	
+        
+        // The Dungeon itself
+        long size = (long)ini.getValue("Dungeon", "DungeonSize");        
+        long depth = (long)ini.getValue("Dungeon", "DungeonDepth");
+        // int seed = (int)ini.getValue("Dungeon", "RandomSeed");                
+        dungeon.Create((int)size, (int) depth);
+        
+        // Load Levels
+        int levelnum=0;
+        Collection<String> levels = ini.getKeys("Levels");
+        for(String level_id : levels)
+        {
+        	String levelfile = path + (String)ini.getValue("Levels", level_id);
+        	
+        	try 
+            {
+        		 dungeon.LoadTXT(levelfile, levelnum++);
+    		} 
+            catch (FileNotFoundException e) 
+            {
+            	JavaTools.printlnTime("EXCEPTION, file not found " + levelfile);
+    			e.printStackTrace();
+    			System.exit(4);
+    		}        	
+        }
+        
+        // Place items to be initiated on All levels
+        Map<String, Object> all = ini.getSection("All");
+        
+        for (var entry : all.entrySet()) 
+        {
+        	spawn(entry.getKey(), (String)entry.getValue(), ALL_LEVELS);
+        }
+        
+
+        /* Examples
+    	Collection<String> sections = ini.getSections();    	
+    	Object value = ini.getValue("Level0", "Monster");
+        Map<String, Object> value2 = ini.getSection("Level1");
+        */
+        
+        return true;
+        
+    }
+    	 
+    private static void spawn(String type, String parameters, int level) 
+    {
+    	// Multiple Monsters
+		if (type.startsWith("Monsters"))
+		{
+			;
+		}
+		
+		// Multiple Items
+		if (type.startsWith("Items"))
+		{
+			;
+		}
+		
+		// Single Monsters
+		if (type.startsWith("Monster"))
+		{
+			spawnMonster(parameters, level)
+		}
+		
+		// Multiple Items
+		if (type.startsWith("Item"))
+		{
+			;
+		}		
+	}
+
+	@Deprecated
+    public static boolean spawnEntities (Dungeon dungeon, String pathToIni)
+    {    	
         JavaTools.generator.setSeed(12345678);
         
         // TODO move all this to an ini file
@@ -106,10 +207,12 @@ public class Spawner
         {
             dungeon.addEntity(m);
         }
+		return true;
         
     }
 
     // Add some test items.
+    @Deprecated
     public static void placeItems(Dungeon dungeon)
     {
        // Magic Word -----------------------------------------------------------------------------------------------------------

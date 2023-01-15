@@ -118,7 +118,7 @@ public class UpdaterThread implements Runnable
         // CPU usage stats
         reportcounter += Constants.TICK_TIME;
         
-        if (reportcounter >= 10000)  // 10 seconds
+        if (reportcounter >= 100000)  // 100 seconds
         {
         	JavaTools.printlnTime("Average Update Time [ms]: " + df.format(avg_ms) + " | Average CPU Usage [%]: " + df.format(avg_cpu*100) );
         	reportcounter=0;

@@ -2,7 +2,7 @@
 Soon:
 
 -Procedurally generated levels
--Fix Bug with Ultimate 64 Player name being lost after respawn
+-Fix Bug with some player names being lost after respawn
 -Login System
 -Fix player name on 64 client 
 -Fix bug with Human players via TCP not being removed

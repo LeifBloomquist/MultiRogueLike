@@ -1,0 +1,3 @@
+[submodule "Server/deps/java-ini-parser"]
+	path = Server/deps/java-ini-parser
+	url = https://github.com/vincentrussell/java-ini-parser
