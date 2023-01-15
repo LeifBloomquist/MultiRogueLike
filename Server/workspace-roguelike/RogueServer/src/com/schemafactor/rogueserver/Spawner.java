@@ -380,7 +380,9 @@ public class Spawner
 		String inside_desc = contains_parms[1];
 		Item inside = createItem(inside_type, inside_desc, null, contains_parms);
 		
-		return new Chest(description, inside);	
+		String[] desc = description.split(":");
+		
+		return new Chest(desc[0], inside);	
 	}
 	
 	private static String readFromFile(String filename)
