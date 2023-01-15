@@ -15,6 +15,7 @@ import com.github.vincentrussell.ini.Ini;
 
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
+import com.schemafactor.rogueserver.common.interfaces.Container;
 import com.schemafactor.rogueserver.common.interfaces.Rechargeable;
 import com.schemafactor.rogueserver.dungeon.Cell;
 import com.schemafactor.rogueserver.dungeon.Dungeon;
@@ -312,8 +313,12 @@ public class Spawner
 				break;
 				
 			case "MagicKey":
-				//zzzz
-				//item = new MagicKey(description, text);
+				doorx = Integer.parseInt(params[4]);
+				doory = Integer.parseInt(params[5]);
+				doorz = Integer.parseInt(params[6]);
+				
+		        Cell keystart = dungeon.getCell(pos);
+		        item = new MagicKey("Shiny Key", new Position(doorx, doory, doorz), keystart); 
 				break;
 				
 			case "Note":
@@ -399,7 +404,6 @@ public class Spawner
 	@Deprecated
     public static boolean spawnEntities (Dungeon dungeon, String pathToIni)
     {
-        
         Slime slimey = new Slime("Slime", new Position(56,8,0));
         Spider mike = new Spider("Spider", new Position(38,38,0));
 
