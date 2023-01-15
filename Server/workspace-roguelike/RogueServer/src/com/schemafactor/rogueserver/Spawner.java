@@ -398,8 +398,7 @@ public class Spawner
 
 	@Deprecated
     public static boolean spawnEntities (Dungeon dungeon, String pathToIni)
-    {    	
-        // TODO move all this to an ini file
+    {
         
         Slime slimey = new Slime("Slime", new Position(56,8,0));
         Spider mike = new Spider("Spider", new Position(38,38,0));
