@@ -2,15 +2,15 @@
 
 *This version is specific to the [Ultimate 64 or 1541 Ultimate-II+ cartridge from Gideon's Logic](https://ultimate64.com/).* 
 
-1. Download the client **u64-rogueboot.prg** file from [here](https://bit.ly/33ePtce)  
+1. Download the client **u64-rogueboot.prg** file from [here](https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Client/Ultimate64/target/u64-rogueboot.prg?raw=true)
 
 2. Transfer the client to the Ultimate 64 (using USB/FTP/etc).  It is standalone, it can be run from the main filesystem or inside a D64.
 
 3. **The U64/UII+ must be configured as follows:**
     * The Ultimate Command Interface must be Enabled. 
     * No virtual cartridges attached.
-    * Network settings as usual, DHCP is fine.
-    * (For Ultimate 64 only) Set Turbo Control to Manual, 8 MHz.   **PLEASE NOTE** With U64 firmware 3.10 this value cannot be over 8 MHz or the game will lock!
+    * Network settings as usual, DHCP is fine. 
+    * (For Ultimate 64 only) Set Turbo Control to Manual, 10 MHz.   **PLEASE NOTE** The game may lock up at higher settings!
 
     **It's recommended to Save this configuration (via F5 menu) for future use.**
 
