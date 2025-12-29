@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\visualstudio\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AD1DF585-658A-4AAC-B2C7-DFE2AAFA463B}|Ultimate64_Client\\Ultimate64_Client.vcxproj|D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "u-rogueclient.c",
+              "DocumentMoniker": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c",
+              "RelativeDocumentMoniker": "..\\src\\u-rogueclient.c",
+              "ToolTip": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c",
+              "RelativeToolTip": "..\\src\\u-rogueclient.c",
+              "ViewState": "AgIAACMBAAAAAAAAAIAwwDEBAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-12-29T07:31:48.942Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -468,7 +468,7 @@ void uii_tcpsocketwritechar(unsigned char socketid, char one_char) {
 	temp_string_onechar[0] = one_char;
 	temp_string_onechar[1] = 0;
 
-	uii_tcpsocketwrite(socketid, temp_string_onechar);
+	uii_tcpsocketwrite(socketid, (char*)temp_string_onechar);
 }
 
 void uii_tcpsocketwrite(unsigned char socketid, char *data) {

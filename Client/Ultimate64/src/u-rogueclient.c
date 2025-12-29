@@ -156,7 +156,7 @@ int get_uii_status()
 	int status = -1;
 	char* ptr = NULL;
 	char temp[100];
-	strcpy(temp, uii_status);
+	strcpy(temp, (char*)uii_status);
 
 	ptr = strchr(temp, ',');
 	*ptr = '\0';
@@ -171,7 +171,7 @@ void send_announce(char *name)
 	int i = 0;
 
 	byte announce_buffer[17] = { PACKET_ANNOUNCE, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-	strncpy(announce_buffer+2, name, NAME_LENGTH);
+	strncpy((char*)(announce_buffer+2), name, NAME_LENGTH);
 
 	// Workaround for U64 - null bytes terminate the packet.  Replace with $FF and strip out again on the server
 	for (i = 0; i < 17; i++)
@@ -179,14 +179,14 @@ void send_announce(char *name)
 		if (announce_buffer[i] == 0) announce_buffer[i] = 255;
 	}
 
-	uii_tcpsocketwrite(socketnr, announce_buffer);
+	uii_tcpsocketwrite(socketnr, (char*)announce_buffer);
 }
 
 void send_action(char key)
 {
 	send_buffer[0] = key;
 	send_buffer[1] = 0;
-	uii_tcpsocketwrite(socketnr, send_buffer);
+	uii_tcpsocketwrite(socketnr, (char*)send_buffer);
 }
 
 void handle_server_update(byte *uii_data_in)
@@ -475,7 +475,7 @@ void game_loop()
 	POKE(0x028A, 0xFF); //  All keys repeat
 
 	strlower(name);
-	strncpy((byte*)(SCREEN_RAM+NAME_LOC), name, NAME_LENGTH);
+	strncpy((char*)(SCREEN_RAM+NAME_LOC), name, NAME_LENGTH);
 
 	uii_tcpsocketread_opt_init(socketnr);
 
