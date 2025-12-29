@@ -185,7 +185,7 @@ public class TCPListenerU64 extends Thread
                         }
                     }
                     
-                    ClientU64 u64 = new ClientU64(announce_fixed, output);
+                    ClientU64 u64 = new ClientU64(announce_fixed, output, dungeon.getPlayerSpawnPosition());
                     dungeon.addEntity(u64);
                     
                     // 2. Game Loop - Blocks until user disconnects or dies

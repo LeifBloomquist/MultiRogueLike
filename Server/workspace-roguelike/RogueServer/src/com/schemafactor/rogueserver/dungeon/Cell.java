@@ -70,17 +70,36 @@ public class Cell implements java.io.Serializable, Container
     	        
     	    // Special cases (allowed)    	        
             case Constants.CHAR_SECRET_DOOR:
-                if (who!= null) who.addMessage("You found a secret door!");
+                if (who != null) who.addMessage("You found a secret door!");
                 return true;                
     	    
     	    // Special cases (not allowed)
             case Constants.CHAR_DOOR_CLOSED:
-            	  if (who!= null) who.addMessage("Door is locked!");
+            	  if (who != null) who.addMessage("Door is locked!");
                   return false;
     	    
             case Constants.CHAR_LAVA:
-            	if (who!= null) who.addMessage("You can't walk on lava!");
+            	  if (who != null) 
+            	  {
+            		  who.addMessage("You can't walk on lava!");
+            		  who.takeDamage(1);
+            		  who.playSound(Constants.SOUND_ATTACKED);
+            	  }
                   return false;
+                  
+            case Constants.CHAR_BARRIER:
+	          	  if (who != null)
+	          	  {
+	          		  if (who.getType() == Entity.entityTypes.MONSTER)
+	          		  {
+	          			return false;	          			  
+	          		  }
+	          		  else
+	          		  {
+	          			return true;  // OK for players
+	          		  }
+	          	  }
+	          	  return false;                
                   
             // Everything else - not allowed
     	    default:

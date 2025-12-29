@@ -45,7 +45,9 @@ public class Dungeon implements java.io.Serializable
     private ArrayList<Position>[] emptyCells = null;
     
     // A dummy entity needed for some behind-the-scenes calls
-    DummyEntity dummy = new DummyEntity();
+    private DummyEntity dummy = new DummyEntity();
+    
+    private Position playerSpawnPosition = new Position(0,0,0);
     
     /**
      * 
@@ -153,6 +155,10 @@ public class Dungeon implements java.io.Serializable
                        
                    case ':': 
                        charcode = Constants.CHAR_DEBRIS;
+                       break;
+                       
+                   case 'b': 
+                       charcode = Constants.CHAR_BARRIER;
                        break;
                        
                    default:
@@ -659,5 +665,15 @@ public class Dungeon implements java.io.Serializable
                 JavaTools.generator.nextInt(getYsize()),
                 z);
         return p;
+    }
+    
+    public void setPlayerSpawnPosition(int x, int y, int z) 
+    {
+    	playerSpawnPosition = new Position(x,y,z);
     }	
+    
+    public Position getPlayerSpawnPosition()
+    {
+    	return playerSpawnPosition;
+    }
 }

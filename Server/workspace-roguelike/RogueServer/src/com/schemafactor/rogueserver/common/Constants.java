@@ -49,7 +49,7 @@ public class Constants
     public static final byte ACTION_USE        = 2;
     public static final byte ACTION_DIG        = 3;
     public static final byte ACTION_ATTACK     = 4;
-    public static final byte ACTION_EXAMINE    = 5;
+    public static final byte ACTION_INSPECT    = 5;
     public static final byte ACTION_OPEN       = 6;
     public static final byte ACTION_CLOSE      = 7;
     public static final byte ACTION_CAST       = 8;
@@ -128,6 +128,9 @@ public class Constants
     public static final byte CHAR_ITEM_SIGN        = (byte) 205;
     public static final byte CHAR_ITEM_CHEST_OPEN  = (byte) 209;
     public static final byte CHAR_ITEM_RING        = (byte) 210;
+    
+    // Special Character Codes
+    public static final byte CHAR_BARRIER          = (byte) 254;  // Players can cross, but monsters can't
     
     // C64 colors
     public static final byte COLOR_BLACK      = 0;

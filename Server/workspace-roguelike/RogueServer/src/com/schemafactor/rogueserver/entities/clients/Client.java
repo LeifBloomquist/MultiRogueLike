@@ -20,7 +20,7 @@ public abstract class Client extends Entity
    private static final long serialVersionUID = 1L;
    
    protected InetAddress userIP;                           // User IP Address
-   protected boolean announceReceived = false;
+   protected boolean announceReceived = false;             // Have receievbd first ("announce") packet from client
    protected Instant lastUpdateReceived = Instant.now();   // For timeouts
    protected Instant lastUpdateSent = Instant.now();       // For periodic updates
    protected int lastActionCounter = -1;                   // Invalid
@@ -198,15 +198,17 @@ public abstract class Client extends Entity
                break;
           
            case ',':
+           case 'l':
                handleAction(Constants.ACTION_USE, Constants.HAND_LEFT);
                break;
           
            case '.':
+           case 'r':
                handleAction(Constants.ACTION_USE, Constants.HAND_RIGHT);
                break;
                
            case 'i':
-               handleAction(Constants.ACTION_EXAMINE, Constants.HAND_NONE);
+               handleAction(Constants.ACTION_INSPECT, Constants.HAND_NONE);
                break;
                
            case 'Q':
@@ -389,7 +391,7 @@ public abstract class Client extends Entity
              moved = attemptDrop(parameter1);
              break;
              
-         case Constants.ACTION_EXAMINE:
+         case Constants.ACTION_INSPECT:
              moved = attemptInspect(true); 
              break;
               
@@ -553,8 +555,8 @@ public abstract class Client extends Entity
            screen += "N,M = Drop           ";
            screen += "I = Inspect item     ";
            screen += "U = Use item (Seen)  ";
-           screen += ", = Use item (Left)  ";
-           screen += ". = Use item (Right) ";
+           screen += "L = Use item (Left)  ";
+           screen += "R = Use item (Right) ";
            screen += "                     ";
            screen += "F1 = Help            ";
                       

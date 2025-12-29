@@ -6,18 +6,19 @@ import java.time.Instant;
 
 import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.JavaTools;
+import com.schemafactor.rogueserver.common.Position;
 
 public class ClientU64 extends ClientC64
 {   
    private static final long serialVersionUID = 1L;
    DataOutputStream output = null;
     
-   private static final long U64_THROTTLE_TIME    = 60;   // Milliseconds     
+   private static final long U64_THROTTLE_TIME    = 20;   // Milliseconds     
     
    /** Creates a new instance of C64 Client from TCP Connection (i.e. Ultimate 64) */
-   public ClientU64(byte[] data, DataOutputStream output)
+   public ClientU64(byte[] data, DataOutputStream output, Position start)
    {          
-       super("U64 Client", data, null);
+       super("U64 Client", data, null, start);
        this.output = output;
        
        sendUpdatePacket(getMessagesByteArray(), true);  // Since output is null in the super() call above...
@@ -77,8 +78,8 @@ public class ClientU64 extends ClientC64
        
        if (elapsed.toMillis() < U64_THROTTLE_TIME)  // 
        {
-    	   //JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
-    	   return;
+    	   JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
+    	   //return;
        }       
        
        try

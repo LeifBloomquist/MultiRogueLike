@@ -53,7 +53,7 @@ public abstract class Entity implements java.io.Serializable
 	   
        this.description = new String(description);       
        this.position = Dungeon.getInstance().getClosestEmptyCell(startposition);
-       this.home = startposition;
+       this.home = position;
        
        this.myType = type;
        this.charCode = charCode;
@@ -229,7 +229,7 @@ public abstract class Entity implements java.io.Serializable
        
        if (idamage > 0)
        {
-           this.health -= idamage;
+           takeDamage(idamage);
            this.playSound(Constants.SOUND_ATTACKED);
            attacker.playSound(Constants.SOUND_ATTACK);
            this.addMessage(attacker.description + " hits you for " + idamage + " damage!");
@@ -519,7 +519,7 @@ public abstract class Entity implements java.io.Serializable
        return false;
    }
    
-   // Attempt to inspect the item in the cell under this entity.  True on success, false on failure. 
+   // Attempt to inspect the item in the cell under this entity.  True on success, false on failure.  TODO, move this into Cell class.
    public boolean attemptInspect(boolean report_empty)
    {
        Cell current_cell = Dungeon.getInstance().getCell(this.position);
@@ -538,6 +538,7 @@ public abstract class Entity implements java.io.Serializable
        switch (code)   // Refer to Cell.canEnter() for allowable codes 
        {
            case Constants.CHAR_EMPTY:
+           case Constants.CHAR_BARRIER:
                if (report_empty)
                {
                    addMessage("You see nothing here.");       
@@ -758,6 +759,11 @@ public abstract class Entity implements java.io.Serializable
         {
            health=maxHealth;
         }
+    }
+    
+    public void takeDamage(int d)
+    {
+        health -= d;
     }
 
     // Forcibly drop (remove) items from inventory

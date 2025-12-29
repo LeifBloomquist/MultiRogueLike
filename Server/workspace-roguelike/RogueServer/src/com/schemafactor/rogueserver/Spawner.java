@@ -84,8 +84,15 @@ public class Spawner
         long depth = (long)ini.getValue("Dungeon", "DungeonDepth");
         long seed =  (long)ini.getValue("Dungeon", "RandomSeed");        
         dungeon.Create((int)size, (int) depth);
+        JavaTools.generator.setSeed(seed);
         
-        JavaTools.generator.setSeed(seed);        
+        // Player Spawn Position
+        String spawn =  (String)ini.getValue("Dungeon", "PlayerSpawnPosition");
+        String[] coords = spawn.split(",");
+        dungeon.setPlayerSpawnPosition(Integer.parseInt(coords[0]),
+						        	   Integer.parseInt(coords[1]),
+						        	   Integer.parseInt(coords[2]));
+        
         
         JavaTools.printlnTime("Loading dungeon levels...");
         
@@ -265,7 +272,7 @@ public class Spawner
 				break;
 			
 			default:
-				JavaTools.printlnTime("Error: Unknown monster type " + type + "in INI file");
+				JavaTools.printlnTime("Error: Unknown monster type '" + type + "' in INI file");
 				return;	
 		}
 		

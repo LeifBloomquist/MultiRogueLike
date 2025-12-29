@@ -118,7 +118,7 @@ public class UDPListener
         // No match, create new user and add to list
         JavaTools.printlnTime( "Creating new player from " + JavaTools.packetAddress(packet) + " [UDP]");
         byte[] data = Arrays.copyOf(packet.getData(), packet.getLength());
-        Client c64 = new ClientC64("C64 Client", data, packet.getAddress());        
+        Client c64 = new ClientC64("C64 Client", data, packet.getAddress(), dungeon.getPlayerSpawnPosition());        
         dungeon.addEntity(c64);
         
         return;  

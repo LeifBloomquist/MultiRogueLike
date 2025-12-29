@@ -35,7 +35,7 @@ public class WebSocketListener extends WebSocketServer
     public void onOpen(WebSocket conn, ClientHandshake handshake ) 
     {
         JavaTools.printlnTime("New WebSocket connection: " + handshake.getResourceDescriptor() + " from " + getConnIP(conn) );        
-        ClientWebSocket cws = new ClientWebSocket(conn);
+        ClientWebSocket cws = new ClientWebSocket(conn, Dungeon.getInstance().getPlayerSpawnPosition() );
         wsClients.add(cws);
         Dungeon.getInstance().addEntity(cws);
     }
