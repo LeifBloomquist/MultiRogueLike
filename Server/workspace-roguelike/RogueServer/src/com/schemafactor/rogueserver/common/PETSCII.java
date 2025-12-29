@@ -64,7 +64,7 @@ public class PETSCII
             case Constants.CHAR_MONSTER_DAEMON:
                 return 228;
            
-            case Constants.CHAR_PLAYER_NONE:
+            case Constants.CHAR_PLAYER_GENERIC:
                 return 64;
            
             case Constants.CHAR_PLAYER_MAGE:

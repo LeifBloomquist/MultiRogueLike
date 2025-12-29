@@ -19,6 +19,10 @@ public abstract class Entity implements java.io.Serializable
    public static enum entityTypes {NONE, CLIENT, NPC, MONSTER}
    protected entityTypes myType = entityTypes.NONE;
    
+   // State machine of client lifecycle
+   protected static enum entityStates {NEW, CHOOSING_AVATAR, PLAYING, HELP, DEAD, DISCONNECTED}
+   protected entityStates myState = entityStates.NEW;
+   
    protected String description;
    protected Position position;      // Current position
    protected Position home = null;   // Home.  For respawning or returning to spawn point
@@ -74,7 +78,8 @@ public abstract class Entity implements java.io.Serializable
        gameOverActionsComplete = false;
        JavaTools.printlnTime(description + " restarted");
        addMessage("Restarted...");
-       Dungeon.getInstance().addEntity(this);  // Re-add to main list       
+       Dungeon.getInstance().addEntity(this);  // Re-add to main list
+       myState = entityStates.CHOOSING_AVATAR;
    }
    
    /**
@@ -251,7 +256,7 @@ public abstract class Entity implements java.io.Serializable
        if (health <= 0 )
        {
            health = 0;
-           gameOver(attacker);           
+           gameOver(attacker);        
        }    
    }
    
@@ -310,6 +315,8 @@ public abstract class Entity implements java.io.Serializable
        {
            JavaTools.printlnTime("DEBUG: " + description + " Can't drop right item!! ");
        }
+       
+       myState = entityStates.DEAD;
        
        gameOverActionsComplete = true;
    }

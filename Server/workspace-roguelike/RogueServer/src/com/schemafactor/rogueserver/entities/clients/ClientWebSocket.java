@@ -17,7 +17,7 @@ public class ClientWebSocket extends Client
     /** Creates a new instance of WebSocket Client */         
     public ClientWebSocket(WebSocket websocket, Position spawn)
     {
-       super("WebSocket Client " + websocket.getRemoteSocketAddress().getAddress().getHostAddress(), spawn, entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
+       super("WebSocket Client " + websocket.getRemoteSocketAddress().getAddress().getHostAddress(), spawn, entityTypes.CLIENT, Constants.CHAR_PLAYER_GENERIC);
        announceReceived = false;       
        this.websocket = websocket;       
    }

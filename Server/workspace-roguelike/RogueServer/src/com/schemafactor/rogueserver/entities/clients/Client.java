@@ -19,17 +19,15 @@ public abstract class Client extends Entity
 {        
    private static final long serialVersionUID = 1L;
    
+   // Various client parameters
    protected InetAddress userIP;                           // User IP Address
-   protected boolean announceReceived = false;             // Have receievbd first ("announce") packet from client
+   protected boolean announceReceived = false;             // Have received first ("announce") packet from client
    protected Instant lastUpdateReceived = Instant.now();   // For timeouts
    protected Instant lastUpdateSent = Instant.now();       // For periodic updates
    protected int lastActionCounter = -1;                   // Invalid
    
    // Mini state machine for escape sequences
    ArrayList<Integer> escapeSequence = new ArrayList<Integer>();
-   
-   // Flag to say help is being shown
-   boolean showingHelp = false;
    
    // Queue of messages
    NonBlockingFixedSizeQueue<String> messageQueue = new NonBlockingFixedSizeQueue<String>(Constants.MESSAGE_QUEUE_MAX);
@@ -43,15 +41,14 @@ public abstract class Client extends Entity
    // Demo mode?
    static boolean demoMode = false;   
    
-   // Flag used at start to choose avatar
-   boolean choosingAvatar = true; 
-   
    public Client(String description, Position startposition, entityTypes type, byte charCode)
    {
        super(description, startposition, type, charCode, 1f, 100f);
        
        this.addMessage("The Dungeon of the Rogue Daemon");
        this.addMessage("Server version: " + Double.toString(Constants.VERSION) );       
+       
+       myState = entityStates.CHOOSING_AVATAR;
    }
    
    /** Return the InetAddress, for comparisons */
@@ -71,25 +68,6 @@ public abstract class Client extends Entity
            {
               return;                      
            }
-       }       
-      
-       // Yes/No at Game over - don't filter
-       
-       if (isDead())
-       {
-           switch (inputchar)
-           {
-               case 'y':    // Restart Game 
-               case 'Y':
-                       respawn();
-                       break; 
-
-               case 'n':    // End Game 
-               case 'N':
-                   removeMe();
-           }
-           
-           return;
        }
        
        // Filter out commands coming in too fast.
@@ -107,173 +85,211 @@ public abstract class Client extends Entity
        
        lastUpdateReceived = Instant.now();
        
-       // Choosing Avatar
+       // Respond to commands based on client state
        
-       if (choosingAvatar)
+       switch (myState)
        {
-    	   switch (inputchar)
-           {
-		       case '1':
-		    	   charCode = Constants.CHAR_PLAYER_NONE;
-		           break;
-		       
-		       case '2':
-		    	   charCode = Constants.CHAR_PLAYER_MAGE;
-		           break;
+       		case NEW:
+       			break;
+			
+			case CHOOSING_AVATAR:
+				
+				switch (inputchar)
+		        {
+			       case '1':
+			    	   charCode = Constants.CHAR_PLAYER_GENERIC;
+			    	   myState = entityStates.PLAYING;
+			           break;
+			       
+			       case '2':
+			    	   charCode = Constants.CHAR_PLAYER_MAGE;
+			    	   myState = entityStates.PLAYING;
+			           break;
+			           
+			       case '3':
+			    	   charCode = Constants.CHAR_PLAYER_FIGHTER;
+			    	   myState = entityStates.PLAYING;
+			           break;
+			           
+			       case '4':
+			    	   charCode = Constants.CHAR_PLAYER_FIGHTER2;
+			    	   myState = entityStates.PLAYING;
+			           break;
+			        
+			       default:
+			    	   return;  // Ignore all other input until an avatar is chosen
+		           } 
+				break;
+				
+			case PLAYING:
+				
+				switch (inputchar)
+		        {       
+		           case 'q':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NW);
+		               break;
 		           
-		       case '3':
-		    	   charCode = Constants.CHAR_PLAYER_FIGHTER;
-		           break;
+		           case 'w':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NORTH);
+		               break;
+		               
+		           case 'e':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NE);
+		               break;
+		               
+		           case 'a':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_WEST);
+		               break;
+		               
+		           case 's':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
+		               break;
+		               
+		           case 'd':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_EAST);
+		               break;
+		               
+		           case 'z':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SW);
+		               break;
+		               
+		           case 'x':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
+		               break;
+		               
+		           case 'c':
+		               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SE);
+		               break;               
+		               
+		           case 'h':
+		        	   myState = entityStates.HELP;
+		               needsUpdate();
+		               break;
+		               
+		           case 'j':
+		               handleAction(Constants.ACTION_PICKUP, Constants.HAND_LEFT);
+		               break;
+		               
+		           case 'k':
+		               handleAction(Constants.ACTION_PICKUP, Constants.HAND_RIGHT);
+		               break;
+		               
+		           case '*':
+		           case 'u':
+		           case 'U':
+		               handleAction(Constants.ACTION_USE, Constants.HAND_NONE);
+		               break;
+		          
+		           case ',':
+		           case 'l':
+		               handleAction(Constants.ACTION_USE, Constants.HAND_LEFT);
+		               break;
+		          
+		           case '.':
+		           case 'r':
+		               handleAction(Constants.ACTION_USE, Constants.HAND_RIGHT);
+		               break;
+		               
+		           case 'i':
+		               handleAction(Constants.ACTION_INSPECT, Constants.HAND_NONE);
+		               break;
+		               
+		           case 'Q':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NW);
+		               break;
 		           
-		       case '4':
-		    	   charCode = Constants.CHAR_PLAYER_FIGHTER2;
-		           break;
-		        
-		       default:
-		    	   return;  // Ignore all other input until an avatar is chosen
-           }
-    	   
-    	   choosingAvatar=false;
-    	   return;    	   
-       }
-       
-       
-       // Normal keystrokes       
-       
-       switch (inputchar)
-       {       
-           case 'q':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NW);
-               break;
-           
-           case 'w':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NORTH);
-               break;
-               
-           case 'e':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_NE);
-               break;
-               
-           case 'a':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_WEST);
-               break;
-               
-           case 's':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
-               break;
-               
-           case 'd':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_EAST);
-               break;
-               
-           case 'z':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SW);
-               break;
-               
-           case 'x':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SOUTH);
-               break;
-               
-           case 'c':
-               handleAction(Constants.ACTION_MOVE, Constants.DIRECTION_SE);
-               break;               
-               
-           case 'h':
-               showingHelp = !showingHelp;
-               needsUpdate();
-               break;
-               
-           case 'j':
-               handleAction(Constants.ACTION_PICKUP, Constants.HAND_LEFT);
-               break;
-               
-           case 'k':
-               handleAction(Constants.ACTION_PICKUP, Constants.HAND_RIGHT);
-               break;
-               
-           case '*':
-           case 'u':
-           case 'U':
-               handleAction(Constants.ACTION_USE, Constants.HAND_NONE);
-               break;
-          
-           case ',':
-           case 'l':
-               handleAction(Constants.ACTION_USE, Constants.HAND_LEFT);
-               break;
-          
-           case '.':
-           case 'r':
-               handleAction(Constants.ACTION_USE, Constants.HAND_RIGHT);
-               break;
-               
-           case 'i':
-               handleAction(Constants.ACTION_INSPECT, Constants.HAND_NONE);
-               break;
-               
-           case 'Q':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NW);
-               break;
-           
-           case 'W':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NORTH);
-               break;
-               
-           case 'E':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NE);
-               break;
-               
-           case 'A':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_WEST);
-               break;
-               
-           case 'S':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
-               break;
-               
-           case 'D':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_EAST);
-               break;
-               
-           case 'Z':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SW);
-               break;
-               
-           case 'X':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
-               break;
-               
-           case 'C':
-               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SE);
-               break;
-               
-           case 'J':
-           case 'n':
-           case 'N':
-               handleAction(Constants.ACTION_DROP, Constants.HAND_LEFT);
-               break;
-               
-           case 'K':
-           case 'm':
-           case 'M':               
-               handleAction(Constants.ACTION_DROP, Constants.HAND_RIGHT);
-               break; 
-               
-           case '!': // DEBUG special way to commit suicide to debug end of game
-               health = 0;
-               checkHealth(this);
-               break;
+		           case 'W':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NORTH);
+		               break;
+		               
+		           case 'E':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_NE);
+		               break;
+		               
+		           case 'A':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_WEST);
+		               break;
+		               
+		           case 'S':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
+		               break;
+		               
+		           case 'D':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_EAST);
+		               break;
+		               
+		           case 'Z':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SW);
+		               break;
+		               
+		           case 'X':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SOUTH);
+		               break;
+		               
+		           case 'C':
+		               handleAction(Constants.ACTION_ATTACK, Constants.DIRECTION_SE);
+		               break;
+		               
+		           case 'J':
+		           case 'n':
+		           case 'N':
+		               handleAction(Constants.ACTION_DROP, Constants.HAND_LEFT);
+		               break;
+		               
+		           case 'K':
+		           case 'm':
+		           case 'M':               
+		               handleAction(Constants.ACTION_DROP, Constants.HAND_RIGHT);
+		               break; 
+		               
+		           case '!': // DEBUG special way to commit suicide to debug end of game
+		               health = 0;
+		               checkHealth(this);
+		               break;
 
-           // Special cases for Cursor and Function Keys
-           case EscapeSequences.ESC:
-               escapeSequence.clear();
-               escapeSequence.add(inputchar);
-               return;
-           
-           default:
-               //JavaTools.printlnTime("DEBUG: Invalid command " + inputchar + " from " + description);
-               return;
-       }
+		           // Special cases for Cursor and Function Keys
+		           case EscapeSequences.ESC:
+		               escapeSequence.clear();
+		               escapeSequence.add(inputchar);
+		               return;
+		           
+		           default:
+		               //JavaTools.printlnTime("DEBUG: Invalid command " + inputchar + " from " + description);
+		               return;
+			       }
+				
+				break;
+				
+			case DEAD:
+				
+				switch (inputchar)
+	            {
+	               case 'y':    // Restart Game 
+	               case 'Y':
+                       respawn();
+                       break; 
+
+	               case 'n':    // End Game 
+	               case 'N':
+	                   removeMe();
+	            }
+				break;
+				
+			case HELP:
+				
+				switch (inputchar)
+	            {
+	               case 'h': 
+	               case 'H':
+                       myState = entityStates.PLAYING;
+                       break;
+	            }				
+				break;			
+			
+			default:
+				break;
+       
+       }   
    }
 
    // Special handling for escape sequences
@@ -335,13 +351,13 @@ public abstract class Client extends Entity
        
        if (Arrays.equals(esc, EscapeSequences.ESCAPE_F1))
        {
-           showingHelp = true;
+    	   myState = entityStates.HELP;
            complete = true;
        }
        
        if (Arrays.equals(esc, EscapeSequences.ESCAPE_F2))
        {
-           showingHelp = false;
+           myState = entityStates.PLAYING;
            complete = true;
        }
        
@@ -463,6 +479,7 @@ public abstract class Client extends Entity
 	        	addMessage("You Have Timed Out");
 	            JavaTools.printlnTime( "Player Timed Out: " + description );
 	            gameOver(null);
+	            myState = entityStates.DISCONNECTED;
 	            removeMe();	            
 	        }             
        }      
@@ -514,96 +531,103 @@ public abstract class Client extends Entity
        
        int offset = 1;
        
-       if (choosingAvatar)
-       {
-    	   byte[] screen = new byte[] {
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ','C','H','O','O','S','E',' ','A','V','A','T','A','R',':',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ','1',' ',Constants.CHAR_PLAYER_NONE,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ','2',' ',Constants.CHAR_PLAYER_MAGE,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ','3',' ',Constants.CHAR_PLAYER_FIGHTER,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ','4',' ',Constants.CHAR_PLAYER_FIGHTER2,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-    	   };
-           
-           System.arraycopy( screen, 0, buffer, offset, Constants.SCREEN_SIZE);
-   	   } 
-       else if (showingHelp)
-       {
-           String screen = "";
-          
-           screen += "Help (F1 to Exit)    ";
-           screen += "                     ";
-           screen += "QWE                  ";
-           screen += "ASD = Move           ";
-           screen += "ZXC                  ";
-           screen += "                     ";
-           screen += "SHIFT+Move = Attack  ";
-           screen += "                     ";
-           screen += "J = Pick up (Left)   ";
-           screen += "K = Pick up (Right)  ";
-           screen += "N,M = Drop           ";
-           screen += "I = Inspect item     ";
-           screen += "U = Use item (Seen)  ";
-           screen += "L = Use item (Left)  ";
-           screen += "R = Use item (Right) ";
-           screen += "                     ";
-           screen += "F1 = Help            ";
-                      
-           if (screen.length() != Constants.SCREEN_SIZE)
-           {
-               JavaTools.printlnTime("EXCEPTION: Mismatch in Help string size!!");
-               throw new RuntimeException("Mismatch in Help string size!!");
-           }
-           
-           System.arraycopy( screen.toUpperCase().getBytes(), 0, buffer, offset, Constants.SCREEN_SIZE );
-           
-       }
-       else if (isDead())
-       {
-           String screen = "";
-           String lava = "   " + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + "    ";
-           
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-           screen += lava;
-           screen += "   " + (char)Constants.CHAR_LAVA + " GAME  OVER " + (char)Constants.CHAR_LAVA + "    ";           
-           screen += lava;
-           screen += "                     ";
-           screen += "                     ";
-           screen += "   You have died!    ";
-           screen += "                     ";
-           screen += "  Play Again  Y/N?   ";
-           screen += "                     ";
-           screen += "                     ";           
-           screen += "                     ";
-           screen += "                     ";
-           screen += "                     ";
-                      
-           if (screen.length() != Constants.SCREEN_SIZE)
-           {
-               JavaTools.printlnTime("EXCEPTION: Mismatch in End Game string size!!");
-               throw new RuntimeException("Mismatch in  End Game string size!!");
-           }
-           
-           System.arraycopy( screen.toUpperCase().getBytes(), 0, buffer, offset, Constants.SCREEN_SIZE );
-       }
-       else // All good
-       {      
-           // Get the screen that is visible to this player
-           System.arraycopy( Dungeon.getInstance().getScreenCentered(position), 0, buffer, offset, Constants.SCREEN_SIZE );          
+       switch (myState)
+       {			
+			case CHOOSING_AVATAR:
+				
+				 byte[] screen = new byte[] {
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ','C','H','O','O','S','E',' ','A','V','A','T','A','R',':',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ','1',' ',Constants.CHAR_PLAYER_GENERIC,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ','2',' ',Constants.CHAR_PLAYER_MAGE,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ','3',' ',Constants.CHAR_PLAYER_FIGHTER,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ','4',' ',Constants.CHAR_PLAYER_FIGHTER2,' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				           ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+				    	   };
+				 
+				 System.arraycopy( screen, 0, buffer, offset, Constants.SCREEN_SIZE);
+				 break;
+				 
+			case HELP:
+				
+				String help_screen = "";
+		          
+	            help_screen += "Help (F1 to Exit)    ";
+	            help_screen += "                     ";
+	            help_screen += "QWE                  ";
+	            help_screen += "ASD = Move           ";
+	            help_screen += "ZXC                  ";
+	            help_screen += "                     ";
+	            help_screen += "SHIFT+Move = Attack  ";
+	            help_screen += "                     ";
+	            help_screen += "J = Pick up (Left)   ";
+	            help_screen += "K = Pick up (Right)  ";
+	            help_screen += "N,M = Drop           ";
+	            help_screen += "I = Inspect item     ";
+	            help_screen += "U = Use item (Seen)  ";
+	            help_screen += "L = Use item (Left)  ";
+	            help_screen += "R = Use item (Right) ";
+	            help_screen += "                     ";
+	            help_screen += "F1 = Help            ";
+	                      
+	            if (help_screen.length() != Constants.SCREEN_SIZE)
+	            {
+	               JavaTools.printlnTime("EXCEPTION: Mismatch in Help string size!!");
+	               throw new RuntimeException("Mismatch in Help string size!!");
+	            }
+	           
+	            System.arraycopy( help_screen.toUpperCase().getBytes(), 0, buffer, offset, Constants.SCREEN_SIZE );
+				break;
+				 
+			case DEAD:
+				String death_screen = "";
+		        String lava = "   " + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + (char)Constants.CHAR_LAVA + "    ";
+		           
+		        death_screen += "                     ";
+		        death_screen += "                     ";
+		        death_screen += "                     ";
+		        death_screen += "                     ";
+		        death_screen += lava;
+		        death_screen += "   " + (char)Constants.CHAR_LAVA + " GAME  OVER " + (char)Constants.CHAR_LAVA + "    ";           
+		        death_screen += lava;
+		        death_screen += "                     ";
+		        death_screen += "                     ";
+		        death_screen += "   You have died!    ";
+		        death_screen += "                     ";
+		        death_screen += "  Play Again  Y/N?   ";
+		        death_screen += "                     ";
+		        death_screen += "                     ";           
+		        death_screen += "                     ";
+		        death_screen += "                     ";
+		        death_screen += "                     ";
+		                      
+		        if (death_screen.length() != Constants.SCREEN_SIZE)
+		        {
+		            JavaTools.printlnTime("EXCEPTION: Mismatch in End Game string size!!");
+		            throw new RuntimeException("Mismatch in  End Game string size!!");
+		        }
+		           
+		        System.arraycopy( death_screen.toUpperCase().getBytes(), 0, buffer, offset, Constants.SCREEN_SIZE );
+				break;
+				
+			case PLAYING:
+				// Get the screen that is visible to this player
+		        System.arraycopy( Dungeon.getInstance().getScreenCentered(position), 0, buffer, offset, Constants.SCREEN_SIZE );          
+				break;
+				
+			default:
+				break;
+		       
        }
        
        offset += Constants.SCREEN_SIZE;

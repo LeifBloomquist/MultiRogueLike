@@ -1,7 +1,6 @@
 package com.schemafactor.rogueserver.items;
 
 import com.schemafactor.rogueserver.common.Constants;
-import com.schemafactor.rogueserver.entities.Entity;
 
 public class Gold extends Item
 {

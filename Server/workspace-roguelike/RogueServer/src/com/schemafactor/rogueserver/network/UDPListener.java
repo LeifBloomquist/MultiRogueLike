@@ -100,7 +100,7 @@ public class UDPListener
                 if ( c64.getAddress().equals( packet.getAddress()) )   // Match found.  There's probably a faster way to do this, hashtable, HashSet etc.
                 {
                     byte[] data = Arrays.copyOf(packet.getData(), packet.getLength());
-                    c64.receiveUpdate(data);
+                    c64.receiveCommand(data);
                     return;
                 }
             }

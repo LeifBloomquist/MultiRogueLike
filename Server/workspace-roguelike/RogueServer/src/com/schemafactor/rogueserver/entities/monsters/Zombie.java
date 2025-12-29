@@ -6,7 +6,6 @@ import com.schemafactor.rogueserver.common.Constants;
 import com.schemafactor.rogueserver.common.Position;
 import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.Entity;
-import com.schemafactor.rogueserver.entities.monsters.Monster.States;
 
 public class Zombie extends Monster
 {  

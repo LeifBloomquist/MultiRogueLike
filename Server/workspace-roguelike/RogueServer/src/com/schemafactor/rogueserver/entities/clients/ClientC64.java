@@ -19,10 +19,10 @@ public class ClientC64 extends Client
    /** Creates a new instance of C64 Client from UDP Packet (i.e. C64 with CS8900) */
    public ClientC64(String description, byte[] data, InetAddress address, Position spawn)
    {
-       super(description, spawn, entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
+       super(description, spawn, entityTypes.CLIENT, Constants.CHAR_PLAYER_GENERIC);
 
        userIP = address;       
-       receiveUpdate(data);
+       receiveCommand(data);
    }
 
    /** Return the InetAddress, for comparisons */
@@ -32,7 +32,7 @@ public class ClientC64 extends Client
    }
 
    /** Update me with new data from client */
-   public void receiveUpdate(byte[] data)
+   public void receiveCommand(byte[] data)
    {   
        switch (data[0])   // Packet type
        {

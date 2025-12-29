@@ -3,9 +3,8 @@
  */
 package com.schemafactor.rogueserver.webserver;
 
-import java.awt.Color;
-
-import com.schemafactor.rogueserver.common.JavaTools;
+//import java.awt.Color;
+//import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.entities.Entity;
 
 /**

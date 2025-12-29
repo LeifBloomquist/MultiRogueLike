@@ -106,7 +106,7 @@ public class Constants
     public static final byte CHAR_MONSTER_DAEMON   = (byte) 105;
     
     // Player Character Codes
-    public static final byte CHAR_PLAYER_NONE      = (byte) 128;
+    public static final byte CHAR_PLAYER_GENERIC   = (byte) 128;
     public static final byte CHAR_PLAYER_MAGE      = (byte) 129;
     public static final byte CHAR_PLAYER_FIGHTER   = (byte) 130;
     public static final byte CHAR_PLAYER_FIGHTER2  = (byte) 131;

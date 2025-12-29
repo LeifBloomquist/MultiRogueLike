@@ -22,15 +22,13 @@ public class ClientTelnet extends Client
  * @param output */         
    public ClientTelnet(String login, PrintWriter output)
    {
-       super(login, new Position(15,15,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_NONE);
+       super(login, new Position(15,15,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_GENERIC);
        
-       announceReceived = true;
-       choosingAvatar = false;  // TODO - not possible for Telnet clients
-       this.output = output;
-       
-       userIP = null;   // Not needed for TCP connections
-       
+       announceReceived = true;       
+       this.output = output;       
+       userIP = null;   // Not needed for TCP connections       
        this.addMessage("Press H for Help");
+       myState = entityStates.PLAYING;
    }
 
 /** Return the InetAddress, for comparisons */
@@ -45,7 +43,7 @@ public class ClientTelnet extends Client
    {   
        String screen = EscapeSequences.ANSI_CLEAR;
        
-       if (showingHelp)
+       if (myState == entityStates.HELP )
        {
            screen += "Help  (Press H again to return to game)\r\n\r\n";
            screen += "QWE\r\n";
@@ -57,8 +55,8 @@ public class ClientTelnet extends Client
            screen += "N,M = Drop Item (Left, Right)\r\n\r\n";
            screen += "I = Inspect item at current location\r\n";
            screen += "U = Use item at current location\r\n";
-           screen += ", = Use item (Left)\r\n";
-           screen += ". = Use item (Right)\r\n\r\n";
+           screen += "L = Use item (Left)\r\n";
+           screen += "R = Use item (Right)\r\n\r\n";
            screen += "H = Help (this screen)\r\n";
        }
        else
