@@ -61,23 +61,21 @@ public class Spawner
     {
     	dungeon = thedungeon;
     	
-    	String fullpath = path + inifile;
-    	
-        JavaTools.printlnTime("Reading INI file " + fullpath + " ...");
+        JavaTools.printlnTime("Reading INI file " + inifile + " ...");
 
     	Ini ini = new Ini();
     	try 
     	{
-			ini.load(new FileInputStream(fullpath));
+			ini.load(new FileInputStream(inifile));
 		} 
     	catch (FileNotFoundException e) 
     	{
-    		JavaTools.printlnTime("EXCEPTION, can't find " + fullpath);
+    		JavaTools.printlnTime("EXCEPTION, can't find " + inifile);
     		System.exit(2);
 		} 
     	catch (IOException e) 
     	{
-			JavaTools.printlnTime("EXCEPTION, can't load " + fullpath + " -- " + e.getMessage() );
+			JavaTools.printlnTime("EXCEPTION, can't load " + inifile + " -- " + e.getMessage() );
 			System.exit(3);
 		}    	
         

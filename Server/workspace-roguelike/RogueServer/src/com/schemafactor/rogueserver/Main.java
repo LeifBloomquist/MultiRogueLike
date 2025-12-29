@@ -1,5 +1,6 @@
 package com.schemafactor.rogueserver;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -54,8 +55,9 @@ public class Main
         // Different modes for demos or local development
         if (mode.equals("-local"))
         {
-            prefix += "C:/Leif/GitHub/MultiRogueLike/Server/data/mini/";
-            JavaTools.printlnTime("Local Mode specified - Timeouts disabled.");
+        	String path = new File(inifile).getParent();
+        	prefix += path + "\\";
+            JavaTools.printlnTime("Local Mode specified - Timeouts disabled and local path set.");
             Client.setDemoMode();
         }
         

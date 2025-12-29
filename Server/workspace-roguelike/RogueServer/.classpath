@@ -6,8 +6,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Leif/GitHub/MultiRogueLike/Server/workspace-roguelike/RogueServer/lib/Java-WebSocket-1.5.3.jar"/>
-	<classpathentry kind="lib" path="C:/Leif/GitHub/MultiRogueLike/Server/workspace-roguelike/RogueServer/lib/slf4j-api-2.0.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/java-ini-parser"/>
+	<classpathentry kind="lib" path="D:/Leif/GitHub/MultiRogueLike/Server/workspace-roguelike/RogueServer/lib/Java-WebSocket-1.5.3.jar"/>
+	<classpathentry kind="lib" path="D:/Leif/GitHub/MultiRogueLike/Server/workspace-roguelike/RogueServer/lib/slf4j-api-2.0.3.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java_ini_parser"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
