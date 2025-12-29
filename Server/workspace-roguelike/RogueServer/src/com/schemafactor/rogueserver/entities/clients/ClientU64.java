@@ -21,7 +21,7 @@ public class ClientU64 extends ClientC64
        super("U64 Client", data, null, start);
        this.output = output;
        
-       sendUpdatePacket(getMessagesByteArray(), true);  // Since output is null in the super() call above...
+       sendMessages();
    }
    
    // Send an update.
@@ -44,9 +44,13 @@ public class ClientU64 extends ClientC64
    {
        messageQueue.add(msg);
        
-       byte[] buffer = getMessagesByteArray();
-       
-       // Send the packet.  On U64 send messages packet separately.
+       // Send the packet immediately.  For U64 messages packet is sent separately from screen updates.
+       sendMessages();
+   }
+   
+   private void sendMessages()
+   {
+	   byte[] buffer = getMessagesByteArray();
        sendUpdatePacket(buffer, true);
    }
    

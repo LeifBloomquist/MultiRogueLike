@@ -79,6 +79,7 @@ public abstract class Entity implements java.io.Serializable
        JavaTools.printlnTime(description + " restarted");
        addMessage("Restarted...");
        Dungeon.getInstance().addEntity(this);  // Re-add to main list
+       Dungeon.getInstance().getCell(position).setEntity(this);  // Re-add to the starting cell
        myState = entityStates.CHOOSING_AVATAR;
    }
    
