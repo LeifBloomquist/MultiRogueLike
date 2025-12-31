@@ -774,10 +774,16 @@ public abstract class Entity implements java.io.Serializable
         health -= d;
     }
 
-    // Forcibly drop (remove) items from inventory
+    // Forcibly drop (remove) magic items from inventory - Only used by Magic Keys for now
     // Returns true on success (item was held), false if failure (item didn't match)
     public boolean forceDrop(Item magicitem)
     {
+    	if (magicitem == null) 
+    	{
+    		 JavaTools.printlnTime("DEBUG: forceDrop() magicitem was null?");
+    		 return false;
+    	}
+    	
         if (magicitem.equals(item_left))
         {
             item_left = null;
@@ -789,6 +795,37 @@ public abstract class Entity implements java.io.Serializable
             item_right = null;
             return true;
         }
+        
+        // Debug, How does this fail?
+        String magic = "";
+        String left = "";
+        String right = "";
+        
+        magic = magicitem.getDescription();
+        
+        if (item_left == null) 
+    	{
+    		left = "null"; 
+    	}
+        else
+        {
+        	left = item_left.getDescription();
+        }
+        
+        if (item_right == null) 
+    	{
+        	right = "null"; 
+    	}
+        else
+        {
+        	right = item_left.getDescription();
+        }        
+        
+        JavaTools.printlnTime("DEBUG: forceDrop FAILED.  Entity=" + description + 
+        		                                   "  magicitem=" + magic +
+        		                                   "  item_left=" + left +
+        		                                  "  item_right=" + right);
+        
         return false;
     }   
 }

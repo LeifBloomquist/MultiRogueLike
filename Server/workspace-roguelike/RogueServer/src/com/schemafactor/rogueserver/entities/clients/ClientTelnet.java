@@ -22,12 +22,11 @@ public class ClientTelnet extends Client
  * @param output */         
    public ClientTelnet(String login, PrintWriter output)
    {
-       super(login, new Position(15,15,0), entityTypes.CLIENT, Constants.CHAR_PLAYER_GENERIC);
+       super(login, Dungeon.getInstance().getPlayerSpawnPosition(), entityTypes.CLIENT, Constants.CHAR_PLAYER_GENERIC);
        
        announceReceived = true;       
        this.output = output;       
-       userIP = null;   // Not needed for TCP connections       
-       this.addMessage("Press H for Help");
+       userIP = null;   // Not needed for TCP connections
        myState = entityStates.PLAYING;
    }
 

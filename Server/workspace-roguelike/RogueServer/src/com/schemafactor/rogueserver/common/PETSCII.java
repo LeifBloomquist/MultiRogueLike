@@ -174,13 +174,13 @@ public class PETSCII
              case 42:  // *
                  return (byte)'*';
                  
-             case '!':  // *
+             case '!':  // !
                  return (byte)'!';
 
-             case ',':  // *
+             case ',':  // ,
                  return (byte)',';
 
-             case '.':  // *
+             case '.':  // .
                  return (byte)'.';        
          }
          

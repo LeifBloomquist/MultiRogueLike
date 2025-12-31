@@ -46,7 +46,7 @@ public abstract class Client extends Entity
        super(description, startposition, type, charCode, 1f, 100f);
        
        this.addMessage("The Dungeon of the Rogue Daemon");
-       this.addMessage("Server version: " + Double.toString(Constants.VERSION) );       
+       this.addMessage("Server version: " + Double.toString(Constants.VERSION) + "   (H for help)");       
        
        myState = entityStates.CHOOSING_AVATAR;
    }
@@ -174,7 +174,9 @@ public abstract class Client extends Entity
 		               handleAction(Constants.ACTION_PICKUP, Constants.HAND_RIGHT);
 		               break;
 		               
-		           case '*':
+		           case '*':  // This is sent by joystick when fire-button pressed while centered.  Not currently used, was too fast to be useful.
+		        	   break;
+		        	   
 		           case 'u':
 		           case 'U':
 		               handleAction(Constants.ACTION_USE, Constants.HAND_NONE);
@@ -562,7 +564,7 @@ public abstract class Client extends Entity
 				
 				String help_screen = "";
 		          
-	            help_screen += "Help (F1 to Exit)    ";
+	            help_screen += "Help (H to Exit)     ";
 	            help_screen += "                     ";
 	            help_screen += "QWE                  ";
 	            help_screen += "ASD = Move           ";
@@ -578,7 +580,7 @@ public abstract class Client extends Entity
 	            help_screen += "L = Use item (Left)  ";
 	            help_screen += "R = Use item (Right) ";
 	            help_screen += "                     ";
-	            help_screen += "F1 = Help            ";
+	            help_screen += "H = Help            ";
 	                      
 	            if (help_screen.length() != Constants.SCREEN_SIZE)
 	            {

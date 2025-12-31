@@ -15,7 +15,6 @@ import com.github.vincentrussell.ini.Ini;
 
 import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.Position;
-import com.schemafactor.rogueserver.common.interfaces.Container;
 import com.schemafactor.rogueserver.common.interfaces.Rechargeable;
 import com.schemafactor.rogueserver.dungeon.Cell;
 import com.schemafactor.rogueserver.dungeon.Dungeon;

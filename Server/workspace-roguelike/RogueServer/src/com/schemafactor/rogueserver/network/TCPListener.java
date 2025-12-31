@@ -228,7 +228,7 @@ public class TCPListener extends Thread
                 
                 // Wait for Login              
                 sendString("");
-                sendCharacters("Login: ");                    
+                sendCharacters("Player Name? ");                    
                 String login = input.readLine();
                 
                 if (login == null)

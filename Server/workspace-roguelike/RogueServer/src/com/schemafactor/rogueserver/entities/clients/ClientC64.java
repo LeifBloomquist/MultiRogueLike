@@ -17,9 +17,9 @@ public class ClientC64 extends Client
 	private static final long serialVersionUID = 1L;
 
    /** Creates a new instance of C64 Client from UDP Packet (i.e. C64 with CS8900) */
-   public ClientC64(String description, byte[] data, InetAddress address, Position spawn)
+   public ClientC64(String description, byte[] data, InetAddress address, Position startposition)
    {
-       super(description, spawn, entityTypes.CLIENT, Constants.CHAR_PLAYER_GENERIC);
+       super(description, startposition, entityTypes.CLIENT, Constants.CHAR_PLAYER_GENERIC);
 
        userIP = address;       
        receiveCommand(data);

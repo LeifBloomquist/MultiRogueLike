@@ -16,9 +16,9 @@ public class ClientU64 extends ClientC64
    private static final long U64_THROTTLE_TIME    = 20;   // Milliseconds     
     
    /** Creates a new instance of C64 Client from TCP Connection (i.e. Ultimate 64) */
-   public ClientU64(byte[] data, DataOutputStream output, Position start)
+   public ClientU64(byte[] data, DataOutputStream output, Position startposition)
    {          
-       super("U64 Client", data, null, start);
+       super("U64 Client", data, null, startposition);
        this.output = output;
        
        sendMessages();

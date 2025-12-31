@@ -94,7 +94,7 @@ public class Dungeon implements java.io.Serializable
         }
         scanner.close();
         
-        JavaTools.printlnTime( "Level " + level + " number of lines loaded: " + lines.size() );
+        JavaTools.printlnTime( "Level " + level + " (" + filename + ") number of lines loaded: " + lines.size() );
            
         for (int y=0; y < lines.size(); y++)
         {   
@@ -136,6 +136,15 @@ public class Dungeon implements java.io.Serializable
                    case 'd': 
                        charcode = Constants.CHAR_DOOR_CLOSED;
                        break;
+                       
+                   case 'D': 
+                   case 'y':
+                       charcode = Constants.CHAR_DOOR_OPEN;
+                       break;
+                       
+                   case 'b': 
+                       charcode = Constants.CHAR_BARRIER;
+                       break;
 
                    case 'O': 
                        charcode = Constants.CHAR_PORTAL;
@@ -155,10 +164,6 @@ public class Dungeon implements java.io.Serializable
                        
                    case ':': 
                        charcode = Constants.CHAR_DEBRIS;
-                       break;
-                       
-                   case 'b': 
-                       charcode = Constants.CHAR_BARRIER;
                        break;
                        
                    default:
