@@ -1,15 +1,19 @@
 
+Bugs:
+
+-Fix bug with Human players via TCP (Telnet) not being removed
+-Player becomes ivisible to themselves when invisible - hard to navigate
+-Magic keys lost or duplicated
+
 Soon:
 
--Procedurally generated levels
 -Fix Bug with some player names being lost after respawn
--Login System
 -Fix player name on 64 client 
--Fix bug with Human players via TCP not being removed
-
 
 Ideas:
 
+-Procedurally generated levels
+-Login System
 -Occluded vision?
 -Monsters stealing items?
 -More Monsters and types?

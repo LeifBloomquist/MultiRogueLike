@@ -574,13 +574,13 @@ public abstract class Client extends Entity
 	            help_screen += "                     ";
 	            help_screen += "J = Pick up (Left)   ";
 	            help_screen += "K = Pick up (Right)  ";
-	            help_screen += "N,M = Drop           ";
+	            help_screen += "N/M = Drop Left/Right";
 	            help_screen += "I = Inspect item     ";
 	            help_screen += "U = Use item (Seen)  ";
 	            help_screen += "L = Use item (Left)  ";
 	            help_screen += "R = Use item (Right) ";
 	            help_screen += "                     ";
-	            help_screen += "H = Help            ";
+	            help_screen += "H = Help             ";
 	                      
 	            if (help_screen.length() != Constants.SCREEN_SIZE)
 	            {

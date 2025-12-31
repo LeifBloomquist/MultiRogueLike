@@ -489,8 +489,8 @@ public class Spawner
 
         dungeon.placeItem( new Sign("Crooked Sign", "Adventure awaits! Find a key..."), 
                            new Position(18,12,0));
-        
-        dungeon.placeItem( new Note("Tattered Note", "Portals teleport to random areas"), 
+
+        dungeon.placeItem( new Note("Tattered Note", "Use Portals to Teleport"), 
                            new Position(87,45,0));
         
         // Key to the stairs

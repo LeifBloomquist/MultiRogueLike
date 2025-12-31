@@ -231,7 +231,16 @@ public abstract class Entity implements java.io.Serializable
        damage -= protection;
        if (damage < 0) damage = 0f;  
        
-       int idamage = (int)Math.floor(damage);       
+       int idamage = (int)Math.floor(damage);
+       
+       
+       String article = " ";
+       
+       if (myType == entityTypes.MONSTER)
+       {
+    	   article = " the ";
+       }
+       
        
        if (idamage > 0)
        {
@@ -239,13 +248,13 @@ public abstract class Entity implements java.io.Serializable
            this.playSound(Constants.SOUND_ATTACKED);
            attacker.playSound(Constants.SOUND_ATTACK);
            this.addMessage(attacker.description + " hits you for " + idamage + " damage!");
-           attacker.addMessage("You hit " + this.description + " for " + idamage + " damage!");
+           attacker.addMessage("You hit" + article + this.description + " for " + idamage + " damage!");
        }
        else
        {
            this.playSound(Constants.SOUND_MISS);
            attacker.playSound(Constants.SOUND_MISS);
-           this.addMessage("You block the " + attacker.description + "!");
+           this.addMessage("You block" + article +  attacker.description + "!");
            attacker.addMessage( this.description + " blocks!");           
        }       
 

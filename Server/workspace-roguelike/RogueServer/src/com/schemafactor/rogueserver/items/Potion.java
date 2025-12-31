@@ -30,11 +30,13 @@ public class Potion extends Item implements Rechargeable
        if (amount >= factor)
        {
            entity.addHealth(factor);
+           entity.addMessage("You drink from the potion.");
            amount -= factor;
            return true;
        }
        else
        {
+    	   entity.addMessage("Potion is empty!");
            return false;
        }
     } 
