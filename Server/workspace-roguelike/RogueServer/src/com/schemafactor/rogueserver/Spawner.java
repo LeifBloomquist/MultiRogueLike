@@ -283,7 +283,7 @@ public class Spawner
 	private static void placeItem(String type, String description, Position pos, String[] params)
 	{
 		Item item = createItem(type, description, pos, params);
-		if (item != null) dungeon.placeItem( item, pos );		
+		if (item != null) dungeon.placeItem( item, pos );
 	}
 	
 	private static Item createItem(String type, String description, Position pos, String[] params)

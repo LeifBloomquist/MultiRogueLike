@@ -3,10 +3,10 @@
   "WorkspaceRootPath": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\visualstudio\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AD1DF585-658A-4AAC-B2C7-DFE2AAFA463B}|Ultimate64_Client\\Ultimate64_Client.vcxproj|D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\lib\\ultimate_lib_net.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{AD1DF585-658A-4AAC-B2C7-DFE2AAFA463B}|Ultimate64_Client\\Ultimate64_Client.vcxproj|D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD1DF585-658A-4AAC-B2C7-DFE2AAFA463B}|Ultimate64_Client\\Ultimate64_Client.vcxproj|D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{AD1DF585-658A-4AAC-B2C7-DFE2AAFA463B}|Ultimate64_Client\\Ultimate64_Client.vcxproj|D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\lib\\ultimate_lib_net.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,6 +21,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "u-rogueclient.c",
+              "DocumentMoniker": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c",
+              "RelativeDocumentMoniker": "..\\src\\u-rogueclient.c",
+              "ToolTip": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c",
+              "RelativeToolTip": "..\\src\\u-rogueclient.c",
+              "ViewState": "AgIAAEYBAAAAAAAAAAAjwFMBAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-12-31T02:26:50.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ultimate_lib_net.c",
               "DocumentMoniker": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\lib\\ultimate_lib_net.c",
               "RelativeDocumentMoniker": "..\\src\\lib\\ultimate_lib_net.c",
@@ -28,21 +41,7 @@
               "RelativeToolTip": "..\\src\\lib\\ultimate_lib_net.c",
               "ViewState": "AgIAAMgBAAAAAAAAAAAAANYBAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-12-29T10:14:11.683Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "u-rogueclient.c",
-              "DocumentMoniker": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c",
-              "RelativeDocumentMoniker": "..\\src\\u-rogueclient.c",
-              "ToolTip": "D:\\Leif\\GitHub\\MultiRogueLike\\Client\\Ultimate64\\src\\u-rogueclient.c",
-              "RelativeToolTip": "..\\src\\u-rogueclient.c",
-              "ViewState": "AgIAAIoAAAAAAAAAAIAwwJ4AAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-12-29T07:31:48.942Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-29T10:14:11.683Z"
             }
           ]
         }

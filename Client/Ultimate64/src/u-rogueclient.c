@@ -337,7 +337,7 @@ void network_init()
 	color(CG_YEL);
 	printf("Dungeon of the Rogue Daemon\nUltimate 64 Client\n\n");
 #else
-    char *host = "192.168.7.114";
+    char *host = "192.168.7.112";
 	clear_screen();
 	color(CG_YEL);
 	printf("Rogue Ultimate 64 LOCAL TEST CLIENT\n\n");

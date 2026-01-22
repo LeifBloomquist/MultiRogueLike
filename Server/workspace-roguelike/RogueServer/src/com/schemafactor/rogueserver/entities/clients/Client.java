@@ -452,7 +452,7 @@ public abstract class Client extends Entity
        // Update if required.
        if (updateMeFlag)
        {
-    	   updateNow();
+     	   updateNow();
        }
        
        // Increment and Timeout.  This is reset in receiveUpdate() above.     
