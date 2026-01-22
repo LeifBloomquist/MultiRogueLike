@@ -41,7 +41,8 @@
          person = person.substring(0, 16);
 
          // Let us open a web socket
-         ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
+         //ws = new WebSocket("ws://rogue.jammingsignal.com:3007/Rogue");
+		 ws = new WebSocket("ws://127.0.0.1:3007/Rogue");
          ws.binaryType = 'arraybuffer';
 
          // Web Socket is connected
@@ -253,8 +254,9 @@
      helptext += "M = Drop Item (Right Hand)\n\n";
      helptext += "I = Inspect item at current location\n\n";
      helptext += "U = Use item at current location\r\n";
-     helptext += ", = Use item (Left Hand)\n";
-     helptext += ". = Use item (Right Hand)\n\n";
+     helptext += "L = Use item (Left Hand)\n";
+     helptext += "R = Use item (Right Hand)\n\n";
+	 helptext += "H = Help (this page)";
 
      alert(helptext);
   }

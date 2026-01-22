@@ -137,8 +137,7 @@ public class Dungeon implements java.io.Serializable
                        charcode = Constants.CHAR_DOOR_CLOSED;
                        break;
                        
-                   case 'D': 
-                   case 'y':
+                   case 'D':
                        charcode = Constants.CHAR_DOOR_OPEN;
                        break;
                        
