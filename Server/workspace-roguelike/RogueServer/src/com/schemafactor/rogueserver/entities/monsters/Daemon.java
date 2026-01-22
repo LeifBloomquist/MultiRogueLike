@@ -15,7 +15,7 @@ public class Daemon extends Monster
     /** Creates a new instance of the Daemon */
     public Daemon(String name, Position startposition)
     {
-       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_DAEMON, 1000f, 20f, 1000f);      
+       super(name, startposition, entityTypes.MONSTER, Constants.CHAR_MONSTER_DAEMON, 200f, 20f, 1000f);      
     }
     
     @Override
@@ -25,12 +25,11 @@ public class Daemon extends Monster
         
         if (target != null)
         {        	
-        	// Can't smell
+        	// Can't detect invisibility
             if (target.isInvisible)
             {
             	State = States.IDLE;
-            }
-            
+            }            
             
             if (target.getRemoved())   // Target disconnected, or was removed/killed
             {
