@@ -95,7 +95,7 @@ public abstract class Entity implements java.io.Serializable
        
        if (dest_cell == null)
        {
-           JavaTools.printlnTime("DEBUG: " + description + " attempted to move out of map?  Last known location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
+           //JavaTools.printlnTime("DEBUG: " + description + " attempted to move out of map?  Last known location X=" + position.x + " Y=" + position.y + " Z=" + position.z);
            this.addMessage("Blocked!!");
            return false;
        }

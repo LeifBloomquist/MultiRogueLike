@@ -2,7 +2,7 @@
 Bugs:
 
 -Fix bug with Human players via TCP (Telnet) not being removed
--Player becomes ivisible to themselves when invisible - hard to navigate
+-Player becomes invisible to themselves when invisible - hard to navigate
 -Magic keys lost or duplicated
 
 Soon:

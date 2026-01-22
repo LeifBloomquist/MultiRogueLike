@@ -21,9 +21,9 @@ public class Gem extends Item implements Rechargeable
     private static final float recharge_rate = 1000f / (86400f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 1000 over a day
 
     /** Creates a new instance of Gem */
-    public Gem(int charges)
+    public Gem(int charges, String description)
     {
-       super("Blue Gem", Constants.CHAR_ITEM_GEM, true, 0, 0);
+       super(description, Constants.CHAR_ITEM_GEM, true, 0, 0);
        this.charges = charges;
        this.max_charges = charges;      
     }

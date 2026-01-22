@@ -301,7 +301,7 @@ public class Spawner
 				
 			case "Gem":
 				int charge = Integer.parseInt(params[4]);
-				item = new Gem(charge);
+				item = new Gem(charge, description);
 				break;
 				
 			case "Gold":
@@ -546,7 +546,7 @@ public class Spawner
         // The powerful Teleportation Gem - one only, in a chest
         
         Position p = dungeon.getRandomEmptyPosition(3);
-        Gem gem = new Gem(10);
+        Gem gem = new Gem(10, "Blue Gem");
         dungeon.placeItem( new Chest("Chest", gem), p);
         allRechargeItems.add(gem);
         
