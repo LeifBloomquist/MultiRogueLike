@@ -1,10 +1,12 @@
-MultiRogueLike
+Dungeon of the Rogue Daemon
 ======
-Sketches for a multiplayer retro roguelike for the Commodore 64 and (someday) others
+A multiplayer retro roguelike for the Commodore 64 and Commodore 64 Ultimate - see [https://schema64.itch.io/rogue](https://schema64.itch.io/rogue)
 
 Screenshots
 ------
 
-![VICE Testing 1](https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Screenshots/VICE002a.png "VICE Testing 1")
-![VICE Testing 2](https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Screenshots/VICE002b.png "VICE Testing 2")
-![VICE Testing 3](https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Screenshots/VICE002c.png "VICE Testing 3")
+![Ultimate 64](https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Screenshots/u64-1.png "Ultimate 64")
+
+![Ultimate 64](https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Screenshots/u64-2.png "Ultimate 64")
+
+![Ultimate 64](https://github.com/LeifBloomquist/MultiRogueLike/blob/master/Screenshots/u64-3.png "Ultimate 64")
