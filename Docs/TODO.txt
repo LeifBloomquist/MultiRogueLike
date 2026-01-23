@@ -2,12 +2,13 @@
 Bugs:
 
 -Fix bug with Human players via TCP (Telnet) not being removed
--Player becomes invisible to themselves when invisible - hard to navigate
 -Magic keys lost or duplicated
 
 Soon:
 
--Fix Bug with some player names being lost after respawn
+-Teleport sound effect
+-Player becomes invisible to themselves when invisible - hard to navigate
+-Fix rare bug with some players being lost after respawn
 -Fix player name on 64 client 
 
 Ideas:
@@ -18,7 +19,6 @@ Ideas:
 -Monsters stealing items?
 -More Monsters and types?
 -Ranged Weapons?
-
 
 
 Done!
