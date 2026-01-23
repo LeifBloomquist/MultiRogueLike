@@ -8,6 +8,7 @@
 
 3. **The U64/UII+ must be configured as follows:**
     * Firmware 3.11 or higher
+    * Ethernet connection (Wi-Fi may work but not extensively tested)
     * The Ultimate Command Interface must be Enabled. 
     * No virtual cartridges attached.
     * Network settings as usual, DHCP is fine. 
