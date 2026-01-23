@@ -81,9 +81,12 @@ public class Cell implements java.io.Serializable, Container
             case Constants.CHAR_LAVA:
             	  if (who != null) 
             	  {
-            		  who.addMessage("You can't walk on lava!");
-            		  who.takeDamage(1);
-            		  who.playSound(Constants.SOUND_ATTACKED);
+            		  if (who.getType() == Entity.entityTypes.CLIENT)
+	          		  {
+	            		  who.addMessage("You can't walk on lava!");
+	            		  who.takeDamage(1);
+	            		  who.playSound(Constants.SOUND_ATTACKED);
+	          		  }
             	  }
                   return false;
                   
