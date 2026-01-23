@@ -113,14 +113,17 @@ public class UpdaterThread implements Runnable
         sma_ms.newNum(estimatedMilliseconds);
         sma_cpu.newNum(estimatedMilliseconds / Constants.TICK_TIME);
         avg_ms = sma_ms.getAvg();
-        avg_cpu = sma_cpu.getAvg();
+        avg_cpu = sma_cpu.getAvg()*100.0;  // %
         
         // CPU usage stats
         reportcounter += Constants.TICK_TIME;
         
         if (reportcounter >= 100000)  // 100 seconds
         {
-        	JavaTools.printlnTime("Average Update Time [ms]: " + df.format(avg_ms) + " | Average CPU Usage [%]: " + df.format(avg_cpu*100) );
+        	if (avg_cpu > 2.0) // Over 2% considered "high" so log it
+        	{
+        		JavaTools.printlnTime("Average Update Time [ms]: " + df.format(avg_ms) + " | Average CPU Usage [%]: " + df.format(avg_cpu) + " | Current Player Count: " + dungeon.getNumPlayers() );
+        	}
         	reportcounter=0;
         }
     }
