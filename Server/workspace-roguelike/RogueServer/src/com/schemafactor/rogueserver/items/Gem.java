@@ -21,7 +21,7 @@ public class Gem extends Item implements Rechargeable
     private static final float recharge_rate = 1000f / (86400f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 1000 over a day
 
     /** Creates a new instance of Gem */
-    public Gem(int charges, String description)
+    public Gem(String description, int charges)
     {
        super(description, Constants.CHAR_ITEM_GEM, true, 0, 0);
        this.charges = charges;
@@ -35,12 +35,14 @@ public class Gem extends Item implements Rechargeable
         
         if (charges >= factor)
         {
+            entity.addMessage("The gem glows brightly...");
             doTeleport(entity);
             charges -= factor;
             return true;
         }
         else
         {
+        	entity.addMessage("The gem does nothing!");
             return false;
         }
     }        
@@ -71,5 +73,6 @@ public class Gem extends Item implements Rechargeable
         {
             charges += recharge_rate;
         }
+        //JavaTools.printlnTime("DEBUG: Gem Charge=" + charges);
     }
 }

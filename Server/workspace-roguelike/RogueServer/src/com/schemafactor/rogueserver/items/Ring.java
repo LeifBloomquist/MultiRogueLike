@@ -1,6 +1,7 @@
 package com.schemafactor.rogueserver.items;
 
 import com.schemafactor.rogueserver.common.Constants;
+import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.common.interfaces.Rechargeable;
 import com.schemafactor.rogueserver.entities.Entity;
 
@@ -16,7 +17,7 @@ public class Ring extends Item implements Rechargeable
     private static final float recharge_rate = 100000f / (86400f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 100000f over a day
 
     /** Creates a new instance of Ring */
-    public Ring(int charge)
+    public Ring(String description, int charge)
     {
        super("Ring", Constants.CHAR_ITEM_RING, true, 0, 0);
        this.charge = charge;
@@ -56,6 +57,8 @@ public class Ring extends Item implements Rechargeable
     			 charge += recharge_rate;
             }           
         }
+    	
+    	// JavaTools.printlnTime("DEBUG: Ring Charge=" + charge);
     }
     
     private void visible()

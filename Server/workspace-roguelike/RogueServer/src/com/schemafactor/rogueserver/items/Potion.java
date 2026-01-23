@@ -12,7 +12,7 @@ public class Potion extends Item implements Rechargeable
     private float amount = 0;
     private float max_amount = 0;
     
-    private static final float recharge_rate = 300f / (3600f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 300 over an hour
+    private static final float recharge_rate = 100f / (3600f * (1000f / (float) Constants.TICK_TIME));   // Recharge to 100 over an hour
     
     /** Creates a new instance of Potion */
     public Potion(String description, int amount)
@@ -25,7 +25,7 @@ public class Potion extends Item implements Rechargeable
     @Override
     public boolean useItem(Entity entity)
     {  
-        final int factor=1;
+       final int factor=1;
         
        if (amount >= factor)
        {
@@ -36,7 +36,7 @@ public class Potion extends Item implements Rechargeable
        }
        else
        {
-    	   entity.addMessage("Potion is empty!");
+    	   entity.addMessage("The potion is empty!");
            return false;
        }
     } 
@@ -47,5 +47,7 @@ public class Potion extends Item implements Rechargeable
         {
             amount += recharge_rate;           
         }
+        
+       //JavaTools.printlnTime("DEBUG: Potion Charge=" + amount);
     }
 }
