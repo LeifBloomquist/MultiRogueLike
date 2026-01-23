@@ -398,7 +398,8 @@ public class Spawner
 	    
 	    try
 	    {
-	    	text = new String(Files.readAllBytes(Paths.get(filename)));
+	    	text = new String(Files.readString(Paths.get(filename)));
+	    	text = text.strip();
 	    }
 	    catch (IOException e)
 	    {

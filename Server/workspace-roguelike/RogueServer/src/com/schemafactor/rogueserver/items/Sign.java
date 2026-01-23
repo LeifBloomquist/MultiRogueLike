@@ -5,7 +5,8 @@ import com.schemafactor.rogueserver.entities.Entity;
 
 public class Sign extends Item
 {
-    String text = "";
+	private static final long serialVersionUID = 1L;
+	String text = "";
     
     /** Creates a new instance of Sign */
    public Sign(String description, String text)

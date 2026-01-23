@@ -77,12 +77,12 @@ public class ClientU64 extends ClientC64
    {
        if (output == null) return;
        
-       // Need to Rate Limit on U64
+       // Need to Rate Limit on U64 - no longer needed with newer firmware?
        Duration elapsed = Duration.between(lastUpdateSent, Instant.now());
        
        if (elapsed.toMillis() < U64_THROTTLE_TIME)  // 
        {
-    	   JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
+    	   //JavaTools.printlnTime("WARNING! Sending U64 data too often??  elapsed (ms)=" + elapsed.toMillis() );
     	   //return;
        }       
        
