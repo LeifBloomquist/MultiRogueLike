@@ -10,6 +10,7 @@ import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.clients.Client;
 import com.schemafactor.rogueserver.network.WebSocketListener;
+import com.schemafactor.rogueserver.statistics.StatisticsThread;
 import com.schemafactor.rogueserver.network.TCPListener;
 import com.schemafactor.rogueserver.network.TCPListenerU64;
 import com.schemafactor.rogueserver.network.UDPListener;
@@ -76,7 +77,7 @@ public class Main
         // Start the thread that updates everything at a fixed interval
         JavaTools.printlnTime("Creating update scheduler...");
         UpdaterThread ut = new UpdaterThread();        
-        ScheduledThreadPoolExecutor s = new ScheduledThreadPoolExecutor(1);
+        ScheduledThreadPoolExecutor s = new ScheduledThreadPoolExecutor(2);
         s.scheduleAtFixedRate(ut, 0, Constants.TICK_TIME, TimeUnit.MILLISECONDS );
         
         // Instantiate a TCP listener, runs in background thread
@@ -95,9 +96,18 @@ public class Main
         ws.start();
         JavaTools.printlnTime( "WebSocket Server started on port: " + ws.getPort() );
         
+        // Start the thread that outputs statistics
+        JavaTools.printlnTime("Creating statistics scheduler...");
+        StatisticsThread st = new StatisticsThread(ut);
+        //ScheduledThreadPoolExecutor s2 = new ScheduledThreadPoolExecutor(1);
+        s.scheduleAtFixedRate(st, 0, Constants.STATS_UPDATE_TIME, TimeUnit.MILLISECONDS );
+        
         // Instantiate a UDP listener, and let it take over.
         JavaTools.printlnTime("Creating UDP listener...");
         UDPListener udp = new UDPListener();
-        udp.start(Constants.LISTEN_PORT);
+        udp.start(Constants.LISTEN_PORT);   // Never returns
+        
+        s.close();
+        //s2.close();
     }
 }

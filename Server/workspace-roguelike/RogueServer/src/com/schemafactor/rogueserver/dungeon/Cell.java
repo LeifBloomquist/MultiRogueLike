@@ -9,11 +9,10 @@ public class Cell implements java.io.Serializable, Container
 {
     private static final long serialVersionUID = 1L;
     
-    Entity entity = null;  // Which entity is in this cell, if any.  null if none.
+    Entity entity = null;       // Which entity is in this cell, if any.  null if none.
     Item item = null;
         
-    private byte charCode = 0;                        // Character code shown on client screen
-    private byte charColor = Constants.COLOR_BLACK;   // Foreground color code shown to the client  (though client will likely use a lookup table)
+    private byte charCode = 0;  // Character code shown on client screen
     
     public byte getCharCode() 
     {
@@ -137,12 +136,6 @@ public class Cell implements java.io.Serializable, Container
         {
             return false;
         }
-    }    
-
-    @Deprecated
-    public byte getCharColor() 
-    {
-        return charColor;
     }
     
     /** Set the character cell attributes */

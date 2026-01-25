@@ -1,7 +1,5 @@
 package com.schemafactor.rogueserver;
 
-import java.text.DecimalFormat;
-
 /*
  * UpdaterThread.java
  *
@@ -24,12 +22,10 @@ public class UpdaterThread implements Runnable
     private Dungeon dungeon = null;    
     
     // Some run-time statistics for monitoring
-    JavaTools.MovingAverage sma_ms = new JavaTools.MovingAverage(100);
-    JavaTools.MovingAverage sma_cpu = new JavaTools.MovingAverage(100);
-    static public double avg_ms = 0d;
-    static public double avg_cpu = 0d;
-    private static final DecimalFormat df = new DecimalFormat("0.00");
-    long reportcounter = 0;
+    private JavaTools.MovingAverage sma_ms = new JavaTools.MovingAverage(100);
+    private JavaTools.MovingAverage sma_cpu = new JavaTools.MovingAverage(100);
+    public double avg_ms = 0d;  // ms
+    public double avg_cpu = 0d; // %
      
     /** Creates a new instance of UpdaterThread */
     public UpdaterThread()
@@ -101,30 +97,15 @@ public class UpdaterThread implements Runnable
         catch (Exception ex)
         {               
             JavaTools.printlnTime("EXCEPTION removing entities: " + JavaTools.getStackTrace(ex) );
-        }                          
-        
-        // 4. Add any new entities
-        
-           
+        }                                     
 
-        // 5. Gather some stats (read out in httpd server)
+        // 4. Gather some stats (read out in httpd server)
         long estimatedTime = System.nanoTime() - startTime;  
         double estimatedMilliseconds = estimatedTime/1000000d;
         sma_ms.newNum(estimatedMilliseconds);
         sma_cpu.newNum(estimatedMilliseconds / Constants.TICK_TIME);
+        
         avg_ms = sma_ms.getAvg();
         avg_cpu = sma_cpu.getAvg()*100.0;  // %
-        
-        // CPU usage stats
-        reportcounter += Constants.TICK_TIME;
-        
-        if (reportcounter >= 100000)  // 100 seconds
-        {
-        	if (avg_cpu > 2.0) // Over 2% considered "high" so log it
-        	{
-        		JavaTools.printlnTime("Average Update Time [ms]: " + df.format(avg_ms) + " | Average CPU Usage [%]: " + df.format(avg_cpu) + " | Current Player Count: " + dungeon.getNumPlayers() );
-        	}
-        	reportcounter=0;
-        }
     }
 }

@@ -440,41 +440,9 @@ public class Dungeon implements java.io.Serializable
     public int getZsize() 
     {
         return Zsize;
-    }  
-    
-    // For the online map
-    public Color getCellColor(int x, int y, int z)
-    {
-        byte cbmcolor = dungeonMapCells[x][y][z].getCharColor();
-        
-        Color col = Color.BLACK;
-        
-        switch (cbmcolor)
-        {            
-            // C64 colors
-            case Constants.COLOR_BLACK:      col = Color.BLACK;  break;
-            case Constants.COLOR_WHITE:      col = Color.WHITE;  break;     
-            case Constants.COLOR_RED:        col = Color.RED;  break;       
-            case Constants.COLOR_CYAN:       col = Color.CYAN;  break;      
-            case Constants.COLOR_PURPLE:     col = Color.MAGENTA;  break;    
-            case Constants.COLOR_GREEN:      col = Color.GREEN;  break;     
-            case Constants.COLOR_BLUE:       col = Color.BLUE;  break;      
-            case Constants.COLOR_YELLOW:     col = Color.YELLOW;  break;    
-            case Constants.COLOR_ORANGE:     col = Color.ORANGE;  break;
-            case Constants.COLOR_BROWN:      col = new Color(150, 75, 0);  break;     
-            case Constants.COLOR_LIGHTRED:   col = Color.PINK;  break;  
-            case Constants.COLOR_GREY1:      col = Color.DARK_GRAY;  break;     
-            case Constants.COLOR_GREY2:      col = Color.GRAY;  break;     
-            case Constants.COLOR_LIGHTGREEN: col = new Color(100, 255, 100);  break;
-            case Constants.COLOR_LIGHTBLUE:  col = new Color(100, 100, 255);  break; 
-            case Constants.COLOR_GREY3:      col = Color.LIGHT_GRAY;  break;     
-            default:                         col = Color.BLACK; break;        
-        }
-        
-        return col;        
-    }
+    }   
 
-    public List<Entity> getEntities()
+	public List<Entity> getEntities()
     {
         return allEntities;
     }
