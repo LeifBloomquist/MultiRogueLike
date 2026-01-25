@@ -335,6 +335,11 @@ public abstract class Entity implements java.io.Serializable
    {
 	   XP += (int)points;
    }
+   
+   public long getXP()
+   {
+       return XP;
+   }
 
    private Position getTargetPosition(Cell current_cell, byte direction)
    {
@@ -766,6 +771,11 @@ public abstract class Entity implements java.io.Serializable
                 e.needsUpdate();
             }            
         }        
+    }
+	
+	public int getHealth()
+    {
+        return (int)health;
     }
 
     public void addHealth(int h)

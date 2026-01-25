@@ -1,7 +1,6 @@
 package com.schemafactor.rogueserver;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 

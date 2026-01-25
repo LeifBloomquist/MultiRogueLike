@@ -1,10 +1,6 @@
 package com.schemafactor.rogueserver.common;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.schemafactor.rogueserver.dungeon.Dungeon;
 
 public class Position implements java.io.Serializable
 {

@@ -17,7 +17,7 @@ public class Constants
     public static final long NETWORK_WARNING  = 300;    // Seconds   (5 minutes)
     public static final long NETWORK_TIMEOUT  = 360;    // Seconds   (6 minutes)   
     public static final long UPDATE_TIME      = 1000;   // Milliseconds   
-    public static final long STATS_UPDATE_TIME= 100;   // Milliseconds
+    public static final long STATS_UPDATE_TIME= 1000;   // Milliseconds
     
     // Screen constants
     public static final int SCREEN_WIDTH      = 21;
