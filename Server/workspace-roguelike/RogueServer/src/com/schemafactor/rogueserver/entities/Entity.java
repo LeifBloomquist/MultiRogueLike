@@ -340,6 +340,11 @@ public abstract class Entity implements java.io.Serializable
    {
        return XP;
    }
+	
+   public String getState()
+   {
+       return myState.toString();
+   }
 
    private Position getTargetPosition(Cell current_cell, byte direction)
    {
