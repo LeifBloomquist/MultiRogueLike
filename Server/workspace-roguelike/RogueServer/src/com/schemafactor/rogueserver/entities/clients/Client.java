@@ -37,6 +37,9 @@ public abstract class Client extends Entity
    
    // Current Sound Effect ID
    byte soundFXID = Constants.SOUND_NONE;
+
+   // Idle Time (since last command)
+   int idleTime = 0;
    
    // Demo mode?
    static boolean demoMode = false;   
