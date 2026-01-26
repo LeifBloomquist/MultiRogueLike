@@ -97,16 +97,16 @@ public class StatisticsThread implements Runnable
     
     private String getPlayers()
     { 
-        List<Entity> allPlayers = dungeon.getEntities(null, entityTypes.CLIENT);
+        List<Client> allPlayers = dungeon.getEntities(null, entityTypes.CLIENT);
         
         String msg = "<h2>Current Players (" + allPlayers.size() + " total)</h2>";
         
         msg += "<table border=\"1\">" +
-               "<tr><th>Player Name</th><th>Location X</th><th>Location Y<th>Location Z</th><th>Health (%)</th><th>XP</th><th>Idle Time (s)</th></tr>";
+               "<tr><th>Player Name</th><th>Location X</th><th>Location Y<th>Location Z</th><th>Health (%)</th><th>XP</th><th>State</th><th>Idle Time (s)</th></tr>";
         
-        for (Entity e : allPlayers)
+        for (Client e : allPlayers)
         {
-            msg += "<tr><td>" + e.getDescription() + "</td><td>" + e.getPosition().x + "</td><td>" + e.getPosition().y + "</td><td>"  + e.getPosition().z + "</td><td>" + e.getHealth() + "</td><td>" + e.getXP() + "</td><td>" + e.getIdleTime() + "</td></tr>"; 
+            msg += "<tr><td>" + e.getDescription() + "</td><td>" + e.getPosition().x + "</td><td>" + e.getPosition().y + "</td><td>"  + e.getPosition().z + "</td><td>" + e.getHealth() + "</td><td>" + e.getXP() + "</td><td>" + e.geState() +"</td><td>" + e.getIdleTime() + "</td></tr>"; 
         }
         
         msg += "</table>";
