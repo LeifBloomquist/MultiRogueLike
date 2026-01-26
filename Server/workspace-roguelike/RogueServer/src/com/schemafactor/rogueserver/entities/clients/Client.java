@@ -471,13 +471,14 @@ public abstract class Client extends Entity
        if (demoMode) return;   // Disable Timeout in demo mode
        
 		Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
+	    idleTime = elapsed.getSeconds();
 		
-		if (elapsed.getSeconds() > Constants.NETWORK_WARNING)
+		if (idleTime > Constants.NETWORK_WARNING)
 	    {	        
 	       addMessage("Warning: Timeout in 60 seconds");             
        }   
 	    
-	    if (elapsed.getSeconds() > Constants.NETWORK_TIMEOUT)
+	    if (idleTime > Constants.NETWORK_TIMEOUT)
 	    {	        
 	        if (!removeMeFlag)
 	        {
@@ -519,6 +520,11 @@ public abstract class Client extends Entity
    public static void setDemoMode()
    {
        demoMode = true;
+   }
+
+   public int getIdleTime()
+   {
+       return idleTime;
    }
    
    // Used by C64 and WebSocket clients
