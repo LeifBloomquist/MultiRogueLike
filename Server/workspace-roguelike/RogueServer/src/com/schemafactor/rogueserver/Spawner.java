@@ -41,6 +41,7 @@ import com.schemafactor.rogueserver.items.Ring;
 import com.schemafactor.rogueserver.items.Shield;
 import com.schemafactor.rogueserver.items.Sign;
 import com.schemafactor.rogueserver.items.Sword;
+import com.schemafactor.rogueserver.statistics.StatisticsThread;
 
 public class Spawner
 {
@@ -76,7 +77,10 @@ public class Spawner
     	{
 			JavaTools.printlnTime("EXCEPTION, can't load " + inifile + " -- " + e.getMessage() );
 			System.exit(3);
-		}    	
+		}
+    	
+    	// Statistics 
+    	StatisticsThread.setStatsDirectory((String)ini.getValue("Dungeon", "StatsDirectory"));
         
         // The Dungeon itself
         long size =  (long)ini.getValue("Dungeon", "DungeonSize");        

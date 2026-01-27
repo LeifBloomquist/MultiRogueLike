@@ -471,7 +471,7 @@ public abstract class Client extends Entity
        if (demoMode) return;   // Disable Timeout in demo mode
        
 		Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
-	    idleTime = elapsed.getSeconds();
+	    idleTime = (int) elapsed.getSeconds();
 		
 		if (idleTime > Constants.NETWORK_WARNING)
 	    {	        

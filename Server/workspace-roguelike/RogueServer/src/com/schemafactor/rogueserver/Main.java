@@ -98,7 +98,6 @@ public class Main
         // Start the thread that outputs statistics
         JavaTools.printlnTime("Creating statistics scheduler...");
         StatisticsThread st = new StatisticsThread(ut);
-        //ScheduledThreadPoolExecutor s2 = new ScheduledThreadPoolExecutor(1);
         s.scheduleAtFixedRate(st, 0, Constants.STATS_UPDATE_TIME, TimeUnit.MILLISECONDS );
         
         // Instantiate a UDP listener, and let it take over.
@@ -107,6 +106,5 @@ public class Main
         udp.start(Constants.LISTEN_PORT);   // Never returns
         
         s.close();
-        //s2.close();
     }
 }

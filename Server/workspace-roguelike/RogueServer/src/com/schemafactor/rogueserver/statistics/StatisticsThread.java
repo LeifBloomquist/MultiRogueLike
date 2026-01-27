@@ -11,17 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-/*
- * StatisticsThread.java
- *
- * Updates game statistics and writes to temporary files
- */
-
 import java.util.List;
-
 import javax.imageio.ImageIO;
-
 import com.schemafactor.rogueserver.UpdaterThread;
 import com.schemafactor.rogueserver.common.CellColours;
 import com.schemafactor.rogueserver.common.Constants;
@@ -29,6 +20,13 @@ import com.schemafactor.rogueserver.common.JavaTools;
 import com.schemafactor.rogueserver.dungeon.Dungeon;
 import com.schemafactor.rogueserver.entities.Entity;
 import com.schemafactor.rogueserver.entities.Entity.entityTypes;
+import com.schemafactor.rogueserver.entities.clients.Client;
+
+/*
+ * StatisticsThread.java
+ *
+ * Updates game statistics and writes to temporary files
+ */
 
 /**
  * @author Leif Bloomquist
@@ -39,8 +37,7 @@ public class StatisticsThread implements Runnable
     private UpdaterThread updater = null;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     
-    private static String statsPrefix = "/run/rogue/stats/";    // TODO make this a config item
-    //private static String statsPrefix = "C:\\rogue\\stats\\";
+    public static String statsPrefix = ".";
     private static int PIXELSPERCELL = 2;
      
     /** Creates a new instance of StatisticsThread */
@@ -49,7 +46,12 @@ public class StatisticsThread implements Runnable
         // Save references       
         dungeon = Dungeon.getInstance();
         updater = ut;
-    }                   
+    }
+    
+    public static void setStatsDirectory(String sp)
+    {
+    	statsPrefix = sp;
+    }
     
     /** Main updating thread (called from ScheduledThreadPoolExecutor in main(). */
     public void run()                       
@@ -97,16 +99,17 @@ public class StatisticsThread implements Runnable
     
     private String getPlayers()
     { 
-        List<Client> allPlayers = dungeon.getEntities(null, entityTypes.CLIENT);
+        List<Entity> allPlayers = dungeon.getEntities(null, entityTypes.CLIENT);
         
         String msg = "<h2>Current Players (" + allPlayers.size() + " total)</h2>";
         
         msg += "<table border=\"1\">" +
                "<tr><th>Player Name</th><th>Location X</th><th>Location Y<th>Location Z</th><th>Health (%)</th><th>XP</th><th>State</th><th>Idle Time (s)</th></tr>";
         
-        for (Client e : allPlayers)
+        for (Entity e : allPlayers)
         {
-            msg += "<tr><td>" + e.getDescription() + "</td><td>" + e.getPosition().x + "</td><td>" + e.getPosition().y + "</td><td>"  + e.getPosition().z + "</td><td>" + e.getHealth() + "</td><td>" + e.getXP() + "</td><td>" + e.geState() +"</td><td>" + e.getIdleTime() + "</td></tr>"; 
+        	Client c= (Client)e;
+            msg += "<tr><td>" + c.getDescription() + "</td><td>" + c.getPosition().x + "</td><td>" + c.getPosition().y + "</td><td>" + c.getPosition().z + "</td><td>" + c.getHealth() + "</td><td>" + c.getXP() + "</td><td>" + c.getState() +"</td><td>" + c.getIdleTime() + "</td></tr>"; 
         }
         
         msg += "</table>";
