@@ -42,7 +42,10 @@ public abstract class Client extends Entity
    int idleTime = 0;
    
    // Demo mode?
-   static boolean demoMode = false;   
+   static boolean demoMode = false;  
+   
+   // Warned about idle timeout?
+   boolean timeWarningShown = false;
    
    public Client(String description, Position startposition, entityTypes type, byte charCode)
    {
@@ -87,6 +90,7 @@ public abstract class Client extends Entity
        }
        
        lastUpdateReceived = Instant.now();
+       timeWarningShown = false;
        
        // Respond to commands based on client state
        
@@ -472,23 +476,27 @@ public abstract class Client extends Entity
        
 		Duration elapsed = Duration.between(lastUpdateReceived, Instant.now());
 	    idleTime = (int) elapsed.getSeconds();
-		
-		if (idleTime > Constants.NETWORK_WARNING)
-	    {	        
-	       addMessage("Warning: Timeout in 60 seconds");             
-       }   
 	    
 	    if (idleTime > Constants.NETWORK_TIMEOUT)
 	    {	        
 	        if (!removeMeFlag)
 	        {
-	        	addMessage("You Have Timed Out");
+	        	addMessage("You Have Timed Out (Disconnected)");
 	            JavaTools.printlnTime( "Player Timed Out: " + description );
+	            
 	            gameOver(null);
 	            myState = entityStates.DISCONNECTED;
-	            removeMe();	            
+	            removeMe();
+	            return;
 	        }             
-       }      
+        }	    
+		
+		if ((idleTime > Constants.NETWORK_WARNING) && (!timeWarningShown))
+	    {	        
+	       addMessage("Warning: Timeout in 60 seconds");
+	       timeWarningShown = true;
+	       return;
+        }
    }
    
    protected String getMessage(int index)

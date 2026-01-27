@@ -57,8 +57,7 @@ public class Main
         {
         	String path = new File(inifile).getParent();
         	prefix += path + "\\";
-            JavaTools.printlnTime("Local Mode specified - Timeouts disabled and local path set.");
-            Client.setDemoMode();
+            JavaTools.printlnTime("Local Mode specified - Local path set.");
         }
         
         if (mode.equals("-demo"))
